@@ -337,10 +337,7 @@
             &:last-child {
                 margin-right: 0px;
             }
-            .form-control {
-                background-color: transparent;
-                padding: 8px 10px;
-            }
+            
         }
     }
 }
@@ -368,11 +365,7 @@
 }
 .mail-form-main {
     padding: 0px;
-    .form-control {
-        background-color: transparent;
-        /* font-size: 12px; */
-        border-color: #70707040;
-    }
+   
 }
 .matcard-space {
     .common-customize-alert {
@@ -387,13 +380,7 @@
             font-weight: 400;
             margin-bottom: 0px;
         }
-        .form-control {
-            background-color: transparent;
-            border-color: #70707040;
-            margin-top: 18px;
-            border: 1px solid #70707040;
-            padding: 14px 12px;
-        }
+       
         .bottom-char-main {
             display: block;
             text-align: end;
@@ -430,10 +417,10 @@
     .form-group{
         margin-bottom: 22px;
 
-        .form-control{
-            background-color: transparent;
-            border-color: #70707040;
-        }
+      
     }
    }
+}
+.mobile-form-control{
+    
 }

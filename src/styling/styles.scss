@@ -1104,6 +1104,15 @@ textarea {
     }
 }
 
+.form-control-trasprent {
+    background-color: transparent;
+    padding: 15px 10px;
+    font-size: 14px;
+    line-height: 0.8;
+    height: 40px;
+    border: 1px solid #70707040;
+    border-radius: 4px;
+}
 mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     box-sizing: border-box;
     height: 10px;

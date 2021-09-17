@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="main-lead-time">
                                         <div class="common-lead-select">
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetCustomerEmailReminderTime($event)"
                                                 [(value)]="emailAlertCustomerDays">
                                                 <mat-option value="0">0 days</mat-option>
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetCustomerEmailReminderTime($event)"
                                                 [(value)]="emailAlertCustomerHours">
                                                 <mat-option value="0">0 Hours</mat-option>
@@ -225,7 +225,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetCustomerEmailReminderTime($event)"
                                                 [(value)]="emailAlertCustomerMinutes">
                                                 <mat-option value="0">0 Minutes</mat-option>
@@ -355,7 +355,7 @@
                                     </div>
                                     <div class="main-lead-time">
                                         <div class="common-lead-select">
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetStaffEmailReminderTime($event)"
                                                 [(value)]="emailAlertStaffDays">
                                                 <mat-option value="0">0 days</mat-option>
@@ -392,7 +392,7 @@
                                             </mat-select>
                                         </div>
                                         <div class="common-lead-select">
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetStaffEmailReminderTime($event)"
                                                 [(value)]="emailAlertStaffHours">
                                                 <mat-option value="0">0 Hours</mat-option>
@@ -422,7 +422,7 @@
                                             </mat-select>
                                         </div>
                                         <div class="common-lead-select">
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetStaffEmailReminderTime($event)"
                                                 [(value)]="emailAlertStaffMinutes">
                                                 <mat-option value="0">0 Minutes</mat-option>
@@ -515,7 +515,7 @@
                                 <div class="col-6 mail-form-main">
                                     <form [formGroup]="adminEmailForAlert" class="example-form">
 
-                                        <input formControlName="alertEmail" class="form-control"
+                                        <input formControlName="alertEmail" class="form-control form-control-trasprent"
                                             placeholder="Enter Your Email">
                                         <span class="error-wrap" *ngIf="adminEmailForAlert.get('alertEmail').dirty ||
                   adminEmailForAlert.get('alertEmail').touched">
@@ -570,7 +570,7 @@
                                     </div>
                                     <div class="main-lead-time">
                                         <div class="common-lead-select">
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetAdminEmailReminderTime($event)"
                                                 [(value)]="emailAlertAdminDays">
                                                 <mat-option value="0">0 days</mat-option>
@@ -608,7 +608,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetAdminEmailReminderTime($event)"
                                                 [(value)]="emailAlertAdminHours">
                                                 <mat-option value="0">0 Hours</mat-option>
@@ -639,7 +639,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetAdminEmailReminderTime($event)"
                                                 [(value)]="emailAlertAdminMinutes">
                                                 <mat-option value="0">0 Minutes</mat-option>
@@ -720,7 +720,7 @@
                                 <h5>Sender Name</h5>
                                 <p>Notification emails sent to customers will have the following sender name</p>
 
-                                <input formControlName="senderName" class="form-control" placeholder="Sender Name">
+                                <input formControlName="senderName" class=" mt-3 form-control form-control-trasprent" placeholder="Sender Name">
                                 <span class="error-wrap"
                                     *ngIf="customizeAlert.get('senderName').dirty || customizeAlert.get('senderName').touched">
                                     <small *ngIf="customizeAlert.get('senderName').hasError('required')"
@@ -731,7 +731,7 @@
                                 <h5>Email Signature</h5>
                                 <p>Notification emails sent to customers will have the following sender name</p>
 
-                                <textarea class="form-control" row="5" #signature (keyup)="count(signature.value)"
+                                <textarea class="mt-3 form-control form-control-trasprent" row="5" #signature (keyup)="count(signature.value)"
                                     formControlName="emailSignature" maxlength="500" matInput
                                     placeholder="Thanks Sparsh"></textarea>
                                 <mat-hint class="bottom-char-main">Characters Left:<span class="">{{characters}}</span>
@@ -761,7 +761,7 @@
                         </div>
                         <div *ngIf="appointmentsReminderSMS">
                             <div class="common-alert-card">
-                                <div class="top-bottom-space">
+                                <div class="">
                                     <h5>When to send</h5>
                                     <p class="">Appointments</p>
                                 </div>
@@ -838,7 +838,7 @@
                                     <div class="main-lead-time">
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetSmsReminderTime($event)"
                                                 [(value)]="smsAlertDays">
                                                 <mat-option value="0">0 days</mat-option>
@@ -876,7 +876,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetSmsReminderTime($event)"
                                                 [(value)]="smsAlertHours">
                                                 <mat-option value="0">0 Hours</mat-option>
@@ -907,7 +907,7 @@
                                         </div>
                                         <div class="common-lead-select">
 
-                                            <mat-select class="form-control"
+                                            <mat-select class="form-control form-control-trasprent"
                                                 (selectionChange)="fnSetSmsReminderTime($event)"
                                                 [(value)]="smsAlertMinutes">
                                                 <mat-option value="0">0 Minutes</mat-option>
@@ -1008,7 +1008,7 @@
                                                 <div class="common-gateway-form">
                                                     <div class="form-group">
                                                         <label class="payment-label">Account SID</label>
-                                                        <input formControlName="accountSID" class="form-control"
+                                                        <input formControlName="accountSID" class="form-control form-control-trasprent"
                                                             placeholder="" value="">
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="twilio.get('accountSID').dirty || twilio.get('accountSID').touched">
@@ -1020,7 +1020,7 @@
 
                                                         <label class="payment-label">Auth Token</label>
 
-                                                        <input formControlName="authToken" class="form-control"
+                                                        <input formControlName="authToken" class="form-control form-control-trasprent"
                                                             placeholder="" value="">
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="twilio.get('authToken').dirty || twilio.get('authToken').touched">
@@ -1034,7 +1034,7 @@
 
                                                         <label class="payment-label">Twilio Sender</label>
 
-                                                        <input formControlName="twilioSender" class="form-control"
+                                                        <input formControlName="twilioSender" class="form-control form-control-trasprent"
                                                             placeholder="" value="">
 
                                                         <span class="w-100 error-wrap"
@@ -1044,7 +1044,7 @@
                                                                 class="error">Twilio sender is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group mobile-form-control">
 
                                                         <label class="payment-label">Admin Phone Number</label>
                                                         <ngx-intl-tel-input class=""
@@ -1109,7 +1109,7 @@
                                                 <div class="common-gateway-form">
                                                     <div class="form-group">
                                                                 <label class="payment-label">API Key</label>
-                                                                    <input formControlName="api_key" class="form-control"
+                                                                    <input formControlName="api_key" class="form-control form-control-trasprent"
                                                                         placeholder="" value="">
                                                         <span class="w-100 error-wrap"
                                                             *ngIf="nexmo.get('api_key').dirty || nexmo.get('api_key').touched">
@@ -1119,7 +1119,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                                 <label class="payment-label">API Secret</label>
-                                                                    <input formControlName="api_secret" class="form-control"
+                                                                    <input formControlName="api_secret" class="form-control form-control-trasprent"
                                                                         placeholder="" value="">
                                                             
                                                        
@@ -1129,7 +1129,7 @@
                                                                 class="error">API secret is required.</small>
                                                         </span>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group mobile-form-control">
                                                                 <label class="payment-label">Admin Phone Number</label>
                                                                 <ngx-intl-tel-input
                                                                     class=""
@@ -1196,7 +1196,7 @@
                                         <div class="common-gateway-form">
                                                         <div class="form-group">
                                                                 <label class="payment-label">API Key</label>
-                                                                    <input formControlName="apiKey" class="form-control"
+                                                                    <input formControlName="apiKey" class="form-control form-control-trasprent"
                                                                         placeholder="" value="">
                                                                         <span class="w-100 error-wrap"
                                                                         *ngIf="textLocal.get('apiKey').dirty || textLocal.get('apiKey').touched">
@@ -1205,7 +1205,7 @@
                                                                     </span>
                                                             
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group mobile-form-control">
                                                                 <label class="payment-label">Admin Number</label>
                                                                 <ngx-intl-tel-input
                                                                     class=""
