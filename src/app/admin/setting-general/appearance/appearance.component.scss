@@ -7,13 +7,14 @@
     width: 110px;
     height: 39px;
     margin: 30px;
-    background-color: #1173f4;
+    // background-color: #1173f4;
+    background-color: #f04589;
     color: white;
 }
 
 .image-upload-btn {
-    background-color: #1173f4;
-    color: white;
+    background-color: #ffe482;
+    color: #000;
 }
 
 .widget-image-preview {
@@ -41,6 +42,10 @@
 .card-content {
     margin: 0px 30px 0px 30px;
     background-color: #edf4fe;
+    display: flex;
+    box-shadow: unset!important;
+    align-items: center;
+    padding: 0px 19px!important;
 }
 
 .contact-field-toggle {
@@ -55,7 +60,21 @@
     border-bottom: 1px solid #dbdbdb;
     padding: 15px 0px;
 }
-
+.custom-content-wrap{
+    h5{
+        font-size: 20px;
+        color: #000;
+    }
+    p{
+        font-size: 15px;
+        color: #777;
+    }
+    h6{
+        font-size: 16px;
+        color: #000;
+        margin-bottom: 17px;
+    }
+}
 .custom-check-box {
     padding: 4px 10px;
     //border-bottom: solid 1px #ccc;
@@ -148,11 +167,26 @@
     width: 100px;
     height: 39px;
     margin: 10px;
-    background-color: #1173f4;
+    background-color: #f04589;
     color: white;
     float: right;
 }
-
+.common-form-setting-wrap{
+    margin: 26px;
+    box-shadow: unset!important;
+    background-color: #edf4fe;
+    padding: 25px;
+    h5{
+       font-size: 18px;
+       color:#000;
+    }
+    p{
+        font-size: 15px;
+        color: #777;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 25px;
+    }
+}
 .color_box {
     width: 40px;
     height: 40px;
@@ -194,12 +228,28 @@
 
 ::ng-deep .mat-tab-label {
     &.mat-tab-label-active {
+        border-bottom: 4px solid #05a697;
         .mat-tab-label-content {
-            color: #1173f4;
+            color: #000;
         }
     }
 }
-
+.content-btn-links-wrap{
+    box-shadow:unset!important;
+    background-color: transparent!important;
+    margin: 15px;
+    h5{
+        font-size: 18px;
+        color:#000;
+    }
+    p{
+      font-size: 15px;
+      color: #777;
+    }
+    .bg-wrap{
+        background-color: #edf4fe;
+    }
+}
 #appearance {
     .setting-right-side-content {
         .save-cencel-footer {
@@ -326,13 +376,13 @@
 }
 
 .btn-editlink {
-    background-color: #1173f4;
+    background-color: #f04589;
     color: #fff;
 }
 
 .service-booking-link-active {
-    background-color: #1173f4;
-    color: #fff;
+    background-color: #ffe482;
+    color: #000;
 }
 
 .html-btn-title {

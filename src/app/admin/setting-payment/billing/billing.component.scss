@@ -1,3 +1,10 @@
+.main-card-container{
+    p{
+        font-size: 15px;
+        color: #777;
+        font-weight: 400;
+    }
+}
 .selected-plan {
     background-color: #eaf7f6;
     color: #000;
@@ -13,7 +20,8 @@
     padding: 15px;
     border-radius: 4px;
     .plan-name{
-        font-weight: 500!important;
+        font-weight: 600!important;
+        padding: 3px 0px 15px 0px!important;
     }
 }
 .paln-business-staff .row{
@@ -26,10 +34,11 @@
             margin-left: 5px;
             color: #565657;
             font-size: 15px;
+            font-weight: 500;
         }
         p{
             color: #565657;
-            font-weight: 400!important;
+            font-weight: 500!important;
             font-size: 15px;
         }
     }
@@ -38,6 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 6px 3px 0px 3px!important;
     .subscribe-btn-wrap{
         background-color: #f04589;
     }
@@ -48,6 +58,18 @@
     }
     .plan-cost{
         font-size: 14px;
+        i{
+            font-size: 16px;
+            color: #000;
+            margin-left: -20px;
+        }
+        .cost{
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .months-wrap{
+            color: #777;
+        }
     }
 }
 .current-plan-detail {
@@ -62,8 +84,11 @@
         font-size: 16px;
         display: flex;
         align-items: center;
+        color: #777;
+        font-weight: 500;
         span {
-            font-weight: 500;
+            font-weight: 600;
+            color: #000;
         }
     }
     .date-wrap-detail{
@@ -76,8 +101,11 @@
         display: flex;
         align-items: center;
         margin-bottom: 0px;
+        color: #777;
+        font-weight: 500;
         span {
-            font-weight: 500;
+            font-weight: 600;
+            color: #000;
         }
     }
     .action-btn {

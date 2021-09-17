@@ -89,7 +89,8 @@
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-card class="main-card-container mb-0 h-auto pb-3">
             <h5>Booking Rules</h5>
-            <mat-card>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo<br> Inventore explicabo totam ab necessitatibus</p>
+            <mat-card class="custom-mat-card-bg">
                 <div class="">
                     <div class="Customer-appointment-table">
                         <div class="main-table-content main-cust-table-content">
@@ -102,7 +103,7 @@
                                     <div class="" fxFlex="12"></div>
                                 </div>
                                 <div class="content" class="example-list">
-                                    <div class="example-box p-3">
+                                    <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Minimum Advance booking Time</h6>
                                             <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
@@ -111,9 +112,8 @@
 
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeDays">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -146,12 +146,11 @@
                                                     <mat-option value="29">29 days</mat-option>
                                                     <mat-option value="30">30 days</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                            <!-- </mat-form-field> -->
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeHours">
+                                            
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -178,12 +177,11 @@
                                                     <mat-option value="23">23 Hours</mat-option>
                                                     <!-- <mat-option value="24">24 Hours</mat-option> -->
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeMinutes">
+                                          
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinAdvBookingTime($event)" [(value)]="minAdvBookingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -246,19 +244,18 @@
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                     <!-- <mat-option value="60">60 Minutes</mat-option> -->
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                     </div>
                                     <div class="bottom-line"></div>
-                                    <div class="example-box p-3">
+                                    <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Maximum Advance booking Time</h6>
                                             <p class="mb-0">Maximum advance notice do you need before a client books an appointment?</p>
                                         </div>
                                         <div class="" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMonths">
+                                            
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMonths">
                                                     <mat-option value="0">0 Months</mat-option>
                                                     <mat-option value="1">1 Months</mat-option>
                                                     <mat-option value="2">2 Months</mat-option>
@@ -273,12 +270,11 @@
                                                     <mat-option value="11">11 Months</mat-option>
                                                     <mat-option value="12">12 Months</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeDays">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -311,12 +307,11 @@
                                                     <mat-option value="29">29 days</mat-option>
                                                     <mat-option value="30">30 days</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeHours">
+                                          
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -342,12 +337,11 @@
                                                     <mat-option value="22">22 Hours</mat-option>
                                                     <mat-option value="23">23 Hours</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMinutes">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMaxAdvBookingTime($event)" [(value)]="maxAdvBookingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -409,11 +403,11 @@
                                                     <mat-option value="58">58 Minutes</mat-option>
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                          
                                         </div>
                                     </div>
                                     <div class="bottom-line"></div>
-                                    <div class="example-box p-3">
+                                    <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Time Interval</h6>
                                             <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
@@ -425,9 +419,8 @@
 
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalHours">
+                                            
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -453,12 +446,11 @@
                                                     <mat-option value="22">22 Hours</mat-option>
                                                     <mat-option value="23">23 Hours</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                            
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalMinutes">
+                                            
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetTimeInterval($event)" [(value)]="timeIntervalMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -520,11 +512,11 @@
                                                     <mat-option value="58">58 Minutes</mat-option>
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                            
                                         </div>
                                     </div>
                                     <div class="bottom-line"></div>
-                                    <div class="example-box p-3">
+                                    <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Cancellation Buffer Time </h6>
                                             <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
@@ -533,9 +525,8 @@
 
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeDays">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -568,12 +559,11 @@
                                                     <mat-option value="29">29 days</mat-option>
                                                     <mat-option value="30">30 days</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                          
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeHours">
+                                            
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -599,12 +589,11 @@
                                                     <mat-option value="22">22 Hours</mat-option>
                                                     <mat-option value="23">23 Hours</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeMinutes">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetCancellationBufferTime($event)" [(value)]="cancellationBufferTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -666,11 +655,11 @@
                                                     <mat-option value="58">58 Minutes</mat-option>
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                     </div>
                                     <div class="bottom-line"></div>
-                                    <div class="example-box p-3">
+                                    <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Reschedule an Appointment</h6>
                                             <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
@@ -679,9 +668,8 @@
 
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeDays">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeDays">
                                                     <mat-option value="0">0 days</mat-option>
                                                     <mat-option value="1">1 days</mat-option>
                                                     <mat-option value="2">2 days</mat-option>
@@ -714,12 +702,11 @@
                                                     <mat-option value="29">29 days</mat-option>
                                                     <mat-option value="30">30 days</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeHours">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeHours">
                                                     <mat-option value="0">0 Hours</mat-option>
                                                     <mat-option value="1">1 Hours</mat-option>
                                                     <mat-option value="2">2 Hours</mat-option>
@@ -745,12 +732,11 @@
                                                     <mat-option value="22">22 Hours</mat-option>
                                                     <mat-option value="23">23 Hours</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                         <div class=" mx-2" fxFlex="12">
-                                            <mat-form-field class="bottom-border-field">
-                                                <mat-label></mat-label>
-                                                <mat-select (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeMinutes">
+                                           
+                                                <mat-select class="form-control custom-select-bg" (selectionChange)="fnSetMinResedulingTime($event)" [(value)]="minResedulingTimeMinutes">
                                                     <mat-option value="0">0 Minutes</mat-option>
                                                     <mat-option value="1">1 Minutes</mat-option>
                                                     <mat-option value="2">2 Minutes</mat-option>
@@ -812,7 +798,7 @@
                                                     <mat-option value="58">58 Minutes</mat-option>
                                                     <mat-option value="59">59 Minutes</mat-option>
                                                 </mat-select>
-                                            </mat-form-field>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -833,7 +819,7 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space">
+            <mat-card class="matcard-space bg-wrap">
                 <div class="d-flex">
                     <div>
                         <h6>Staff List On Front</h6>
@@ -845,7 +831,7 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space">
+            <mat-card class="matcard-space bg-wrap">
                 <div class="d-flex">
                     <div>
                         <h6>Appointment auto confirm</h6>
@@ -865,7 +851,7 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space">
+            <mat-card class="matcard-space bg-wrap">
                 <div class="d-flex">
                     <div>
                         <h6>Notification For On the way and Getting Late</h6>
@@ -876,7 +862,7 @@
                     </div>
                 </div>
             </mat-card>
-            <mat-card class="matcard-space">-
+            <mat-card class="matcard-space bg-wrap">-
                 <div class="d-flex">
                     <div>
                         <h6>Allow Customers for Staff Rating</h6>
@@ -889,7 +875,7 @@
             </mat-card>
             <div>
                 <h6 class="py-4">Terms & Conditions </h6>
-                <mat-card class="matcard-space">
+                <mat-card class="matcard-space ">
                     <div class="d-flex">
                         <div>
                             <h6>Terms & Conditions </h6>

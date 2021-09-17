@@ -148,7 +148,7 @@
                             <hr class="m-0">
                             <div class="subscribe-btn text-center py-3">
                                 <div class="plan-cost py-2 text-center">
-                                    <i class="fa  fa-usd pr-2"></i> <span class="cost pr-2">{{planList.amount}}/-</span><br><span>per {{planList.interval}}</span>
+                                    <i class="fa  fa-usd pr-1"></i> <span class="cost pr-2">{{planList.amount}}/-</span><br><span class="months-wrap">per {{planList.interval}}</span>
                                 </div>
                                 <button *ngIf="planList.selected == true" mat-flat-button class="selected-plan-btn">Selected</button>
                                 <button *ngIf="planList.selected == false" (click)="fnChangePlan(planList.plan_id)" mat-flat-button class="subscribe-btn-wrap" color="primary">Subscribe Now</button>

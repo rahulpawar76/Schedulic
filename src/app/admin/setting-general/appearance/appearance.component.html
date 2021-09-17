@@ -194,14 +194,14 @@
             <!-- --------------------------------- Getting Started ---------------------------------- -->
             <mat-tab label="Getting Started">
                 <div>
-                    <div class="main-getting-content">
-                        <h5 class="mb-3">Embed Web Widget</h5>
+                    <div class="main-getting-content custom-content-wrap">
+                        <h5 class="mb-1">Embed Web Widget</h5>
                         <p>Click to copy below script and paste it in your web page.</p>
                         <!-- <mat-radio-group aria-label="Select an option">
                         <mat-radio-button value="1">Script</mat-radio-button>
                         <mat-radio-button value="2">Script with Autologin</mat-radio-button>
                     </mat-radio-group> -->
-                        <h6>To embed the widget on your website,follow these guidelines.</h6>
+                        <h6 class="mt-4">To embed the widget on your website,follow these guidelines.</h6>
                         <p>1. copy the code by simply clicking on the script once.</p>
                         <p>2. Go to your website's HTML file and paste in before the last
                             < body>
@@ -213,10 +213,13 @@
                     <mat-card class="card-content">
                         {{embededCode}}
                         <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
+                        <div>
+                            <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                        </div>
                     </mat-card>
-                    <div>
+                    <!-- <div>
                         <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="mt-4">
                     <div class="main-getting-content">
@@ -232,7 +235,7 @@
             <!-- --------------------------------- Appearance --------------------------------------- -->
             <mat-tab label="Appearance">
                 <div class="row m-0">
-                    <div class="main-appearance-content col-4" [formGroup]="Appearance">
+                    <div class="main-appearance-content custom-appearance-bg col-4" [formGroup]="Appearance">
                         <div class="bottom-border d-flex ">
                             <mat-label>Primary Color</mat-label>
                             <div class="colorpicker-wrap">
@@ -340,7 +343,7 @@
                 </mat-card>
             </mat-tab>
             <mat-tab label="Form Setting">
-                <mat-card class="main-form-setting-content">
+                <mat-card class="main-form-setting-content common-form-setting-wrap">
                     <div class="contact-field-toggle">
                         <mat-slide-toggle (change)="fnChangeContactFormStatus($event.checked)" [checked]="formArr['contact_field_status']"></mat-slide-toggle>
                     </div>
@@ -432,14 +435,14 @@
             </mat-tab>
             <!-- ------------------------------Buttons & Links -------------------------------------- -->
             <mat-tab label="Buttons & Links">
-                <mat-card class="main-form-setting-content">
+                <mat-card class="main-form-setting-content content-btn-links-wrap">
                     <h5>Buttons and Links</h5>
                     <p>Promote your event page with buttons and links.These can be shared on Facebook and Twitter or published on your website.<br> You can also add a track-able "referral tag" to see how many sales get generated through it.</p>
                 </mat-card>
 
-                <mat-card class="main-form-setting-content">
+                <mat-card class="main-form-setting-content content-btn-links-wrap">
 
-                    <div class="container p-3 border rounded">
+                    <div class="container p-3 bg-wrap rounded">
                         <div class="row">
                             <div class="col-6">
                                 <h5>Service Booking link</h5>
@@ -465,9 +468,9 @@
                 </mat-card>
 
 
-                <mat-card class="main-form-setting-content">
+                <mat-card class="main-form-setting-content content-btn-links-wrap">
 
-                    <div class="container p-3 border rounded">
+                    <div class="container p-3 bg-wrap rounded">
                         <div class="row">
                             <div class="col-6 ">
                                 <h5>HTML Buttons</h5>

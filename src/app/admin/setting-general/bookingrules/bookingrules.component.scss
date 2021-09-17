@@ -3,11 +3,13 @@
     //     color: #a0a0a0;
     // }
     .bottom-line {
-        border-bottom: solid 1px #ccc;
         width: 100%;
     }
     .matcard-space {
-        padding: 30px;
+        padding: 15px;
+        box-shadow: unset!important;
+        background-color: #eaf7f6!important;
+        border-radius: 5px;
     }
     .example-full-width {
         width: 66%;
@@ -23,4 +25,29 @@
 
 .main-card-container {
     padding: 0 30px;
+    background-color: unset!important;
+    box-shadow: unset!important;
+    h5{
+        margin-top: 25px;
+    }
+    p{
+        font-size: 15px;
+        color: #777;
+        margin-bottom: 0px;
+        font-weight: 500;
+    }
+    .custom-mat-card-bg{
+        background-color: unset!important;
+        box-shadow: unset!important;
+        padding: 0;
+        margin-top: 10px;
+        .bg-wrap{
+            background-color: #eaf7f6;
+            border-radius: 5px;
+            margin-bottom: 13px;
+        }
+    }
+    .custom-select-bg{
+        background-color: transparent;
+    }
 }
