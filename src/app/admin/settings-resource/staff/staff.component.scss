@@ -53,8 +53,8 @@
         width: 90px;
         height: 34px;
         border-radius: 28px;
-        background-color: #ff0000;
-        color: white;
+        background-color: #ff5757;
+        color: #fff;
         margin-left: auto;
     }
      ::ng-deep .mat-expansion-panel-body {
@@ -107,7 +107,6 @@
                 font-size: 25px;
             }
             .searchbox_staff {
-                border-bottom: 1px solid #0E0E0E !important;
                 border: 0;
                 background-color: transparent;
                 border-radius: 0;
@@ -151,19 +150,21 @@
         .staff-edit-btn {
             width: 103px;
             height: 37px;
-            border-radius: 21px;
-            background-color: #1173f4;
-            color: white;
+            border-radius: 3px;
+            background-color: #ffe482;
+            color: #000;
+            font-weight: 600;
         }
         .staff-delete-btn {
             width: 129px;
             height: 37px;
-            border-radius: 21px;
+            border-radius: 3px;
         }
     }
     .bottom-border {
         border-bottom: 1px solid #dbdbdb;
         padding: 16px 0px;
+        align-items: center;
     }
     .bottom-border-last {
         border-bottom: none;
@@ -186,8 +187,10 @@
     .sms-verification-button {
         width: 210px;
         height: 37px;
-        border-radius: 26px;
-        background-color: #a8ceff;
+        border-radius: 3px;
+        // background-color: #a8ceff;
+        background-color: #f04589;
+        color:white;
     }
     .file-border {
         border: 1px solid gray;
@@ -232,23 +235,34 @@
     }
     .example-list {
         width: 100%;
-        border: solid 1px #ccc;
         display: block;
         background: white;
         border-radius: 4px;
         overflow: hidden;
     }
+    .custom-mat-select-wrap{
+        background-color: #fff!important;
+        border: 0!important;
+    }
+
+    .break-custom-wrap{
+        padding: 15px!important;
+    }
     .example-box {
-        padding: 10px;
+        padding: 20px;
         height: auto;
-        color: rgba(0, 0, 0, 0.87);
+        color: #000;
+        font-weight: 500;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        background: white;
+        background: #eaf7f6;
         font-size: 14px;
+        // border: 1px solid #00a89b;
+        margin: 14px 0px 0px;
+        border-radius: 5px;
         .check-icon-background {
             background-color: #737373;
             border-radius: 100%;
@@ -266,7 +280,10 @@
         }
     }
     .dropdown-width {
-        width: 30%;
+        width: 25%;
+        margin-bottom: 0px;
+        border: 1px solid #ccc!important;
+        background-color: transparent!important;
     }
     .workinghour-dropdown {
         width: 40%;
@@ -274,13 +291,16 @@
     .to-center {
         line-height: 2;
         margin: 0px 10px;
+        display: flex;
+        align-items: center;
+        padding-top: 0px!important;
     }
     .staff-reset-btn {
         width: 170px;
         height: 37px;
-        border-radius: 26px;
-        background-color: #a8ceff;
-        color: #1173f4;
+        border-radius: 3px;
+        background-color: #f04589;
+        color: #fff;
     }
     .staff-Hours-btn {
         width: 120px;
@@ -293,8 +313,9 @@
     .staff-addbreak-btn {
         width: 105px;
         height: 37px;
-        border-radius: 26px;
-        background-color: #39b54a;
+        border-radius: 3px;
+        background-color: #f04589;
+        // background-color: #39b54a;
         color: white;
     }
     .staff-delete-icon {
@@ -397,12 +418,12 @@
         border: 1px solid #fff;
         border-radius: 50%;
         cursor: pointer;
-        height: 30px;
-        width: 30px;
-        margin: 4px;
+        height: 24px;
+        width: 24px;
+        margin: 0px 10px;
         background-color: #e4e4e4;
         .mat-checkbox-frame {
-            border: 0;
+            border-color: #00a89b!important;
         }
         .mat-checkbox-inner-container {
             height: 100%;
@@ -410,11 +431,11 @@
         }
         svg {
             path {
-                stroke: #00A89B !important;
+                stroke: #fff !important;
             }
         }
         .mat-checkbox-background {
-            background-color: transparent;
+            // background-color: #00a89b;
         }
     }
 }
@@ -584,7 +605,41 @@
     background-color: #28a745!important;
     color: #fff!important;
 }
-
+.custom-text-style-wrap{
+    h6{
+        font-size: 16px;
+        color: #000;
+    }
+    p{
+        font-size: 15px;
+        color: #777;
+        font-weight: 400;
+    }
+}
+.postal-heading-wrap{
+    display: flex;
+    align-items: center;
+    h6{
+        font-size: 16px;
+        color: #000;
+    }
+    p{
+        font-size: 14px;
+        color: #777;
+        font-weight: 400;
+    }
+}
+.postal-header-search{
+    .search-custom-wrap{
+        border: 1px solid #ccc!important;
+        border-radius: 4px!important;
+    }
+    .search-icon{
+        width: 42px!important;
+        font-size: 16px!important;
+        color: #00a89b!important;
+    }
+}
 .container {
     width: auto;
     padding: 2rem;
@@ -707,18 +762,19 @@
 ::ng-deep .mat-tab-label {
     &.mat-tab-label-active {
         .mat-tab-label-content {
-            color: #1173f4;
+            color: #000;
         }
     }
 }
 
 .h-100vh {
     height: 100%;
+    padding: 0px;
 }
 
 .single-staff-header {
     height: 130px;
-    margin: 10px 30px;
+    margin: 10px 40px 60px;
     .staff-back-btn {
         color: #00A89B;
         display: flex;
@@ -769,7 +825,7 @@
 
 ::ng-deep .mat-tab-body-wrapper {
     height: 100%;
-    padding: 10px;
+    padding: 5px 40px;
 }
 
 .upload-title-content {
@@ -788,6 +844,8 @@
     .working-hrs-list {
         .example-box {
             padding: 10px;
+            justify-content: unset;
+            color: #777;
         }
     }
 }
