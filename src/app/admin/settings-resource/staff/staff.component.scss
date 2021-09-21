@@ -142,21 +142,24 @@
         font-size: 16px;
         margin-right: 10px;
     }
-
+    .name-text-wrap{
+        width: 130px;
+    }
     .staff-btn {
         margin-left: auto;
         height: max-content;
         display: flex;
         .staff-edit-btn {
-            width: 103px;
+            width: 100px;
             height: 37px;
             border-radius: 3px;
             background-color: #ffe482;
             color: #000;
             font-weight: 600;
+            padding-right: 0px;
         }
         .staff-delete-btn {
-            width: 129px;
+            width: 85px;
             height: 37px;
             border-radius: 3px;
         }
@@ -198,20 +201,20 @@
         padding: 10px;
     }
     .reset-button {
-        width: 167px;
+        width: 145px;
         height: 37px;
-        border-radius: 26px;
-        background-color: #a8ceff;
-        color: #378af6;
+        border-radius: 3px;
+        background-color: #f04589;
+        color: #fff;
     }
     .time-off-button {
-        width: 150px;
+        width: 138px;
         height: 37px;
-        border-radius: 26px;
-        background-color: #a8ceff;
+        border-radius: 3px;
+        background-color: #f04589;
         padding-left: 0;
         padding-right: 8px;
-        color: #378af6;
+        color: #fff;    
     }
     .calendar-background {
         background-color: #e8f2fe;
@@ -246,7 +249,64 @@
     }
 
     .break-custom-wrap{
-        padding: 15px!important;
+        padding: 0px!important;
+        background: transparent!important;
+    }
+    .custom-service-box{
+        border: 1px solid #00a89b;
+        padding: 10px!important;
+    }
+    ::ng-deep.postal-code-checkbox{
+        .mat-checkbox-layout{
+            .mat-checkbox-frame{
+                border-color: #00a89b!important;
+            }
+        }
+    }
+    ::ng-deep .main-working-hours-content{
+        .working-hours-list{
+            width: 100%;
+            .working-hour-box{
+                background-color: #EAF7F6;
+                padding: 10px;
+                align-items: center;
+                font-size: 16px;
+                color: #565657 !important;
+                font-weight: 500;
+                border-radius: 5px;
+                width: 100%;
+                padding-left: 20px;
+            }
+        }
+    }
+    ::ng-deep .main-breaks-content{
+        .breaks-list{
+           width: 100%;
+           .break-box{
+               background-color: #EAF7F6;
+               padding: 10px;
+               align-items:center;
+               font-size: 16px;
+               color: #565657 !important;
+               font-weight: 500;
+               border-radius: 5px;
+               width: 65%;
+               .add-braek-btn {
+                   width: 100px;
+                   height: 34px;
+                   border-radius: 5px;
+                   background-color: #F04589;
+                   color: white;
+                   &.braek-closed {
+                       background-color: #e74033;
+                   }
+               }
+               .breaktime-slot-main{
+                   margin-bottom: 10px;
+               }
+           }
+   
+        }
     }
     .example-box {
         padding: 20px;
@@ -279,6 +339,31 @@
             //background-color: #11acf4;
         }
     }
+    ::ng-deep .holiday-table{
+        margin: 0px;
+        .time-of-box{
+            background-color: #EAF7F6;
+            padding: 10px 15px;
+            align-items: center;
+            font-size: 16px;
+            color: #565657 !important;
+            font-weight: 500;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            .toggle-btn{
+                margin: 0 20px;
+            }
+            .delete-box{
+                margin: 0 20px;
+            }
+        }
+        .holiday-list{
+            .time-of-box{
+                padding: 25px 15px;
+            }
+        }
+    }
     .dropdown-width {
         width: 25%;
         margin-bottom: 0px;
@@ -304,10 +389,11 @@
     }
     .staff-Hours-btn {
         width: 120px;
-        height: 32px;
-        border-radius: 26px;
-        background-color: #a8ceff;
-        color: #1173f4;
+        height: 37px;
+        border-radius: 3px;
+        background-color: #f04589;
+        // color: #1173f4;
+        color: #fff;
         margin: 5px;
     }
     .staff-addbreak-btn {
@@ -842,10 +928,14 @@
 
 #staff {
     .working-hrs-list {
+        max-width: 100%;
         .example-box {
             padding: 10px;
             justify-content: unset;
             color: #777;
+            background-color: transparent;
+            margin-top: 0px;
+            padding-bottom: 0px;
         }
     }
 }
