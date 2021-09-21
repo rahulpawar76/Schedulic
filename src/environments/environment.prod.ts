@@ -8,6 +8,7 @@ export const environment = {
     urlForLink :    'https://app.schedulic.com',
     apiDomainUrl:     'https://api.schedulic.com',
     tempApiUrl:     'https://api.schedulic.com/api',
+    bookpageLink :    'https://book.schedulic.com',
     ErrorMsg:"Something went wrong",
 
 };
