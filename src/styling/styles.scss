@@ -425,7 +425,12 @@ mat-drawer-content {
     }
 }
 /*on the way dialog or work started dialog css*/
-
+.app-custom-body-wrap{
+    .custom-select-modal{
+        background-color: #eaf7f6;
+        border: 0;
+    }
+}
 .modal-info {
     .modal-bcolor-primary {
         background-color: #7c7e80;
@@ -434,8 +439,12 @@ mat-drawer-content {
         }
     }
     .addbtn {
-        border-radius: 20px;
+        border-radius: 3px;
         float: right;
+        background-color: #f04589;
+        color: white;
+        border: 0;
+        padding: 6px 30px;
     }
 }
 
