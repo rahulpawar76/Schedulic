@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderService } from './_services/loader.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { CarouselModule, WavesModule } from 'angular-bootstrap-md'
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -121,6 +122,8 @@ export function provideConfig() {
 		    NgxIntlTelInputModule,
         NgxPayPalModule,
         SocialLoginModule,
+        CarouselModule,
+        WavesModule,
        // GoogleMapsModule
     ],
     exports: [

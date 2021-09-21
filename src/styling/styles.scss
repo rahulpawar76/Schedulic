@@ -1446,3 +1446,19 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         width: 120px;
     }
 }
+
+.model-close-btn {
+    background-color: #00a89b;
+    color: transparent;
+    padding: 0px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .material-icons-outlined{
+        font-size: 18px;
+    }
+}
