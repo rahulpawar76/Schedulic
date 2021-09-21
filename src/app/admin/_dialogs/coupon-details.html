@@ -2,65 +2,80 @@
     <mat-sidenav class="w-100" mode="side" opened>
         <div class="modal-dialog mt-0 mb-0" role="document">
             <div class="modal-content">
-                <div class="modal-header ">
-                    <h5 class="modal-title">Coupon Details</h5>
+                <div class="modal-header">
+                    <p class="modal-title">Coupon Details</p>
                     <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="appodetails">
-                    <label class="font-weight-bold">Status</label>
-
-                    <mat-slide-toggle *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'" (change)="changeCouponStaus($event, detailsData.id)" [checked]="detailsData.status == 'Active'" class="float-right"></mat-slide-toggle>
-                    <label class="font-weight-bold" *ngIf="detailsData.status == 'Scheduled'">Scheduled</label>
-
-                </div>
-
-                <div class="modal-body ">
-                    <p class="mb-0 ">Title</p>
-                    <p class="mb-3 font-weight-bold">{{detailsData.coupon_title}}</p>
-
-                    <div class="d-flex">
-                        <div class="pl-0">
-                            <p class="mb-0">Code</p>
-                            <p class="font-weight-bold couponCode">{{detailsData.coupon_code}}</p>
+                <div class="modal-body">
+                    <div class="coupon-details-wrap">
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <p>Title</p>
+                                <h3> {{detailsData.coupon_title}}</h3>
+                            </div>
                         </div>
-                        <div class="pl-5">
-                            <p class="mb-0 ">Discount</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'P'">{{detailsData.coupon_value}}%</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailsData.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='right'"> {{ detailsData.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <h3> Status</h3>
+                            </div>
+                            <div class="">
+                                <mat-slide-toggle
+                                    *ngIf="detailsData.status == 'Active' || detailsData.status == 'Inactive'"
+                                    (change)="changeCouponStaus($event, detailsData.id)"
+                                    [checked]="detailsData.status == 'Active'" class="float-right"></mat-slide-toggle>
+                                <label class="mb-0" *ngIf="detailsData.status == 'Scheduled'">Scheduled</label>
+                            </div>
+                        </div>
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <p>Code</p>
+                                <h3> {{detailsData.coupon_code}} </h3>
+                            </div>
+                        </div>
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <p>Discount</p>
+                                <h3 class="font-weight-bold" *ngIf="detailsData.coupon_type == 'P'">
+                                    {{detailsData.coupon_value}}%</h3>
+                                <h3 class="font-weight-bold"
+                                    *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='left'">
+                                    {{currencySymbol| currencySymbol:'wide'}} {{ detailsData.coupon_value |
+                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h3>
+                                <h3 class="font-weight-bold"
+                                    *ngIf="detailsData.coupon_type == 'F' && currencySymbolPosition=='right'"> {{
+                                    detailsData.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                    }} {{currencySymbol| currencySymbol:'wide'}}</h3>
+                            </div>
 
                         </div>
-                    </div>
-                    <hr>
-
-                    <div *ngIf="couponCodeDetail && couponCodeDetail.services" class="">
-                        <p class="mb-0 ">Applies to</p>
-                        <span class="font-weight-bold" *ngFor="let serviceList of couponCodeDetail.services; let i=index;"> {{serviceList.service_name}},  </span>
-                    </div>
-                    <p class="mb-4 "></p>
-                    <div class="d-flex">
-                        <div class="pl-0">
-                            <p class="mb-0">Valid From</p>
-                            <p class="font-weight-bold">{{detailsData.coupon_valid_from}}</p>
+                        <div class="common-coupon-details">
+                            <div *ngIf="couponCodeDetail && couponCodeDetail.services" class="coupon-details">
+                                <p>Applies to</p>
+                                <h3> <span *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
+                                        {{serviceList.service_name}} </span> </h3>
+                            </div>
                         </div>
-                        <div class="pl-5 ">
-                            <p class="mb-0 w-100 ">Valid Till</p>
-                            <p class="font-weight-bold">{{detailsData.coupon_valid_till}}</p>
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <p> Valid From </p>
+                                <h3> {{detailsData.coupon_valid_from}}</h3>
+                            </div>
+                            <div class="coupon-details text-end">
+                                <p> Valid Till </p>
+                                <h3> {{detailsData.coupon_valid_till}}</h3>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-
-                    <div class="d-flex">
-
-                        <div class="pl-0">
-                            <p class="mb-0">Maximum Redemptions</p>
-                            <p class="font-weight-bold">{{detailsData.coupon_max_redemptions}}</p>
-                        </div>
-                        <div class="pl-5">
-                            <p class="mb-0">Used</p>
-                            <p class="font-weight-bold">{{detailsData.coupon_used}}</p>
+                        <div class="common-coupon-details">
+                            <div class="coupon-details">
+                                <p>Maximum Redemptions</p>
+                                <h3>{{detailsData.coupon_max_redemptions}} </h3>
+                            </div>
+                            <div class="coupon-details text-end">
+                                <p> Used</p>
+                                <h3> {{detailsData.coupon_used}}</h3>
+                            </div>
                         </div>
 
                     </div>
