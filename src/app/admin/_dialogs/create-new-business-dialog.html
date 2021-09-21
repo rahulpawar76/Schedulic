@@ -1,118 +1,305 @@
-<div class="container" id="adminbusiness">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
-    <button type="button" class="close m-3" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    <div class="row">
-        <div class="col-12 inner-pad">
-            <div class="text-center ">
-                <h2>Welcome To Schedulic</h2>
-                <h4>We'll get your booking appointment in no time</h4>
-            </div>
-            <div>
-                <div class="pt-5">
-                    <form [formGroup]="createBusiness">
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>How do customer recognize your business?</mat-label>
-                                    <input matInput formControlName="business_name" placeholder="Enter Your business Name">
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_name').dirty || createBusiness.get('business_name').touched"><small *ngIf="createBusiness.get('business_name').hasError('required')" class="error">Business name is required.</small>
-                                <!-- <small *ngIf="createBusiness.get('business_name').hasError('minlength')"class="error">Business name must be at least 2 character</small>
-                                <small *ngIf="createBusiness.get('business_name').hasError('maxlength') "class="error">Business name can not be greater than 20 character.</small> -->
-                            </span>
-                            </div>
-                            <div class="form-group col-md-6 col-lg-6 col-sm-12 bottom-border-field">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>Where is your business located?</mat-label>
-                                    <input formControlName="business_address" matInput placeholder="Address">
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched"><small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business address is required.</small>
-                                <small *ngIf="createBusiness.get('business_address').hasError('minlength')"class="error">Business address must be at least 2 character.</small>
-                                <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 50 character.</small></span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group offset-md-6 offset-lg-6 col-md-3 col-lg-3 col-sm-6  mb-0 bottom-border-field">
-                                <mat-form-field class="mb-0">
-                                    <mat-label>Country</mat-label>
-                                    <mat-select formControlName="business_country" (selectionChange)="selectCountry($event.value)">
-                                        <mat-option>
-                                            <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="countryFilterCtrl"></ngx-mat-select-search>
-                                        </mat-option>
-                                        <mat-option *ngFor="let country of countryList | async" [value]="country.id">
-                                            {{country.name}}
-                                        </mat-option>
-                                        <!-- <mat-option *ngFor="let allCountry of allCountry" [value]="allCountry.id">
-                                            {{allCountry.name}}
-                                        </mat-option> -->
-                                    </mat-select>
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched">
-                           <small *ngIf="createBusiness.get('business_country').hasError('required')" class="error">Country is required.</small></span>
-                            </div>
-                            <div class="form-group  col-md-3 col-lg-3 col-sm-6 mb-0 bottom-border-field">
-                                <mat-form-field>
-                                    <mat-label>State</mat-label>
-                                    <mat-select formControlName="business_state" (selectionChange)="selectStates($event.value)">
-                                        <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
-                                            {{allStates.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_state').dirty || createBusiness.get('business_state').touched"><small *ngIf="createBusiness.get('business_state').hasError('required')" class="error">State is required.</small></span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-lg-6 col-sm-12 mt-res bottom-border-field time-zone-dropdown flex-wrap">
 
-                                <mat-label class="select-hide">&nbsp; </mat-label>
-                                <mat-form-field class="d-flex flex-wrap w-100">
-                                    <mat-label>Time zone</mat-label>
-                                    <mat-select formControlName="business_timezone" #singleSelect>
-                                        <mat-option>
-                                            <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
-                                        </mat-option>
-                                        <!-- <mat-select-search [formControl]="bankFilterCtrl"></mat-select-search> -->
-                                        <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.name">
-                                            ({{listTimeZone.utc}}) {{listTimeZone.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_timezone').dirty || createBusiness.get('business_timezone').touched"><small *ngIf="createBusiness.get('business_timezone').hasError('required')" class="error">Timezone is required.</small></span>
+<div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
+<div class="cretae-new-business-block">
+    <!-- <div class="common-top-header" *ngIf="!firstBusiness">
+        <button type="button" class="model-close-btn ml-auto" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span class="material-icons-outlined"> close </span>
+        </button>
+    </div> -->
+    <div class="step-wrap" *ngIf="currentStep == 1" id="step_1">
+        <div class="step-head">
+            <div class="text-center">
+                <h2>Welcome to Schedulic</h2>
+                <h4>Just a few basic questions to set you up right</h4>
+            </div>
+        </div>
+        <div class="step-content">
+            <form [formGroup]="createBusiness">
+                <div class="row">
+                    <div class="col-6 common-input">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
                             </div>
-                            <div class="form-group  col-md-3 col-lg-3 col-sm-6 bottom-border-field">
-                                <mat-label class="select-hide">&nbsp; </mat-label>
-                                <mat-form-field>
-                                    <mat-label>City</mat-label>
-                                    <mat-select formControlName="business_city">
-                                        <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
-                                            {{allCities.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_city').dirty || createBusiness.get('business_city').touched">
-                                    <small *ngIf="createBusiness.get('business_city').hasError('required')" class="error">City is required.</small>
-                                </span>
-                            </div>
-                            <div class="form-group col-md-3 col-lg-3 col-sm-6 bottom-border-field">
-                                <mat-label class="select-hide">&nbsp; </mat-label>
-                                <mat-form-field>
-                                    <mat-label>Zip</mat-label>
-                                    <input matInput formControlName="business_zip">
-                                </mat-form-field>
-                                <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched">
-                           <small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Zipcode Is required.</small> 
-                           <small *ngIf="createBusiness.get('business_zip').hasError('minlength') || createBusiness.get('business_zip').hasError('maxlength')" class="error">Zipcode Minimium 5 maximun 7 Digit.</small></span>
-                            </div>
+                            <input type="text" formControlName="business_name" class="form-control" placeholder="Business Name">
                         </div>
-                        <div class="text-center pt-2">
-                            <button mat-button class="admin-business-Submitbutton" (click)="fnCreateBusiness()">Submit</button>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_name').dirty || createBusiness.get('business_name').touched">
+                            <small *ngIf="createBusiness.get('business_name').hasError('required')" class="error">Business name is required.</small>
+                        </span>
+                    </div>
+                    <div class="col-6 common-input">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/icons/calling.svg" /></span>
+                            </div>
+                            <input type="number" formControlName="business_phone" class="form-control" placeholder="Phone*">
                         </div>
-                    </form>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_phone').dirty || createBusiness.get('business_phone').touched">
+                            <small *ngIf="createBusiness.get('business_phone').hasError('required')" class="error">Phone is required.</small>
+                            <small *ngIf="createBusiness.get('business_phone').hasError('minlength') || createBusiness.get('business_phone').hasError('maxlength')" class="error">Phone should minimum 6 and maximum 15 digits.</small>
+                        </span> 
+                    </div>
+                    <div class="col-6 common-input">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
+                            </div>
+                            <mat-select formControlName="business_size" class="form-control" placeholder="Business size">
+                                <mat-option value="0-99">0 to 99</mat-option>
+                                <mat-option value="100-499">100 to 499</mat-option>
+                                <mat-option value="500-999">500 to 999</mat-option>
+                                <mat-option value="1000-more">1000 to more</mat-option>
+                            </mat-select>
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_size').dirty || createBusiness.get('business_size').touched">
+                            <small *ngIf="createBusiness.get('business_size').hasError('required')" class="error">Business size is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-6 common-input">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/icons/website.svg" /></span>
+                            </div>
+                            <input type="text" formControlName="business_website" class="form-control" placeholder="Website URL">
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_website').dirty || createBusiness.get('business_website').touched">
+                            <small *ngIf="createBusiness.get('business_website').hasError('required')" class="error">Website URL is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-12 common-input">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="/assets/images/icons/location.svg" /></span>
+                            </div>
+                            <input type="text" formControlName="business_address" class="form-control" placeholder="Your business address">
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched">
+                            <small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business address is required.</small>
+                            <small *ngIf="createBusiness.get('business_address').hasError('minlength')"class="error">Business address must be at least 2 character.</small>
+                            <small *ngIf="createBusiness.get('business_address').hasError('maxlength') "class="error">Business address can not be greater than 50 character.</small>
+                        </span> 
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <mat-select formControlName="business_country" class="form-control" placeholder="Country" (selectionChange)="selectCountry($event.value)">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let country of countryList | async" [value]="country.id">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_country').dirty || createBusiness.get('business_country').touched">
+                            <small *ngIf="createBusiness.get('business_country').hasError('required')" class="error">Country is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <mat-select formControlName="business_state" class="form-control" placeholder="State" (selectionChange)="selectStates($event.value)">
+                                <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                    {{allStates.name}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_state').dirty || createBusiness.get('business_state').touched">
+                            <small *ngIf="createBusiness.get('business_state').hasError('required')" class="error">State is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <mat-select formControlName="business_city" class="form-control" placeholder="City">
+                                <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
+                                    {{allCities.name}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_city').dirty || createBusiness.get('business_city').touched">
+                            <small *ngIf="createBusiness.get('business_city').hasError('required')" class="error">City is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-8 common-input">
+                        <div class="form-group">
+                            <mat-select formControlName="business_timezone" class="form-control" placeholder="Time zone" #singleSelect>
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
+                                </mat-option>
+                                <!-- <mat-select-search [formControl]="bankFilterCtrl"></mat-select-search> -->
+                                <mat-option *ngFor="let listTimeZone of listTimeZoneList | async" [value]="listTimeZone.name">
+                                    ({{listTimeZone.utc}}) {{listTimeZone.name}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_timezone').dirty || createBusiness.get('business_timezone').touched">
+                            <small *ngIf="createBusiness.get('business_timezone').hasError('required')" class="error">Timezone is required.</small>
+                        </span> 
+                    </div>
+                    <div class="col-4 common-input">
+                        <div class="form-group">
+                            <input type="text" formControlName="business_zip" class="form-control" placeholder="Postal Code">
+                        </div>
+                        <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched">
+                            <small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Postal Code is required.</small>
+                            <small *ngIf="createBusiness.get('business_zip').hasError('minlength') || createBusiness.get('business_zip').hasError('maxlength')" class="error">Postal Code should minimum 5 and maximum 7 digits.</small>
+                        </span>
+                    </div>
+                    <div class="col-12 bottom-check">
+                        <mat-checkbox (change)="onChangePresence($event)" class="my-2 d-flex">
+                            <label class="mb-0">Present my phone number & address to my clients</label>
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="step-footer">
+            <ul class="step-status" *ngIf="firstBusiness">
+                <li class="active"><span></span></li>
+                <li><span></span></li>
+                <li><span></span></li>
+            </ul>
+            <button (click)="goToNextStep(2)" mat-button *ngIf="firstBusiness" class="sc-pink-btn long-width-btn">Continue</button>
+            <button (click)="fnCreateBusiness()" mat-button *ngIf="!firstBusiness" class="sc-pink-btn long-width-btn ml-auto">Create</button>
+        </div>
+    </div>
+    <div class="step-wrap" *ngIf="currentStep == 2" id="step_2">
+        <div class="w-100">
+            <a (click)="onBackStep(1)" class="step-back-btn text-center pl-0"><span class="material-icons-outlined">chevron_left</span>Back</a>
+        </div>
+        <div class="step-head">
+            <div class="text-center">
+                <h2>What category or profession best describe <br />
+                    your business?</h2>
+            </div>
+        </div>
+        <div class="step-content">
+            <div class="row">
+                <div class="col-12 common-input">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><img src="/assets/images/icons/searching.svg" /></span>
+                        </div>
+                        <input (keyup)="getBusinessCategory()" [(ngModel)]="categorySearch" type="text" class="form-control" placeholder="Types here for results...">
+                    </div>
+                </div>
+                <div class="results-list-wrap">
+                    <h4>Examples :</h4>
+                    <ul class="re-list">
+                        <li *ngFor="let category of businessCategories; let i=index;">
+                            <mat-checkbox (change)="onCateChange($event, category.id)">{{category.name}}</mat-checkbox>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
+        <div class="step-footer">
+            <ul class="step-status">
+                <li><span></span></li>
+                <li class="active"><span></span></li>
+                <li><span></span></li>
+            </ul>
+            <button (click)="goToNextStep(3)" mat-button class="sc-pink-btn long-width-btn">Continue</button>
+        </div>
+    </div>
+    <div class="step-wrap" *ngIf="currentStep == 3" id="step_3">
+        <div class="w-100">
+            <a (click)="onBackStep(2)" class="step-back-btn text-center pl-0"><span class="material-icons-outlined">chevron_left</span>Back</a>
+        </div>
+        <div class="step-head">
+            <div class="text-center">
+                <h2>What are your business needs?</h2>
+            </div>
+        </div>
+        <div class="step-content">
+            <div class="row card-list">
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/holding-hands.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'clients')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Managing clients</h5>
+                            <p>Create client cards with full contact information, add files and notes, track history and set follow-up reminders.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/calendar-cat.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'scheduling')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Online Scheduling</h5>
+                            <p>Add a beautiful online booking widget to your website & watch your calendar rapidly fill up with appointments!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/email-marketing.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'marketing')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Email & SMS marketing</h5>
+                            <p>Attract new business with easy email & SMS promotions. Add online coupons within seconds to sweeten the deal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/bill.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'invoice')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Invoices & estimates</h5>
+                            <p>Create fast, beautiful invoices and estimates on the go or at home. Easily spot & resolve outstanding invoices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/reminder.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'reminder')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Booking Reminders</h5>
+                            <p>Reduce no-shows and resolve late payments with automated appointment & payment reminders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card">
+                        <div class="icon-check">
+                            <img src="/assets/images/icons/payment-method.svg" />
+                            <mat-checkbox (change)="onChangeNeeds($event, 'payment')"></mat-checkbox>
+                        </div>
+                        <div class="card-contant">
+                            <h5>Accepting Payments</h5>
+                            <p>Accept online payments and/or charge credit cards in-office or on the go</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="step-footer">
+            <ul class="step-status">
+                <li><span></span></li>
+                <li><span></span></li>
+                <li class="active"><span></span></li>
+            </ul>
+            <button (click)="goToNextStep(4)" mat-button class="sc-pink-btn long-width-btn">Continue</button>
+        </div>
+    </div>
+    <div class="step-wrap" *ngIf="currentStep == 4" id="step_4">
+        <div class="success-banner">
+            <img src="/assets/images/icons/roket-up.svg" />
+            <h3 class="w-100">You're ready for takeoff!</h3>
+            <p class="w-100">Sit tight, we’ll take you through your setup.</p>
+            <button mat-button (click)="fnCreateBusiness()" class="sc-pink-btn long-width-btn">Go</button>
         </div>
     </div>
 </div>

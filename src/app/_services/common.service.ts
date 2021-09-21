@@ -80,6 +80,15 @@ export class CommonService {
     catchError(this.handleError));
   }
 
+  getBusinessSetup(requestObject,headers){
+    this.checkAuthentication();
+    return this.http.post(`${environment.apiUrl}/getting-setup-api`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
   staffAvaibility(requestObject,headers){
     this.checkAuthentication();
     return this.http.post(`${environment.apiUrl}/staff-status-update`,requestObject,{headers:headers}).pipe(

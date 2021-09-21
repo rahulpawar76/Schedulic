@@ -141,6 +141,161 @@
         }
     }
 }
+::ng-deep .cretae-new-business-block{
+    padding: 50px 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .model-close-btn{
+        span{
+            color: #ffffff;
+        }
+    }
+    .step-wrap{
+        width: 100%;
+        max-width: 900px;
+        .step-head{
+            margin: 10px;
+            h2{
+                color: #0E0E0E;
+                font-weight: 600;   
+                font-size: 24px;
+            }
+            h4{
+                color: #565657;
+                font-size: 18px;
+            }
+        }
+        .step-content{
+            padding: 40px 0px;
+            .results-list-wrap{
+                margin: 20px 0;
+                padding: 0 15px;
+                h4{
+                    color: #0E0E0E;
+                    font-size: 18px;
+                    text-align: left;
+                    font-weight: 500;
+                }
+                .re-list{
+                    list-style: none;
+                    display: flex;
+                    padding-left: 0;
+                    flex-wrap: wrap;
+                    margin-top: 20px;
+                    li{
+                        margin-right: 15px;
+                        margin-bottom: 15px;
+                        mat-checkbox{
+                            .mat-checkbox-layout{
+                                padding: 5px 15px;
+                                margin-bottom: 0px;
+                                border: 1px solid #00A89B;
+                                border-radius: 5px;
+                                .mat-checkbox-label{
+                                    color: #565657;
+                                    font-size: 16px;
+                                }
+                            }
+                            .mat-checkbox-inner-container{
+                                display: none;
+                            }
+                            &.mat-checkbox-checked{
+                                .mat-checkbox-layout{
+                                    background-color: #00A89B;
+                                    .mat-checkbox-label{
+                                        color: #ffffff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .card-list{
+                [class^="col-"]{
+                    margin-bottom: 30px;
+                }
+            }
+            .feature-card{
+                background-color: rgba(0, 168, 155, 0.1);
+                border: 1px solid #00A89B;
+                padding: 15px 25px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                height: 100%;
+                .icon-check{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 0px;
+                }
+            }
+        }
+        .step-footer{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .step-status{
+                padding-left: 0;
+                list-style: none;
+                display: flex;
+                margin-bottom: 0;
+                li{
+                    margin-right: 7px;
+                    span{
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 100%;
+                        background-color: rgba(0, 168, 155, 0.3);
+                        display: block;
+                    }
+                    &.active{
+                        span{
+                            background-color: rgb(0, 168, 155);
+                        }
+                    }
+                }
+            }
+        }
+        .step-back-btn {
+            color: #00A89B;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            text-decoration: none;
+            margin-top: -10px;
+            span{
+                background-color: #00A89B;
+                border-radius: 100%;
+                color: #fff;
+                margin-right: 5px;
+            }
+        }
+        
+        .success-banner{
+            margin: 7em 2em;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            img{
+                width: 120px;
+                margin-bottom: 20px;
+            }
+            h3{
+                color: #0E0E0E;
+                font-weight: 600;
+                font-size: 28px;
+            }
+            p{
+                text-align: center;
+                color: #565657;
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    
+}
 
 @media only screen and (max-width: 765px) and (orientation:portrait) {
     mat-card {
@@ -158,9 +313,7 @@
             margin: 0px 0px 20px;
         }
     }
-     ::ng-deep #adminbusiness .inner-pad {
-        padding: 10px !important;
-    }
+    
      ::ng-deep .form-group {
         margin-bottom: 0;
     }
@@ -178,14 +331,6 @@
     }
 }
 
-@media only screen and (max-width: 767px) and (orientation:landscape) {}
-
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-     ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-        transform: translateY(0%) !important;
-    }
-}
-
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation:portrait) {
     #Add-new-business {
         mat-card {
@@ -194,53 +339,6 @@
     }
 }
 
-// <-----------create-new-business-dialog----->
-::ng-deep #adminbusiness {
-    .inner-pad {
-        padding: 60px;
-    }
-    h2 {
-        color: #1173f4;
-        font-weight: bolder;
-    }
-    .admin-business-Submitbutton {
-        background-color: #1173f4;
-        color: white;
-        padding: 2px 45px;
-    }
-}
-
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
-// 	padding: 15px 0 15px 10px;
-// }
-::ng-deep .mat-form-field-infix {
-    border-top: unset;
-}
-
-::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-    transform: inherit;
-}
-
- ::ng-deep .mat-form-field-label-wrapper {
-    // .mat-empty{
-    // }
-    top: -.44375em;
-}
-
-::ng-deep .mat-form-field-wrapper {
-    padding-bottom: 0;
-}
-
-// ::ng-deep .mat-form-field-infix input{
-// 	line-height: 55px;
-// }
-::ng-deep .bottom-border-field .mat-form-field-underline {
-    bottom: 0;
-}
-
-::ng-deep .bottom-border-field .mat-form-field-infix {
-    padding: 0.5em 0 !important;
-}
 
 ::ng-deep .time-zone-dropdown {
     mat-form-field {
