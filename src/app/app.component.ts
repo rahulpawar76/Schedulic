@@ -8,7 +8,7 @@ import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 import { CommonService } from './_services'
 import { DatePipe } from '@angular/common';
-
+import { CarouselModule, WavesModule } from 'angular-bootstrap-md'
 
 //import { slideInAnimation } from './maturity/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -68,6 +68,8 @@ export class AppComponent implements AfterViewInit {
   isSignOut:boolean=true;
   activeSettingMenu:any;
   notificationCount: any = 0;
+  businessSetup:any;
+  gettingStartedWindowOpen:boolean=false;
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
   closePopover() {
@@ -75,12 +77,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   onSubmit() {
-
-    // Form Logic
-
-    // On Success close popover
     this.closePopover();
-
   }
 
 
@@ -131,7 +128,8 @@ export class AppComponent implements AfterViewInit {
 
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
-      this.getNotificationCount(this.businessId)
+      this.getNotificationCount(this.businessId);
+      this.getBusinessSetup(this.businessId);
     }
     if(this.authenticationService.currentUserValue && this.authenticationService.currentUserValue.user_type == 'SM'){
       this.getNotificationCount(null)
@@ -349,11 +347,6 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  /*fnSetSessionValues(){
-    this.selectedSessionId=localStorage.getItem("session_id");
-    this.selectedSessionName=localStorage.getItem("session_name");
-  }*/
-
   /*Add New Navigation */
   addNewAppointNav() {
 
@@ -487,14 +480,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   logout() {
-
-    // this.authService.signOut();
     this.dialogRef2.closeAll();
     this.authenticationService.logout();
-    // if (this.timer) {
-    //   clearTimeout(this.timer);
-    //   this.timer = 0;
-    // }
     this.router.navigate(['/login']);
   }
 
@@ -518,10 +505,6 @@ export class AppComponent implements AfterViewInit {
 
   fnTemp(){
     this.authenticationService.logout();
-    // if (this.timer) {
-    //   clearTimeout(this.timer);
-    //   this.timer = 0;
-    // }
     this.isAllowed=true;
     this.router.navigate(['/login']);
   }
@@ -647,13 +630,13 @@ export class AppComponent implements AfterViewInit {
   fnLoginWithGoogleFacebook(user){
     this.isAllowed=false;
     if(user.email == ''){
-          this._snackBar.open('Please add email id in your facebook account.', "X", {
-              duration: 2000,
-              verticalPosition:'top',
-              panelClass :['red-snackbar']
-          });
-          return false;
-      }
+      this._snackBar.open('Please add email id in your facebook account.', "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+      });
+      return false;
+    }
     this.authenticationService.loginWithGoogleFacebook(user.id,user.email,user.provider).pipe(first()).subscribe(data => {
       if(data.idExists == true){
         if(data.userData.user_type == "A"){
@@ -735,6 +718,7 @@ export class AppComponent implements AfterViewInit {
   signOut(): void {
     this.authService.signOut();
   }
+
   /*For notification Dialog*/
   getNotificationCount(business_id){
     let headers;
@@ -811,11 +795,39 @@ export class AppComponent implements AfterViewInit {
       })
     }else{
       this.logout();
-    this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     }
-
-
   }
+  
+
+  /*For Business Setup*/
+  getBusinessSetup(business_id){
+    this.isLoaderAdmin = true;
+    let headers;
+    if(this.currentUser){
+      if(business_id != null){
+        if (this.currentUser.user_type == "A") {
+          headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': JSON.stringify(this.currentUser.user_id),
+            "api-token": this.currentUser.token
+          });
+        }
+      }
+      let requestObject = {
+        "business_id": business_id,
+      };
+      this.CommonService.getBusinessSetup(requestObject, headers).subscribe((response: any) => {
+        if (response.data == true) {
+          this.businessSetup = response.response
+        }else if(response.data == false){
+          
+        }
+        this.isLoaderAdmin = false;
+      })
+    }
+  }
+
   openNotificationDialog() {
     this.isLoaderAdmin = true;
     let headers;

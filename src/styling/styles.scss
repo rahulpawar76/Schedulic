@@ -425,7 +425,12 @@ mat-drawer-content {
     }
 }
 /*on the way dialog or work started dialog css*/
-
+.app-custom-body-wrap{
+    .custom-select-modal{
+        background-color: #eaf7f6;
+        border: 0;
+    }
+}
 .modal-info {
     .modal-bcolor-primary {
         background-color: #7c7e80;
@@ -434,8 +439,12 @@ mat-drawer-content {
         }
     }
     .addbtn {
-        border-radius: 20px;
+        border-radius: 3px;
         float: right;
+        background-color: #f04589;
+        color: white;
+        border: 0;
+        padding: 6px 30px;
     }
 }
 
@@ -1474,6 +1483,21 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     }
 }
 
+.model-close-btn {
+    background-color: #00a89b;
+    color: transparent;
+    padding: 0px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .material-icons-outlined{
+        font-size: 18px;
+    }
+}
 .common-page-heading {
     display: flex;
     align-items: center;

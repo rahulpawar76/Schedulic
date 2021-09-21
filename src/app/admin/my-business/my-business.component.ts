@@ -22,24 +22,11 @@ export interface ListTimeZoneListArry {
   name: string;
 }
 
-export interface ListTimeZoneListArry {
-  id: string;
-  name: string;
-}
-
 export interface countryArry {
   id: string;
   name: string;
 }
 
-
-// export interface status {
-
-//   id: string;
-//   name :string;
-//   timezone:string;
-
-// }
 @Component({
   selector: 'app-my-business',
   templateUrl: './my-business.component.html',
@@ -56,7 +43,7 @@ export class MyBusinessComponent implements OnInit {
   token:any;
   getIpAddress : any;
   pageSlug:any;
-
+  firstBusiness:boolean=false;
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
@@ -103,11 +90,7 @@ export class MyBusinessComponent implements OnInit {
         this.allBusiness = response.response
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        // this._snackBar.open(response.response, "X", {
-        //   duration: 2000,
-        //   verticalPosition:'top',
-        //   panelClass :['red-snackbar']
-        // });
+        this.firstBusiness=true;
         this.allBusiness = ''
       }
       this.isLoaderAdmin = false;
@@ -177,9 +160,7 @@ export class MyBusinessComponent implements OnInit {
   }
 
   fnSelectBusiness(business_id,busisness_name){
-
     localStorage.setItem('business_id', business_id);
-    //localStorage.setItem('business_id', '2');
     localStorage.setItem('business_name', busisness_name);
     this.router.navigate(['/admin/my-workspace']);
     this.appComponent.getNotificationCount(business_id);
@@ -187,7 +168,8 @@ export class MyBusinessComponent implements OnInit {
 
   creatNewBusiness() {
     const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
-      width: '1100px',
+      width: '900px',
+      data:{firstBusiness:this.firstBusiness}
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -248,39 +230,46 @@ export class myCreateNewBusinessDialog {
   allCountry: any;
   allStates: any;
   allCities: any;
-  // listTimeZoneList: any;
+  businessCategories: any=[];
   newBusinessData: any;
   createBusiness :FormGroup;
   isLoaderAdmin : boolean = false;
-  onlynumeric = /^-?(0|[1-9]\d*)?$/
-
+  currentStep:number=1;
+  presentPhoneAddress:any='N';
+  selectedCategoryList:any=[];
+  needsUpdate:boolean=false;
+  firstBusiness:boolean=false;
+  needs:any ={
+    'clients' :false,
+    'scheduling' :false,
+    'marketing  ' :false,
+    'invoice' :false,
+    'reminder' :false,
+    'payment' :false,
+  }
+  categorySearch:any="";
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
-
   protected countryArry: countryArry[];
   public countryFilterCtrl: FormControl = new FormControl();
   public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
-
-
-
   protected _onDestroy = new Subject<void>();
 
   constructor(
     public dialogRef: MatDialogRef<myCreateNewBusinessDialog>,
     private http: HttpClient,
     public router: Router,
-   private AdminService: AdminService,
-   private _formBuilder: FormBuilder,
+    private AdminService: AdminService,
+    private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+      this.firstBusiness = this.data.firstBusiness;
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
-
   }
-
 
   ngAfterViewInit() {
     this.setInitialValueTimeZone();
@@ -290,10 +279,12 @@ export class myCreateNewBusinessDialog {
   ngOnInit() {
     this.gelAllCountry();
     this.getTimeZone();
-
-
+    this.getBusinessCategory();
     this.createBusiness = this._formBuilder.group({
       business_name : ['', [Validators.required]],
+      business_phone : ['',[Validators.required,Validators.minLength(6),Validators.maxLength(15)]],
+      business_size : ['',[Validators.required]],
+      business_website : ['',[Validators.required]],
       business_address : ['', [Validators.required,Validators.minLength(2),Validators.maxLength(50)]],
       business_country : ['', Validators.required],
       business_state : ['', Validators.required],
@@ -301,7 +292,6 @@ export class myCreateNewBusinessDialog {
       business_city : ['', Validators.required],
       business_zip : ['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]]
     });
-
   }
 
   gelAllCountry(){
@@ -329,6 +319,7 @@ export class myCreateNewBusinessDialog {
       }
     })
   }
+
   selectCountry(country_id){
     this.isLoaderAdmin =true;
     this.AdminService.gelAllState(country_id).subscribe((response:any) => {
@@ -349,6 +340,7 @@ export class myCreateNewBusinessDialog {
       }
     })
   }
+
   selectStates(state_id){
     this.isLoaderAdmin =true;
     this.AdminService.gelAllCities(state_id).subscribe((response:any) => {
@@ -369,6 +361,28 @@ export class myCreateNewBusinessDialog {
       }
     })
   }
+  
+  getBusinessCategory(){
+    this.isLoaderAdmin =true;
+    let requestObject = {
+      'search':this.categorySearch
+    }
+    this.AdminService.getBusinessCategory(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.businessCategories = response.response
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this.businessCategories = [];
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
+  }
+
   getTimeZone(){
     this.isLoaderAdmin =true;
     this.AdminService.getTimeZone().subscribe((response:any) => {
@@ -392,29 +406,54 @@ export class myCreateNewBusinessDialog {
         this.isLoaderAdmin =false;
     })
   }
+
+  onChangePresence(event){
+    if(event.checked){
+      this.presentPhoneAddress= 'Y';
+    }else{
+      this.presentPhoneAddress= 'N';
+    }
+  }
+
+  onCateChange(event, id){
+    if(event.checked){
+      this.selectedCategoryList.push(id)
+    }else{
+      const index = this.businessCategories.indexOf(id, 0);
+      if (index > -1) {
+          this.selectedCategoryList.splice(index, 1);
+      }
+    }
+  }
+
+  onChangeNeeds(event, needType){
+    this.needsUpdate = true;
+    if(event.checked){
+      this.needs[needType]= true;
+    }else{
+      this.needs[needType]= false;
+    }
+    console.log(this.needs)
+  }
+
   fnCreateBusiness(){
     if(this.createBusiness.valid){
       this.newBusinessData ={
         "business_name" : this.createBusiness.get('business_name').value,
         "address" : this.createBusiness.get('business_address').value,
+        "business_size" : this.createBusiness.get('business_size').value,
+        "present_phone_address" : this.presentPhoneAddress,
+        "business_categories" : this.selectedCategoryList,
+        "business_needs" : this.needsUpdate?this.needs:null,
+        "phone" : this.createBusiness.get('business_phone').value,
         "country" : this.createBusiness.get('business_country').value,
         "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
-        "site_url" : environment.urlForLink,
+        "site_url" : this.createBusiness.get('business_website').value,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
-
-    this.createNewBusiness(this.newBusinessData);
-    }else{
-      this.createBusiness.get('business_name').markAsTouched();
-      this.createBusiness.get('business_address').markAsTouched();
-      this.createBusiness.get('business_country').markAsTouched();
-      this.createBusiness.get('business_state').markAsTouched();
-      this.createBusiness.get('business_city').markAsTouched();
-      this.createBusiness.get('business_timezone').markAsTouched();
-      this.createBusiness.get('business_zip').markAsTouched();
-      return false;
+      this.createNewBusiness(this.newBusinessData);
     }
   }
   createNewBusiness(newBusinessData){
@@ -437,6 +476,31 @@ export class myCreateNewBusinessDialog {
     })
   }
 
+  goToNextStep(step){
+    if(step == 2){
+      if(this.createBusiness.invalid){
+        this.createBusiness.get('business_name').markAsTouched();
+        this.createBusiness.get('business_address').markAsTouched();
+        this.createBusiness.get('business_country').markAsTouched();
+        this.createBusiness.get('business_state').markAsTouched();
+        this.createBusiness.get('business_city').markAsTouched();
+        this.createBusiness.get('business_timezone').markAsTouched();
+        this.createBusiness.get('business_zip').markAsTouched();
+        this.createBusiness.get('business_size').markAsTouched();
+        this.createBusiness.get('business_phone').markAsTouched();
+        this.createBusiness.get('business_website').markAsTouched();
+      }else{
+        this.currentStep= step;
+      }
+    }else{
+      this.currentStep= step;
+    }
+  }
+
+  onBackStep(step){
+    this.currentStep= step;
+  }
+  
     /**
    * Sets the initial value after the filteredTimezones are loaded initially
    */
