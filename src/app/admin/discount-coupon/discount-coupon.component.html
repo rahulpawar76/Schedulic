@@ -1,18 +1,31 @@
-<div class="container-height" id="Discount-Coupon" style="margin-top: 70px;">
+<div class="container-height" id="Discount-Coupon" style="margin-top: 64px;">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div *ngIf="couponCodeListing" class="row mx-0">
         <div class="col-12 px-0">
-            <div class="d-flex mb-1 px-3">
-                <h5>Discount Coupon</h5>
+            <div class="common-page-heading">
                 <div>
-                    <button (click)="fnNewCouponCode()" mat-button class="discountcoupon-btn"><mat-icon aria-hidden="false">add</mat-icon>Discount Coupon</button>
+                    <h5>Discount Coupon</h5>
+                    <p class="">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br />
+                    Lorem Ipsum has been the industry's standard dummy</p>
+                </div>
+                <div>
+                    <button (click)="fnNewCouponCode()" mat-button class="sc-pink-btn">Add Discount Coupon</button>
                 </div>
             </div>
-            <p class="px-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy</p>
-            <div class="d-flex mb-3 px-3">
-                <mat-form-field class="dropdown bottom-border-field">
-                    <mat-label>Status</mat-label>
-                    <mat-select (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
+            <div class="sc-table-view">
+
+            
+            <div class="d-flex mb-3 px-3 sc-table-top-bar main-topbar">
+                <div class="searchbox mr-2">
+                    <form class="search_input-staff">
+                        <div class="form-group has-search">
+                            <mat-icon class="form-control-feedback">search</mat-icon>
+                            <input type="text" class="form-control searchbox_appointment " (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff" placeholder="Search for items">
+                        </div>
+                    </form>
+                </div>
+                <div class="right-searchbar">
+                    <mat-select class="form-control form-control-trasprent" (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
                         <mat-option>None</mat-option>
                         <mat-option value="All">All</mat-option>
                         <mat-option value="Active">Active</mat-option>
@@ -20,37 +33,32 @@
                         <mat-option value="Scheduled">Scheduled</mat-option>
                         <mat-option value="Expired">Expired</mat-option>
                     </mat-select>
-                </mat-form-field>
-                <div class="searchbox mr-2">
-                    <form class="serch_input-appoint">
-                        <div class="form-group has-search">
-                            <span class="fa fa-search form-control-feedback verticalLine"></span>
-                            <input type="text" class="form-control searchbox_appointment " (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff" placeholder="Search Coupon">
-                        </div>
-                    </form>
                 </div>
+                    
+                
+               
             </div>
-            <div class="col-12 px-0" id="">
+            <div class="col-12 px-0 sc-table" id="">
                 <div class="w-100" id="">
                     <div class="postalcode-table">
                         <div class="main-table-content main-cust-table-content">
                             <div class="">
-                                <div class="heads main-heading-content px-4 staff-list-row header-background " fxLayout="row">
+                                <div class="sc-table-head" fxLayout="row">
                                     <div class="text-left" fxFlex="10">Title</div>
                                     <div class="text-left" fxFlex="10">Coupon Code</div>
                                     <div class="text-left" fxFlex="10">Created On</div>
                                     <div class="text-left" fxFlex="10">Valid Form</div>
                                     <div class="text-left" fxFlex="10">Valid Till</div>
-                                    <div class="text-left" fxFlex="10">Maximum Redemptions</div>
+                                    <div class="text-left" fxFlex="20">Maximum Redemptions</div>
                                     <div class="text-left" fxFlex="10">Used</div>
                                     <div class="text-left" fxFlex="10">Status</div>
-                                    <div class="text-left" fxFlex="5">Action</div>
-                                    <div class="text-left" fxFlex="5">View</div>
+                                    <div class="text-left" fxFlex="10">Action</div>
+                                    <!-- <div class="text-left" fxFlex="5">View</div>
                                     <div class="text-left" fxFlex="5">Edit</div>
-                                    <div class="text-left" fxFlex="5">Delete</div>
+                                    <div class="text-left" fxFlex="5">Delete</div> -->
                                 </div>
-                                <div class="content" class="staff-list" *ngIf="allCouponCode != ''">
-                                    <div class="staff-list-row px-4" *ngFor="let allCouponCode of allCouponCode; let i=index">
+                                <div class="sc-table-content" *ngIf="allCouponCode != ''">
+                                    <div class="final-list" *ngFor="let allCouponCode of allCouponCode; let i=index">
 
                                         <div class="text-left" fxFlex="10">
                                             <p>{{allCouponCode.coupon_title}}</p>
@@ -67,36 +75,35 @@
                                         <div class="text-left" fxFlex="10">
                                             <p>{{allCouponCode.coupon_valid_till}}</p>
                                         </div>
-                                        <div class="text-left" fxFlex="10">
+                                        <div class="text-left" fxFlex="20">
                                             <p>{{allCouponCode.coupon_max_redemptions}}</p>
                                         </div>
                                         <div class="text-left" fxFlex="10">
                                             <p>{{allCouponCode.coupon_used}}</p>
                                         </div>
-                                        <div class="text-left" fxFlex="10">
+                                        <!-- <div class="text-left" fxFlex="10">
                                             <p class="text-capitalize">{{allCouponCode.status}}</p>
-                                        </div>
+                                        </div> -->
                                         <div class="text-left" fxFlex="10">
+                                            
                                             <div *ngIf="allCouponCode.status == 'Active' || allCouponCode.status == 'Inactive'">
                                                 <mat-slide-toggle (change)="changeCouponStaus($event,allCouponCode.id)" [checked]="allCouponCode.status == 'Active'"></mat-slide-toggle>
                                             </div>
                                         </div>
 
-                                        <div class="text-left" fxFlex="5">
-                                            <button mat-mini-fab (click)="fnCouponDetails(i, allCouponCode.id)">
-                                                <mat-icon class="text-white ml-2">visibility</mat-icon>
-                                            </button>
-                                        </div>
-
-                                        <div class="text-left" fxFlex="5">
-                                            <button mat-mini-fab (click)="fnCouponEdit(i)">
-                                                <mat-icon class="text-white ml-2">mode_edit</mat-icon>
-                                            </button>
-                                        </div>
-                                        <div class="text-left" fxFlex="5">
-                                            <button mat-mini-fab color="warn" (click)="fnCouponDelete(allCouponCode.id)">
-                                                <mat-icon class="text-white ml-2">delete_outline</mat-icon>
-                                            </button>
+                                        <div class="text-left" fxFlex="10">
+                                            <div class="table-action-btns">
+                                                <button class="sc-table-action-btn" (click)="fnCouponDetails(i, allCouponCode.id)">
+                                                    <mat-icon class="">visibility</mat-icon>
+                                                </button>
+                                                <button class="sc-table-action-btn" (click)="fnCouponEdit(i)">
+                                                    <mat-icon>mode_edit</mat-icon>
+                                                </button>
+                                                <button class="sc-table-delete-btn" (click)="fnCouponDelete(allCouponCode.id)">
+                                                    <span class=""><img src="/assets/images/icons/bin.svg" /></span>
+                                                </button>
+                                            </div>
+                                         
                                         </div>
                                     </div>
 
@@ -124,125 +131,128 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
-    <mat-card *ngIf="addNewCouponCode" class="h-100">
-        <form [formGroup]="discountCoupon" class="add-coupon-form">
-            <div class="row">
-                <div class="col-lg-8 col-sm-12 col-md-12 col-12">
-                    <h5 *ngIf="!singleCouponDetail">Add Discount Coupon</h5>
-                    <h5 *ngIf="singleCouponDetail">Edit Discount Coupon</h5>
+    <div *ngIf="addNewCouponCode" class="h-100">
+        <form [formGroup]="discountCoupon" class="add-coupon-form h-100">
+            <div class="row mx-0 h-100">
+                <div class="col-lg-9 col-sm-12 col-md-12 col-12 p-0">
+                    <div class="form-heading-wrap">
+                        <h5 *ngIf="!singleCouponDetail">Create Discount Coupon</h5>
+                        <h5 *ngIf="singleCouponDetail">Edit Discount Coupon</h5>
+                    </div>
+                   
 
                     <div class="row mx-0">
-                        <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Coupon Name</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/coupon-1.png" class=""></mat-icon>
-                                <input matInput maxlength="15" formControlName="coupan_name" placeholder="Christmas Offer">
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('coupan_name').touched || discountCoupon.get('coupan_name').dirty || formSubmitclicked">
+                        <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
+                            <label> Coupon Title </label>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="/assets/images/icons/coupon.svg" /></span>
+                                </div>
+                               
+                                <input type="text" formControlName="coupan_name" class="form-control" placeholder="Enter Coupon Title">
+                            </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('coupan_name').touched || discountCoupon.get('coupan_name').dirty">
                                 <small *ngIf="discountCoupon.get('coupan_name').hasError('required')" class="error">Coupon name is required.</small>
                                 <small *ngIf="discountCoupon.get('coupan_name').hasError('maxlength')" class="error">Name should be maximum 15 character.</small>
 
                             </span>
                         </div>
-
-                        <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Maximum Redemptions</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/gift-card.png" class=""></mat-icon>
-                                <input matInput formControlName="max_redemption" placeholder="100">
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('max_redemption').touched || discountCoupon.get('max_redemption').dirty || formSubmitclicked">
-                                <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum redemptions is required.</small>
-                                <small *ngIf="discountCoupon.get('max_redemption').hasError('pattern')" class="error">Maximum redemptions should be only in numbers.</small>
-                            </span>
-                        </div>
-
-                        <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Coupon Code</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/coupon-1.png" class=""></mat-icon>
-                                <input matInput maxlength="15" formControlName="coupon_code" placeholder="Christmas Offer">
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty || formSubmitclicked">
+                        <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
+                            <label> Coupon Code </label>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="/assets/images/icons/coupons-code.svg" /></span>
+                                </div>
+                                <input type="text" formControlName="coupon_code" class="form-control" placeholder="Enter Coupon Code">
+                            </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('coupon_code').touched || discountCoupon.get('coupon_code').dirty">
                                 <small *ngIf="discountCoupon.get('coupon_code').hasError('required')" class="error">Coupon code is required.</small>   
                                 <small *ngIf="discountCoupon.get('coupon_code').hasError('maxlength')" class="error">Coupon code should be maximum 15 character.</small>
                             </span>
                         </div>
-
-                        <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Valid Form</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
-                                <input matInput (dateChange)="fnvalideFrom()" (click)="valid_from_picker.open()" [min]="minDate" [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="MM/DD/YYYY">
-                                <!-- <mat-datepicker-toggle matPrefix [for]="valid_from_picker"></mat-datepicker-toggle> -->
+                        <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
+                            <label>Valid Form </label>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
+                                </div>
+                                <input class="form-control" (dateChange)="fnvalideFrom()" (click)="valid_from_picker.open()" [min]="minDate" [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="MM/DD/YYYY">
                                 <mat-datepicker #valid_from_picker></mat-datepicker>
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty || formSubmitclicked">
+                            </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty">
                                 <small *ngIf="discountCoupon.get('valid_from').hasError('required')" class="error">Valid from is required.</small>           
                             </span>
                         </div>
-
-                        <div class=" form-group col-lg-3 col-12 col-sm-12 col-md-3  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Discount Type</mat-label>
-                                <mat-icon matPrefix>
-                                    <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
-                                    <!---<img src="../../../assets/images/admin/rupee.png" class="">-->
-                                    <span *ngIf="discountType == 'F'">{{currencySymbol}}</span>
-                                </mat-icon>
-                                <mat-select (selectionChange)="fnChangeDiscountType($event)" [(value)]="selected" formControlName="discount_type">
+                        <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
+                            <label>Valid Till </label>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
+                                </div>
+                                <input class="form-control" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
+                                <mat-datepicker #valid_till_picker></mat-datepicker>
+                            </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty">
+                                <small *ngIf="discountCoupon.get('valid_till').hasError('required')" class="error"> Till date is required.</small>           
+                              </span>
+                        </div>
+                       
+                        <div class="common-input col-lg-2 col-12 col-sm-12 col-md-3 ">
+                            <label>Discount</label>
+                            <div class="form-group">
+                                <mat-select (selectionChange)="fnChangeDiscountType($event)" [(value)]="selected" class="form-control" formControlName="discount_type">
                                     <mat-option>None</mat-option>
                                     <mat-option value="P">
-                                        <!---<mat-icon matPrefix><img src="../../../assets/images/admin/percentage.png" class=""></mat-icon>-->Percentage</mat-option>
+                                     Percentage</mat-option>
                                     <mat-option value="F">
-                                        <!---<mat-icon matPrefix></mat-icon>-->Fixed Amount</mat-option>
+                                        Fixed Amount</mat-option>
                                 </mat-select>
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('discount_type').hasError('required')" class="error"> Discount type is required.</small>           
-                </span>
+                             </div>
+                                <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty">
+                                <small *ngIf="discountCoupon.get('discount_type').hasError('required')" class="error"> Discount type is required.</small>           
+                                </span>
                         </div>
-
-                        <div class=" form-group col-lg-3 col-12 col-sm-12 col-md-3  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Discount</mat-label>
-                                <mat-icon matPrefix>
-                                    <img *ngIf="discountType == 'P'" src="../../../assets/images/admin/percentage.png" class="">
-                                    <span *ngIf="discountType == 'F'">{{currencySymbol}}</span>
-                                </mat-icon>
-                                <input (keyup)="discount_check()" matInput formControlName="discount_value" placeholder="Value">
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty || formSubmitclicked">
+                        <div class="common-input mt-2 col-lg-4 col-12 col-sm-12 col-md-3">
+                           <div class="form-group mt-24">
+                            <input (keyup)="discount_check()" class="form-control" formControlName="discount_value" placeholder="Enter Discount">
+                           </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('discount_value').touched || discountCoupon.get('discount_value').dirty">
                                 <small *ngIf="discountCoupon.get('discount_value').hasError('required')" class="error">Discount value is required.</small>
                                 <small *ngIf="discountCoupon.get('discount_value').hasError('pattern')" class="error">Discount value should be only in numbers.</small>
                                 <small *ngIf="diccount_error" class="error">Discount Maximum 100%.</small>
                             </span>
                         </div>
-
-                        <div class=" form-group col-lg-6 col-12 col-sm-12 col-md-6  bottom-border-field">
-                            <mat-form-field>
-                                <mat-label>Valid Till</mat-label>
-                                <mat-icon matPrefix><img src="../../../assets/images/admin/calendar.png" class=""></mat-icon>
-                                <input matInput (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
-                                <mat-datepicker #valid_till_picker></mat-datepicker>
-                            </mat-form-field>
-                            <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty || formSubmitclicked">
-                  <small *ngIf="discountCoupon.get('valid_till').hasError('required')" class="error"> Till date is required.</small>           
-                </span>
+                        <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
+                            <label>Maximum Redemptions</label>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><img src="/assets/images/icons/price-tag.svg" /></span>
+                                </div>
+                                <input type="text" formControlName="max_redemption" class="form-control" placeholder="Enter Maximum Redemptions">
+                            </div>
+                            <span class="error-wrap" *ngIf="discountCoupon.get('max_redemption').touched || discountCoupon.get('max_redemption').dirty">
+                                <small *ngIf="discountCoupon.get('max_redemption').hasError('required')" class="error">Maximum redemptions is required.</small>
+                                <small *ngIf="discountCoupon.get('max_redemption').hasError('pattern')" class="error">Maximum redemptions should be only in numbers.</small>
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-12 col-md-4 select-service">
-                    <mat-card>
+                <div class="col-lg-3 col-12 col-md-4 select-service">
+                   
                         <h6>Select Service</h6>
-                        <mat-form-field class="pb-3 bottom-border-field">
-                            <!-- <mat-label>Outline form field</mat-label> -->
-                            <input (keyup)="fnsearchService($event);" matInput placeholder="Category, Subcategory, Service">
-                            <mat-icon matPrefix>search</mat-icon>
-                        </mat-form-field>
+                        <div class="searchbox mb-4">
+                            <form class="search_input-staff">
+                                <div class="form-group has-search">
+                                    <mat-icon class="form-control-feedback">search</mat-icon>
+                                    <!-- <input type="text" class="form-control searchbox_appointment " (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff" placeholder="Search for items"> -->
+                                     <input (keyup)="fnsearchService($event);" class="form-control searchbox_appointment " placeholder="Search">
+                                </div>
+                            </form>
+                        </div>
 
                         <mat-accordion class="select-service-accordian">
                             <mat-expansion-panel [expanded]="searchedServices" *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
@@ -271,22 +281,21 @@
                                 </div>
                             </mat-expansion-panel>
                         </mat-accordion>
-                    </mat-card>
                 </div>
             </div>
             <mat-card class="footer-action-btn">
                 <div class="action-btn">
                     <div class="mx-2">
-                        <button (click)="fnCancelNewCoupon()" mat-button appearance="fill" class="discount-cancel-btn">Cancel</button>
+                        <button (click)="fnCancelNewCoupon()" mat-button appearance="fill" class="sc-grey-btn">Cancel</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button type="submit" *ngIf="!singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Add Coupon</button>
+                        <button mat-button type="submit" *ngIf="!singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="sc-pink-btn">Create</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button type="submit" *ngIf="singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="discount-save-btn">Update Coupon</button>
+                        <button mat-button type="submit" *ngIf="singleCouponDetail" appearance="fill" (click)="fnCreateCouponSubmit()" class="sc-pink-btn">Update</button>
                     </div>
                 </div>
             </mat-card>
         </form>
-    </mat-card>
+    </div>
 </div>

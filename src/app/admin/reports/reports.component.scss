@@ -12,20 +12,7 @@
 }
 
 .status-filter {
-    width: 200px
-}
-
-.leftarrow-icon {
-    // margin-left: auto;
-    display: flex;
-    .customer-drawer-leftarrow {
-        padding: 4px 8px;
-        height: auto;
-        width: auto;
-        text-align: center;
-        background-color: #dedede;
-        margin-left: auto;
-    }
+    width: 200px;
 }
 
 ::ng-deep .mat-drawer-container .example-container .mat-drawer {
@@ -35,23 +22,8 @@
 ::ng-deep .mat-drawer-container .example-container .mat-drawer-content {
     background-color: white;
 }
-
-.leftarrow-icon {
-    // margin-left: auto;
-    display: flex;
-    .customer-drawer-leftarrow {
-        padding: 4px 8px;
-        height: auto;
-        width: auto;
-        text-align: center;
-        background-color: #dedede;
-        margin-left: auto;
-    }
-}
-
 .cust-reports {
     margin: 2px;
-    ;
     font-size: 18px;
 }
 
@@ -73,27 +45,55 @@
 }
 
 .main-custmer-content {
-    padding: 0px 10px 10px;
-    background-color: lightblue;
+    padding: 18px 0px;
+    background-color: #ffe482;
+    .common-input {
+        margin-bottom: 0px;
+        padding: 0px 8px;
+        padding-top: 4px;
+    }
 }
-
+#customer_report,
+#sales_report{
+    padding: 0px !important;
+    .common-heading-details{
+        padding: 15px 0px;
+    }
+}
+#customer_report,
+#sales_report,
 #Customer-Listing {
     text-align: center;
     padding: 15px;
-    .custreports {
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .custrecords {
-        font-size: 16px;
-        font-weight: bold;
-        padding: 0px 15px;
-    }
-    .main-table-content {
-        padding: 0;
+    .common-heading-details {
+        .date-display {
+            color: #565657;
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .customer-report {
+            color: #000;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .records-details{
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            .total-records{
+                margin-right: 10px;
+                margin-bottom: 0px;
+                span{
+                    color: #565657;
+                    font-weight: 500;
+                }
+            }
+        }
+        
     }
 }
-
 .main-heading-content {
     background-color: #fabb88;
 }
@@ -150,13 +150,9 @@
 }
 
 .searchbox {
-    width: 300px;
-    display: flex;
-    align-items: center;
-    .serch_input-appoint {
+    .search_input-staff {
         height: 39px;
         padding-top: 3px;
-        width: 100%;
         .has-search .form-control {
             padding-left: 2.375rem;
         }
@@ -164,87 +160,30 @@
             position: absolute;
             z-index: 2;
             display: block;
-            width: 2.375rem;
-            height: 1rem;
-            line-height: 2rem;
-            text-align: center;
+            line-height: 2.6rem;
             pointer-events: none;
-            color: black;
-            .verticalLine {
-                &:after {
-                    content: "";
-                    position: absolute;
-                    top: 58%;
-                    right: 0;
-                    width: 1px;
-                    height: 100%;
-                    background: #dfc0c0;
-                }
-            }
-        }
-         ::placeholder {
-            font-size: 12px;
+            color: #0e0e0e;
+            text-align: center;
+            width: 2.375rem;
+            font-size: 25px;
         }
         .searchbox_appointment {
-            border-radius: 20px;
-            height: 34px;
-        }
-    }
-}
-
-.report-menu {
-    background-color: #fbfbfb;
-    width: 230px;
-    position: fixed;
-    top: 65px;
-    height: 100vh;
-    box-shadow: 5px 9px 10px #e5e3e3;
-    z-index: 9;
-    overflow-y: scroll;
-    .report-menu-item {
-        cursor: pointer;
-        padding: 10px 20px;
-        align-items: center;
-        transition: all 0.3s;
-        p {
-            margin: 0;
-            font-weight: 500;
-        }
-        .menu-icon {
-            margin-right: 10px;
-            display: block;
-            height: 40px;
-            width: 28px;
-            float: left;
-            margin-left: 0;
-        }
-        &:hover {
-            background-color: #ddeafd;
-            color: #1273f6;
-            .menu-icon {
-                .normal {
-                    top: -20px;
-                    opacity: 0;
-                    display: none;
-                }
-                .colored {
-                    top: 0px;
-                    opacity: 1;
-                    display: block;
-                }
+            border-bottom: 1px solid #0e0e0e !important;
+            border: 0;
+            background-color: transparent;
+            border-radius: 0;
+            color: #0e0e0e;
+            &::placeholder {
+                font-size: 12px;
+                color: #0e0e0e;
             }
         }
-    }
-    h6 {
-        font-size: 16px;
-        font-weight: 600;
-        padding-left: 15px;
     }
 }
 
 .report-right-side-content {
-    margin-left: 230px;
-    width: calc(100% - 230px);
+    margin-left: 250px;
+    width: calc(100% - 250px);
     margin-top: 65px;
     background-color: #fff;
 }
@@ -288,7 +227,7 @@
     width: calc(100% - 70px);
 }
 
-::ng-deep body{
+::ng-deep body {
     .report-date-range-main {
         min-width: 240px;
         width: 180px;
@@ -301,23 +240,24 @@
             left: -35px;
             color: #6d6d6d;
         }
-        .btn{
+        .btn {
             text-transform: capitalize !important;
             margin-right: 16px;
             padding: 0px 12px !important;
             font-size: 14px;
             line-height: 2.2 !important;
             background-color: #1173f4;
-            &:hover{
+            &:hover {
                 background-color: #1173f4;
             }
-            &:last-child{
+            &:last-child {
                 margin-right: 0px;
             }
         }
     }
-} 
-::ng-deep .report-date-range-main .md-drppicker td.active, .report-date-range-main .md-drppicker td.active:hover {
+}
+::ng-deep .report-date-range-main .md-drppicker td.active,
+.report-date-range-main .md-drppicker td.active:hover {
     background-color: #1173f4;
     border-color: transparent;
     color: #fff;
@@ -340,7 +280,7 @@
         .exel-download {
             width: 25px;
             height: 23px;
-            background-image: url('/../../assets/images/admin/excel.png');
+            background-image: url("/../../assets/images/admin/excel.png");
             background-size: cover;
             display: block;
             float: left;
@@ -348,7 +288,7 @@
         .pdf-download {
             width: 21px;
             height: 28px;
-            background-image: url('/../../assets/images/admin/pdf-file-format-symbol.png');
+            background-image: url("/../../assets/images/admin/pdf-file-format-symbol.png");
             background-size: cover;
             display: block;
             float: left;
@@ -361,8 +301,8 @@
     }
 }
 
-@supports (-ms-ime-align:auto) {
-     ::ng-deep .report-date-range-main {
+@supports (-ms-ime-align: auto) {
+    ::ng-deep .report-date-range-main {
         .mat-form-field-infix {
             margin-bottom: 0px;
         }
@@ -370,5 +310,33 @@
 }
 
 .report-dwnd-icon {
-    transform: rotate(180deg);
+    width: 20px;
+}
+
+.Customer-appointment-table{
+    .table{
+        .sc-table-head{
+            tr{
+                th{
+                 font-size: 14px;
+                 font-weight: 500;
+                 padding: 22px 30px;
+                 text-align: justify !important;
+                 border: none;
+                }
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    border: none;
+                    text-align: justify !important;
+                    padding: 10px 30px;
+                }
+            }
+        }
+    }
+}
+.reports-container{
+    height: calc(100vh - 90px);
 }
