@@ -430,8 +430,8 @@
                 </div>
             </mat-card>
         </div>
-        <mat-card *ngIf="staffListPage">
-            <div class="row mb-3 p-1">
+        <div *ngIf="staffListPage">
+            <div class="row mx-0 mb-3 p-1">
                 <div class="col-8">
                     <div class="d-flex mb-1">
                         <h5 class="page-title">Staff</h5>
@@ -444,7 +444,7 @@
                     <button mat-button (click)="fnAddNewStaff()" class="sc-pink-btn ml-auto"> Add Staff </button>
                 </div>
             </div>
-            <div class="row sc-table-view">
+            <div class="row mx-0 sc-table-view">
                 <div class="w-100 d-flex sc-table-top-bar">
 
                     <div class="searchbox mr-2">
@@ -598,7 +598,7 @@
                     </div>
                 </div>
             </div>
-        </mat-card>
+        </div>
         <mat-card *ngIf="singleStaffView" class="h-100vh">
             <div class="d-flex align-items-center flex-wrap single-staff-header">
 
