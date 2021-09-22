@@ -5,13 +5,17 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Appointment Details</h5>
                     <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                     </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="appodetails">
                     <div *ngIf="detailsData.order_status != 'C' && detailsData.order_status != 'CO'">
-                        <label class="greenfont pointer" (click)="fnRescheduleAppointment()" *ngIf="detailsData.booking_date_time && minReschedulingTime && detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-repeat repeat"></i>Reschedule</label>
-                        <label class="fontred pl-3 pointer" (click)="fnCancelAppointment()" *ngIf="detailsData.booking_date_time && cancellationBufferTime && detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i class="fa fa-times-circle-o circle"></i>Cancel</label>
+                        <label class="greenfont pointer" (click)="fnRescheduleAppointment()"
+                            *ngIf="detailsData.booking_date_time && minReschedulingTime && detailsData.booking_date_time && minReschedulingTime.getTime() < detailsData.booking_date_time.getTime()"><i
+                                class="fa fa-repeat repeat"></i>Reschedule</label>
+                        <label class="fontred pl-3 pointer" (click)="fnCancelAppointment()"
+                            *ngIf="detailsData.booking_date_time && cancellationBufferTime && detailsData.booking_date_time && cancellationBufferTime.getTime() < detailsData.booking_date_time.getTime()"><i
+                                class="fa fa-times-circle-o circle"></i>Cancel</label>
                     </div>
 
                     <div *ngIf="detailsData.order_status == 'C'">
@@ -22,238 +26,252 @@
                         Completed
                     </div>
 
-                    <button mat-button type="button" *ngIf="detailsData.order_status == 'P'" class="d-block float-right confirm-btn" (click)="fnConfirmAppointment()">Confirm</button>
+                    <button mat-button type="button" *ngIf="detailsData.order_status == 'P'"
+                        class="d-block float-right confirm-btn" (click)="fnConfirmAppointment()">Confirm</button>
 
-                    <button mat-button type="button" *ngIf="detailsData.order_status == 'AC'" class="d-block float-right confirm-btn" (click)="fnWorkStarting()">Work Start</button>
+                    <button mat-button type="button" *ngIf="detailsData.order_status == 'AC'"
+                        class="d-block float-right confirm-btn" (click)="fnWorkStarting()">Work Start</button>
 
-                    <mat-form-field *ngIf="detailsData.order_status == 'CNF' && detailsData.staff_id == null" class="bottom-border-field assignto ml-3">
+                    <mat-form-field *ngIf="detailsData.order_status == 'CNF' && detailsData.staff_id == null"
+                        class="bottom-border-field assignto ml-3">
                         <mat-label>Assign to</mat-label>
                         <mat-select [(value)]="selectedStaff" (selectionChange)="fnOnClickStaff($event)">
-                            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}</mat-option>
+                            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
-                   
+
                 </div>
 
                 <div class="modal-body p-3">
-                    <div class="appointment--details-wrap">
+                    <div class="appointment-details-wrap">
                         <div class="common-appointment-details">
                             <div class="appointment-details">
-                                <h3>  
-                                   {{detailsData.booking_date}}
-                                    <span class="order-id">(Order Id: {{detailsData.id}})</span></h3>
+                                <h3>
+                                    {{detailsData.booking_date}}
+                                    <span class="order-id">(Order Id: {{detailsData.id}})</span>
+                                </h3>
                                 <p>Booked On: {{detailsData.created_at}}</p>
                             </div>
-                           
+                        </div>
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Time</p>
+                                <h3>{{detailsData.booking_timeForLabel}} -
+                                    {{detailsData.booking_time_to}} ({{detailsData.service_time}} Min)</h3>
                             </div>
                         </div>
-                    <div class="row">
-                        <!-- <div class="col-12">
-                            <span class="mb-0 font-weight-bold pr-1">{{detailsData.booking_date}}</span><span>(Order Id: {{detailsData.id}})</span>
-                            <p>Booked On: {{detailsData.created_at}}</p>
-                        </div> -->
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Service</p>
+                                <h3><span *ngIf="currencySymbolPosition=='left'">
+                                        {{detailsData.service.service_name}} ({{currencySymbol| currencySymbol:'wide'}}
+                                        {{
+                                        detailsData.service.service_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})
+                                    </span>
+                                    <span *ngIf="currencySymbolPosition=='right'">
+                                        {{detailsData.service.service_name}} ({{ detailsData.service.service_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}})
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Status
+                                </p>
+                                <h3 class="status-main-wrap">
+                                    <p class="" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'CNF'">Confirm</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'AC'">Accepted</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By You</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'RSS'">Rescheduled By Staff</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'R'">Rejected</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'C'">Cancelled</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'CC'">Cancelled By Customer</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'OW'">On The Way</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'WS'">Work Started</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'CO'">Completed</p>
+                                    <p class="" *ngIf="detailsData.order_status == 'CO'">Completed</p>
+                                </h3>
+                            </div>
+                            <div class="appointment-details text-end">
+                                <p>Payment Status </p>
+                                <h3 class="status-main-wrap">
+                                    <p class="" *ngIf="detailsData.payment">
+                                        {{detailsData.payment.payment_status}} ({{detailsData.payment.payment_mode}})
+                                    </p>
+                                    <p class="" *ngIf="detailsData.payment == null || !detailsData.payment">--</p>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>SubTotal
+                                </p>
+                                <h3 class="">
+                                    <span *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol|
+                                        currencySymbol:'wide'}} {{ detailsData.subtotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </span>
+                                    <span *ngIf="currencySymbolPosition=='right'">
+                                        {{ detailsData.subtotal
+                                        | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}
+                                    </span>
+                                </h3>
+                            </div>
+                            <div class="appointment-details text-end">
+                                <p>Total Amount</p>
+                                <h3 class="status-main-wrap">
+                                    <span *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </span>
+                                    <span *ngIf="currencySymbolPosition=='right'">
+                                        {{detailsData.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                        {{currencySymbol| currencySymbol:'wide'}}
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Tax</p>
+                                <h3>
+                                    <span *ngIf="currencySymbolPosition=='left' && detailsData.tax != null">
+                                        {{currencySymbol|
+                                        currencySymbol:'wide'}} {{ taxTotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </span>
+                                    <span *ngIf="currencySymbolPosition=='right' && detailsData.tax != null">
+                                        {{ taxTotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}
+                                    </span>
+                                    <span *ngIf="detailsData.tax == null">
+                                        --
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Order By</p>
+                                <h3>
+                                    {{detailsData.order_by}}
+                                </h3>
+                            </div>
+                            <div class="appointment-details text-end">
+                                <p>Order From</p>
+                                <h3>
+                                    {{detailsData.order_from}}
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <p>Staff</p>
+                                <h3>
+                                    <span *ngIf="detailsData.staff !== null">
+                                        {{detailsData.staff.firstname}} {{detailsData.staff.lastname}}
+                                    </span>
+                                    <span *ngIf="detailsData.staff == null">
+                                        --
+                                    </span>
+                                </h3>
+                            </div>
+                            <div class="appointment-details text-end">
+                                <p>Staff Phone No.</p>
+                                <h3>
+                                    <span *ngIf="detailsData.staff !== null">
+                                        {{detailsData.staff.phone}}
+                                    </span>
+                                    <span *ngIf="detailsData.staff == null">
+                                        --
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <p class="mb-0 title">Time</p>
-                            <span class="font-weight-bold pr-1">{{detailsData.booking_timeForLabel}} - {{detailsData.booking_time_to}} ({{detailsData.service_time}} Min) </span>
-                            <!-- <p class="font-weight-bold">{{detailsData.booking_time}}</p> -->
-                        </div>
-                        <div class="col-12">
-                            <p class="mb-0 title">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}} ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}} ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- <div class="col-8">
-                            <p class="mb-0 title">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailsData.service.service_name}} ({{currencySymbol| currencySymbol:'wide'}} {{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailsData.service.service_name}} ({{ detailsData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
-                        </div> -->
-                        
-                        <div class="col-4" *ngIf="detailsData.service.service_type=='online'">
-                            <p class="mb-0 title">ID</p>
-                            <p class="font-weight-bold" >{{detailsData.service.service_sub_type}} - {{detailsData.service.service_sub_type_value}}</p>
-                        </div>
-                    </div>                   
-
-                   
-
-                    <div class="row">
-                        <!-- <div class="col-6">
-                            <p class="mb-0 title">Total Amount</p>
-                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='right'">{{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                        </div> -->
-                        <div class="col-6">
-                            <p class="mb-0 title text-left">Status</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'CNF'">Confirm</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'AC'">Accepted</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By You</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'RSS'">Rescheduled By Staff</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'R'">Rejected</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'C'">Cancelled</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'CC'">Cancelled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'OW'">On The Way</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'WS'">Work Started</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'CO'">Completed</p>
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'CO'">Completed</p>
-                            
-                            <p class="text-capitalize font-weight-bold text-left" *ngIf="detailsData.order_status == 'GL'">
-                                Getting Late {{detailsData.gl_time && detailsData.gl_time != ''?'(Late Time : '+detailsData.gl_time+')':''}}
-                            </p>
-                        </div>
-
-                        <div class="col-6">
-                            <p class="mb-0 title text-right">Payment Status</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.payment">{{detailsData.payment.payment_status}} ({{detailsData.payment.payment_mode}})</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.payment == null || !detailsData.payment">--</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="mb-0 title ">SubTotal</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailsData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ detailsData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                        </div>
-                        
-                        <div class="col-6">
-                            <p class="mb-0 title text-right">Total Amount</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right'">{{ detailsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                        </div>
-
-                        <div *ngIf="taxTotal" class="col-6">
-                            <p class="mb-0 title text-right">Tax</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left' && detailsData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right' && detailsData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                            <p class="font-weight-bold text-right" *ngIf="detailsData.tax == null">--</p>
-                            <!-- <p class="text-capitalize font-weight-bold text-right" >$.20</p> -->
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="mb-0 title">Order By</p>
-                            <p class="font-weight-bold">{{detailsData.order_by}}</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="mb-0 title text-right">Order From</p>
-                            <p class="text-capitalize font-weight-bold text-right">{{detailsData.order_from}}</p>
-                        </div>
-
-
-                        <!-- <div class="col-8">
-                            <p class="mb-0 title text-right">Status</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'P'">Waiting For Confirmation</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CNF'">Confirm</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'AC'">Accepted</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'RSA'">Rescheduled By You</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'RSS'">Rescheduled By Staff</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'RSC'">Rescheduled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'R'">Rejected</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'C'">Cancelled</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CC'">Cancelled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'OW'">On The Way</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'WS'">Work Started</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CO'">Completed</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'CO'">Completed</p>
-                            
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.order_status == 'GL'">
-                                Getting Late {{detailsData.gl_time && detailsData.gl_time != ''?'(Late Time : '+detailsData.gl_time+')':''}}
-                            </p>
-                        </div> -->
-                    </div>
-
-                    <div class="row custom-wrap-modal">
-                        <div class="col-6">
-                            <p class="mb-0 title">Staff</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.staff !== null">{{detailsData.staff.firstname}} {{detailsData.staff.lastname}}</p>
-                            <p class="font-weight-bold" *ngIf="detailsData.staff == null">--</p>
-                        </div>
-
-                        <div class="col-6">
-                            <p class="mb-0 title text-right">Staff Phone No.</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailsData.staff !== null">{{detailsData.staff.phone}}</p>
-                            <p class="font-weight-bold text-right" *ngIf="detailsData.staff == null">--</p>
-                        </div>
-                    </div>
-
-
-                    <!-- <div>
-                        <p class="mb-0">Staff</p>
-                        <div class="" *ngIf="detailsData.staff != null">
-                            <p class="mb-0 font-weight-bold">{{detailsData.staff?detailsData.staff.lastname:''}} {{detailsData.staff?detailsData.staff.lastname:''}}</p>
-                            <p class="mb-0">Phone No:{{detailsData.staff?detailsData.staff.phone:''}}</p>
-                        </div>
-                    </div> -->
 
                 </div>
-                <mat-card class="card-body-marginn booking-detail-main mb-0">
-                    <h6 class="text-left">Customer Details</h6>
-                    <div class="row align-items-center">
-                        <p class="customer-profile-img">{{customerShortName}}</p>
-                        <div class="customer-name pr-3">
-                            <p class="font-weight-bold mb-0">{{detailsData.customer.fullname}}</p>
-                            <p class="address-fontsize mb-0">{{detailsData.customer.email}}</p>
+                <div class="card-body-margin booking-detail-main mb-0">
+                    <div class="common-details-customer pt-0">
+                        <h6 class="heading-title">Customer Details</h6>
+                        <div class="d-flex align-items-center py-2">
+                            <p class="customer-profile-img">{{customerShortName}}</p>
+                            <div class="customer-name pr-3">
+                                <h3 class="">{{detailsData.customer.fullname}}</h3>
+                                <p class="mb-0">{{detailsData.customer.email}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="custom-wrap-modal">
-                       
-                        <i class="fa fa-phone Appoinment-icon"></i>
-                        <p class=" address-fontsize">{{detailsData.customer.phone}}</p>
-                    </div>
-                    <!-- <div *ngIf="detailsData.service.service_sub_type == 'at_home'">
-                        <p class="mb-0 title">Address</p>
-                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_address : ''}}</p>
-                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_city : ''}}</p>
-                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_state : ''}}</p>
-                        <p class="mb-0 address-fontsize"> {{detailsData.orders_info ? detailsData.orders_info.booking_zipcode : ''}}</p>
-                    </div> -->
-                    <!-- <div>
-                        <p class="mb-0 title">Note</p>
-                        <p *ngIf="detailsData.booking_notes !== null" class="mb-0 address-fontsize">{{detailsData.booking_notes}}</p>
-                        <p *ngIf="detailsData.booking_notes === null" class="address-fontsize">--</p>
-                    </div> -->
-
+                        <div class="custom-wrap-modal">
+                            <i class="fa fa-phone Appoinment-icon"></i>
+                            <p class="">{{detailsData.customer.phone}}</p>
+                        </div>
+                     </div>
+                     <div class="common-details-customer">
+                   
                     <div class="pt-3 pb-3 bottom-border custom-wrap-modal">
-                        <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
+                        <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i
+                                class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                         <mat-form-field class="bottom-border-field" *ngIf="formSettingPage">
                             <mat-label>Notes</mat-label>
-                            <textarea rows="5" matInput [(ngModel)]="singlenote" placeholder="Type Note Description Here"></textarea>
+                            <textarea rows="5" matInput [(ngModel)]="singlenote"
+                                placeholder="Type Note Description Here"></textarea>
                         </mat-form-field>
-                        <button mat-button type="button" class="Reschedulebtn common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
+                        <button mat-button type="button" class="Reschedulebtn common-blue-btn accept-btn d-block mt-2"
+                            *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailsData.id)">Save</button>
                         <p class="mb-1 border-bottom pb-1" *ngFor="let note of singleBookingNotes; let i=index">
-                            {{note.notes}}, <br> Added by {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}
+                            {{note.notes}}, <br> Added by {{note.user_type=='A'?'Admin':''}}
+                            {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at
+                            | date:'longDate'}} {{note.created_at | date:'shortTime'}}
                         </p>
                     </div>
-                </mat-card>
+                </div>
+                </div>
 
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="mb-4">
-                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirmed':''}} {{log.status=='GL'?'Getting Late':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
-                        && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
-                        Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
+                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} -
+                        {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}}
+                        {{log.status=='CNF'?'Confirmed':''}} {{log.status=='GL'?'Getting Late':''}} {{log.user_type=='A'
+                        && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
+                        && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}}
+                        {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' :
+                        log.user_type=='S' && log.status=='AC' ? 'By
+                        Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The
+                        Way':''}} {{log.status=='WS'?'Work Started':''}}
                         <!-- {{log.status=='RSA'?'Rescheduled By Admin':''}}
                         {{log.status=='RSS'?'Rescheduled By Staff':''}}
                         {{log.status=='RSC'?'Rescheduled By Client':''}} -->
-                        {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSA' ? 'Rescheduled By Admin' :''}} {{log.status=='RSS' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff'
-                        :''}} {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSC' ? 'Rescheduled By Client' :''}} {{log.status=='ITR'?'Intrupted':''}}
+                        {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname :
+                        log.status=='RSA' ? 'Rescheduled By Admin' :''}} {{log.status=='RSS' && log.customer ?
+                        'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff'
+                        :''}} {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname :
+                        log.status=='RSC' ? 'Rescheduled By Client' :''}} {{log.status=='ITR'?'Intrupted':''}}
                         <!-- {{log.status=='C'?'Cancelled':''}}
                         {{log.status=='CC'?'Cancelled By Client':''}} -->
-                        {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ? 'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}} {{log.status=='R'?'Rejected':''}}
-                        {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}} 
+                        {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ?
+                        'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname :
+                        log.status=='CC' ? 'Cancelled By Client' :''}} {{log.status=='R'?'Rejected':''}}
+                        {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ?
+                        'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}}
                         {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO'
-                        ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
+                        ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' &&
+                        log.status=='CO' ? 'By User' : ''}}
 
                         {{log.user_type=='A' && log.status=='GL'
-                        ? 'By Admin' : log.user_type=='S' && log.status=='GL' ? 'By Staff': log.user_type=='C' && log.status=='GL' ? 'By User' : ''}}
+                        ? 'By Admin' : log.user_type=='S' && log.status=='GL' ? 'By Staff': log.user_type=='C' &&
+                        log.status=='GL' ? 'By User' : ''}}
 
                         <p *ngIf="log.notes">
                             <b>Note: </b> {{log.notes}}
