@@ -12,6 +12,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
 import { AppComponent } from '../../app.component'
+import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
 import { Observable, throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
@@ -120,6 +121,8 @@ export class AppointmentLiveComponent implements OnInit {
   note_description='';
   paymentData:any;
   Watinglist:any = [];
+  trackOrderList:any[];
+  fireDB:AngularFireDatabase;
   selectedtab:any = 1;
   pendingBillTab: boolean = false
   currentUser: any;
@@ -168,6 +171,9 @@ export class AppointmentLiveComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) { 
 
+    private fireDb:AngularFireDatabase
+  ) {
+    this.fireDB = fireDb;
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
     this.router.events.subscribe(event => {
@@ -1373,28 +1379,42 @@ export class AppointmentLiveComponent implements OnInit {
     }else{
       return;
     }
-
-    var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
-    var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
-    // this.ShowMap = false;
-
-    this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
-        if(response.status=='OK'){
+    
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    itemsRef.valueChanges().subscribe(
+      x=>{
+          this.trackOrderList =  x;
           this.ShowMap = true;
-          this.lat = response.results[0].geometry.location.lat;
-          this.lng = response.results[0].geometry.location.lng;
-          this.origin.lat = response.results[0].geometry.location.lat;
-          this.origin.lng = response.results[0].geometry.location.lng;
-
+          this.lat = this.trackOrderList[0];
+          this.lng = this.trackOrderList[1];
+          this.origin.lat = this.trackOrderList[0];
+          this.origin.lng = this.trackOrderList[1];
+          this.destination.lat = this.trackOrderList[0];
+          this.destination.lng = this.trackOrderList[1];
         }
-    });
+    );
 
-    this.adminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
-        if(response.status=='OK'){
-          this.destination.lat = response.results[0].geometry.location.lat;
-          this.destination.lng = response.results[0].geometry.location.lng;
-        }
-     });
+    // var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
+    // var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
+    // // this.ShowMap = false;
+
+    // this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
+    //     if(response.status=='OK'){
+    //       this.ShowMap = true;
+    //       this.lat = response.results[0].geometry.location.lat;
+    //       this.lng = response.results[0].geometry.location.lng;
+    //       this.origin.lat = response.results[0].geometry.location.lat;
+    //       this.origin.lng = response.results[0].geometry.location.lng;
+
+    //     }
+    // });
+
+    // this.adminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
+    //     if(response.status=='OK'){
+    //       this.destination.lat = response.results[0].geometry.location.lat;
+    //       this.destination.lng = response.results[0].geometry.location.lng;
+    //     }
+    //  });
 
   }
 
