@@ -425,8 +425,8 @@ mat-drawer-content {
     }
 }
 /*on the way dialog or work started dialog css*/
-.app-custom-body-wrap{
-    .custom-select-modal{
+.app-custom-body-wrap {
+    .custom-select-modal {
         background-color: #eaf7f6;
         border: 0;
     }
@@ -635,7 +635,7 @@ $calendarsize: 10px;
             margin: 0px 6px;
             .page-link {
                 background-color: #ffffff;
-                color: #00A89B;
+                color: #00a89b;
                 padding: 6px 14px;
                 font-weight: 400;
                 transition: all 0.3s;
@@ -643,16 +643,16 @@ $calendarsize: 10px;
                 border: 1px solid #00a89b;
                 border-radius: 4px;
                 &:hover {
-                    background-color:#00A89B;
+                    background-color: #00a89b;
                     color: #fff;
-                    border-color: #00A89B;
+                    border-color: #00a89b;
                 }
             }
         }
         .active {
             .page-link {
-                background-color: #00A89B;
-                border-color: #00A89B;
+                background-color: #00a89b;
+                border-color: #00a89b;
                 color: #fff;
             }
         }
@@ -662,8 +662,8 @@ $calendarsize: 10px;
                 background-color: transparent;
                 border: none;
                 i {
-                    color: #00A89B;
-                   
+                    color: #00a89b;
+
                     font-size: 22px;
                 }
                 &:hover {
@@ -675,12 +675,12 @@ $calendarsize: 10px;
                 }
             }
         }
-        .pointernone{
-            .page-link{
-                i{
-                   color: #ababab;
+        .pointernone {
+            .page-link {
+                i {
+                    color: #ababab;
                 }
-            }  
+            }
         }
         .first-page {
             .page-link {
@@ -1181,12 +1181,12 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                 align-items: center;
                 font-size: 14px;
                 border-bottom: solid 1px rgba(0, 168, 155, 0.23);
-                p{
+                p {
                     margin-bottom: 0px;
                 }
             }
         }
-        .table-action-btns{
+        .table-action-btns {
             display: flex;
             align-items: center;
             .sc-table-action-btn {
@@ -1203,34 +1203,31 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                     width: 22px;
                 }
             }
-            .sc-table-delete-btn{
+            .sc-table-delete-btn {
                 background-color: transparent;
-                img{
+                img {
                     width: 22px;
                 }
             }
         }
-        
-        
     }
 }
 .sc-table {
-    &.table{
-        .sc-table-head{
-            tr{
-                th{
-                 font-size: 14px;
-                 font-weight: 500;
-                 padding: 22px 30px;
-                 text-align: justify !important;
-                 border: none;
-                
+    &.table {
+        .sc-table-head {
+            tr {
+                th {
+                    font-size: 14px;
+                    font-weight: 500;
+                    padding: 22px 30px;
+                    text-align: justify !important;
+                    border: none;
                 }
             }
         }
-        tbody{
-            tr{
-                td{
+        tbody {
+            tr {
+                td {
                     border: none;
                     text-align: justify !important;
                     padding: 10px 30px;
@@ -1434,52 +1431,94 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 }
 
 .Appointment-modal-wrap {
-    // .font-weight-bold {
-    //     font-weight: 600 !important;
-    // }
-    // .custom-wrap-modal {
-    //     border-bottom: 1px solid #ccc;
-    //     display: flex;
-    //     align-items: baseline;
-    //     i {
-    //         margin-right: 5px;
-    //         color: #1172f4;
-    //     }
-    // }
-    // .booking-detail-main {
-    //     box-shadow: unset !important;
-    //     padding-top: 0px;
-    // }
-    .appointment-details-wrap{
-        .common-appointment-details{
+    .appointment-details-wrap {
+        border-bottom: solid 1px rgba(0, 168, 155, 0.23);
+        .common-appointment-details {
             padding: 15px 0px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .appointment-details{
-                p{
+            .appointment-details {
+                p {
                     color: #565657;
                     font-weight: 500;
                     font-size: 14px;
                     margin-bottom: 2px;
                 }
-                h3{
+                h3 {
                     text-align: justify;
                     font-size: 16px;
                     font-weight: 600;
                     color: #000;
-                    margin-bottom: 0px;
+                    margin-bottom: 4px;
                 }
-                .order-id{
+                .order-id {
                     color: #565657;
                     font-weight: 500;
                     font-size: 14px;
                 }
+                .status-main-wrap {
+                    p {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #000;
+                        margin-bottom: 4px;
+                    }
+                }
             }
-            .text-end{
+            .text-end {
                 text-align: end;
-                h3{
+                h3 {
                     text-align: end;
+                }
+            }
+        }
+    }
+    .booking-detail-main {
+        .common-details-customer {
+            border-bottom: solid 1px rgba(0, 168, 155, 0.23);
+            margin: 10px 15px;
+            padding: 20px 0px;
+            .heading-title {
+                font-weight: 500;
+                font-size: 15px;
+                color: #000;
+            }
+            .customer-profile-img{
+                border-radius: 100%;
+                height: 60px;
+                width: 60px;
+                background-color: #F04589;
+                color: white;
+                text-align: center;
+                padding: 14px;
+                line-height: 2;
+                display: block;
+                margin-right: 14px;
+            }
+            .customer-name {
+                h3 {
+                    font-size: 15px;
+                    font-weight: 500;
+                    margin-bottom: 4px;
+                    text-align: left;
+                }
+                p {
+                    font-size: 14px;
+                    color: #565657;
+                }
+            }
+            .custom-wrap-modal{
+                display: flex;
+                align-items: center;
+                i{
+                    color: #00A89B;
+                    margin-right: 6px;
+                }
+                p{
+                    font-size: 15px;
+    color: #0E0E0E;
+    margin-bottom: 0px;
                 }
             }
         }
@@ -1621,7 +1660,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
-    .material-icons-outlined{
+    .material-icons-outlined {
         font-size: 18px;
     }
 }
