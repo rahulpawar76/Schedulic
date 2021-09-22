@@ -8,11 +8,10 @@
 @import "variables";
 #customers {
     .devider-slim {
-        //width: 100%;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #0e0e0e1f;
     }
     #Customer-list {
-        background-color: #f2f2f2;
+       
          ::ng-deep .customer-action {
             .mat-form-field-infix {
                 padding: 10px 0 10px 10px;
@@ -28,18 +27,7 @@
             background-color: white;
             border-radius: 5px;
         }
-        .leftarrow-icon {
-            // margin-left: auto;
-            display: flex;
-            .customer-drawer-leftarrow {
-                padding: 4px 8px;
-                height: auto;
-                width: auto;
-                text-align: center;
-                background-color: #dedede;
-                margin-left: auto;
-            }
-        }
+        
         // .all-customer-list {
         //     // width: 60%;
         // }
@@ -50,70 +38,31 @@
             margin-bottom: 0px;
             word-break: break-all;
             overflow-wrap: break-word;
+            font-size: 14px;
+            color: #565657;
         }
         h6 {
-            margin-bottom: 0px;
-            ;
-        }
-        .searchbox {
-            margin-bottom: 10px;
-            // width: 60%;  
-            .serch_input-appoint {
-                height: 39px;
-                padding-top: 3px;
-                .has-search .form-control {
-                    padding-left: 2.375rem;
-                }
-                .has-search .form-control-feedback {
-                    position: absolute;
-                    z-index: 2;
-                    display: block;
-                    width: 2.375rem;
-                    height: 1rem;
-                    line-height: 2rem;
-                    text-align: center;
-                    pointer-events: none;
-                    color: black;
-                    .has-search .form-control-feedback .verticalLine {
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            top: 58%;
-                            right: 0;
-                            width: 1px;
-                            height: 100%;
-                            background: #f2f2f2;
-                        }
-                    }
-                }
-                 ::placeholder {
-                    font-size: 12px;
-                }
-                .searchbox_appointment {
-                    border-radius: 20px;
-                    height: 33px;
-                    background-color: #f2f2f2;
-                }
-            }
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
         }
         .customer-checkbox {
             line-height: 2.8;
-            // width:11%;
-            margin: 0 5px;
+            margin-right: 4px;
         }
         .customer-name-width {
             // width: 20%;
             margin-right: .5rem!important;
             .customer-name {
-                //background-color: #00c6ff;
                 border-radius: 50%;
-                //padding: 10px;
-                width: 45px;
-                height: 45px;
+                width: 38px;
+                height: 38px;
                 text-align: center;
                 overflow: hidden;
                 background-size: cover;
                 background-position: center;
+                border: 1px solid #00a89b;
+                margin-left: 6px;
                 img {
                     width: 100%;
                     height: 100%;
@@ -198,7 +147,7 @@
     }
     .devider-slim {
         width: 100%;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #00a89b26;
     }
     p {
         margin-bottom: 0px;
@@ -207,7 +156,7 @@
         line-height: 1.5;
     }
     .customerProfile-width {
-        border-radius: 50%!important;
+        border-radius: 6px!important;
         width: 90px;
         height: 90px;
         overflow: hidden;
@@ -220,25 +169,47 @@
     }
     .customerName-width {
         width: 60%;
-        height: max-content;
+        margin-left: 14px;
+        padding-top: 10px;
+        h6{
+            font-size: 17px;
+            margin-bottom: 4px;  
+        }
+        .main-email-wrap{
+           img{
+            width: 22px;
+           } 
+           a{
+            margin-left: 8px;
+            font-size: 14px;
+            color: #565657; 
+           }
+        }
+    }
+    .add-booking-main{
+        align-items: center;
+        display: flex;
+        margin-top: 10px;
+        cursor: pointer;
+        .mat-icon {
+            color: #00a89b;
+            width: 22px;
+            height: 22px;
+            font-size: 22px;
+            margin-right: 8px;
+        }
+        p{
+            font-size: 15px;
+            text-decoration: underline;
+            color: #00a89b;
+            margin-bottom: 0px;
+        }
     }
     .customer-btn {
         margin-left: auto;
         height: max-content;
         display: flex;
-        .customer-edit-btn {
-            width: 103px;
-            height: 37px;
-            border-radius: 21px;
-            background-color: #1173f4;
-            color: white;
-        }
-        .customer-delete-btn {
-            width: 129px;
-            height: 37px;
-            border-radius: 21px;
-            background-color: #c5c5c5;
-        }
+     
     }
     .add-tag-icon {
         color: #1173f4;
@@ -262,14 +233,6 @@
     }
     .lastBookedService {
         width: 33%;
-    }
-    .Add-Appointment {
-        width: 180px;
-        height: 37px;
-        border-radius: 23px;
-        background-color: #f87812;
-        color: white;
-        margin-left: auto;
     }
     .notes {
         color: blue;
@@ -393,6 +356,17 @@
     .view-btn {
         background-color: #f1f5f8;
     }
+    .common-details-wrap{
+        h6{
+            font-size: 15PX;
+            margin-bottom: 6px;
+            color: #000;
+        }
+        p{
+            font-size: 15px;
+            color: #565657;
+        }
+    }
 }
 
 ::ng-deep .tp-container {
@@ -402,26 +376,11 @@
     right: 0;
     background: #eee;
     width: 350px;
+   
 }
 
 // <!---add-new-note-dialog style ---->
-::ng-deep .modal-footer {
-    border: none !important;
-    .cancelbtn {
-        width: 112px;
-        height: 37px;
-        border-radius: 25px;
-        color: #fff;
-        background-color: #9b9b9b;
-    }
-    .savebtn {
-        width: 112px;
-        height: 37px;
-        border-radius: 25px;
-        background-color: #1173f4;
-        color: white;
-    }
-}
+
 
 // <!---view-review-dialog style ---->
 ::ng-deep .view-review-dialog {
@@ -460,9 +419,10 @@
     position: fixed;
     z-index: 9;
     width: calc(100% - 90px);
+    .sc-table-top-bar{
+        padding: 10px 4px;
+    }
     .inner {
-        background: #cfe3fc;
-        padding: 5px 15px;
         .first {
             align-items: center;
             span {
@@ -470,9 +430,12 @@
                 font-weight: 500;
             }
         }
-        .second {
+        .right-side-main {
             justify-content: flex-end;
             display: flex;
+            .form-control{
+                width: 140px; 
+            }
             a {
                 background-color: #f87912;
                 padding: 7px 20px;
@@ -486,22 +449,13 @@
         }
         .export {
             width: 19%;
-            margin: 5px;
         }
         .import {
-            width: 130px;
-            height: 37px;
+            padding: 0px 20px;
+            font-size: 16px;
             background-color: white;
-            margin: 10px;
         }
-        .blue-btn {
-            width: 130px;
-            height: 39px;
-            border-radius: 21px;
-            background-color: #1173f4;
-            color: white;
-            margin: 8px;
-        }
+        
     }
 }
 
@@ -598,10 +552,9 @@
 
 .single-customer-list {
     &.active {
-        border-left: 3px solid #3d73f4;
         .customer-details {
             h6 {
-                color: #1173f4;
+                color: #00a89b;
             }
             p {
                 color: rgba(18, 18, 18, 0.8)
@@ -765,13 +718,23 @@
 
 .Customer-appointment-table {
     table {
+        thead{
+            th{
+              
+                padding: 22px 20px;
+            }
+        }
         tbody {
             tr {
                 transition: all 0.3s;
                 cursor: pointer;
                 &:hover {
-                    background-color: #dbe5ff;
+                    background-color: #EAF7F6;
                     transition: all 0.3s;
+                }
+                td{
+                    text-align: left !important;
+                    padding: 22px 20px;
                 }
             }
         }
@@ -902,15 +865,24 @@ mat-chip-list {
     height: 100%;
 }
 
-.customer-menu {
-    background-color: #fbfbfb;
+::ng-deep .customer-menu {
+    background-color: #eaf7f6;
     width: 300px;
     position: fixed;
-    top: 131px;
+    top: 124px;
     height: calc(100vh - 131px);
-    box-shadow: 5px 9px 10px #e5e3e3;
-    z-index: 9;
+    box-shadow: 1px 1px 3px #e5e3e3;
+    // z-index: 12;
     overflow-y: scroll;
+    padding: 10px 14px;
+    padding-top: 15px;
+    border-right: 1px solid #00a89b;
+    .form-select-main{  
+        border-color: #00a89b4d;
+        .mat-select-arrow{
+            margin-top: -5px !important;
+        }
+    }
 }
 
 .customer-right-side-content {
@@ -918,7 +890,7 @@ mat-chip-list {
     width: calc(100% - 300px);
     background-color: #fff;
     height: calc(100vh - 133px);
-    margin-top: 68px;
+    margin-top: 60px;
     overflow-y: scroll;
 }
 
@@ -941,9 +913,17 @@ mat-chip-list {
         .customer-action {
             display: none;
         }
+        .customer-details{
+            h6{
+                display: none;
+            }
+        }
     }
     &.customer-left-menu {
-        h6 {
+        .leftarrow-icon{
+            justify-content: center;
+        }
+        .form-select-main {
             display: none;
         }
         mat-list-item {
@@ -999,5 +979,10 @@ mat-chip-list {
 ::ng-deep #printInvoice {
     p {
         line-height: 1rem;
+    }
+}
+#Customer-Listing{
+    .top-profile-details{
+        padding: 25px 20px;
     }
 }
