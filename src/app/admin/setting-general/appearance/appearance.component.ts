@@ -79,6 +79,7 @@ export class AppearanceComponent implements OnInit {
   companyDetailsData:any;
   navigation = 'arrows';
   widgetBGImage:any;
+  frontBookingUrl:any;
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
@@ -92,10 +93,7 @@ export class AppearanceComponent implements OnInit {
     ) {  
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
-        
-        // const enc = new Base64();   
-        // this.encodedBusinessId = enc.encode(this.businessId);
-        // console.log(this.encodedBusinessId);
+        this.frontBookingUrl = environment.bookpageLink+"/booking/Mg=="
         this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"' frameborder='0'></iframe>";
         
       }

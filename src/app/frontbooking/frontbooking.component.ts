@@ -17,12 +17,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FrontService } from '@app/_services/front.service';
  import { ErrorService } from '@app/_services/error.service';
-// import { DOCUMENT } from '@angular/platform-browser';
-// import { DOCUMENT } from '@angular/common',
 import { sha512 as sha512 } from 'js-sha512';
-//import { Base64 } from 'base64-string';
-
-// declare const PayUMoneylaunch: any;
 @Component({
   selector: 'app-frontbooking',
   templateUrl: './frontbooking.component.html',
