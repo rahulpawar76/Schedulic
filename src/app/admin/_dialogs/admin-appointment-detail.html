@@ -36,11 +36,22 @@
                 </div>
 
                 <div class="modal-body p-3">
+                    <div class="appointment--details-wrap">
+                        <div class="common-appointment-details">
+                            <div class="appointment-details">
+                                <h3>  
+                                   {{detailsData.booking_date}}
+                                    <span class="order-id">(Order Id: {{detailsData.id}})</span></h3>
+                                <p>Booked On: {{detailsData.created_at}}</p>
+                            </div>
+                           
+                            </div>
+                        </div>
                     <div class="row">
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <span class="mb-0 font-weight-bold pr-1">{{detailsData.booking_date}}</span><span>(Order Id: {{detailsData.id}})</span>
                             <p>Booked On: {{detailsData.created_at}}</p>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-12 mb-3">

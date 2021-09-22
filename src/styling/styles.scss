@@ -446,6 +446,19 @@ mat-drawer-content {
         border: 0;
         padding: 6px 30px;
     }
+    .back-btn{
+        border-radius: 3px;
+        float: right;
+        background-color: #a1a1a1;
+        color: white;
+        border: 0;
+        padding: 6px 30px;
+    }
+    .form-control{
+        &::placeholder{
+            color: #000;
+        }
+    }
 }
 
 .modal-body {
@@ -456,6 +469,9 @@ mat-drawer-content {
             padding-bottom: 11px;
             padding-top: 11px;
             height: 31px;
+            &::placeholder{
+                color: #000;
+            }
         }
     }
 }
@@ -626,39 +642,6 @@ $calendarsize: 10px;
     width: 28px;
     text-align: center;
 }
-
-// .table_pagination {
-//     margin: 15px 0;
-//     ul.pagination li a {
-//         border: none;
-//         background: transparent;
-//         color: #333;
-//         border-radius: 4px;
-//         border: 1px solid #00a89b;
-//     }
-//     ul.pagination .page-item.active .page-link,
-//     ul.pagination .page-item:hover .page-link {
-//         color: #ffffff;
-//         background: #00a89b;
-//     }
-//     ul.pagination li a i.arrow-icon {
-//         border: 1px solid #333;
-//         border-radius: 50%;
-//         width: 30px;
-//         height: 30px;
-//         text-align: center;
-//         font-size: 19px;
-//         line-height: 1.5;
-//         color: #333;
-//         top: -6px;
-//         position: relative;
-//     }
-//     ul.pagination li a i.arrow-icon:hover {
-//         color: #ffffff;
-//         background: #00a89b;
-//     }
-// }
-
 .table_pagination {
     padding: 18px 0px;
     align-items: center;
@@ -1138,6 +1121,37 @@ textarea {
         font-size: 14px;
     }
 }
+.searchbox {
+    .search_input-staff {
+        height: 39px;
+        padding-top: 3px;
+        .has-search .form-control {
+            padding-left: 2.375rem;
+        }
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            line-height: 2.6rem;
+            pointer-events: none;
+            color: #0e0e0e;
+            text-align: center;
+            width: 2.375rem;
+            font-size: 25px;
+        }
+        .searchbox_appointment {
+            border-bottom: 1px solid #0e0e0e !important;
+            border: 0;
+            background-color: transparent;
+            border-radius: 0;
+            color: #0e0e0e;
+            &::placeholder {
+                font-size: 12px;
+                color: #0e0e0e;
+            }
+        }
+    }
+}
 
 .form-control-trasprent {
     background-color: transparent;
@@ -1214,6 +1228,32 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         }
         
         
+    }
+}
+.sc-table {
+    &.table{
+        .sc-table-head{
+            tr{
+                th{
+                 font-size: 14px;
+                 font-weight: 500;
+                 padding: 22px 30px;
+                 text-align: justify !important;
+                 border: none;
+                
+                }
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    border: none;
+                    text-align: justify !important;
+                    padding: 10px 30px;
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
 .action-dropdown {
@@ -1410,21 +1450,55 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 }
 
 .Appointment-modal-wrap {
-    .font-weight-bold {
-        font-weight: 600 !important;
-    }
-    .custom-wrap-modal {
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        align-items: baseline;
-        i {
-            margin-right: 5px;
-            color: #1172f4;
+    // .font-weight-bold {
+    //     font-weight: 600 !important;
+    // }
+    // .custom-wrap-modal {
+    //     border-bottom: 1px solid #ccc;
+    //     display: flex;
+    //     align-items: baseline;
+    //     i {
+    //         margin-right: 5px;
+    //         color: #1172f4;
+    //     }
+    // }
+    // .booking-detail-main {
+    //     box-shadow: unset !important;
+    //     padding-top: 0px;
+    // }
+    .appointment-details-wrap{
+        .common-appointment-details{
+            padding: 15px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .appointment-details{
+                p{
+                    color: #565657;
+                    font-weight: 500;
+                    font-size: 14px;
+                    margin-bottom: 2px;
+                }
+                h3{
+                    text-align: justify;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #000;
+                    margin-bottom: 0px;
+                }
+                .order-id{
+                    color: #565657;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+            .text-end{
+                text-align: end;
+                h3{
+                    text-align: end;
+                }
+            }
         }
-    }
-    .booking-detail-main {
-        box-shadow: unset !important;
-        padding-top: 0px;
     }
 }
 .pink-medium-btn {
@@ -1477,7 +1551,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 .common-tab-group {
     .mat-tab-header {
         background-color: #ffe4816b;
-        padding: 0px 40px;
+        padding: 0px 10px;
         border: none;
         .mat-ink-bar {
             height: 5px;
@@ -1487,6 +1561,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         .mat-tab-label {
             padding: 0 10px;
             width: 130px !important;
+            min-width: 130px;
             opacity: 1;
             &.mat-tab-label-active {
                 opacity: 1;
