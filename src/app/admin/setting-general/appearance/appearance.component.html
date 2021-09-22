@@ -449,7 +449,7 @@
                             <div class="col-6">
                                 <h5>Service Booking link</h5>
                             </div>
-                            <div class="col-6 text-right"><button class="btn btn-editlink">Edit Link Setting</button></div>
+                            <!-- <div class="col-6 text-right"><button class="btn btn-editlink">Edit Link Setting</button></div> -->
 
                             <div class="col-10">
                                 <p>
@@ -458,13 +458,13 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <!-- <mat-form-field class=" bottom-border-field "> -->
-                                    <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service">
+                                    <input [value]="frontBookingUrl" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                 <!-- </mat-form-field> -->
                             </div>
 
-                            <button class="btn service-booking-link-active m-2 pr-3"><i class="fa fa-external-link mr-2"></i>Test link</button>
-                            <button class="btn service-booking-link m-2 pr-3"><i class="fa fa-facebook mr-2"></i>Share It</button>
-                            <button class="btn service-booking-link m-2 pr-3"><i class="fa fa-twitter mr-2"></i>Tweet It</button>
+                            <a [href]="frontBookingUrl" target="_blank" class="btn service-booking-link-active m-2 pr-3"><i class="fa fa-external-link mr-2"></i>Test link</a>
+                            <a class="btn service-booking-link m-2 pr-3"><i class="fa fa-facebook mr-2"></i>Share It</a>
+                            <a class="btn service-booking-link m-2 pr-3"><i class="fa fa-twitter mr-2"></i>Tweet It</a>
                         </div>
                     </div>
                 </mat-card>
@@ -493,11 +493,11 @@
 
                                 <div class="row pt-2">
                                     <div class="col-4 pt-4 pb-1 pl-5">
-                                        <a href="#" class="btn-color-dummy">Booking for dummy</a>
+                                        <a href="#" class="btn-color-dummy">Book Now</a>
                                     </div>
                                     <div class="col-8 pt-0 pb-1 pr-5">
                                         
-                                        <input value="{{frontBookingUrl}}" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='color: #00a89b;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                         
                                     </div>
                                 </div>
@@ -508,7 +508,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                       <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                       <input value="<a style='background-color: #003cff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                     
                                     </div>
                                 </div>
@@ -519,7 +519,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #008aff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                       
                                     </div>
                                 </div>
@@ -530,7 +530,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #009315;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                        
                                     </div>
                                 </div>
@@ -541,7 +541,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #ffa800;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                        
                                     </div>
                                 </div>
@@ -552,7 +552,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #ff008a;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                         
                                     </div>
                                 </div>
@@ -563,7 +563,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #8a00ff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                       
                                     </div>
                                 </div>
@@ -574,7 +574,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #ff0000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                        
                                     </div>
                                 </div>
@@ -585,7 +585,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #000000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                        
                                     </div>
                                 </div>
@@ -596,7 +596,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #666666;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                       
                                     </div>
                                 </div>
@@ -607,7 +607,7 @@
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <input value="<a style='background-color: #fdfdfd;border: 1px solid #b5b5b5;color: #000;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-trasprent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
                                        
                                     </div>
                                 </div>
