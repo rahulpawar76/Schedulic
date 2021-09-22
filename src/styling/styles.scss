@@ -627,33 +627,101 @@ $calendarsize: 10px;
     text-align: center;
 }
 
+// .table_pagination {
+//     margin: 15px 0;
+//     ul.pagination li a {
+//         border: none;
+//         background: transparent;
+//         color: #333;
+//         border-radius: 4px;
+//         border: 1px solid #00a89b;
+//     }
+//     ul.pagination .page-item.active .page-link,
+//     ul.pagination .page-item:hover .page-link {
+//         color: #ffffff;
+//         background: #00a89b;
+//     }
+//     ul.pagination li a i.arrow-icon {
+//         border: 1px solid #333;
+//         border-radius: 50%;
+//         width: 30px;
+//         height: 30px;
+//         text-align: center;
+//         font-size: 19px;
+//         line-height: 1.5;
+//         color: #333;
+//         top: -6px;
+//         position: relative;
+//     }
+//     ul.pagination li a i.arrow-icon:hover {
+//         color: #ffffff;
+//         background: #00a89b;
+//     }
+// }
+
 .table_pagination {
-    margin: 15px 0;
-    ul.pagination li a {
-        border: none;
-        background: transparent;
-        color: #333;
-    }
-    ul.pagination .page-item.active .page-link,
-    ul.pagination .page-item:hover .page-link {
-        color: #00a89b;
-        background: transparent;
-    }
-    ul.pagination li a i.arrow-icon {
-        border: 1px solid #333;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        font-size: 19px;
-        line-height: 1.5;
-        color: #333;
-        top: -6px;
-        position: relative;
-    }
-    ul.pagination li a i.arrow-icon:hover {
-        border-color: #00a89b;
-        color: #00a89b;
+    padding: 18px 0px;
+    align-items: center;
+    .pagination {
+        margin-bottom: 0px;
+        .page-item {
+            margin: 0px 6px;
+            .page-link {
+                background-color: #ffffff;
+                color: #00A89B;
+                padding: 6px 14px;
+                font-weight: 400;
+                transition: all 0.3s;
+                cursor: pointer;
+                border: 1px solid #00a89b;
+                border-radius: 4px;
+                &:hover {
+                    background-color:#00A89B;
+                    color: #fff;
+                    border-color: #00A89B;
+                }
+            }
+        }
+        .active {
+            .page-link {
+                background-color: #00A89B;
+                border-color: #00A89B;
+                color: #fff;
+            }
+        }
+        .nextprev {
+            .page-link {
+                padding: 6px 6px;
+                background-color: transparent;
+                border: none;
+                i {
+                    color: #00A89B;
+                   
+                    font-size: 22px;
+                }
+                &:hover {
+                    background-color: transparent;
+                    color: #01a89a;
+                    i {
+                        color: #01a89a;
+                    }
+                }
+            }
+        }
+        .pointernone{
+            .page-link{
+                i{
+                   color: #ababab;
+                }
+            }  
+        }
+        .first-page {
+            .page-link {
+                i {
+                    transform: scaleX(-1);
+                }
+            }
+        }
     }
 }
 

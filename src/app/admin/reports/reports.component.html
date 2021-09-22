@@ -258,21 +258,21 @@
                         Total {{appointmentTotalRecord}} )</div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item {{current_page==1?'pointernone':''}} "
+                            <li class="page-item nextprev {{current_page==1?'pointernone':''}} "
                                 (click)="appointmentReportNavigateTo(appointmentReportfirst_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-double-left arrow-icon"
                                         aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="appointmentReportNavigateTo(appointmentReportprev_page_url)">
+                            <li class="page-item nextprev {{current_page==1?'pointernone':''}}" (click)="appointmentReportNavigateTo(appointmentReportprev_page_url)">
                                 <a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a>
                             </li>
                             <li class="page-item" [ngClass]="{'active':appointmentReportcurrent_page == i+1}"
                                 *ngFor="let pagenumber of appointmentReportArrayOne(appointmentReportlast_page); let i = index;"
                                 (click)="appointmentReportNavigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a>
                             </li>
-                            <li class="page-item" (click)="appointmentReportNavigateTo(appointmentReportnext_page_url)">
+                            <li class="page-item nextprev {{appointmentReportArrayOne(last_page).length==current_page?'pointernone':''}} " (click)="appointmentReportNavigateTo(appointmentReportnext_page_url)">
                                 <a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a>
                             </li>
-                            <li class="page-item {{appointmentReportArrayOne(last_page).length==current_page?'pointernone':''}} "
+                            <li class="page-item nextprev {{appointmentReportArrayOne(last_page).length==current_page?'pointernone':''}} "
                                 (click)="appointmentReportNavigateTo(appointmentReportlast_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-double-right arrow-icon"
                                         aria-hidden="true"></i></a></li>
@@ -457,19 +457,19 @@
                         Total {{salesReportTotalRecord}} )</div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item {{salesReportcurrent_page==1?'pointernone':'' }}"
+                            <li class="page-item nextprev {{salesReportcurrent_page==1?'pointernone':'' }}"
                                 (click)="salesReportNavigateTo(salesReportfirst_page_url)"><a class="page-link"><i
                                         class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="salesReportNavigateTo(salesReportprev_page_url)"><a
+                            <li class="page-item nextprev {{salesReportcurrent_page==1?'pointernone':'' }}" (click)="salesReportNavigateTo(salesReportprev_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a>
                             </li>
                             <li class="page-item" [ngClass]="{'active':salesReportcurrent_page == i+1}"
                                 *ngFor="let pagenumber of salesReportArrayOne(salesReportlast_page); let i = index;"
                                 (click)="salesReportNavigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
-                            <li class="page-item" (click)="salesReportNavigateTo(salesReportnext_page_url)"><a
+                            <li class="page-item nextprev {{salesReportArrayOne(salesReportlast_page).length==current_page?'pointernone':''}}" (click)="salesReportNavigateTo(salesReportnext_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-right arrow-icon"
                                         aria-hidden="true"></i></a></li>
-                            <li class="page-item {{salesReportArrayOne(salesReportlast_page).length==current_page?'pointernone':''}}"
+                            <li class="page-item nextprev {{salesReportArrayOne(salesReportlast_page).length==current_page?'pointernone':''}}"
                                 (click)="salesReportNavigateTo(salesReportlast_page_url)"><a class="page-link"><i
                                         class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                         </ul>
@@ -482,7 +482,7 @@
             <div class="common-heading-details">
                 <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
 
-                <p class="customer-report">Customer Reports</p>
+                <p class="customer-report mb-0">Customer Reports</p>
                 </div>
             <div class="Customer-appointment-table sc-table-view">
                 <div class="main-table-content main-cust-table-content">
@@ -520,19 +520,19 @@
                     </div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item {{customerReportcurrent_page==1?'pointernone':'' }}"
+                            <li class="page-item nextprev {{customerReportcurrent_page==1?'pointernone':'' }}"
                                 (click)="salesReportNavigateTo(customerReportfirst_page_url)"><a class="page-link"><i
                                         class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                            <li class="page-item" (click)="customerReportNavigateTo(customerReportprev_page_url)"><a
+                            <li class="page-item nextprev {{customerReportcurrent_page==1?'pointernone':'' }}" (click)="customerReportNavigateTo(customerReportprev_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a>
                             </li>
                             <li class="page-item" [ngClass]="{'active':customerReportcurrent_page == i+1}"
                                 *ngFor="let pagenumber of customerReportArrayOne(customerReportlast_page); let i = index;"
                                 (click)="customerReportNavigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
-                            <li class="page-item" (click)="customerReportNavigateTo(customerReportnext_page_url)"><a
+                            <li class="page-item nextprev" (click)="customerReportNavigateTo(customerReportnext_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-right arrow-icon"
                                         aria-hidden="true"></i></a></li>
-                            <li class="page-item {{arrayOne(customerReportlast_page).length==current_page?'pointernone':''}}"
+                            <li class="page-item nextprev {{arrayOne(customerReportlast_page).length==current_page?'pointernone':''}}"
                                 (click)="customerReportNavigateTo(customerReportlast_page_url)"><a class="page-link"><i
                                         class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
                         </ul>
