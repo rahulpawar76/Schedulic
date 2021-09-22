@@ -446,6 +446,19 @@ mat-drawer-content {
         border: 0;
         padding: 6px 30px;
     }
+    .back-btn{
+        border-radius: 3px;
+        float: right;
+        background-color: #a1a1a1;
+        color: white;
+        border: 0;
+        padding: 6px 30px;
+    }
+    .form-control{
+        &::placeholder{
+            color: #000;
+        }
+    }
 }
 
 .modal-body {
@@ -456,6 +469,9 @@ mat-drawer-content {
             padding-bottom: 11px;
             padding-top: 11px;
             height: 31px;
+            &::placeholder{
+                color: #000;
+            }
         }
     }
 }
