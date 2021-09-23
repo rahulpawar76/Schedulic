@@ -11,7 +11,8 @@ import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
-import { AppComponent } from '../../app.component'
+import { AppComponent } from '../../app.component';
+import { SharedService } from '@app/_services/shared.service';
 import { Observable, throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
@@ -165,6 +166,7 @@ export class AppointmentLiveComponent implements OnInit {
     private http: HttpClient,
     private authenticationService: AuthenticationService,
     public router: Router,
+    private sharedService: SharedService,
     private _snackBar: MatSnackBar,
   ) { 
 
@@ -1475,10 +1477,12 @@ export class AppointmentLiveComponent implements OnInit {
       console.log('POS yes')
       this.appComponent.isPOS();
       localStorage.setItem('isPOS','true');
+      this.sharedService.updateSideMenuState(false);
     }else{
       console.log('POS no')
       this.appComponent.isPOS();
       localStorage.setItem('isPOS','false');
+      this.sharedService.updateSideMenuState(true);
     }
   }
 
