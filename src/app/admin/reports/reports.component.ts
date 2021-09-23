@@ -194,7 +194,6 @@ export class ReportsComponent implements OnInit {
   fnChangeReportFilter(event){
     this.appointmentReportApiUrl=environment.apiUrl+"/appointment-reports";
     this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
-    console.log(event);
     if(event.value=="date" || event.value=="month"){
       this.appointmentReport=[];
       this.salesReport=[];
@@ -259,8 +258,6 @@ export class ReportsComponent implements OnInit {
         this.appointmentReportTotalRecords = response.response[0].TotalRecord;
         this.appointmentReportExpectedRevenue = response.response[0].expectedRevenue;
         this.appointmentReport = response.response[0].list.data;
-        console.log(this.appointmentReport)
-        console.log('------------------------------------+++++++++++++++++++++++++++++++++')
         this.appointmentReportcurrent_page = response.response[0].list.current_page;
         this.appointmentReportfirst_page_url = response.response[0].list.first_page_url;
         this.appointmentReportlast_page = response.response[0].list.last_page;        
@@ -403,9 +400,9 @@ export class ReportsComponent implements OnInit {
         this.customerReportcurrent_page = response.response.current_page;
         this.customerReportfirst_page_url = response.response.first_page_url;
         this.customerReportlast_page = response.response.last_page;
-        this.customerReportTotalRecord = response.response.list.total;
-        this.customerReportFromRecord = response.response.list.from;
-        this.customerReportToRecord = response.response.list.to;
+        this.customerReportTotalRecord = response.response.total;
+        this.customerReportFromRecord = response.response.from;
+        this.customerReportToRecord = response.response.to;
         this.customerReportlast_page_url = response.response.last_page_url;
         this.customerReportnext_page_url = response.response.next_page_url;
         this.customerReportprev_page_url = response.response.prev_page_url;

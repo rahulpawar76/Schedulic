@@ -821,8 +821,13 @@ input:focus {
                         .signle-item{
                             height: 100%;
                             .left-side{
-                                padding: 3em 1em 3em 3em;
+                                padding: 2em 1em 2em 2em;
                                 border-right: 1px solid #00A89B;    
+                                display: flex;
+                                align-items: center;
+                                .progress-content{
+                                    width: 100%;
+                                }
                                 h3{
                                     color: #0E0E0E;
                                     font-size: 22px;
@@ -921,17 +926,19 @@ input:focus {
                                     h4{
                                         color: #0E0E0E;
                                         font-weight: 500;
-                                        font-size: 20px;
+                                        font-size: 18px;
                                     }
                                     p{
                                         color: #565657;
+                                        font-size: 12px;
                                     }
                                     label{
                                         color: #0E0E0E;
-                                        font-size: 16px;
+                                        font-size: 14px;
                                         width: 100%;
                                         font-weight: 500;
                                         text-align: center;
+                                        white-space: break-spaces;
                                     }
                                     button{
                                         margin-top: 1em;
@@ -941,7 +948,7 @@ input:focus {
                                         width: 100%;
                                         display: flex;
                                         align-items: flex-start;
-                                        padding: 3em 3em 3em 1em;
+                                        padding: 2em 2em 2em 1em;
                                         &:first-child{
                                             border-bottom: 1px solid #00A89B;
                                         }
