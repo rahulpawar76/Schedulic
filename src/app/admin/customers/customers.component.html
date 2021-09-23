@@ -269,23 +269,17 @@
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
-                                <div class="d-flex my-3 px-3">
+                                <div class="my-3 px-3">
                                     <div class="tag-container">
-                                        <div class="d-flex">
-                                            <h6 class="mr-2">Tags</h6>
-                                            <mat-icon (click)="fnAddNewTag('TagInput')" class="add-tag-icon pointer">add_circle</mat-icon>
+                                        <h6>Tags</h6>
+                                        <div class="tag-input-display d-flex align-items-start">
+                                            <div class="tag-input-box d-flex align-items-center">
+                                                <input class="form-control" [(ngModel)]="tagName" (keyup)="saveTag($event, customerPersonalDetails.id)" type="text" placeholder="Add a tag...">
+                                            </div>
+                                            <div class="tag-list">
+                                                <span class="single-tag" *ngFor="let tag of tags">{{tag}} <span class="remove-tag material-icons-outlined" (click)="remove(tag)">close</span></span>
+                                            </div>
                                         </div>
-                                        <mat-form-field [ngClass]="{'tag-disabled':!addNewTag}" class="w-100 tags-input bottom-border-field">
-                                            <mat-chip-list #chipList aria-label="Tag selection">
-                                                <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">{{tag}}
-                                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                                </mat-chip>
-                                                <input #TagInput [ngStyle]="{'pointer-events':addNewTag ? 'all' : 'none'}" [disabled]="(!addNewTag)" placeholder="New tags.." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-                                            </mat-chip-list>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="tag-save">
-                                        <button (click)="fnSaveTags(customerPersonalDetails.id)" mat-button appearance="fill" class="save-btn"><i class="material-icons">save</i></button>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
