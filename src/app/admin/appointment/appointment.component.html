@@ -102,10 +102,10 @@
                                             (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class="">
                                         </mat-checkbox>
                                     </div>
-                                    <div class="text-left" fxFlex="15">
+                                    <div class="text-left" fxFlex="10">
                                         <p>{{allAppointmentsData.id}}</p>
                                     </div>
-                                    <div class="text-left hyperlink" fxFlex="10" (click)="fnOpenDetails(i)">
+                                    <div class="text-left hyperlink" fxFlex="10">
                                         <p>{{allAppointmentsData.booking_date}},</p>
                                         <p>{{allAppointmentsData.booking_time}}</p>
                                     </div>
@@ -183,7 +183,7 @@
                                                 (click)="confirmAppointment('CNF', allAppointmentsData.id)"
                                                 class="appointment-confirm-btn mr-1"><i
                                                     class="material-icons appointment-icon">done</i></button>
-                                            <button class="sc-table-action-btn">
+                                            <button  (click)="fnOpenDetails(i)" class="sc-table-action-btn">
                                                 <mat-icon class="">visibility</mat-icon>
                                             </button>
                                         </div>
