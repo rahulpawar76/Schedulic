@@ -5,25 +5,30 @@
             <div class="col-12 d-flex inner sc-table-top-bar">
                 <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>Manage Customers</span></div>
                 <div class="col-lg-6 col-md-6 col-sm-12 right-side-main">
-                    <mat-select class="form-control form-control-trasprent" [(ngModel)]="exportType" (selectionChange)="fnExportCustomer($event.value)">
+                    <mat-select class="form-control form-control-trasprent" [(ngModel)]="exportType"
+                        (selectionChange)="fnExportCustomer($event.value)">
                         <mat-option value="all">All</mat-option>
                         <mat-option [disabled]="selectedCustomerId.length == 0" value="selected">Selected</mat-option>
                     </mat-select>
-                    <button (click)="ImportFileUpload()" mat-button appearance="fill" class="import ml-2">Import</button>
-                    <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="sc-pink-btn ml-2">Add Customer</button>
+                    <button (click)="ImportFileUpload()" mat-button appearance="fill"
+                        class="import ml-2">Import</button>
+                    <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="sc-pink-btn ml-2">Add
+                        Customer</button>
                 </div>
 
             </div>
         </div>
         <div class="w-100 customer-bottom-area">
-            <div [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list" class="customer-menu customer-left-menu">
+            <div [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list"
+                class="customer-menu customer-left-menu">
                 <!-- <div class="leftarrow-icon">
                     <mat-icon (click)="fnCustomerToggleSmall()" *ngIf="!customerSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_back</mat-icon>
                     <mat-icon (click)="fnCustomerToggleLarge()" *ngIf="customerSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_forward</mat-icon>
                 </div> -->
                 <div class="leftarrow-icon d-flex align-items-center">
-                    
-                    <mat-select class="form-control form-select-main mr-3" [ngModel]="actionValue" (selectionChange)="fnMultiDeleteCustomer($event.value)">
+
+                    <mat-select class="form-control form-select-main mr-3" [ngModel]="actionValue"
+                        (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <!-- <mat-option>None</mat-option> -->
                         <mat-option value="delete">Delete</mat-option>
                     </mat-select>
@@ -32,23 +37,30 @@
                     <span (click)="fnCustomerToggleLarge()" *ngIf="customerSideMenuToggle"
                         class="customer-drawer-leftarrow pointer material-icons-outlined">arrow_circle_right</span>
                 </div>
-                
+
 
                 <div class="searchbox mt-2 mb-3">
                     <div class="searchbox mr-2">
                         <form class="search_input-staff">
                             <div class="has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
-                                    <input name="searchKeyword" [(ngModel)]="search.keyword" (keyup)="customerSearch($event)" type="text" class="form-control searchbox_appointment " placeholder="Name, Tag, Mobile No.">
+                                <input name="searchKeyword" [(ngModel)]="search.keyword"
+                                    (keyup)="customerSearch($event)" type="text"
+                                    class="form-control searchbox_appointment " placeholder="Name, Tag, Mobile No.">
                             </div>
                         </form>
                     </div>
                 </div>
                 <div *ngIf="allCustomers != ''">
-                    <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-3">
-                        <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" [checked]="selectedCustomerId.indexOf(allCustomers.id) > -1" class="customer-checkbox"></mat-checkbox>
+                    <div [ngClass]="{'active':customerDetailId === allCustomers.id}"
+                        *ngFor="let allCustomers of allCustomers; let i=index"
+                        class="d-flex single-customer-list devider-slim py-3">
+                        <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)"
+                            [checked]="selectedCustomerId.indexOf(allCustomers.id) > -1" class="customer-checkbox">
+                        </mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id,'not-new')" class="customer-name-width pointer">
-                            <div [ngStyle]="{'background-image': 'url(' + allCustomers.image + ')'}" class="customer-name text-uppercase">
+                            <div [ngStyle]="{'background-image': 'url(' + allCustomers.image + ')'}"
+                                class="customer-name text-uppercase">
                                 <!-- <img src="{{allCustomers.image}}"> -->
                             </div>
                         </div>
@@ -67,25 +79,34 @@
 
             </div>
 
-            <div class="pl-0 pr-0 customer-right-side-content" [ngClass]="{ 'short-content-area': customerSideMenuToggle === true }">
+            <div class="pl-0 pr-0 customer-right-side-content"
+                [ngClass]="{ 'short-content-area': customerSideMenuToggle === true }">
                 <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0 h-100">
                     <mat-card class="mb-0 form-container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h6 *ngIf="!existingUserId">Add New Customer</h6>
+                                <h6 *ngIf="!existingUserId">Add Customer</h6>
                                 <h6 *ngIf="existingUserId">Edit Customer</h6>
                             </div>
                         </div>
                         <form [formGroup]="createNewCustomer">
                             <div class="row">
-                                <div class="col-lg-4 col-12 col-md-4">
-                                    <div class="w-100 d-flex justify-content-center">
+                                <div class="col-lg-12 col-12 col-md-4 py-3">
+                                    <div class="float-left mr-4">
                                         <div class="d-flex profile-img-wrap services-customer-profile-background">
-                                            <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="service-profile-image mx-auto" src="/assets/images/admin/picture-user.png">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
-                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="service-profile-image mx-auto" src="/assets/images/admin/picture-user.png">
+                                            <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar
+                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="!existingUserId && customerImageUrl == ''"
+                                                class="service-profile-image mx-auto"
+                                                src="/assets/images/admin/picture-user.png">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image"
+                                                class="service-profile-image mx-auto"
+                                                src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image"
+                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image"
+                                                class="service-profile-image mx-auto"
+                                                src="/assets/images/admin/picture-user.png">
                                             <!-- <div class="camera-alt"><i class="material-icons">
                                             camera_alt
                                             </i></div> -->
@@ -97,17 +118,39 @@
                                             </i></div>
                                     </div> -->
                                     </div>
-                                    <div class="mt-3 text-center">
-                                        <button mat-button type="file" (click)="fnUploadImage()" appearance="fill" class="profile-uploadbtn">Upload Image</button>
+                                    <div class="mt-3">
+                                        <button mat-button type="file" (click)="fnUploadImage()" appearance="fill"
+                                            class="profile-uploadbtn">Upload Image</button>
                                     </div>
-                                    <div class="mt-3 text-center">
-                                        <button mat-button appearance="fill" (click)="fnRemoveImage()" class="profile-removebtn mb-2">Remove</button>
+                                    <div class="mt-2">
+                                        <button mat-button appearance="fill" (click)="fnRemoveImage()"
+                                            class="profile-removebtn mb-2">Remove</button>
                                     </div>
                                 </div>
-                                <div class="col-lg-8 col-12 col-md-8">
+                                <div class="col-lg-12 col-12 col-md-8">
                                     <div class="row">
-                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
-                                            <mat-form-field>
+                                        <div class="col-lg-6 col-12 col-md-12 bottom-border-field">
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/man.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_fullname"
+                                                        class="form-control" placeholder="Customer Full Name"
+                                                        pattern="[a-zA-Z ]*">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked">
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_fullname').hasError('required')"
+                                                        class="error">Fullname is required.</small>
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_fullname').hasError('pattern')"
+                                                        class="error">Number is not allow.</small>
+                                                </span>
+                                            </div>
+                                            <!-- <mat-form-field>
                                                 <mat-label>Full Name</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>person</mat-icon>
                                                 <input matInput formControlName="cus_fullname" placeholder="Enter Your Full Name" pattern="[a-zA-Z ]*">
@@ -115,10 +158,58 @@
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_fullname').hasError('required')" class="error">Fullname is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_fullname').hasError('pattern')" class="error">Number is not allow.</small>
-                                            </span>
+                                            </span> -->
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
-                                            <mat-form-field>
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/calling.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_homenumber"
+                                                        class="form-control" placeholder="Home Number">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small
+                                                        *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern') || (createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')))"
+                                                        class="error">Home phone should in numbers.</small><small
+                                                        *ngIf="!createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength'))"
+                                                        class="error">Home phone should minimum 6 and maximum 15
+                                                        digits.</small></span>
+                                            </div>
+
+                                            <!-- <mat-form-field>
+                                                <mat-label>Home Phone Number</mat-label>
+                                                <mat-icon class="mr-4" matPrefix>home</mat-icon>
+                                                <input matInput formControlName="cus_homenumber" placeholder="Enter Your number">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern') || (createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')))" class="error">Home phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength'))" class="error">Home phone should minimum 6 and maximum 15 digits.</small></span> -->
+                                        </div>
+                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/email.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_email" class="form-control"
+                                                        placeholder="Email">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked">
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_email').hasError('required')"
+                                                        class="error">Email is required.</small>
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_email').hasError('pattern')"
+                                                        class="error">Invalid email address.</small>
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')"
+                                                        class="error">Email address already exists.</small>
+                                                </span>
+                                            </div>
+                                            <!-- <mat-form-field>
                                                 <mat-label>Email</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>email</mat-icon>
                                                 <input matInput formControlName="cus_email" placeholder="Enter Your Email">
@@ -127,10 +218,62 @@
                                                 <small *ngIf="createNewCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_email').hasError('pattern')" class="error">Invalid email address.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_email').hasError('isEmailUnique') || createNewCustomer.get('cus_email').hasError('isEmailUniqueForEdit')" class="error">Email address already exists.</small>
-                                            </span>
+                                            </span> -->
                                         </div>
+
+                                        <div class="col-lg-6 col-12 col-md-12 bottom-border-field">
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/location.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_address"
+                                                        class="form-control" placeholder="Address">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small
+                                                        *ngIf="createNewCustomer.get('cus_address').hasError('required')"
+                                                        class="error">Address is required.</small></span>
+                                            </div>
+
+                                            <!-- <mat-form-field>
+                                                <mat-label>Address</mat-label>
+                                                <mat-icon class="mr-4" matPrefix>location_on</mat-icon>
+                                                <input matInput formControlName="cus_address" placeholder="Enter Your address">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_address').hasError('required')" class="error">Address is required.</small></span> -->
+                                        </div>
+
                                         <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
-                                            <mat-form-field>
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/calling.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_phone" class="form-control"
+                                                        placeholder="Phone Number">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked">
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_phone').hasError('required')"
+                                                        class="error">Contact number is required.</small>
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_phone').hasError('isPhoneUnique')"
+                                                        class="error">Contact number already exist.</small>
+                                                    <small
+                                                        *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))"
+                                                        class="error">Enter a valid Contact Number (Country code is
+                                                        required). </small>
+                                                    <small
+                                                        *ngIf="!createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength'))"
+                                                        class="error">Contact number should minimum 6 and maximum 15
+                                                        digits.</small>
+                                                </span>
+                                            </div>
+                                            <!-- <mat-form-field>
                                                 <mat-label>Contact Number</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>call</mat-icon>
                                                 <input matInput formControlName="cus_phone" placeholder="Enter Your number">
@@ -140,17 +283,10 @@
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('isPhoneUnique')" class="error">Contact number already exist.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_phone').hasError('pattern') || (createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength')))" class="error">Enter a valid Contact Number (Country code is required). </small>
                                                 <small *ngIf="!createNewCustomer.get('cus_phone').hasError('pattern') && (createNewCustomer.get('cus_phone').hasError('minlength') || createNewCustomer.get('cus_phone').hasError('maxlength'))" class="error">Contact number should minimum 6 and maximum 15 digits.</small>
-                                            </span>
+                                            </span> -->
                                         </div>
-                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
-                                            <mat-form-field>
-                                                <mat-label>Office Phone Number</mat-label>
-                                                <mat-icon class="mr-4" matPrefix>apartment</mat-icon>
-                                                <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">
-                                            </mat-form-field>
-                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern') || (createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')))" class="error">Office phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength'))" class="error">Office phone should minimum 6 and maximum 15 digits.</small></span>
-                                        </div>
-                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
+
+                                        <!-- <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Home Phone Number</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>home</mat-icon>
@@ -158,27 +294,98 @@
                                             </mat-form-field>
 
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern') || (createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')))" class="error">Home phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength'))" class="error">Home phone should minimum 6 and maximum 15 digits.</small></span>
-                                        </div>
-                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
+                                        </div> -->
+
+                                        <!-- <div class="col-lg-12 col-12 col-md-12 bottom-border-field">
                                             <mat-form-field>
                                                 <mat-label>Address</mat-label>
                                                 <mat-icon class="mr-4" matPrefix>location_on</mat-icon>
                                                 <input matInput formControlName="cus_address" placeholder="Enter Your address">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_address').hasError('required')" class="error">Address is required.</small></span>
-                                        </div>
-                                        <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
-                                            <mat-form-field>
+                                        </div> -->
+                                        <div class="col-lg-3 col-12 col-md-4 bottom-border-field">
+                                            <div class="input-group form-group">
+                                                <mat-select placeholder="Country"
+                                                    class="form-control formcontrol bg-wrap-control custom-select-modal" [disabled]=""
+                                                    formControlName="customerTime">
+                                                    <mat-option
+                                                        value="{{slot}}"></mat-option>
+                                                    <mat-option>No Time Slot
+                                                        Available
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <!-- <mat-form-field>
                                                 <mat-label>State</mat-label>
                                                 <input matInput formControlName="cus_state" placeholder="" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State is required.</small>
                                                 <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
-                                             </span>
+                                             </span> -->
                                         </div>
-                                        <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
-                                            <mat-form-field>
+                                        <div class="col-lg-3 col-12 col-md-4 bottom-border-field">
+                                            <div class="input-group form-group">
+                                                <mat-select placeholder="State"
+                                                    class="form-control formcontrol bg-wrap-control custom-select-modal" [disabled]=""
+                                                    formControlName="customerTime">
+                                                    <mat-option
+                                                        value="{{slot}}"></mat-option>
+                                                    <mat-option>No Time Slot
+                                                        Available
+                                                    </mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <!-- <mat-form-field>
+                                                <mat-label>State</mat-label>
+                                                <input matInput formControlName="cus_state" placeholder="" pattern="[a-zA-Z ]*">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')" class="error">State is required.</small>
+                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') " class="error">State must be at least 2 character.</small>
+                                             </span> -->
+                                        </div>
+                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
+                                            <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
+                                                <div class="input-group form-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><img
+                                                                src="/assets/images/icons/calling.svg" /></span>
+                                                    </div>
+                                                    <input type="text" formControlName="cus_officenumber"
+                                                        class="form-control" placeholder="Office Number">
+                                                </div>
+                                                <span class="error-wrap"
+                                                    *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small
+                                                        *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern') || (createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')))"
+                                                        class="error">Office phone should in numbers.</small><small
+                                                        *ngIf="!createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength'))"
+                                                        class="error">Office phone should minimum 6 and maximum 15
+                                                        digits.</small></span>
+                                            </div>
+                                            <!-- <mat-form-field>
+                                                <mat-label>Office Phone Number</mat-label>
+                                                <mat-icon class="mr-4" matPrefix>apartment</mat-icon>
+                                                <input matInput formControlName="cus_officenumber" placeholder="Enter Your number">
+                                            </mat-form-field>
+                                            <span class="error-wrap" *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern') || (createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')))" class="error">Office phone should in numbers.</small><small *ngIf="!createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength'))" class="error">Office phone should minimum 6 and maximum 15 digits.</small></span> -->
+                                        </div>
+                                        <div class="col-lg-3 col-12 col-md-4 bottom-border-field">
+                                            <div class="input-group form-group">
+                                                <input type="text" formControlName="cus_city"
+                                                    class="form-control bg-wrap-control" placeholder="City"
+                                                    pattern="[a-zA-Z ]*">
+                                            </div>
+                                            <span class="error-wrap"
+                                                *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_city').hasError('required')"
+                                                    class="error">City is required.</small>
+
+                                                <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') "
+                                                    class="error">City must be at least 2 character.</small>
+                                            </span>
+                                            <!-- <mat-form-field>
                                                 <mat-label>City</mat-label>
                                                 <input matInput formControlName="cus_city" placeholder="" pattern="[a-zA-Z ]*">
                                             </mat-form-field>
@@ -186,20 +393,37 @@
                                                 <small *ngIf="createNewCustomer.get('cus_city').hasError('required')" class="error">City is required.</small>
                                                 
                                                 <small *ngIf="createNewCustomer.get('cus_city').hasError('minlength') " class="error">City must be at least 2 character.</small>
-                                            </span>
+                                            </span> -->
                                         </div>
-                                        <div class="col-lg-4 col-12 col-md-4 bottom-border-field">
-                                            <mat-form-field>
+                                        <div class="col-lg-3 col-12 col-md-4 bottom-border-field">
+                                            <div class="input-group form-group">
+                                                <input type="text" formControlName="cus_zip"
+                                                    class="form-control bg-wrap-control" placeholder="Postal Code"
+                                                    pattern="[a-zA-Z ]*">
+                                            </div>
+                                            <span class="error-wrap"
+                                                *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
+                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')"
+                                                    class="error">Zipcode is required.</small>
+                                                <small
+                                                    *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')"
+                                                    class="error">Zipcode should be 5 to 7 characters.</small>
+                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small> -->
+                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
+                                            </span>
+
+                                            <!-- <mat-form-field>
                                                 <mat-label>Zip</mat-label>
                                                 <input matInput formControlName="cus_zip" placeholder="">
                                             </mat-form-field>
                                             <span class="error-wrap" *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')" class="error">Zipcode is required.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')" class="error">Zipcode should be 5 to 7 characters.</small>
-                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small> -->
-                                                <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
-                                            </span>
+                                                <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')" class="error">Zipcode should be 5 to 7 characters.</small> -->
+                                            <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('pattern')" class="error">Zipcode must be Numeric.</small> -->
+                                            <!-- <small *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength)" class="error">Zipcode should be 5 to 7 characters.</small> -->
+                                            <!-- </span> -->
                                         </div>
+
                                         <input type="hidden" formControlName="customer_id">
                                     </div>
                                 </div>
@@ -207,13 +431,16 @@
                             <mat-card class="footer-action-btn row">
                                 <div class="action-btn">
                                     <div class="mx-2">
-                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill"
+                                            class="customer-cancel-btn">Cancel</button>
                                     </div>
                                     <div class="mx-2" *ngIf="!existingUserId">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
+                                        <button mat-button type="submit" appearance="fill"
+                                            (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
                                     </div>
                                     <div class="mx-2" *ngIf="existingUserId">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Update</button>
+                                        <button mat-button type="submit" appearance="fill"
+                                            (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Update</button>
                                     </div>
                                 </div>
                             </mat-card>
@@ -224,24 +451,29 @@
                 <div *ngIf="fullDetailsOfCustomer && customersDetails != null" id="Customer-Listing" class="pl-0 pr-0">
                     <div class="mb-0">
                         <div class="d-flex top-profile-details">
-                            <div class="customerProfile-width" [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
+                            <div class="customerProfile-width"
+                                [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
                                 <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>
-                                <span class="main-email-wrap"> <img class="" src="/assets/images/icons/mail-open-pink.svg" /> 
-                                    <a class="mail-link detail-color" target="_blank" href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a></span>
-                               <div (click)="newCustomerAppointment()" class="add-booking-main"> 
-                                <span class="mat-icon material-icons-outlined"> add_circle </span>
-                                <p> Add Booking</p>
-                               </div>
+                                <span class="main-email-wrap"> <img class=""
+                                        src="/assets/images/icons/mail-open-pink.svg" />
+                                    <a class="mail-link detail-color" target="_blank"
+                                        href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a></span>
+                                <div (click)="newCustomerAppointment()" class="add-booking-main">
+                                    <span class="mat-icon material-icons-outlined"> add_circle </span>
+                                    <p> Add Booking</p>
+                                </div>
                             </div>
                             <div class="customer-btn">
                                 <div class="mx-2">
-                                    <button mat-button appearance="fill" class="sc-yellow-btn" (click)="editCustomer(customerPersonalDetails.id)">Edit Details</button>
+                                    <button mat-button appearance="fill" class="sc-yellow-btn"
+                                        (click)="editCustomer(customerPersonalDetails.id)">Edit Details</button>
                                 </div>
                                 <div class="mx-2">
-                                    <button mat-button appearance="fill" class="sc-red-btn" (click)="fnDeleteCustomer(customerPersonalDetails.id)"> Delete</button>
+                                    <button mat-button appearance="fill" class="sc-red-btn"
+                                        (click)="fnDeleteCustomer(customerPersonalDetails.id)"> Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -269,34 +501,58 @@
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
-                                <div class="my-3 px-3">
+                                <div class="d-flex my-3 px-3">
                                     <div class="tag-container">
-                                        <h6>Tags</h6>
-                                        <div class="tag-input-display d-flex align-items-start">
-                                            <div class="tag-input-box d-flex align-items-center">
-                                                <input class="form-control" [(ngModel)]="tagName" (keyup)="saveTag($event, customerPersonalDetails.id)" type="text" placeholder="Add a tag...">
-                                            </div>
-                                            <div class="tag-list">
-                                                <span class="single-tag" *ngFor="let tag of tags">{{tag}} <span class="remove-tag material-icons-outlined" (click)="remove(tag,customerPersonalDetails.id)">close</span></span>
-                                            </div>
+                                        <div class="d-flex">
+                                            <h6 class="mr-2">Tags</h6>
+                                            <mat-icon (click)="fnAddNewTag('TagInput')" class="add-tag-icon pointer">
+                                                add_circle</mat-icon>
                                         </div>
+                                        <mat-form-field [ngClass]="{'tag-disabled':!addNewTag}"
+                                            class="w-100 tags-input bottom-border-field">
+                                            <mat-chip-list #chipList aria-label="Tag selection">
+                                                <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
+                                                    [removable]="removable" (removed)="remove(tag)">{{tag}}
+                                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                                </mat-chip>
+                                                <input #TagInput
+                                                    [ngStyle]="{'pointer-events':addNewTag ? 'all' : 'none'}"
+                                                    [disabled]="(!addNewTag)" placeholder="New tags.."
+                                                    [matChipInputFor]="chipList"
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                    [matChipInputAddOnBlur]="addOnBlur"
+                                                    (matChipInputTokenEnd)="add($event)">
+                                            </mat-chip-list>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="tag-save">
+                                        <button (click)="fnSaveTags(customerPersonalDetails.id)" mat-button
+                                            appearance="fill" class="save-btn"><i
+                                                class="material-icons">save</i></button>
                                     </div>
                                 </div>
                                 <div class="devider-slim"></div>
                                 <div class="common-details-wrap d-flex my-3 px-3">
                                     <div class="registration">
                                         <h6>Registration</h6>
-                                        <p class="detail-color">{{customerPersonalDetails.created_at}} Created By {{customerPersonalDetails.created_by}}</p>
+                                        <p class="detail-color">{{customerPersonalDetails.created_at}} Created By
+                                            {{customerPersonalDetails.created_by}}</p>
                                     </div>
 
                                     <div class="lastBookedAppoint">
                                         <h6>Last Booked Appointment</h6>
-                                        <p class="detail-color">{{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}} {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}</p>
+                                        <p class="detail-color">
+                                            {{customersDetails.lastBooking?customersDetails.lastBooking.booking_date:''}}
+                                            {{customersDetails.lastBooking?customersDetails.lastBooking.booking_time:''}}
+                                        </p>
                                     </div>
                                     <div class="lastBookedService">
                                         <h6>Last Booked Service</h6>
                                         <p class="detail-color">
-                                            {{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}} ({{customersDetails.lastBooking && customersDetails.lastBooking.service && customersDetails.lastBooking.service.category && customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}})
+                                            {{customersDetails.lastBooking?customersDetails.lastBooking.service.service_name:''}}
+                                            ({{customersDetails.lastBooking && customersDetails.lastBooking.service &&
+                                            customersDetails.lastBooking.service.category &&
+                                            customersDetails.lastBooking.service.category.category_title?(customersDetails.lastBooking.service.category.category_title):''}})
                                         </p>
                                     </div>
 
@@ -322,31 +578,59 @@
                                             </tr>
                                         </thead>
                                         <tbody class="sc-table-content">
-                                            <tr class="final-list" (click)="fnCustomerAppointmentDetails(i)" *ngFor="let customerAppoint of customerAppoint; let i=index" class="devider-slim">
+                                            <tr class="final-list" (click)="fnCustomerAppointmentDetails(i)"
+                                                *ngFor="let customerAppoint of customerAppoint; let i=index"
+                                                class="devider-slim">
                                                 <td>{{customerAppoint.id}}</td>
                                                 <td scope="row">{{customerAppoint.booking_date}}</td>
                                                 <td>{{customerAppoint.booking_time}}</td>
-                                                <td>{{customerAppoint.service?customerAppoint.service.service_name:'-'}}</td>
-                                                <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}} {{customerAppoint.staff.lastname}}</td>
+                                                <td>{{customerAppoint.service?customerAppoint.service.service_name:'-'}}
+                                                </td>
+                                                <td *ngIf="customerAppoint.staff">{{customerAppoint.staff.firstname}}
+                                                    {{customerAppoint.staff.lastname}}</td>
                                                 <td *ngIf="!customerAppoint.staff">Staff Not Assigned</td>
                                                 <!-- <td>$.{{customerAppoint.total_cost}}</td> -->
-                                                <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
-                                                <td *ngIf="currencySymbolPosition=='right'">{{ customerAppoint.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
+                                                <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
+                                                    currencySymbol:'wide'}} {{ customerAppoint.total_cost |
+                                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
+                                                <td *ngIf="currencySymbolPosition=='right'">{{
+                                                    customerAppoint.total_cost |
+                                                    currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                    {{currencySymbol| currencySymbol:'wide'}}</td>
                                                 <td>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'P'">Waiting For Confirmation</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CNF'">Confirm</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'AC'">Accepted</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSA'">Rescheduled By Admin</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSS'">Rescheduled By Staff</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'RSC'">Rescheduled By Customer</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'R'">Rejected</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'OW'">On The Way</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'WS'">Work Started</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'ITR'">Interrupted</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CO'">Completed</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'CC'">Cancelled By Customer</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'C'">Cancelled</p>
-                                                    <p class="text-capitalize" *ngIf="customerAppoint.order_status == 'GL'">Getting Late</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'P'">Waiting For
+                                                        Confirmation</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'CNF'">Confirm</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'AC'">Accepted</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'RSA'">Rescheduled By
+                                                        Admin</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'RSS'">Rescheduled By
+                                                        Staff</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'RSC'">Rescheduled By
+                                                        Customer</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'R'">Rejected</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'OW'">On The Way</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'WS'">Work Started</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'ITR'">Interrupted</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'CO'">Completed</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'CC'">Cancelled By
+                                                        Customer</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'C'">Cancelled</p>
+                                                    <p class="text-capitalize"
+                                                        *ngIf="customerAppoint.order_status == 'GL'">Getting Late</p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -358,20 +642,26 @@
                             </mat-tab>
                             <mat-tab label="Notes">
                                 <div class="d-flex my-3">
-                                    <h6 class="notes">Notes <span *ngIf="customerNotes">({{customerNotes.length}})</span> </h6>
+                                    <h6 class="notes">Notes <span
+                                            *ngIf="customerNotes">({{customerNotes.length}})</span> </h6>
                                     <div class="d-flex ml-auto">
-                                        <button (click)="newAddNote(customerPersonalDetails.id)" class="Add-Note-btn" mat-button>Add Note</button>
+                                        <button (click)="newAddNote(customerPersonalDetails.id)" class="Add-Note-btn"
+                                            mat-button>Add Note</button>
                                     </div>
                                 </div>
                                 <div *ngIf="customerNotes == ''" class="addNotes">
-                                    <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center" (click)="newAddNote(customerPersonalDetails.id)">
+                                    <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center"
+                                        (click)="newAddNote(customerPersonalDetails.id)">
                                         <div class="d-flex justify-content-center flex-wrap">
                                             <div>
-                                                <mat-icon aria-hidden="false" class="addnote-icon w-auto h-auto" aria-label="note-add-icon">note_add</mat-icon>
+                                                <mat-icon aria-hidden="false" class="addnote-icon w-auto h-auto"
+                                                    aria-label="note-add-icon">note_add</mat-icon>
                                             </div>
                                             <div class="text-center w-100">
                                                 <a class="addnote-link">
-                                                    <mat-icon aria-hidden="false" aria-label="note-add icon">add</mat-icon>Add Notes</a>
+                                                    <mat-icon aria-hidden="false" aria-label="note-add icon">add
+                                                    </mat-icon>Add Notes
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -382,8 +672,12 @@
                                             <div class="d-flex">
                                                 <h6>{{customerNotes.note_subject}}</h6>
                                                 <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon pointer" aria-hidden="false" matTooltip="Update Notes">edit</mat-icon>
-                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)" class="add-note-subject-icon ml-2 pointer" aria-hidden="false" matTooltip="Delete Notes">delete</mat-icon>
+                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)"
+                                                        class="add-note-subject-icon pointer" aria-hidden="false"
+                                                        matTooltip="Update Notes">edit</mat-icon>
+                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)"
+                                                        class="add-note-subject-icon ml-2 pointer" aria-hidden="false"
+                                                        matTooltip="Delete Notes">delete</mat-icon>
                                                 </div>
                                             </div>
                                             <div class="py-3">
@@ -399,7 +693,8 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
-                                <table class="table" *ngIf="showPaymentTable && (customerPayments != [] && customerPayments != '')">
+                                <table class="table"
+                                    *ngIf="showPaymentTable && (customerPayments != [] && customerPayments != '')">
                                     <thead>
                                         <tr>
                                             <th scope="col">Date</th>
@@ -413,16 +708,31 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let payment of customerPayments; let i =index;">
-                                            <td scope="row">{{payment.payment_status=='paid'?payment.paymentDate:'----'}}</td>
+                                            <td scope="row">
+                                                {{payment.payment_status=='paid'?payment.paymentDate:'----'}}</td>
                                             <td>{{payment.payment_status=='paid'?payment.paymentTime:'----'}}</td>
-                                            <td class="text-capitalize" *ngIf="payment.service">{{payment.service?payment.service.service_name:'-'}}</td>
-                                            <td class="text-capitalize">{{payment.payment_status=='paid'?payment.payment_mode:'----'}}</td>
-                                            <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
-                                            <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
-                                            <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
+                                            <td class="text-capitalize" *ngIf="payment.service">
+                                                {{payment.service?payment.service.service_name:'-'}}</td>
+                                            <td class="text-capitalize">
+                                                {{payment.payment_status=='paid'?payment.payment_mode:'----'}}</td>
+                                            <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
+                                                currencySymbol:'wide'}} {{ payment.amount |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
+                                            <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                {{currencySymbol| currencySymbol:'wide'}}</td>
+                                            <td class="text-capitalize">
+                                                {{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
                                             <td class="text-capitalize text-left">
-                                                <button mat-button appearance="fill" class="view-btn" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
-                                                <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
+                                                <button mat-button appearance="fill" class="view-btn"
+                                                    (click)="invoice(i)">
+                                                    <mat-icon class="" aria-hidden="false">description</mat-icon>
+                                                </button>
+                                                <button mat-button *ngIf="payment.payment_status != 'paid'"
+                                                    appearance="fill" class="view-btn ml-2"
+                                                    (click)="fnShowPaymentForm(i,null,null)">
+                                                    <mat-icon class="" aria-hidden="false">edit</mat-icon>
+                                                </button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
                                         </tr>
@@ -432,7 +742,8 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm" class="">
+                                <div *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm"
+                                    class="">
                                     <p class="text-center py-3">No Record Found.</p>
                                 </div>
 
@@ -445,83 +756,132 @@
                                         <div class="row mx-0">
                                             <div class="col-lg-8 col-md-8 col-12 col-sm-12">
                                                 <h6 class="py-2 Customer-payment">Payment</h6>
-                                                <div class="searchbox col-lg-6 col-12 col-md-6 pb-2">
+                                                <div class="searchbox col-lg-6 col-12 col-md-6 pb-2 float-left">
                                                     <h6>Amount</h6>
                                                     <div class="form-group has-search">
-                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
-                                                        <input type="text" class="form-control" placeholder="3000.00" formControlName="paymentAmount" (change)="fnOnChangeAmount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked">
-                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('required')" class="error">Amount is required.</small>
-                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('pattern')" class="error">Enter valid amount.</small>
-                                                            <small *ngIf="formPayment.get('paymentAmount').hasError('min')" class="error">Amount should grater then Original Amount.</small>
+                                                        <span class="form-control-feedback">{{currencySymbol|
+                                                            currencySymbol:'wide'}}</span>
+                                                        <input type="text" class="form-control bg-wrap-control" placeholder="3000.00"
+                                                            formControlName="paymentAmount"
+                                                            (change)="fnOnChangeAmount($event)">
+                                                        <span class="error-wrap"
+                                                            *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked">
+                                                            <small
+                                                                *ngIf="formPayment.get('paymentAmount').hasError('required')"
+                                                                class="error">Amount is required.</small>
+                                                            <small
+                                                                *ngIf="formPayment.get('paymentAmount').hasError('pattern')"
+                                                                class="error">Enter valid amount.</small>
+                                                            <small
+                                                                *ngIf="formPayment.get('paymentAmount').hasError('min')"
+                                                                class="error">Amount should grater then Original
+                                                                Amount.</small>
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="searchbox col-lg-6 col-12 col-md-6  pb-2">
+                                                <div class="searchbox col-lg-6 col-12 col-md-6 float-left pb-2">
                                                     <h6>Discount</h6>
                                                     <div class="form-group has-search ">
-                                                        <span class="form-control-feedback">{{currencySymbol| currencySymbol:'wide'}}</span>
-                                                        <input type="text" class="form-control" placeholder="Enter Discount" formControlName="paymentDiscount" (change)="fnOnChangeDiscount($event)">
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked">
-                                                            <small *ngIf="formPayment.get('paymentDiscount').hasError('required')" class="error">Discount is required.</small>
-                                                            <small *ngIf="formPayment.get('paymentDiscount').hasError('pattern')" class="error">Enter valid discount value.</small>
+                                                        <span class="form-control-feedback">{{currencySymbol|
+                                                            currencySymbol:'wide'}}</span>
+                                                        <input type="text" class="form-control bg-wrap-control"
+                                                            placeholder="Enter Discount"
+                                                            formControlName="paymentDiscount"
+                                                            (change)="fnOnChangeDiscount($event)">
+                                                        <span class="error-wrap"
+                                                            *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked">
+                                                            <small
+                                                                *ngIf="formPayment.get('paymentDiscount').hasError('required')"
+                                                                class="error">Discount is required.</small>
+                                                            <small
+                                                                *ngIf="formPayment.get('paymentDiscount').hasError('pattern')"
+                                                                class="error">Enter valid discount value.</small>
                                                         </span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="form-group col-lg-12 col-12 col-md-6">
+                                                        <h6 for="comment">Note</h6>
+                                                        <textarea class="form-control bg-wrap-control" rows="3" id="comment"
+                                                            placeholder="Enter Payment Note"
+                                                            formControlName="paymentNote"></textarea>
+                                                        <span class="error-wrap"
+                                                            *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small
+                                                                *ngIf="formPayment.get('paymentNote').hasError('required')"
+                                                                class="error">Payment note is required.</small></span>
                                                     </div>
                                                 </div>
                                                 <div class=" pb-3 col-lg-6 col-12 col-md-6">
                                                     <h6 for="comment">Type</h6>
-                                                    <mat-radio-group (change)="changePaymentMethod($event.value)" class="radio-btn-wrapper" formControlName="paymentMode">
+                                                    <mat-radio-group (change)="changePaymentMethod($event.value)"
+                                                        class="radio-btn-wrapper" formControlName="paymentMode">
                                                         <mat-radio-button value="Cash">Cash</mat-radio-button>
                                                         <mat-radio-button value="Stripe">Online</mat-radio-button>
                                                     </mat-radio-group>
-                                                    <span class="error-wrap" *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked">
-                                                        <small *ngIf="formPayment.get('paymentMode').hasError('required')" class="error">Payment mode is required.</small>
+                                                    <span class="error-wrap"
+                                                        *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked">
+                                                        <small
+                                                            *ngIf="formPayment.get('paymentMode').hasError('required')"
+                                                            class="error">Payment mode is required.</small>
                                                     </span>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group col-lg-6 col-12 col-md-6">
-                                                        <h6 for="comment">Note</h6>
-                                                        <textarea class="form-control" rows="3" id="comment" placeholder="Enter Payment Note" formControlName="paymentNote"></textarea>
-                                                        <span class="error-wrap" *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small *ngIf="formPayment.get('paymentNote').hasError('required')" class="error">Payment note is required.</small></span>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-12 col-sm-12">
                                                 <div class="main-border">
                                                     <div class="p-3">
                                                         <div>
-                                                            <h6 class="mb-0">{{serviceMainArr.bookingDateForLabel}}</h6>
-                                                            <p class="small-font">Booked On:{{serviceMainArr.created_at}}</p>
+                                                            <h6 class="mb-0 text-wrap-bold">{{serviceMainArr.bookingDateForLabel}}</h6>
+                                                            <p class="small-font">Booked
+                                                                On:{{serviceMainArr.created_at}}</p>
                                                         </div>
                                                         <div class="pt-2">
                                                             <p class="small-font">Service </p>
-                                                            <h6>{{serviceMainArr.service_name}}, <small>({{serviceMainArr.category_title!=''?serviceMainArr.category_title:''}})</small></h6>
+                                                            <h6 class="text-wrap-bold">{{serviceMainArr.service_name}},
+                                                                <small>({{serviceMainArr.category_title!=''?serviceMainArr.category_title:''}})</small>
+                                                            </h6>
                                                         </div>
                                                         <div class="pt-2">
                                                             <p class="small-font">Time</p>
-                                                            <h6>{{serviceMainArr.bookingTimeForLabel}} - {{serviceMainArr.bookingTimeTo}} <small>({{serviceMainArr.service_time}} min)</small></h6>
+                                                            <h6 class="text-wrap-bold">{{serviceMainArr.bookingTimeForLabel}} -
+                                                                {{serviceMainArr.bookingTimeTo}}
+                                                                <small>({{serviceMainArr.service_time}} min)</small>
+                                                            </h6>
                                                         </div>
                                                         <div class="d-flex pt-2">
                                                             <div class="OrderBy-width">
                                                                 <p class="small-font">Order By</p>
-                                                                <h6 class="text-capitalize">{{serviceMainArr.order_by}}</h6>
+                                                                <h6 class="text-capitalize text-wrap-bold">{{serviceMainArr.order_by}}
+                                                                </h6>
                                                             </div>
                                                             <div class="Status-width">
                                                                 <p class="small-font">Status</p>
                                                                 <!-- <h6>{{serviceMainArr.order_status}}</h6> -->
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'P'">Pending</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'CNF'">Confirm</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'AC'">Accepted</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'OW'">On The Way</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'WS'">Work Started</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSA'">Rescheduled</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSS'">Rescheduled</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSC'">Rescheduled</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'ITR'">Intrupted</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'C'">Cancelled</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'CC'">Cancelled by Client</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'R'">Rejected</h6>
-                                                                <h6 *ngIf="serviceMainArr.order_status == 'CO'">Completed</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'P'">Pending
+                                                                </h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CNF'">Confirm
+                                                                </h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'AC'">Accepted
+                                                                </h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'OW'">On The
+                                                                    Way</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'WS'">Work
+                                                                    Started</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSA'">
+                                                                    Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSS'">
+                                                                    Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'RSC'">
+                                                                    Rescheduled</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'ITR'">
+                                                                    Intrupted</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'C'">Cancelled
+                                                                </h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CC'">
+                                                                    Cancelled by Client</h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'R'">Rejected
+                                                                </h6>
+                                                                <h6 *ngIf="serviceMainArr.order_status == 'CO'">
+                                                                    Completed</h6>
                                                             </div>
 
                                                         </div>
@@ -529,36 +889,67 @@
                                                     <div class="px-3 pb-3">
                                                         <div class="Staff-width">
                                                             <p class="small-font">Staff</p>
-                                                            <h6>{{serviceMainArr.staff_name!=''?serviceMainArr.staff_name:'----'}}</h6>
+                                                            <h6>{{serviceMainArr.staff_name!=''?serviceMainArr.staff_name:'----'}}
+                                                            </h6>
                                                         </div>
                                                     </div>
                                                     <div class="subtotal p-3">
                                                         <!-- <h6 class="pb-1 ">Sub Total {{serviceMainArr.subtotal}}</h6> -->
-                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='left'">Sub Total: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='right'">Sub Total {{ serviceMainArr.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='left'">Sub
+                                                            Total: {{currencySymbol| currencySymbol:'wide'}} {{
+                                                            serviceMainArr.subtotal |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                        </h6>
+                                                        <h6 class="pb-1 " *ngIf="currencySymbolPosition=='right'">Sub
+                                                            Total {{ serviceMainArr.subtotal |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                            {{currencySymbol| currencySymbol:'wide'}}</h6>
                                                         <h6 class="pb-1" *ngFor="let tax of taxAmountArr">
                                                             <!-- <span>Tax ({{tax.name}} - {{tax.value}}%) {{tax.amount}}</span> -->
-                                                            <span *ngIf="currencySymbolPosition=='left'">Tax ({{tax.name}} - {{tax.value}}%): {{currencySymbol| currencySymbol:'wide'}} {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                                            <span *ngIf="currencySymbolPosition=='right'">Tax ({{tax.name}} - {{tax.value}}%): {{ tax.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                                            <span *ngIf="currencySymbolPosition=='left'">Tax
+                                                                ({{tax.name}} - {{tax.value}}%): {{currencySymbol|
+                                                                currencySymbol:'wide'}} {{ tax.amount |
+                                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                                                }}</span>
+                                                            <span *ngIf="currencySymbolPosition=='right'">Tax
+                                                                ({{tax.name}} - {{tax.value}}%): {{ tax.amount |
+                                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                                                                }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                                         </h6>
                                                         <!-- <h6 class="mb-0">Discount {{serviceMainArr.discount}}</h6> -->
-                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">Discount: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">Discount: {{ serviceMainArr.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='left'">
+                                                            Discount: {{currencySymbol| currencySymbol:'wide'}} {{
+                                                            serviceMainArr.discount |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                        </h6>
+                                                        <h6 class="mb-0" *ngIf="currencySymbolPosition=='right'">
+                                                            Discount: {{ serviceMainArr.discount |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                            {{currencySymbol| currencySymbol:'wide'}}</h6>
                                                     </div>
                                                     <div class="Total p-3">
                                                         <!-- <h6 class="">total {{serviceMainArr.netCost}}</h6> -->
-                                                        <h6 class="" *ngIf="currencySymbolPosition=='left'">Total: {{currencySymbol| currencySymbol:'wide'}} {{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</h6>
-                                                        <h6 class="" *ngIf="currencySymbolPosition=='right'">Total: {{ serviceMainArr.netCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</h6>
+                                                        <h6 class="" *ngIf="currencySymbolPosition=='left'">Total:
+                                                            {{currencySymbol| currencySymbol:'wide'}} {{
+                                                            serviceMainArr.netCost |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                        </h6>
+                                                        <h6 class="" *ngIf="currencySymbolPosition=='right'">Total: {{
+                                                            serviceMainArr.netCost |
+                                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                            {{currencySymbol| currencySymbol:'wide'}}</h6>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="devider-slim"></div>
                                             <div class="action-btn my-3">
                                                 <div class="mx-2">
-                                                    <button mat-button appearance="fill" class="customer-cancel-btn" (click)="fnShowPaymentTable()">Cancel</button>
+                                                    <button mat-button appearance="fill" class="customer-cancel-btn"
+                                                        (click)="fnShowPaymentTable()">Cancel</button>
                                                 </div>
                                                 <div class="mx-2">
-                                                    <button mat-button appearance="fill" class="customer-pay-btn" (click)="fnSubmitPaymentForm()">Pay</button>
+                                                    <button mat-button appearance="fill" class="customer-pay-btn"
+                                                        (click)="fnSubmitPaymentForm()">Pay</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -567,24 +958,44 @@
                             </mat-tab>
                             <mat-tab label="Reviews">
                                 <div *ngIf="customerReviews != ''">
-                                    <div *ngFor="let customerReviews of customerReviews; let i=index" class="devider-slim pb-2 my-2">
+                                    <div *ngFor="let customerReviews of customerReviews; let i=index"
+                                        class="devider-slim pb-2 my-2">
                                         <div class="d-flex">
-                                            <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
+                                            <div class="d-flex statick-rating w-100"
+                                                *ngIf="customerReviews.rating != null">
                                                 <div class="star-rating">
-                                                    <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
-                                                    <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
-                                                    <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
-                                                    <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
-                                                    <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
-                                                    <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 5"
+                                                        id="5-stars_{{customerReviews.id}}"
+                                                        name="rating_{{customerReviews.id}}" value="5" />
+                                                    <label for="5-stars_{{customerReviews.id}}"
+                                                        class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 4"
+                                                        id="4-stars_{{customerReviews.id}}"
+                                                        name="rating_{{customerReviews.id}}" value="4" />
+                                                    <label for="4-stars_{{customerReviews.id}}"
+                                                        class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 3"
+                                                        id="3-stars_{{customerReviews.id}}"
+                                                        name="rating_{{customerReviews.id}}" value="3" />
+                                                    <label for="3-stars_{{customerReviews.id}}"
+                                                        class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 2"
+                                                        id="2-stars_{{customerReviews.id}}"
+                                                        name="rating_{{customerReviews.id}}" value="2" />
+                                                    <label for="2-stars_{{customerReviews.id}}"
+                                                        class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 1"
+                                                        id="1-star_{{customerReviews.id}}"
+                                                        name="rating_{{customerReviews.id}}" value="1" />
+                                                    <label for="1-star_{{customerReviews.id}}"
+                                                        class="star">&#9733;</label>
                                                 </div>
                                             </div>
                                             <div class="py-2 ml-auto">
-                                                <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                                <button mat-button appearance="fill" class="view-btn"
+                                                    (click)="viewReviewDetail(i,customerReviews.order_id)">
+                                                    <mat-icon aria-hidden="false">visibility</mat-icon>View
+                                                </button>
                                             </div>
                                         </div>
                                         <div>
@@ -600,10 +1011,11 @@
                         </mat-tab-group>
                     </div>
                 </div>
-                <div *ngIf="fullDetailsOfCustomer && (allCustomers == '' || customersDetails == null)" class="blank-container">
+                <div *ngIf="fullDetailsOfCustomer && (allCustomers == '' || customersDetails == null)"
+                    class="blank-container">
                     <div class="text-center main-btn">
                         <div (click)="fnAddNewCustomer()" class="center-main-btn"><span class="material-icons">
-                            add_circle_outline
+                                add_circle_outline
                             </span>Add New Customer</div>
                     </div>
                 </div>
