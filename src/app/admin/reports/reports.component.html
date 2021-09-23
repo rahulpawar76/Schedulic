@@ -529,7 +529,7 @@
                             <li class="page-item" [ngClass]="{'active':customerReportcurrent_page == i+1}"
                                 *ngFor="let pagenumber of customerReportArrayOne(customerReportlast_page); let i = index;"
                                 (click)="customerReportNavigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
-                            <li class="page-item nextprev" (click)="customerReportNavigateTo(customerReportnext_page_url)"><a
+                            <li class="page-item nextprev {{customerReportArrayOne(customerReportlast_page).length==customerReportcurrent_page?'pointernone':''}}" (click)="customerReportNavigateTo(customerReportnext_page_url)"><a
                                     class="page-link"><i class="fa fa-angle-right arrow-icon"
                                         aria-hidden="true"></i></a></li>
                             <li class="page-item nextprev {{customerReportArrayOne(customerReportlast_page).length==customerReportcurrent_page?'pointernone':''}}"
