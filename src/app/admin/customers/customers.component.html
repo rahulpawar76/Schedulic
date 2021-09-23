@@ -357,12 +357,10 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Notes">
-                                <div class="d-flex my-3">
-                                    <h6 class="notes">Notes <span *ngIf="customerNotes">({{customerNotes.length}})</span> </h6>
-                                    <div class="d-flex ml-auto">
-                                        <button (click)="newAddNote(customerPersonalDetails.id)" class="Add-Note-btn" mat-button>Add Note</button>
+                                    <!-- <h6 class="notes">Notes <span *ngIf="customerNotes">({{customerNotes.length}})</span> </h6> -->
+                                    <div class="col-12 my-3 text-end">
+                                        <button (click)="newAddNote(customerPersonalDetails.id)" class="sc-pink-btn" mat-button>Add Note</button>
                                     </div>
-                                </div>
                                 <div *ngIf="customerNotes == ''" class="addNotes">
                                     <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center" (click)="newAddNote(customerPersonalDetails.id)">
                                         <div class="d-flex justify-content-center flex-wrap">
@@ -376,31 +374,44 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mx-0" *ngIf="customerNotes != ''">
-                                    <div *ngFor="let customerNotes of customerNotes; let i=index" class=" col-lg-4">
-                                        <mat-card class="NoteMatcard">
-                                            <div class="d-flex">
-                                                <h6>{{customerNotes.note_subject}}</h6>
-                                                <div class="d-flex ml-auto">
-                                                    <mat-icon (click)="newAddNote(customerPersonalDetails.id,i)" class="add-note-subject-icon pointer" aria-hidden="false" matTooltip="Update Notes">edit</mat-icon>
-                                                    <mat-icon (click)="fnDeleteNote(customerNotes.id)" class="add-note-subject-icon ml-2 pointer" aria-hidden="false" matTooltip="Delete Notes">delete</mat-icon>
-                                                </div>
-                                            </div>
-                                            <div class="py-3">
-                                                <p>{{customerNotes.note_decreption}}</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div class=" d-flex ml-auto">
-                                                    <p class="">{{customerNotes.updated_at}}</p>
-                                                </div>
-                                            </div>
-                                        </mat-card>
-                                    </div>
+                                <div *ngIf="customerNotes != ''" class="Customer-appointment-table sc-table-view">
+                                    <table class="table sc-table">
+                                        <thead class="sc-table-head">
+                                            <tr >
+                                                <th scope="col">Create On</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Last Edited</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="sc-table-content">
+                                            <tr *ngFor="let customerNotes of customerNotes; let i=index"  class="final-list">
+                                                <td>{{customerNotes.created_at}}</td>
+                                                <td>{{customerNotes.note_subject}}</td>
+                                                <td>{{customerNotes.note_decreption}}</td>
+                                                <td>{{customerNotes.updated_at}}</td>
+                                                <td> <div class="table-action-btns">
+                                                    <button (click)="newAddNote(customerPersonalDetails.id,i)" aria-hidden="false" matTooltip="Update Notes" class="sc-table-action-btn">
+                                                        <mat-icon class="material-icons"  >edit</mat-icon>
+                                                    </button>
+
+                                                    <button (click)="fnDeleteNote(customerNotes.id)"  aria-hidden="false" matTooltip="Delete Notes" class="sc-table-action-btn">
+                                                        <mat-icon class="material-icons"  >delete</mat-icon>
+                                                    </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </mat-tab>
                             <mat-tab label="Payments">
-                                <table class="table" *ngIf="showPaymentTable && (customerPayments != [] && customerPayments != '')">
-                                    <thead>
+                                <div class="sc-table-view">
+
+                               
+                                <table class="table sc-table" *ngIf="showPaymentTable && (customerPayments != [] && customerPayments != '')">
+                                    <thead class="sc-table-head">
                                         <tr>
                                             <th scope="col">Date</th>
                                             <th scope="col">Time</th>
@@ -411,8 +422,8 @@
                                             <th scope="col " class="text-left">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr *ngFor="let payment of customerPayments; let i =index;">
+                                    <tbody class="sc-table-content">
+                                        <tr class="final-list" *ngFor="let payment of customerPayments; let i =index;">
                                             <td scope="row">{{payment.payment_status=='paid'?payment.paymentDate:'----'}}</td>
                                             <td>{{payment.payment_status=='paid'?payment.paymentTime:'----'}}</td>
                                             <td class="text-capitalize" *ngIf="payment.service">{{payment.service?payment.service.service_name:'-'}}</td>
@@ -420,9 +431,9 @@
                                             <td *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</td>
                                             <td *ngIf="currencySymbolPosition=='right'">{{ payment.amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</td>
                                             <td class="text-capitalize">{{payment.payment_status=='paid'?'Paid':'Pending'}}</td>
-                                            <td class="text-capitalize text-left">
-                                                <button mat-button appearance="fill" class="view-btn" (click)="invoice(i)"><mat-icon class="" aria-hidden="false">description</mat-icon></button>
-                                                <button mat-button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="view-btn ml-2" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="" aria-hidden="false">edit</mat-icon></button>
+                                            <td class="table-action-btns">
+                                                <button appearance="fill" class="sc-table-action-btn" (click)="invoice(i)"> <mat-icon class="material-icons" aria-hidden="false">description</mat-icon></button>
+                                                <button *ngIf="payment.payment_status != 'paid'" appearance="fill" class="sc-table-action-btn" (click)="fnShowPaymentForm(i,null,null)"><mat-icon class="material-icons" aria-hidden="false">edit</mat-icon></button>
                                                 <!-- <button mat-button appearance="fill" class="view-btn ml-2"><mat-icon class="" aria-hidden="false">print</mat-icon></button> -->
                                             </td>
                                         </tr>
@@ -432,6 +443,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                                 <div *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm" class="">
                                     <p class="text-center py-3">No Record Found.</p>
                                 </div>
@@ -566,7 +578,7 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Reviews">
-                                <div *ngIf="customerReviews != ''">
+                                <!-- <div *ngIf="customerReviews != ''">
                                     <div *ngFor="let customerReviews of customerReviews; let i=index" class="devider-slim pb-2 my-2">
                                         <div class="d-flex">
                                             <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
@@ -584,7 +596,7 @@
                                                 </div>
                                             </div>
                                             <div class="py-2 ml-auto">
-                                                <button mat-button appearance="fill" class="view-btn" (click)="viewReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false">visibility</mat-icon>View</button>
+                                             
                                             </div>
                                         </div>
                                         <div>
@@ -592,6 +604,45 @@
                                             <p>{{customerReviews.review}}</p>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div *ngIf="customerReviews != ''" class="sc-table-view">
+                                    <table class="table sc-table">
+                                        <thead class="sc-table-head">
+                                            <tr >
+                                                    <th scope="col">Create On</th>
+                                                    <th scope="col">Title</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Rating</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="sc-table-content">
+                                            <tr *ngFor="let customerReviews of customerReviews; let i=index"  class="final-list">
+                                                <td>{{customerReviews.created_at}}</td> 
+                                                <td>{{customerReviews.rating_title}}</td>
+                                                <td> {{customerReviews.review}} </td>
+                                                <td> <div class="d-flex main-review-wrap statick-rating w-100" *ngIf="customerReviews.rating != null">
+                                                    <div class="star-rating">
+                                                        <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
+                                                        <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                        <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
+                                                        <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                        <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
+                                                        <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                        <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
+                                                        <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                        <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
+                                                        <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                                <td class="table-action-btns">
+                                                    <button appearance="fill" class="sc-table-action-btn" (click)="viewReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon></button>
+                                                </td>
+                                               
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div *ngIf="customerReviews == ''" class="">
                                     <p class="text-center py-3">No Record Found.</p>

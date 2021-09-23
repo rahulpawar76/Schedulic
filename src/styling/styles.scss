@@ -1232,6 +1232,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         }
     }
 }
+.text-end{
+    text-align: end;
+}
 .sc-table {
     &.table {
         .sc-table-head {
@@ -1408,11 +1411,12 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                opacity: 1;
                 .material-icons-outlined {
                     font-size: 18px;
 
                 }
-                .close-icon{
+                span{
                     font-weight: 200;
                 }
             }
@@ -1513,8 +1517,11 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             border-bottom: solid 1px rgba(0, 168, 155, 0.23);
             margin: 10px 15px;
             padding: 20px 0px;
+            &:last-child{
+                border-bottom: none;
+            }
             .heading-title {
-                font-weight: 500;
+                font-weight: 600;
                 font-size: 15px;
                 color: #000;
             }
@@ -1579,6 +1586,22 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             .activelog-details{
                 color: #565657;
                 font-size: 15px;
+            }
+            .star-rating{
+                margin-left: -6px;
+                margin-top: -8px;
+            }
+            .reviews-details{
+                margin-top: 16px;
+                h6{
+                    font-weight: 600;
+                    font-size: 16px;
+                    margin-bottom: 12px;
+                }
+                p{
+                    color: #565657;
+                    font-size: 15px;
+                }
             }
         }
     }
