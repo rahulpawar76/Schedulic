@@ -168,7 +168,6 @@ export class CustomersComponent implements OnInit {
     }
 
     saveTag(event, customerId){
-      console.log(event)
       if(event.keyCode == 13){
         if ((this.tagName || '').trim()) {
           this.tags.push(this.tagName.trim());
@@ -176,14 +175,8 @@ export class CustomersComponent implements OnInit {
         if(!this.tagName){
           return false;
         }
-        console.log(this.tagName);
         this.adminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
           if(response.data == true){
-            // this._snackBar.open("Customer Tag Added.", "X", {
-            //   duration: 2000,
-            //   verticalPosition:'top',
-            //   panelClass :['green-snackbar']
-            // });
             this.tagName= null;
             this.fnSelectCustomer(customerId,'not-new');
           }
@@ -198,13 +191,25 @@ export class CustomersComponent implements OnInit {
       }
     }
 
-    remove(tg: Tag): void {
+    remove(tg: Tag, customerId): void {
       const index = this.tags.indexOf(tg);
 
       if (index >= 0) {
         this.tags.splice(index, 1);
       }
-      console.log(this.tags);
+      this.adminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
+        if(response.data == true){
+          this.tagName= null;
+          this.fnSelectCustomer(customerId,'not-new');
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      })
     }
 
   ngOnInit() {

@@ -277,7 +277,7 @@
                                                 <input class="form-control" [(ngModel)]="tagName" (keyup)="saveTag($event, customerPersonalDetails.id)" type="text" placeholder="Add a tag...">
                                             </div>
                                             <div class="tag-list">
-                                                <span class="single-tag" *ngFor="let tag of tags">{{tag}} <span class="remove-tag material-icons-outlined" (click)="remove(tag)">close</span></span>
+                                                <span class="single-tag" *ngFor="let tag of tags">{{tag}} <span class="remove-tag material-icons-outlined" (click)="remove(tag,customerPersonalDetails.id)">close</span></span>
                                             </div>
                                         </div>
                                     </div>
