@@ -1,9 +1,10 @@
 <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            <h5 class="modal-title">{{noteData ? 'Update Note' : 'New Note'}}</h5>
+            
+            <h5 class="modal-title"><span class="note-icon-wrap"><img src="/assets/images/icons/Group 56.svg" /></span>{{noteData ? 'Update Note' : 'New Note'}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-          <span aria-hidden="true">&times;</span>
+          <span class="close-icon" aria-hidden="true">&times;</span>
         </button>
         </div>
         <form [formGroup]="createNewNote">
