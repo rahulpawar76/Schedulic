@@ -60,7 +60,6 @@ export class CustomersComponent implements OnInit {
   selectedCustomerId: any = [];
   selectedCustomerArr: any;
   businessId: any;
-  addNewTag: boolean = false;
   tagsnew: any=[];
   customerImageUrl:any = '';
   actionValue:any;
@@ -130,6 +129,7 @@ export class CustomersComponent implements OnInit {
   emailCheckRequestObject:any;
   phoneCheckRequestObject:any;
   allcustomerIds :any=[];
+  tagName:any;
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
@@ -165,6 +165,37 @@ export class CustomersComponent implements OnInit {
       }
       console.log(this.tags);
       
+    }
+
+    saveTag(event, customerId){
+      console.log(event)
+      if(event.keyCode == 13){
+        if ((this.tagName || '').trim()) {
+          this.tags.push(this.tagName.trim());
+        }
+        if(!this.tagName){
+          return false;
+        }
+        console.log(this.tagName);
+        this.adminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
+          if(response.data == true){
+            // this._snackBar.open("Customer Tag Added.", "X", {
+            //   duration: 2000,
+            //   verticalPosition:'top',
+            //   panelClass :['green-snackbar']
+            // });
+            this.tagName= null;
+            this.fnSelectCustomer(customerId,'not-new');
+          }
+          else if(response.data == false && response.response !== 'api token or userid invaild'){
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass : ['red-snackbar']
+            });
+          }
+        })
+      }
     }
 
     remove(tg: Tag): void {
@@ -907,34 +938,6 @@ customerUpdate(existingCustomerData){
       }
     })
    
-  }
-
-  fnAddNewTag(){
-    this.addNewTag = true;
-  }
-  fnSaveTags(customerId){
-    this.addNewTag = false;
-    this.isLoaderAdmin = true;
-    this.adminService.fnSaveTags(customerId,this.tags).subscribe((response:any) => {
-      if(response.data == true){
-        this._snackBar.open("Customer Tag Added.", "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['green-snackbar']
-        });
-        this.fnSelectCustomer(customerId,'not-new');
-        this.isLoaderAdmin = false;
-      }
-      else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass : ['red-snackbar']
-        });
-        this.isLoaderAdmin = false;
-      }
-    })
-
   }
   fnAddCustomerId(event, customerId){
     if(event == true){

@@ -1386,6 +1386,12 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             padding: 14px ​16px;
             border: none;
             align-items: center;
+            .note-icon-wrap{
+                img{
+                    width: 28px;
+                    margin-right: 8px;
+                }
+            }
             p {
                 font-size: 16px;
                 font-weight: 500;
@@ -1404,6 +1410,10 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                 justify-content: center;
                 .material-icons-outlined {
                     font-size: 18px;
+
+                }
+                .close-icon{
+                    font-weight: 200;
                 }
             }
         }
