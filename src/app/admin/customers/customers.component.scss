@@ -492,16 +492,18 @@
         .tag-list{
             margin: 0 10px;
             display: flex;
+            flex-wrap: wrap;
             .single-tag{
                 display: inline-block;
                 background-color: rgba(0, 168, 155, 0.2);
                 border: 1px solid rgba(0, 168, 155, 0.4);
                 padding: 5px 10px;
                 margin-right: 10px;
+                color: #00A89B;
                 border-radius: 5px;
                 margin-bottom: 10px;
-                font-size: 14px;
-                line-height: 2.4;
+                font-size: 17px;
+                line-height: 2;
                 display: flex;
                 align-items: center;
                 .remove-tag{
@@ -509,7 +511,7 @@
                     background-color: #00A89B;
                     border-radius: 100px;
                     font-size: 15px;
-                    padding: 53px;
+                    padding: 3px;
                     text-align: center;
                     color: rgb(212 238 235);
                     cursor: pointer;
