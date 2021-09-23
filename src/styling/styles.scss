@@ -446,7 +446,7 @@ mat-drawer-content {
         border: 0;
         padding: 6px 30px;
     }
-    .back-btn{
+    .back-btn {
         border-radius: 3px;
         float: right;
         background-color: #a1a1a1;
@@ -454,8 +454,8 @@ mat-drawer-content {
         border: 0;
         padding: 6px 30px;
     }
-    .form-control{
-        &::placeholder{
+    .form-control {
+        &::placeholder {
             color: #000;
         }
     }
@@ -469,13 +469,12 @@ mat-drawer-content {
             padding-bottom: 11px;
             padding-top: 11px;
             height: 31px;
-            &::placeholder{
+            &::placeholder {
                 color: #000;
             }
         }
-        
     }
-    .custom-bg-control{
+    .custom-bg-control {
         background-color: #eaf7f6;
         border: 0;
     }
@@ -1233,6 +1232,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         }
     }
 }
+.text-end{
+    text-align: end;
+}
 .sc-table {
     &.table {
         .sc-table-head {
@@ -1409,16 +1411,17 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                opacity: 1;
                 .material-icons-outlined {
                     font-size: 18px;
 
                 }
-                .close-icon{
+                span{
                     font-weight: 200;
                 }
             }
         }
-        .custom-input-wrap{
+        .custom-input-wrap {
             background-color: #eaf7f6;
             border: 0;
         }
@@ -1514,16 +1517,19 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             border-bottom: solid 1px rgba(0, 168, 155, 0.23);
             margin: 10px 15px;
             padding: 20px 0px;
+            &:last-child{
+                border-bottom: none;
+            }
             .heading-title {
-                font-weight: 500;
+                font-weight: 600;
                 font-size: 15px;
                 color: #000;
             }
-            .customer-profile-img{
+            .customer-profile-img {
                 border-radius: 100%;
                 height: 50px;
                 width: 50px;
-                background-color: #F04589;
+                background-color: #f04589;
                 color: white;
                 text-align: center;
                 padding: 14px;
@@ -1544,20 +1550,70 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                     color: #565657;
                 }
             }
-            .custom-wrap-modal{
+            .custom-wrap-modal {
                 display: flex;
                 align-items: center;
-                i{
-                    color: #00A89B;
+                i {
+                    color: #00a89b;
                     margin-right: 6px;
                 }
-                p{
+                p {
                     font-size: 15px;
-    color: #0E0E0E;
-    margin-bottom: 0px;
+                    color: #0e0e0e;
+                    margin-bottom: 0px;
+                }
+            }
+            .main-note-details {
+                .note-add-icon {
+                    cursor: pointer;
+                    .note-icon {
+                        color: #000;
+                    }
+                }
+                .common-note-details{
+                    color: #565657;
+                    font-size: 15px;
+                    margin-bottom: 0px;
+                    margin-top: 14px;
+                    &:first-child{
+                        margin-top: 0px;
+                    }
+                }
+                .text-end{
+                    text-align: end;
+                }
+            }
+            .activelog-details{
+                color: #565657;
+                font-size: 15px;
+            }
+            .star-rating{
+                margin-left: -6px;
+                margin-top: -8px;
+            }
+            .reviews-details{
+                margin-top: 16px;
+                h6{
+                    font-weight: 600;
+                    font-size: 16px;
+                    margin-bottom: 12px;
+                }
+                p{
+                    color: #565657;
+                    font-size: 15px;
                 }
             }
         }
+    }
+    .appodetails-status{
+        margin: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    label{
+        margin-bottom: 0px;
+    }
     }
 }
 .pink-medium-btn {

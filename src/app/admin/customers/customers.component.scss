@@ -154,9 +154,6 @@
     p {
         margin-bottom: 0px;
     }
-    mat-icon {
-        line-height: 1.5;
-    }
     .customerProfile-width {
         border-radius: 6px!important;
         width: 90px;
@@ -239,22 +236,15 @@
     .notes {
         color: blue;
     }
-    .Add-Note-btn {
-        width: 120px;
-        height: 37px;
-        border-radius: 23px;
-        background-color: #f87812;
-        color: white;
-    }
     .addNotes {
         display: flex;
         justify-content: center;
         .Add-notes-background {
-            width: 31%;
+            width: 30%;
             height: 165px;
             background-color: #fcfcfc;
-            color: #f87812;
-            border: 1px solid #fbb984;
+            color: #f04589;
+            border: 1px dashed #f04688;
             border-radius: 6px;
             cursor: pointer;
             .addnote-icon {
@@ -262,7 +252,7 @@
                 line-height: 1;
             }
             .addnote-link {
-                color: #f87812;
+                color: #f04688;
             }
         }
     }
@@ -380,43 +370,47 @@
     width: 350px;
    
 }
-
+.main-review-wrap{
+    .star-rating label{
+        line-height: 0.5;
+    }
+}
 // <!---add-new-note-dialog style ---->
 
 
 // <!---view-review-dialog style ---->
-::ng-deep .view-review-dialog {
-    .booking-detail-main {
-        padding: 16px;
-        border-bottom: 1px solid #ccc;
-        .customer-profile-img {
-            border-radius: 100%;
-            height: 60px;
-            width: 60px;
-            background-color: #F04589;
-            color: white;
-            text-align: center;
-            padding: 14px;
-            line-height: 2;
-            display: block;
-            margin-right: 14px;
-        }
+// ::ng-deep .view-review-dialog {
+//     .booking-detail-main {
+//         padding: 16px;
+//         border-bottom: 1px solid #ccc;
+//         .customer-profile-img {
+//             border-radius: 100%;
+//             height: 60px;
+//             width: 60px;
+//             background-color: #F04589;
+//             color: white;
+//             text-align: center;
+//             padding: 14px;
+//             line-height: 2;
+//             display: block;
+//             margin-right: 14px;
+//         }
        
-        .call-icon {
-            line-height: 1.5;
-            color: blue;
-        }
-        .customer-name {
-            width: calc(100% - 80px);
-        }
-        .star-icon {
-            color: #fda901;
-        }
-        .small-font {
-            font-size: 12px;
-        }
-    }
-}
+//         .call-icon {
+//             line-height: 1.5;
+//             color: blue;
+//         }
+//         .customer-name {
+//             width: calc(100% - 80px);
+//         }
+//         .star-icon {
+//             color: #fda901;
+//         }
+//         .small-font {
+//             font-size: 12px;
+//         }
+//     }
+// }
 
 #sub-header-top {
     position: fixed;
@@ -463,7 +457,64 @@
 }
 
 .tag-container {
-    width: calc(100% - 110px);
+    width: 100%;
+    display:flex;
+    h6{
+        margin-right: 2em;
+        line-height: 2.4;
+    }
+    .tag-input-display{
+        .tag-input-box{
+            position: relative;
+            input{
+                border: 1px solid rgba(0, 168, 155, 0.4);
+                border-radius: 5px;
+                height: 45px;
+                width: 300px;
+                color: #565657;
+                padding: 7px 10px;
+                text-indent: 40px;
+            }
+            &:before{
+                content: "\e54e";
+                font-family: 'Material Icons Outlined';
+                color: #565657;
+                position: absolute;
+                font-size: 30px;
+                left: 12px;
+            }
+            
+        }
+        .tag-list{
+            margin: 0 10px;
+            display: flex;
+            flex-wrap: wrap;
+            .single-tag{
+                display: inline-block;
+                background-color: rgba(0, 168, 155, 0.2);
+                border: 1px solid rgba(0, 168, 155, 0.4);
+                padding: 5px 10px;
+                margin-right: 10px;
+                color: #00A89B;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                font-size: 17px;
+                line-height: 2;
+                display: flex;
+                align-items: center;
+                .remove-tag{
+                    margin-left: 10px;
+                    background-color: #00A89B;
+                    border-radius: 100px;
+                    font-size: 15px;
+                    padding: 3px;
+                    text-align: center;
+                    color: rgb(212 238 235);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }
 
 .tag-save {
