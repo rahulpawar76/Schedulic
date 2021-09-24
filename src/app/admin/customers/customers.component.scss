@@ -751,7 +751,7 @@
 }
 
 .customer-bottom-area {
-    height: calc(100% - 87px);
+    height: 100%;
 }
 
 .tags-input mat-chip mat-icon {
@@ -1047,34 +1047,17 @@ mat-chip-list {
 }
 
 .blank-container {
-    height: calc(100vh - 157px);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    .main-btn {
-        cursor: pointer;
-        width: 210px;
-        height: 100px;
-        background-color: #9cb9ff;
-        color: #fff;
+    .no-customer-box {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        span {
-            width: 100%;
-            font-size: 35px;
-        }
     }
 }
 
-::ng-deep .tag-disabled {
-    &.mat-focused {
-        .mat-form-field-ripple {
-            opacity: 0 !important;
-        }
-    }
-}
 
 ::ng-deep .fieldcolor {
     color: #000;

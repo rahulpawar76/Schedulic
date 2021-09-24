@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="w-100 customer-bottom-area">
-            <div [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list" class="customer-menu customer-left-menu">
+            <div *ngIf="allCustomers.length > 0 || newCustomer" [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list" class="customer-menu customer-left-menu">
                 <div class="leftarrow-icon d-flex align-items-center">
                     <mat-select class="form-control form-select-main mr-3" [ngModel]="actionValue" (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <mat-option value="delete">Delete</mat-option>
@@ -38,7 +38,7 @@
                         </form>
                     </div>
                 </div>
-                <div *ngIf="allCustomers != ''">
+                <div *ngIf="allCustomers.length > 0">
                     <div [ngClass]="{'active':customerDetailId === allCustomers.id}" *ngFor="let allCustomers of allCustomers; let i=index" class="d-flex single-customer-list devider-slim py-3">
                         <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)" [checked]="selectedCustomerId.indexOf(allCustomers.id) > -1" class="customer-checkbox"></mat-checkbox>
                         <div (click)="fnSelectCustomer(allCustomers.id,'not-new')" class="customer-name-width pointer">
@@ -53,15 +53,10 @@
                     </div>
 
                 </div>
-                <div *ngIf="allCustomers == ''">
-                    <div class="text-center">
-                        Record Not Found.
-                    </div>
-                </div>
 
             </div>
 
-            <div class="pl-0 pr-0 customer-right-side-content" [ngClass]="{ 'short-content-area': customerSideMenuToggle === true }">
+            <div *ngIf="allCustomers.length > 0 || newCustomer" class="pl-0 pr-0 customer-right-side-content" [ngClass]="{ 'short-content-area': customerSideMenuToggle === true }">
                 <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0 h-100">
                     <mat-card class="mb-0 form-container">
                         <div class="row">
@@ -634,14 +629,14 @@
                         </mat-tab-group>
                     </div>
                 </div>
-                <div *ngIf="fullDetailsOfCustomer && (allCustomers == '' || customersDetails == null)" class="blank-container">
-                    <div class="text-center main-btn">
-                        <div (click)="fnAddNewCustomer()" class="center-main-btn"><span class="material-icons">
-                            add_circle_outline
-                            </span>Add New Customer</div>
-                    </div>
+            </div>
+            <div *ngIf="fullDetailsOfCustomer && (allCustomers.length == 0 || customersDetails == null)" class="blank-container">
+                <div class="no-customer-box">
+                    <img src="/assets/images/no-customer-banner.svg" />
+                    <p class="w-100 my-3 text-center">In publishing and graphic design, Lorem ipsum is a placeholder text <br/>
+                        commonly used to demonstrate the visual form.</p>
+                    <button (click)="fnAddNewCustomer()" class="sc-yellow-btn" mat-button>Add Customer</button>
                 </div>
-
             </div>
         </div>
 
