@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div *ngIf="isAppointmentReport" class="common-input col-lg-2 col-12 col-sm-12 col-md-3">
-                    <mat-select class="form-control form-control-trasprent"
+                    <mat-select class="form-control form-control-transparent"
                         (selectionChange)="fnChangeDateFilter($event)" [(value)]="dateFilter">
                         <mat-option value="booking_date">
                             By Appointment Date
@@ -65,7 +65,7 @@
                     </mat-select>
                 </div>
                 <div *ngIf="!isCustomerReport" class="common-input col-lg-2 col-12 col-sm-12 col-md-3">
-                    <mat-select class="form-control form-control-trasprent"
+                    <mat-select class="form-control form-control-transparent"
                         (selectionChange)="fnChangeReportFilter($event)" [(value)]="reportFilter">
                         <mat-option value="all">
                             Detailed Report
@@ -81,7 +81,7 @@
 
                 <div *ngIf="isSalesReport" class="common-input col-lg-2 col-12 col-sm-12 col-md-3">
 
-                    <mat-select class="form-control form-control-trasprent"
+                    <mat-select class="form-control form-control-transparent"
                         (selectionChange)="fnChangeStatusFilter($event)" [(value)]="statusFilter">
                         <mat-option value="all">
                             All
@@ -96,7 +96,7 @@
                 </div>
 
                 <div *ngIf="isCustomerReport" class="common-input col-lg-2 col-12 col-sm-12 col-md-3">
-                    <mat-select class="form-control form-control-trasprent"
+                    <mat-select class="form-control form-control-transparent"
                         (selectionChange)="fnChangeCreatedByFilter($event)" [(value)]="createdByFilter">
                         <mat-option value="all">
                             Registration By All

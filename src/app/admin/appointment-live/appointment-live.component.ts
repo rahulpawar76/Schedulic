@@ -156,6 +156,10 @@ export class AppointmentLiveComponent implements OnInit {
   }
   inStoreSelectedCat = 'all';
   staff_filter = "all";
+  clock=""
+  liveDate:any="";
+  liveTime:any="";
+  clockHandle;
   constructor(
     private adminService: AdminService,
     private datePipe: DatePipe,
@@ -186,11 +190,13 @@ export class AppointmentLiveComponent implements OnInit {
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.fnWatinglist();
-    // this.fnPendingBilling();
-    // this.fnOutdoorOrders();
+    this.clockHandle = setInterval(()=>{
+      this.clock = new Date().toLocaleString();
+      this.liveDate = this.datePipe.transform(this.clock,'EEE, MMM d');
+      this.liveTime = this.datePipe.transform(this.clock,'h:mm a');
+    },1000);
 
   }
-
   
   ngOnInit() {
     if(localStorage.getItem('business_id')){
@@ -203,12 +209,6 @@ export class AppointmentLiveComponent implements OnInit {
       this.businessId = localStorage.getItem('business_id');
       this.getNotificationCount(this.businessId)
     }
-    // this.getOnThewayAppointments();
-    
-    this.todayDate = this.datePipe.transform(new Date(),"MMMM d");
-    this.todayTime = this.datePipe.transform(new Date(),"h:mm ");
-    this.todayPeriod = this.datePipe.transform(new Date(),"a");
-    this.todayDays = this.datePipe.transform(new Date(),"EEEE");
 
     this.fnGetCategory();
     this.fngetService();
@@ -614,19 +614,27 @@ export class AppointmentLiveComponent implements OnInit {
     const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
       width: '500px',
       data :{note :this.note_description}
-     });
-      dialogRef.afterClosed().subscribe(result => {
-       this.note_description = result;
-      });
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 0){
+        this.note_description = null;
+      }else{
+        this.note_description = result;
+      }
+    });
   }
 
   fnShowNote(note){
     const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
       width: '500px',
       data :{note :note, view: 'only_view'}
-     });
+    });
     dialogRef.afterClosed().subscribe(result => {
-      this.note_description = result;
+      if(result == 0){
+        this.note_description = null;
+      }else{
+        this.note_description = result;
+      }
     });
   }
 
@@ -1564,7 +1572,7 @@ constructor(
     this.dialogRef.close(this.createNewNote.get('note_description').value);
   }
   deleteNote(): void {
-    this.dialogRef.close('');
+    this.dialogRef.close(0);
   }
   
   onAdd(): void {

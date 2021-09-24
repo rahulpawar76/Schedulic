@@ -5,7 +5,7 @@
             <div class="d-flex   mr-4 col-12 sc-table-top-bar header-content">
                 <div class="col-lg-5 col-12 col-md-3 col-sm-12 d-flex">
                     <!-- <mat-form-field class="appoint-daily mr-2 bottom-border-field"> -->
-                        <mat-select class="form-control form-control-trasprent mr-2" matTooltip="{{durationType == 'all'? 'All Day' : ''}}"
+                        <mat-select class="form-control form-control-transparent mr-2" matTooltip="{{durationType == 'all'? 'All Day' : ''}}"
                             (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
                             <mat-option value="all">All Day</mat-option>
                             <mat-option value="daily">Daily</mat-option>
@@ -15,7 +15,7 @@
                     <!-- </mat-form-field> -->
 
                     <!-- <mat-form-field class="appoint-service mr-2 bottom-border-field"> -->
-                        <mat-select class="form-control form-control-trasprent mr-2" matTooltip="{{selectedServices == 'all'? 'All Service' : ''}}"
+                        <mat-select class="form-control form-control-transparent mr-2" matTooltip="{{selectedServices == 'all'? 'All Service' : ''}}"
                             (selectionChange)="selectService($event.value)" [(value)]="selectedServices">
                             <mat-option selected value="all">All Services</mat-option>
                             <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">
@@ -25,7 +25,7 @@
 
                     <!-- <mat-form-field class="appoint-action bottom-border-field"> -->
                         <!-- <mat-label>Actions</mat-label> -->
-                        <mat-select class="form-control form-control-trasprent" matTooltip="Action" [disabled]="orderItemsIdArr.length == 0"
+                        <mat-select class="form-control form-control-transparent" matTooltip="Action" [disabled]="orderItemsIdArr.length == 0"
                             [(ngModel)]="selectedValue" (selectionChange)="fnAppointAction($event.value)">
                             <mat-option value="AC" [disabled]="ConfirmError">Confirm</mat-option>
                             <mat-option value="C" [disabled]="cancelError">Cancel</mat-option>
@@ -33,7 +33,7 @@
                     <!-- </mat-form-field> -->
                 </div>
                 <div class="col-lg-2 col-12 col-md-2 col-sm-12 d-flex appoint-date-range-main">
-                    <input class="form-control form-control-trasprent" ngxDaterangepickerMd
+                    <input class="form-control form-control-transparent" ngxDaterangepickerMd
                         [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY'}" [(ngModel)]="selected"
                         placeholder="Search date" (change)="customeRange($event)" />
                 </div>

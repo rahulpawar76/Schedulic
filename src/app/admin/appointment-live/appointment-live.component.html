@@ -13,71 +13,74 @@
             <div class="in-store-tabs" [ngClass]="{'service-tab': inStoreTabName == 'service','waiting-tab': inStoreTabName == 'waiting'}">
                 <div class="sub-header">
                     <div class="top-tabs">
-                        <label [ngClass]="{'active': inStoreTabName == 'service'}" (click)="fnChangeSubTab('service')" class="signle-tab">Service</label>
-                        <label [ngClass]="{'active': inStoreTabName == 'waiting'}" (click)="fnChangeSubTab('waiting')" class="signle-tab">Waiting</label>
+                        <label [ngClass]="{'active': inStoreTabName == 'service'}" (click)="fnChangeSubTab('service')" class="signle-tab"><span><img src="/assets/images/icons/bolt.svg" /></span>Service</label>
+                        <label [ngClass]="{'active': inStoreTabName == 'waiting'}" (click)="fnChangeSubTab('waiting')" class="signle-tab"><span><img src="/assets/images/icons/third-quarter.svg" /></span>Waiting</label>
                     </div>
                     <div class="seach-bar">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search By Service" (keyup)="fnSearch($event.target.value)">
+                        <div class="searchbox mr-2">
+                            <form class="search_input-staff">
+                                <div class="has-search">
+                                    <mat-icon class="form-control-feedback">search</mat-icon>
+                                    <input name="searchKeyword" (keyup)="fnSearch($event.target.value)" type="text"class="form-control searchbox_appointment" placeholder="Search for items">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="today-time-function">
-                        <div class="pendingborder appoint-head">
-                            <label class="mb-0 pendingdate">{{todayDate}}</label>
-                            <p class="appoint-day">{{todayDays}}</p>
-                        </div>
-
-                        <div class="appoint-head">
-                            <label class="mb-0 pendingdate">{{todayTime}}</label>
-                            <p class="appoint-time-zone">{{todayPeriod}}</p>
-                        </div>
+                        <label class="live-time">{{liveTime}}</label>
+                        <label class="live-date">{{liveDate}}</label>
                     </div>
                 </div>
                 <div *ngIf="inStoreTabName == 'service'" class="service-container">
                     <div class="left-side-booking">
-                        <div class="row mx-0">
-                            <mat-card id="all-category-list" class="col-3 border-8 p-0">
+                        <div class="row mx-0 h-100">
+                            <div id="all-category-list" class="col-3 p-0">
                                 <ul>
                                     <li class="bottom-border plr-25">
-                                        <p class="category-lable">Category</p>
+                                        <p class="category-lable">Categories</p>
                                     </li>
                                     <li class="bottom-border plr-25 pointer " [ngClass]="{'active':inStoreSelectedCat === 'all'}">
-                                        <p class="title-main" (click)="fngetService('')">All Services<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                        <p class="title-main" (click)="fngetService('')">
+                                            All Services
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11" viewBox="0 0 11.497 20.11">
+                                                <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z" transform="translate(-11.251 -6.194)" fill="#00a89b"/>
+                                            </svg>
+                                        </p>
                                     </li>
 
-                                    <li [ngClass]="{'active':inStoreSelectedCat === val.id}" class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
-                                        <p class="title-main" (click)="fngetService(val.id)">{{val.category_title}}<i class="fa fa-chevron-right" aria-hidden="true"></i></p>
+                                    <li (click)="fngetService(val.id)" [ngClass]="{'active':inStoreSelectedCat === val.id}" class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
+                                        <p class="title-main">
+                                            {{val.category_title}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11" viewBox="0 0 11.497 20.11">
+                                                <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z" transform="translate(-11.251 -6.194)" fill="#00a89b"/>
+                                            </svg>
+                                        </p>
                                     </li>
 
                                 </ul>
-                            </mat-card>
-                            <div class="service-list-main col-5 my-3">
+                            </div>
+                            <div class="service-list-main col-6 py-3">
                                 <div class="row mx-0">
                                     <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index">
-                                        <label class="signle-service" (click)="fngetStaff(val.id,i)">
-                                             <input class="d-none" type="radio" name="service" id="service-{{i}}">
+                                        <input class="d-none" type="radio" name="service" id="service-{{i}}">
+                                        <label for="service-{{i}}" [ngClass]="{'selected': val.id == service_id}" class="signle-service" (click)="fngetStaff(val.id,i)">
+                                            <img [src]="val.service_image" />
                                              <div class="service-label">
                                                   <p>{{val.service_name}}</p>
-                                                  <span *ngIf="currencySymbolPosition=='left'">
-                                                    {{currencySymbol| currencySymbol:'wide'}} {{ val.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                                  <span *ngIf="currencySymbolPosition=='right'">
-                                                    {{ val.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                              </div>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 col-lg-4 pr-0">
+                            <div class="col-12 col-md-3 col-lg-3 px-0 h-100">
                                 <div class="select-staff-container">
                                     <div class="head">
                                         <h3>Staff</h3>
-                                        <mat-form-field class="bottom-border-field filter mt-2">
-                                            <mat-label>Filter</mat-label>
-                                            <mat-select (selectionChange)="fnFilterStaff($event.value)">
+                                            <mat-select placeholder="Filter" class="form-control form-control-transparent" (selectionChange)="fnFilterStaff($event.value)">
                                                 <mat-option value="all">All</mat-option>
                                                 <mat-option value="ideal">Ideal</mat-option>
                                                 <mat-option value="working">Working</mat-option>
                                             </mat-select>
-                                        </mat-form-field>
                                     </div>
                                     <div class="single-staff" *ngFor="let val of StaffList; let i=index">
                                         <div class="left-side">
@@ -93,9 +96,116 @@
                                     </div>
 
                                     <div class="single-staff" *ngIf="StaffList.length==0">
-                                        <p>Staff not available</p>
+                                        <p class="mb-0 text-center w-100">Staff not available</p>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-cart-container">
+                        <div class="cart-head">
+                            <h3>New Order</h3>
+                        </div>
+                        <div class="customer-container">
+                            <mat-accordion>
+                                <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Add Customer Detail
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div class="cutomer-form-body">
+                                        <p>Please Enter Customer Details</p>
+                                        <form [formGroup]="newCustomer">
+                                            <div class="row mb-3">
+                                                <div class="common-input col-lg-12 col-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="cus_email" class="form-control"
+                                                            placeholder="Enter email address">
+                                                    </div>
+                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('pattern')" class="error">Enter valid email address.</small>
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')" class="error">Email already in use.</small>
+                                                    </span>
+                                                </div>
+                                                <div class="common-input col-lg-6 col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="cus_mobile" class="form-control" placeholder="Enter mobile no.">
+                                                    </div>
+                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
+                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))" class="error">Mobile number is  required.</small>
+                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')" class="error">Mobile number should be minimum 6 or maximum 15 digits.</small>
+                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only (Country code is required)..</small>
+                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('isPhoneUnique')" class="error">Phone No is already in use.</small>
+                                                    </span>
+                                                </div>
+                                                <div class="common-input col-lg-6 col-12 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="cus_name" class="form-control" placeholder="Enter name">
+                                                    </div>
+                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
+                                                        <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                        <div class="cart-items">
+                            <div class="item-header" fxLayout="row">
+                                <div class="" fxFlex="10"></div>
+                                <div class="" fxFlex="40">Services</div>
+                                <div class="" fxFlex="35">Qty</div>
+                                <div class="" fxFlex="15">Price</div>
+                            </div>
+                            <div class="item-list">
+        
+                                <div class="item" *ngFor="let val of cartArr; let i=index">
+                                    <div class="" fxFlex="10"><i (click)="fnDeleteItem(i)" class="fa fa-trash pointer" aria-hidden="true"></i></div>
+                                    <div class="service-name" fxFlex="45">
+                                        <label>{{val.service_name}}</label>
+                                        <label class="staff-name">Staff : {{val.StaffName}}</label>
+                                    </div>
+                                    <div class="" fxFlex="35">
+                                        <div class="qty-counter">
+                                            <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('minus',i)">-</button>
+                                            <input type="text" class="qty_value" id="servicecount_1" value="{{val.count}}" readonly/>
+                                            <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol: 'wide'}} {{ val.totalCost | currency:selectedCurrency: '': '1.2-2':currencySymbolFormat }}</div>
+                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='right'">{{ val.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                </div>
+                                <div class="item subtotal">
+                                    <div class="service-name" fxFlex="70">
+                                        <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                        <label *ngIf="currencySymbolPosition=='right'">Subtotal :  {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                    </div>
+                                    <!-- <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> {{totalTax}}</div> -->
+                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='left'">Tax : {{currencySymbol| currencySymbol:'wide'}} {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='right'">Tax : {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                </div>
+                            </div>
+                            <div class="cart-footer">
+                                <div class="add-note">
+                                    <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
+                                    <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
+                                        <mat-icon>sticky_note_2</mat-icon>
+                                    </p>
+                                </div>
+                                <div class="total">
+                                    <p fxFlex="50" class="title text-left">Total</p>
+                                    <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                </div>
+                                <div class="footer-action">
+                                    <button class="sc-pink-btn text-white" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
+                                    <button class="sc-pink-btn text-white" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
+                                    <button class="sc-light-green-btn text-white" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +215,7 @@
                     <div class="row mx-0 my-2">
                         <div *ngFor="let val of Watinglist; let i=index" class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
                             <mat-card class="card">
-                                <div class="row mx-0 ">
+                                <div class="row">
                                     <div class="col-6">
                                         <label class="single-value">
                                         <p class="title">Waiting No.</p>
@@ -134,7 +244,7 @@
                                         <p class="value">{{val.booking_time}}</p>
                                     </label>
                                     </div>
-                                    <div class="col-12 service-list-head px-0">
+                                    <div class="col-12 service-list-head">
                                         <div class="w-50 float-left title text-left">
                                             Service
                                         </div>
@@ -142,7 +252,7 @@
                                             QTY.
                                         </div>
                                     </div>
-                                    <div class="col-12 service-list px-0">
+                                    <div class="col-12 service-list">
                                         <div class="w-50 float-left title text-left">
                                             {{val.service.service_name}}
                                         </div>
@@ -150,13 +260,13 @@
                                             {{val.service_qty}}
                                         </div>
                                     </div>
-                                    <div class="col-12 action-list px-0">
+                                    <div class="col-12 action-list">
                                         <div class="w-50 float-left text-left">
                                             <button mat-button class="cancel-btn" (click)="fncancelOrder(val.id);">Cancel</button>
                                         </div>
                                         <div class="w-50 float-left text-right right-side">
-                                            <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes)">sticky_note_2</mat-icon>
-                                            <img src="/assets/images/admin/stopwatch.png">
+                                            <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes.notes)">sticky_note_2</mat-icon>
+                                            <img src="/assets/images/icons/timer-clock.svg">
                                             <span class="timing"><small class="title">hh:mm:ss</small>
                                                     <!-- {{counter | formatTime}} -->
                                                 <!-- {{hoursToDday}} :{{minutesToDday}} : {{secondsToDday}} -->
@@ -170,134 +280,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="inStoreTabName == 'service'" class="right-cart-container">
-                <div class="cart-head">
-                    <h3>New Order</h3>
-                </div>
-                <div class="customer-container">
-                    <mat-accordion>
-                        <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <i class="fa fa-user" aria-hidden="true" matTooltip="Please Enter Customer Details" aria-label="Please Enter Customer Details"></i>
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="cutomer-form-body">
-                                <p>Please Enter Customer Details</p>
-                                <form [formGroup]="newCustomer">
-                                    <div class="row mb-3">
-                                        <div class="col-lg-12 col-12 col-md-12 bottom-border-field m-0">
-                                            <mat-form-field>
-                                                <mat-label>Email</mat-label>
-                                                <input matInput formControlName="cus_email" placeholder="Enter email address">
-                                            </mat-form-field>
-                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
-                                                <small *ngIf="newCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
-                                                <small *ngIf="newCustomer.get('cus_email').hasError('pattern')" class="error">Enter valid email address.</small>
-                                                <small *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')" class="error">Email already in use.</small>
-                                            </span>
-                                        </div>
-                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
-                                            <mat-form-field>
-                                                <mat-label>Mobile</mat-label>
-                                                <input matInput formControlName="cus_mobile" placeholder="Enter mobile no.">
-                                            </mat-form-field>
-                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
-                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))" class="error">Mobile number is  required.</small>
-                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')" class="error">Mobile number should be minimum 6 or maximum 15 digits.</small>
-                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only (Country code is required)..</small>
-                                                <small *ngIf="newCustomer.get('cus_mobile').hasError('isPhoneUnique')" class="error">Phone No is already in use.</small>
-                                            </span>
-                                        </div>
-                                        <div class="col-lg-6 col-12 col-md-6 bottom-border-field">
-                                            <mat-form-field>
-                                                <mat-label>Name</mat-label>
-                                                <input matInput formControlName="cus_name" placeholder="Enter name">
-                                            </mat-form-field>
-                                            <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
-                                                <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </div>
-                <div class="cart-items">
-                    <div class="item-header" fxLayout="row">
-                        <div class="" fxFlex="10"></div>
-                        <div class="" fxFlex="40">
-                            Services
-                        </div>
-                        <div class="" fxFlex="35">QTY.</div>
-                        <div class="" fxFlex="15">Price</div>
-                    </div>
-                    <div class="item-list">
-
-                        <div class="item" *ngFor="let val of cartArr; let i=index">
-                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn" (click)="fnDeleteItem(i)"> <mat-icon>close</mat-icon></button></div>
-                            <div class="service-name" fxFlex="45">
-                                <label>{{val.service_name}}</label>
-                                <label class="staff-name">Staff : {{val.StaffName}}</label>
-                            </div>
-                            <div class="" fxFlex="35">
-                                <div class="qty-counter">
-                                    <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('minus',i)">-</button>
-                                    <input type="text" class="qty_value" id="servicecount_1" value="{{val.count}}" readonly/>
-                                    <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
-                                </div>
-                            </div>
-                            <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol: 'wide'}} {{ val.totalCost | currency:selectedCurrency: '': '1.2-2':currencySymbolFormat }}</div>
-                            <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='right'">{{ val.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
-                        </div>
-                        <!-- 
-                        <div class="item">
-                            <div class="" fxFlex="10"><button mat-icon-button class="close-btn"> <mat-icon>close</mat-icon></button></div>
-                            <div class="service-name" fxFlex="45">
-                                <label>Black <span>(Hair Color)</span></label>
-                                <label class="staff-name">Staff : Meet shah</label>
-                            </div>
-                            <div class="" fxFlex="35">
-                                <div class="qty-counter">
-                                    <button mat-fab class="action-btn qty-minus">-</button>
-                                    <input type="text" class="qty_value" id="servicecount_1" value="2" readonly/>
-                                    <button mat-fab class="action-btn qty-minus">+</button>
-                                </div>
-                            </div>
-                            <div class="" fxFlex="15">$40</div>
-                        </div> -->
-
-                        <div class="item subtotal">
-                            <div class="service-name" fxFlex="70">
-                                <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                <label *ngIf="currencySymbolPosition=='right'">Subtotal :  {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
-                            </div>
-                            <!-- <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> {{totalTax}}</div> -->
-                            <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='left'">Tax : {{currencySymbol| currencySymbol:'wide'}} {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                            <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='right'">Tax : {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
-                        </div>
-                    </div>
-                    <div class="cart-footer">
-                        <div class="add-note">
-                            <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
-                            <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
-                                <mat-icon>sticky_note_2</mat-icon>
-                            </p>
-                        </div>
-                        <div class="total">
-                            <p fxFlex="50" class="title text-left">Total</p>
-                            <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                        </div>
-                        <div class="footer-action">
-                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
-                            <button class="save-btn" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
-                            <button class="place-btn" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>

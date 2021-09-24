@@ -8,15 +8,23 @@
         </div>
         <form [formGroup]="createNewNote">
             <div class="modal-body pb-0">
-                <mat-form-field class="bottom-border-field">
+                <div class="common-input col-12">
+                    <div class="form-group">
+                        <textarea [disabled]="viewType === 'only_view'" [readOnly]="viewType === 'only_view'" class="form-control min-h-70" rows="5" formControlName="note_description" placeholder="Type Note Here"></textarea>
+                    </div>
+                    <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched">
+                        <small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Note is required.</small>
+                    </span>
+                </div>
+                <!-- <mat-form-field class="bottom-border-field">
                     <mat-label>Note</mat-label>
                     <textarea [disabled]="viewType === 'only_view'" [readOnly]="viewType === 'only_view'" class="min-h-70" rows="5" matInput formControlName="note_description" placeholder="Type Note Here"></textarea>
                 </mat-form-field>
-                <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Note is required.</small></span>
+                <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Note is required.</small></span> -->
             </div>
             <div class="modal-footer" *ngIf="!viewType || viewType !== 'only_view'">
-                <button type="button" mat-button class="btn cancelbtn" data-dismiss="modal" (click)="deleteNote()">Delete</button>
-                <button type="button" mat-button class="btn savebtn" data-dismiss="modal" (click)="onAdd()">Add</button>
+                <button type="button" mat-button class="sc-grey-btn mr-2" data-dismiss="modal" (click)="deleteNote()">Delete</button>
+                <button type="button" mat-button class="sc-pink-btn" data-dismiss="modal" (click)="onAdd()">Add</button>
             </div>
         </form>
     </div>
