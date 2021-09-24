@@ -169,10 +169,8 @@ export class AppointmentLiveComponent implements OnInit {
     private authenticationService: AuthenticationService,
     public router: Router,
     private _snackBar: MatSnackBar,
+    private fireDb:AngularFireDatabase,
   ) { 
-
-    private fireDb:AngularFireDatabase
-  ) {
     this.fireDB = fireDb;
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
@@ -204,7 +202,7 @@ export class AppointmentLiveComponent implements OnInit {
    // this.getNotAssignedAppointments();
    if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
-      this.getNotificationCount(this.businessId)
+      this.getNotificationCount(this.businessId);
     }
     // this.getOnThewayAppointments();
     
