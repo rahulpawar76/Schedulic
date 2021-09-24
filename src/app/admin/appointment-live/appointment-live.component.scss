@@ -81,13 +81,13 @@ table {
 
 .table-background {
     background-color: #fafafa;
-    padding: 10px 20px;
     margin-bottom: 0;
+    padding: 0px;
 }
 
 .appointment-live-list {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 0px;
     display: block;
     overflow: hidden;
     height: calc(100vh - 280px);
@@ -102,20 +102,21 @@ table {
 }
 
 .main-table-head {
-    padding: 10px 20px;
-    font-weight: bolder;
+    // padding: 10px 20px;
+    // font-weight: bolder;
+    padding: 18px 35px;
+    font-weight: 600;
+    background-color: #eaf7f6;
 }
 
 .appointment-live-list-details {
-    padding: 20px 10px;
-    border: solid 3px white;
-    border-radius: 10px;
-    margin: 7px 0px;
+    padding: 15px 35px;
+    border-radius: 0px;
+    margin:0px;
     // border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
     background: white;
@@ -201,7 +202,8 @@ table {
 }
 
 .bluephone {
-    color: #1172f4;
+    // color: #1172f4;
+    color: #00a89b;
 }
 
 .special-table {
@@ -939,25 +941,32 @@ mat-radio-group {
 }
 
 .unselect-bill label {
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .unselect-bill span {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
-
+.select-bill{
+    border: 1px solid #d0d0d0;
+}
 .select-bill label {
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .select-bill span {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
-
+.custom-bill-btn{
+    .btn-secondary{
+        background-color: #f04589;
+        border-color: #f04589;
+    }
+}
 .ord-bill-head {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -966,7 +975,7 @@ mat-radio-group {
 }
 
 .customer-details label {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .customer-details span {
@@ -975,11 +984,19 @@ mat-radio-group {
 }
 
 .service-details-title {
-    background-color: #D9D9D9;
+    background-color: #d9f0fe;
+    span{
+        font-weight: 600;
+        font-size: 14px;
+    }
 }
 
 .total-bill {
-    background-color: #DDEAFD;
+    background-color: #ffe482;
+    span{
+        font-weight: 600;
+        font-size: 14px;
+    }
 }
 
 .tab-label {
@@ -1062,11 +1079,12 @@ mat-radio-group {
             overflow-y: auto;
             width: 100%;
             .single-order {
-                border-bottom: 1px solid #ccc;
-                padding: 10px 10px 10px 15px;
+                // border-bottom: 1px solid #ccc;
+                padding: 20px;
                 font-size: 14px;
                 display: flex;
                 flex-wrap: wrap;
+                background-color: #edf9f8;
                 .order-id {
                     color: #181818;
                     text-align: left;
@@ -1093,9 +1111,10 @@ mat-radio-group {
                             height: 14px;
                         }
                         p {
-                            color: #181818;
-                            font-size: 16px;
-                            padding-left: 15px;
+                            color: #565657;
+                            font-size: 15px;
+                            font-weight: 500;
+                            padding-left: 23px;
                             margin: 0;
                         }
                         &::after {
@@ -1119,8 +1138,10 @@ mat-radio-group {
                             text-align: left;
                         }
                         p {
-                            color: #181818;
-                            font-size: 16px;
+                            // color: #181818;
+                            color: #565657;
+                            font-size: 15px;
+                            font-weight: 500;
                             padding-left: 15px;
                             margin: 0;
                         }
@@ -1133,18 +1154,21 @@ mat-radio-group {
                     .detail-btn {
                         width: 170px;
                         height: 35px;
-                        background: #DDDDDD 0% 0% no-repeat padding-box;
-                        border-radius: 5px;
+                        // background: #DDDDDD 0% 0% no-repeat padding-box;
+                        background-color: #a0dfd9;
+                        border-radius: 3px;
                         color: #181818;
                         font-size: 14px;
                     }
                     .ws-btn {
                         width: 140px;
                         height: 35px;
-                        background: #1172F4 0% 0% no-repeat padding-box;
-                        border-radius: 5px;
+                        // background: #1172F4 0% 0% no-repeat padding-box;
+                        background: #f04589;
+                        border-radius: 3px;
                         color: #fff;
                         font-size: 14px;
+                        margin-left: 12px;
                     }
                     .otw-btn {
                         width: 140px;
@@ -1213,6 +1237,16 @@ mat-radio-group {
 .left-order-listing {
     height: calc(100vh - 140px);
     overflow-y: auto;
+    .btn-primary{
+        background-color: #f04589;
+        color: #fff;
+        border-color: #f04589;
+    }
+    .btn-secondary{
+        background-color: #00a89b;
+        color: #fff;
+        border-color: #00a89b;
+    }
 }
 
 .single-booking {
