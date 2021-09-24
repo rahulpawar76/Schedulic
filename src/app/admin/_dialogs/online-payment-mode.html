@@ -17,18 +17,17 @@
                 </mat-radio-group>
 
             </div>
-            <div class="" *ngIf="payment_method=='Card'">
-                <mat-form-field class="bottom-border-field">
-                    <mat-label>Select Card Option</mat-label>
-                    <mat-select [(ngModel)]="card_option" name="card_option">
+            <div class="col-12 common-input" *ngIf="payment_method=='Card'">
+                <div class="form-group">
+                    <mat-select class="form-control" placeholder="Select Card Option" [(ngModel)]="card_option" name="card_option">
                         <mat-option value="swipe_card">Swipe Through Machine</mat-option>
                         <mat-option value="send_link">Send Link To Customer</mat-option>
                     </mat-select>
-                </mat-form-field>
+                </div>
             </div>
             <div class="payment-action-btn">
-                <button mat-button class="cancel-btn" (click)="onNoClick()">Cancel</button>
-                <button mat-button class="confirm-btn" (click)="Confirm()">Confirm</button>
+                <button mat-button class="sc-grey-btn mr-2" (click)="onNoClick()">Cancel</button>
+                <button mat-button class="sc-pink-btn" (click)="Confirm()">Confirm</button>
             </div>
         </div>
     </div>
