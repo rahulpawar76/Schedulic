@@ -730,6 +730,19 @@ input:focus {
 ::ng-deep mat-toolbar{
     .admin-header{
         position: relative;
+        .page-head{
+            label{
+                color: #0E0E0E;
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 0;
+                margin-left: 15px;
+                img{
+                    width: 35px;
+                    height: 35px;
+                }
+            }
+        }
         .getting-started-window-wrap{
             transition: all 0.5s;
             .getting-started-label{

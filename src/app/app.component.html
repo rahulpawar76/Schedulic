@@ -48,16 +48,35 @@
                     </span>
                 </mat-toolbar-row>
                 <mat-toolbar-row *ngIf="isAdminUser()" class="admin-header">
-                    <!-- <div class="logo"><a><img src="/assets/img/logo.png"></a></div>  -->
-                    <div class="logo">
-                        <a class='logo-link'>
-                            <img *ngIf="pageHeading == 'My Workspace'" src="/assets/images/admin/my-workspace-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Appointments'" src="/assets/images/admin/my-appointmrnt-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Customer'" src="/assets/images/admin/my-customer-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Reports'" src="/assets/images/admin/my-report-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Discount Coupon'" src="/assets/images/admin/my-coupon-icon.png" class="page-top-icon mr-3" aria-hidden="true">
-                            <img *ngIf="pageHeading == 'My Profile'" src="/assets/images/admin/my-profile-icon.png" class="page-top-icon mr-3" aria-hidden="true"> {{pageHeading}}
-                        </a>
+                    <div class="page-head">
+                        <label *ngIf="pageHeading == 'My Workspace'">
+                            <img src="/assets/images/header-icons/bookings.svg" class="mr-3" aria-hidden="true">
+                            My Workspace
+                        </label>
+                        <label *ngIf="pageHeading == 'My Appointments'">
+                            <img src="/assets/images/header-icons/bookings.svg" class="mr-3" aria-hidden="true">
+                            My Bookings
+                        </label>
+                        <label *ngIf="pageHeading == 'My Customer'">
+                            <img src="/assets/images/header-icons/customers.svg" class="mr-3" aria-hidden="true">
+                            My Customers
+                        </label>
+                        <label *ngIf="pageHeading == 'My Reports'">
+                            <img src="/assets/images/header-icons/report.svg" class="mr-3" aria-hidden="true">
+                            My Reports
+                        </label>
+                        <label *ngIf="pageHeading == 'My Discount Coupon'">
+                            <img src="/assets/images/header-icons/coupon.svg" class="mr-3" aria-hidden="true">
+                            My Discount Coupon
+                        </label>
+                        <label *ngIf="pageHeading == 'My Profile'">
+                            <img src="/assets/images/header-icons/profile.svg" class="mr-3" aria-hidden="true">
+                            My Profile
+                        </label>
+                        <label *ngIf="pageHeading == 'My Settings'">
+                            <img src="/assets/images/header-icons/settings.svg" class="mr-3" aria-hidden="true">
+                            Settings
+                        </label>
                     </div>
                     <span class="example-fill-remaining-space">
                         <div class="selected-business-btn-main">
@@ -254,7 +273,7 @@
                         <div (click)="gettingStartedWindowOpen=!gettingStartedWindowOpen" [ngClass]="{'opened' : gettingStartedWindowOpen}" class="getting-started-label">
                             <img src="/assets/images/icons/shuttle.svg" />
                             <label>{{gettingStartedWindowOpen?'Do It Later':'Getting Started'}}</label>  
-                            <span class="material-icons"> expand_circle_down </span>
+                            <span class="material-icons">expand_circle_down</span>
                         </div>
                     </div>
                 </mat-toolbar-row>
