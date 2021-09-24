@@ -317,17 +317,17 @@
                             <div class="content" class="appointment-live-list">
                                 <div (click)="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
-                                        <p class="mb-0">Order Id: {{pendingAppointments.id}}</p>
+                                        <p class="mb-0 font-weight-bold">Order Id: {{pendingAppointments.id}}</p>
                                         <p class="mb-0">Unit : {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}</p>
                                         <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
                                     </div>
                                     <div class=" " fxFlex="25">
-                                        <p class="mb-0">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
+                                        <p class="mb-0 font-weight-bold">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
                                     </div>
                                     <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
+                                        <p class="mb-0 font-weight-bold">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
                                     </div>
@@ -340,14 +340,14 @@
                                     <!-- <div class="" fxFlex="10">
                                           {{pendingAppointments.total_cost}}
                                         </div> -->
-                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </div>
-                                    <div class="" fxFlex="10">
+                                    <div class="font-weight-bold" fxFlex="10">
                                         {{pendingAppointments.booking_date}}
                                     </div>
-                                    <div class="" fxFlex="10">
+                                    <div class="font-weight-bold" fxFlex="10">
                                         {{pendingAppointments.booking_time}}
                                     </div>
                                 </div>
@@ -392,10 +392,19 @@
             </div>
             <div class="out-door-container">
                 <div class="left-container">
-                    <div class="search-container">
+                    <div class="searchbox col-12 mt-3">
+                        <form class="search_input-staff">
+                            <div class="has-search">
+                               <mat-icon class="form-control-feedback">search</mat-icon>
+                               <input name="searchKeyword" (keyup)="fnOutdoorOrders($event.target.value,'order_id')"
+                                type="text" class="form-control searchbox_appointment" placeholder="Search by Order ID">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="search-container">
                         <i class="fa fa-search"></i>
                         <input type="text" placeholder="Search by Order ID" (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
-                    </div>
+                    </div> -->
                     <div class="order-listing" *ngIf="outdoorOrdersArr.length > 0">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
                             <label class="order-id">Order ID :  {{val.order_id}}</label>
@@ -409,7 +418,7 @@
                                     <p>{{val.orders_info.booking_address+', '+val.orders_info.booking_city+' '+val.orders_info.booking_state+' '+val.orders_info.booking_zipcode}}</p>
                                 </div>
                             </div>
-                            <div class="action-btn">
+                            <div class="action-btn mt-2">
                                 <button (click)="fnOpenOnTheWayDetails(val);" mat-button class="detail-btn">Appointment Details</button>
                                 <button *ngIf="val.order_status=='OW'" mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Work Started
                                 </button>
@@ -480,7 +489,7 @@
                                         <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="mb-0">{{workStartedAppointments.order_from}}</p>
+                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.order_from}}</p>
                                     </div>
                                     <div class="" *ngIf="workStartedAppointments.customer" fxFlex="20">
                                         <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
@@ -496,13 +505,13 @@
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                        <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
-                                    <div class="" fxFlex="10">
+                                    <div class="font-weight-bold" fxFlex="10">
                                         {{workStartedAppointments.booking_date}}
                                     </div>
-                                    <div class="" fxFlex="10">
+                                    <div class="font-weight-bold" fxFlex="10">
                                         {{workStartedAppointments.booking_time}}
                                     </div>
                                 </div>
@@ -539,7 +548,6 @@
                     <label class="mb-0 pendingdate" style="text-align: right;">{{todayDate}}</label>
                     <p class="appoint-day" style="text-align: right;font-size: 18px;">{{todayDays}}</p>
                 </div>
-
                 <div class="appoint-head" style="margin: 0 20px 0 20px;">
                     <label class="mb-0 pendingdate">{{todayTime}}</label>
                     <p class="appoint-time-zone" style="text-align: right;">{{todayPeriod}}</p>
@@ -606,7 +614,7 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-12 text-center">
-                                            <button class="btn   {{val.is_selected==false?'btn-primary':'btn-secondary'}} " (click)="fnSelect(i,val.customer_id,val.order_item_id);">
+                                            <button class="btn select-btn  {{val.is_selected==false?'btn-primary':'btn-secondary'}} " (click)="fnSelect(i,val.customer_id,val.order_item_id);">
                                                 {{val.is_selected==false?'Seleted':'Unselect'}}
                                             </button>
                                         </div>
@@ -618,7 +626,7 @@
 
                     <div class="col-4 col-lg-4 col-xl-3 p-2 shadow billing-cart">
                         <div class="px-3 pt-2 pb-0 ord-bill-head">
-                            Bill Order
+                            Billing Order
                         </div>
                         <hr class="my-2">
                         <div class="px-3">
@@ -689,16 +697,16 @@
                         <hr class="my-2">
                         <div class="px-3 py-2 mt-3 total-bill">
                             <div class="row ">
-                                <div class="col-9">
+                                <div class="col-8">
                                     <span>Total</span>
                                 </div>
-                                <div class="col-3 ">
+                                <div class="col-4 ">
                                     <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                                     <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="px-3 py-2 text-center">
+                        <div class="px-3 py-2 text-center custom-bill-btn">
                             <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer" (click)="fnPaymentBillingMode('print')">Print</button>
                             <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer" (click)="fnPaymentBillingMode('email')">E-Bill</button>
                         </div>

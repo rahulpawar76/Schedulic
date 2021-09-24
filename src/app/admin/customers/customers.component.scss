@@ -111,20 +111,6 @@
             color: white;
             line-height: 1;
         }
-        .customer-cancel-btn {
-            width: 100px;
-            height: 39px;
-            border-radius: 7px;
-            color: #fff;
-            background-color: #dddddd;
-        }
-        .customer-save-btn {
-            width: 109px;
-            height: 39px;
-            border-radius: 7px;
-            background-color: #1173f4;
-            color: white;
-        }
         .action-btn {
             margin-left: auto;
             display: flex;
@@ -962,10 +948,11 @@ mat-chip-list {
             padding: 16px;
             position: fixed;
             bottom: 0;
-            width: calc(100% - 370px);
+            width: calc(100% - 390px);
             margin: 0;
             box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
             right: 0;
+            background-color: #fff;
         }
     }
 }

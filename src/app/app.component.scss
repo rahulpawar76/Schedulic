@@ -739,7 +739,7 @@ input:focus {
                 left: calc(50% - 80px);
                 top: 64px;
                 padding: 8px 10px;
-                width: 250px;
+                width: 210px;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
@@ -753,11 +753,11 @@ input:focus {
                     color: #00A89B;
                     text-decoration: underline;
                     font-weight: 500;
-                    font-size: 18px;
+                    font-size: 16px;
                     cursor: pointer;
                 }
                 span{
-                    font-size: 28px;
+                    font-size: 24px;
                     color: #F04589;
                 }
                 img{
@@ -766,6 +766,7 @@ input:focus {
                     -webkit-transform-origin:50% 50%;
                     -webkit-animation-iteration-count: infinite;
                     -webkit-animation-timing-function: linear;
+                    width: 24px;
                 }
                 &.opened{
                     bottom: 0;
