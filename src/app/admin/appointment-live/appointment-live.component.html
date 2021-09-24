@@ -1,14 +1,14 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
-    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp">
+    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp common-tab-group">
         <mat-tab>
             <ng-template mat-tab-label>
-                <span class="material-icons">dashboard</span>
+                <img class="mr-0" src="/assets/images/icons/dashboard.svg" />
             </ng-template>
         </mat-tab>
         <mat-tab label="In Store">
             <ng-template mat-tab-label>
-                <span class="material-icons">store</span> In Store
+                <img src="/assets/images/icons/store-live.svg" /> In Store
             </ng-template>
             <div class="in-store-tabs" [ngClass]="{'service-tab': inStoreTabName == 'service','waiting-tab': inStoreTabName == 'waiting'}">
                 <div class="sub-header">
@@ -301,7 +301,7 @@
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
-                <span class="material-icons">watch_later</span> Pending
+                <img src="/assets/images/icons/pending-live.svg" /> Pending
             </ng-template>
             <div class="pendingnotes d-flex">
                 <label class="tab-label">Pending</label>
@@ -389,7 +389,7 @@
         </mat-tab>
         <mat-tab class="onthewaylabel">
             <ng-template mat-tab-label>
-                <i class="fa fa-motorcycle" aria-hidden="true"></i> Out Door
+                <img src="/assets/images/icons/outdoor-live.svg" /> Out Door
             </ng-template>
             <div class="pendingnotes d-flex">
                 <label class="tab-label">Out Door</label>
@@ -459,7 +459,7 @@
 
         <mat-tab class="workstartedlabel">
             <ng-template mat-tab-label>
-                <span class="material-icons">work</span> Work Started
+                <img src="/assets/images/icons/workstarted-live.svg" /> Work Started
             </ng-template>
             <div class="pendingnotes d-flex">
                 <label class="tab-label">Work Started</label>
@@ -544,8 +544,7 @@
         </mat-tab>
         <mat-tab class="pendingbillingtab">
             <ng-template mat-tab-label>
-                <img *ngIf="!pendingBillTab" src="/assets/images/admin/receipt.png">
-                <img *ngIf="pendingBillTab" src="/assets/images/admin/receipt-blue.png"> Pending Billing
+                <img src="/assets/images/icons/billing-live.svg" /> Pending Billing
             </ng-template>
             <div class="pendingnotes d-flex">
                 <label class="tab-label">Pending Billing</label>

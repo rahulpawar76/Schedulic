@@ -287,7 +287,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   isAdminUser() {
-    if(this.currentUser && this.currentUser.user_type === Role.Admin && !this.isBusiness()){
+    if(this.currentUser && this.currentUser.user_type === Role.Admin && !this.isBusiness() && !this.isPOS()){
       this.sharedService.updateSideMenuState(true);
     }
     return this.currentUser && this.currentUser.user_type === Role.Admin;
@@ -405,6 +405,7 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/admin/my-discountcoupon']);
   }
   MyLiveAppointmentNav() {
+      this.sharedService.updateSideMenuState(false);
     this.router.navigate(['/admin/my-appointment-live']);
   }
   MyProfileNav() {
@@ -486,7 +487,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   customerLogout() {
-    console.log(localStorage.getItem('frontBusiness_id'))
     let businessId = localStorage.getItem('frontBusiness_id')
     this.authenticationService.customerLogout();
     this.router.navigate(['/customer-login/'+window.btoa(businessId)]);

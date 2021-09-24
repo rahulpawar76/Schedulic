@@ -285,7 +285,10 @@
         flex-wrap: wrap;
         align-items: stretch;
         .small-font {
-            font-size: 12px;
+            font-size: 14px;
+        }
+        .text-wrap-bold{
+            font-weight: 700;
         }
         .OrderBy-width {
             width: 100%;
@@ -313,15 +316,15 @@
     .customer-cancel-btn {
         width: 100px;
         height: 39px;
-        border-radius: 7px;
+        border-radius: 3px;
         color: #fff;
         background-color: #dddddd;
     }
     .customer-pay-btn {
         width: 109px;
         height: 39px;
-        border-radius: 7px;
-        background-color: #1173f4;
+        border-radius: 3px;
+        background-color: #f04589;
         color: white;
     }
     .action-btn {
@@ -988,9 +991,13 @@ mat-chip-list {
     overflow-y: scroll;
     .bg-wrap-control{
         background-color: #eaf7f6;
+        border: 0;
     }
 }
-
+.bg-wrap-control{
+    background-color: #eaf7f6;
+    border: 0;
+}
 .short-menu {
     &.customer-menu {
         width: 100px;
