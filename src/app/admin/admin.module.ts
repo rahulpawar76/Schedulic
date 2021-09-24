@@ -95,7 +95,7 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     ],
   imports: [
     AgmCoreModule.forRoot({ // @agm/core
-      apiKey: 'AIzaSyDIx_jprz_nOTY0XoE8uhbX6oAy16GIyOc',
+      apiKey: 'AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk',
     }),
     AgmDirectionModule,    
     CommonModule,

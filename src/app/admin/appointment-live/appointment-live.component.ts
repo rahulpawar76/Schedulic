@@ -290,7 +290,7 @@ export class AppointmentLiveComponent implements OnInit {
       this.pendingBillTab  = true
      this.fnPendingBilling();
     }else if(clickedIndex == 3){
-      this.fnOutdoorOrders();
+      this.fnOutdoorOrders(null,null);
       this.pendingBillTab  = false
     }else if(clickedIndex == 1){
       this.pendingBillTab  = false
@@ -1339,7 +1339,7 @@ export class AppointmentLiveComponent implements OnInit {
   
   }
    
-  fnOutdoorOrders(search=null,search_by=null){
+  fnOutdoorOrders(search:any,search_by:any){
     
 
     let requestObject = {
@@ -1422,7 +1422,7 @@ export class AppointmentLiveComponent implements OnInit {
       if (response.data == true) {
 
         this.isLoaderAdmin = false;
-        this.fnOutdoorOrders();
+        this.fnOutdoorOrders(null,null);
 
       } else {
 
