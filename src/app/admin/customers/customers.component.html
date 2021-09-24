@@ -345,19 +345,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <mat-card class="footer-action-btn row">
+                            <div class="footer-action-btn">
                                 <div class="action-btn">
                                     <div class="mx-2">
-                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="customer-cancel-btn">Cancel</button>
+                                        <button (click)="fnCancelNewCustomer()" mat-button appearance="fill" class="sc-grey-btn">Cancel</button>
                                     </div>
                                     <div class="mx-2" *ngIf="!existingUserId">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Save</button>
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="sc-pink-btn">Save</button>
                                     </div>
                                     <div class="mx-2" *ngIf="existingUserId">
-                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="customer-save-btn">Update</button>
+                                        <button mat-button type="submit" appearance="fill" (click)="fnCreateCustomerSubmit()" class="sc-pink-btn">Update</button>
                                     </div>
                                 </div>
-                            </mat-card>
+                            </div>
                         </form>
                     </mat-card>
                 </div>
