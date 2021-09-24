@@ -172,6 +172,7 @@ export class AppointmentLiveComponent implements OnInit {
 
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
+      this.sharedService.updateSideMenuState(false);
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
         const url = this.getUrl(event);
@@ -303,8 +304,6 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fnSearch(value){
-    console.log(this.inStoreTabName);
-
     if(this.inStoreTabName=='service'){
       this.serach = value;
       this.fngetService();
@@ -646,7 +645,6 @@ export class AppointmentLiveComponent implements OnInit {
      });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
        if(result){
         this.paymentData = result;
         this.fnplaceOrder(pos_pdf_type);
@@ -947,7 +945,6 @@ export class AppointmentLiveComponent implements OnInit {
         });
       });
       cartelement.tax = tmpItemTaxArr;
-      console.log(itemTaxTotal);
       cartelement.totalCost = parseInt(cartelement.subtotal) + itemTaxTotal;
     });
 
@@ -984,8 +981,6 @@ export class AppointmentLiveComponent implements OnInit {
       "notes" : bookingNotes,
       "pos_pdf_type" : pos_pdf_type  
     };
-   
-    console.log(requestObject);
    
     this.adminService.placeOrder(requestObject).subscribe((response:any) => {
       
@@ -1368,8 +1363,6 @@ export class AppointmentLiveComponent implements OnInit {
   OutDootMap(index=0){
     
     var data = this.outdoorOrdersArr[index];
-    console.log(data.service.service_sub_type);
-    
     if(data.service.service_sub_type=='at_home'){
       this.ShowMap  = true;
     }else{
@@ -1403,8 +1396,6 @@ export class AppointmentLiveComponent implements OnInit {
   fnOrderUpdateStatus(status,order_item_id,type){
 
     var new_status = '';
-    console.log(type);
-
     if(type=='out_store'){
       if(status=='OW'){
         new_status='WS';
@@ -1419,9 +1410,6 @@ export class AppointmentLiveComponent implements OnInit {
       "order_item_id": order_item_id,
       'status' : new_status
     };
-
-    console.log(requestObject);
-
     this.adminService.OrderUpdateStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
 
@@ -1472,14 +1460,11 @@ export class AppointmentLiveComponent implements OnInit {
   private handleRoute(event: RouterEvent) {
     const url = this.getUrl(event);
     let devidedUrl = url.split('/',4);
-    console.log(devidedUrl)
     if(devidedUrl[2] == 'my-appointment-live'){
-      console.log('POS yes')
       this.appComponent.isPOS();
       localStorage.setItem('isPOS','true');
       this.sharedService.updateSideMenuState(false);
     }else{
-      console.log('POS no')
       this.appComponent.isPOS();
       localStorage.setItem('isPOS','false');
       this.sharedService.updateSideMenuState(true);
@@ -1624,7 +1609,6 @@ constructor(
   public dialog: MatDialog,
   private authenticationService : AuthenticationService,
   @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
     this.detailsData =  this.data.fulldata;
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.fnGetSettings();
@@ -1665,7 +1649,6 @@ constructor(
 
     this.adminService.getActivityLog(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        console.log(response.response);
         this.activityLog=response.response;
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
@@ -1745,7 +1728,6 @@ constructor(
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
-        console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -1756,7 +1738,6 @@ constructor(
     })
   }
   fnOnClickStaff(event){
-    console.log(event.value);
     let requestObject = {
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
@@ -1884,27 +1865,14 @@ constructor(
         this.settingsArr = response.response;
 
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
-
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
-       
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
-       
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -2223,9 +2191,6 @@ export class OnTheWayAppointmentDetailsDialog {
      
     this.detailsData =  this.data.fulldata;
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log(this.data);
-    console.log(this.detailsData);
-
     this.fnGetActivityLog(this.detailsData.id);
     this.fnGetBookingNotes(this.detailsData.id);
     this.fnGetSettings();
@@ -2290,26 +2255,14 @@ export class OnTheWayAppointmentDetailsDialog {
 
         
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
-
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
-       
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
             duration: 2000,
@@ -2392,7 +2345,6 @@ export class OnTheWayAppointmentDetailsDialog {
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
-        console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -2403,7 +2355,6 @@ export class OnTheWayAppointmentDetailsDialog {
     })
   }
   fnOnClickStaff(event){
-    console.log(event.value);
     let requestObject = {
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
@@ -2522,7 +2473,6 @@ export class OnTheWayAppointmentDetailsDialog {
       
       var Now = new Date();  
       var  APPO = new Date(APPODate);
-      console.log(this.settingsArr);
 
       Now.setMinutes(Now.getMinutes() + parseInt(time));
 
@@ -2576,7 +2526,6 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.detailsData =  this.data.fulldata;
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log(this.detailsData);
     this.fnGetSettings();
     this.fnGetActivityLog(this.detailsData.id);
     this.fnGetBookingNotes(this.detailsData.id);
@@ -2619,26 +2568,14 @@ constructor(
 
           
         this.currencySymbol = this.settingsArr.currency;
-        console.log(this.currencySymbol);
-        
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        console.log(this.currencySymbolPosition);
-        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.currencySymbolFormat);
-
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-        console.log(cancellation_buffer_time);
-        console.log(min_rescheduling_time);
-       
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-        console.log("cancellationBufferTime - "+this.cancellationBufferTime);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
-        console.log("minReschedulingTime - "+this.minReschedulingTime);
         }else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
               duration: 2000,
@@ -2742,7 +2679,6 @@ constructor(
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
-        console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -2753,7 +2689,6 @@ constructor(
     })
   }
   fnOnClickStaff(event){
-    console.log(event.value);
     let requestObject = {
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
@@ -2874,7 +2809,6 @@ constructor(
         
     var Now = new Date();  
     var  APPO = new Date(APPODate);
-    console.log(this.settingsArr);
 
     Now.setMinutes(Now.getMinutes() + parseInt(time));
 
@@ -2946,7 +2880,6 @@ constructor(
       rescheduleStaff: ['', Validators.required],
       rescheduleNote: ['', Validators.required],
     });
-    console.log(this.detailsData);
   }
 
   onNoClick(): void {
@@ -2954,7 +2887,6 @@ constructor(
   }
 
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-    console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
     let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
     this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
     this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
@@ -2981,7 +2913,6 @@ constructor(
       ).subscribe((response:any) => {
         if(response.data == true){
           this.timeSlotArr=response.response;
-          console.log(this.timeSlotArr);
         }
         else{
         }
@@ -2992,7 +2923,6 @@ constructor(
     }
    
     fnChangeTimeSlot(selectedTimeSlot){
-      console.log(selectedTimeSlot);
       this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
       this.selectedTimeSlot=selectedTimeSlot;
       this.fnGetStaff(selectedTimeSlot);
@@ -3019,7 +2949,6 @@ constructor(
       ).subscribe((response:any) => {
         if(response.data == true){
             this.availableStaff = response.response;
-            console.log(JSON.stringify(this.availableStaff));
         }
         else{
           this.availableStaff.length=0;
