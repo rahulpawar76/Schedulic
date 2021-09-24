@@ -1216,8 +1216,9 @@ mat-radio-group {
 .billing-cart {
     height: calc(100vh - 140px);
     overflow-y: auto;
+    border-left: 1px solid #00a89b;
     .order-items {
-        height: calc(100vh - 415px);
+        height: calc(100vh - 423px);
         overflow-y: auto;
     }
 }
