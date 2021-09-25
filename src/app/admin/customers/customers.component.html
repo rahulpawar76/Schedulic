@@ -5,14 +5,13 @@
             <div class="col-12 d-flex inner sc-table-top-bar">
                 <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>Manage Customers</span></div>
                 <div class="col-lg-6 col-md-6 col-sm-12 right-side-main">
-                    <mat-select class="form-control form-control-trasprent" [(ngModel)]="exportType" (selectionChange)="fnExportCustomer($event.value)">
+                    <mat-select class="form-control form-control-transparent" placeholder ="Export" [(ngModel)]="exportType" (selectionChange)="fnExportCustomer($event.value)">
                         <mat-option value="all">All</mat-option>
                         <mat-option [disabled]="selectedCustomerId.length == 0" value="selected">Selected</mat-option>
                     </mat-select>
                     <button (click)="ImportFileUpload()" mat-button appearance="fill" class="import ml-2">Import</button>
                     <button (click)="fnAddNewCustomer()" mat-button appearance="fill" class="sc-pink-btn ml-2">Add Customer</button>
                 </div>
-
             </div>
         </div>
         <div class="w-100 customer-bottom-area">

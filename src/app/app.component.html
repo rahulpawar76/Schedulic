@@ -43,7 +43,8 @@
                     <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                     </button>
                     <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-                        <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+                        <!-- <i class="fa fa-bars toggle-color" aria-hidden="true"></i> -->
+                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
                     </mat-button-toggle>
                     </span>
                 </mat-toolbar-row>
@@ -101,7 +102,8 @@
                         <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
                                 <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                        <i mat-list-icon class="fa fa-sign-out"></i>
+                        <!-- <i mat-list-icon class="fa fa-sign-out"></i> -->
+                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
                         </button>
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status" class="getting-started-window-wrap">
@@ -296,7 +298,7 @@
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
                     <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                            <i mat-list-icon class="fa fa-sign-out"></i>
+                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
                         </button>
                     </span>
                 </mat-toolbar-row>
@@ -483,7 +485,8 @@
             </mat-list-item>
             <mat-list-item role="listitem">
                 <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
-                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout
+                </button>
             </mat-list-item>
         </mat-list>
         <!-- <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">

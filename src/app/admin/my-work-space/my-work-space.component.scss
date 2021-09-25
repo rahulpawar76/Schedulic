@@ -19,7 +19,7 @@
             justify-content: center;
             background-color: #ffe482;
             padding: 15px 8px;
-            margin-top: 54px;
+            margin-top: 18px;
             .flex-align-center {
                 align-items: center;
                 display: inline-flex;
@@ -196,7 +196,7 @@
 /*_____________[3]Appointment____________________ */
 
 .appointment-listing-card {
-    height: calc(100vh - 220px);
+height: calc(100vh - 190px);
     overflow-x: visible;
     overflow-y: scroll;
     background-color: #eaf7f6;
@@ -207,7 +207,7 @@
         background-color: #eaf7f6;
         border-radius: 6px;
         padding: 0px 15px;
-        height: calc(100vh - 220px);
+    height: calc(100vh - 190px);
         overflow-x: visible;
         overflow-y: scroll;
         .title-heading-main {
@@ -367,7 +367,7 @@
 }
 #all-category-list {
     .main-category-listing {
-        height: calc(100vh - 220px);
+    height: calc(100vh - 190px);
         overflow-y: auto;
         overflow-x: visible;
         background-color: #eaf7f6;

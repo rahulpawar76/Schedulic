@@ -351,7 +351,7 @@
                                     <input matInput placeholder="Category, Sub Category, Service" (keyup)="searchService($event);">
                                     <mat-icon matPrefix>search</mat-icon>
                                 </mat-form-field> -->
-                                <div class="searchbox mr-2">
+                                <!-- <div class="searchbox mr-2">
                                     <form class="search_input-staff">
                                         <div class="form-group has-search">
                                             <mat-icon class="form-control-feedback">search</mat-icon>
@@ -359,7 +359,19 @@
                                                 class="form-control searchbox_staff " placeholder="Search">
                                         </div>
                                     </form>
+                                </div> -->
+                                <div class="searchbox mr-2">
+                                    <form class="search_input-staff">
+                                        <div class="has-search">
+                                            <mat-icon class="form-control-feedback">search</mat-icon>
+                                            
+                                                <input name="searchStaff" (keyup)="searchService($event)" type="text"
+                                                class="form-control searchbox_appointment " placeholder="Search">
+                                        </div>
+                                    </form>
                                 </div>
+
+
 
                                 <mat-accordion class="select-service-accordian">
                                     <mat-expansion-panel
@@ -452,7 +464,7 @@
                             <div class="form-group has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
                                 <input name="searchStaff" [(ngModel)]="search.staff" (keyup)="staffSearch()" type="text"
-                                    class="form-control searchbox_staff " placeholder="Search for items">
+                                    class="form-control searchbox_appointment " placeholder="Search for items">
                             </div>
                         </form>
                     </div>
@@ -489,64 +501,67 @@
                                             (change)="fnAddStaffId($event.checked,allStaffList.id,i)"></mat-checkbox>
                                     </div>
                                     <div class="text-left" fxFlex="30">
-                                        <div class="staff-img">
-                                            <img src="{{allStaffList.image}}">
-                                        </div>
-                                        <div class="staff-data">
-                                            <h5 class="ellipsis">{{allStaffList.firstname}} {{allStaffList.lastname}}
-                                            </h5>
-                                            <div class="d-flex statick-rating w-100">
-                                                <div class="star-rating"
-                                                    *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length == 0">
-                                                    <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="5" />
-                                                    <label for="5-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="4" />
-                                                    <label for="4-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="3" />
-                                                    <label for="3-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="2" />
-                                                    <label for="2-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
-                                                        value="1" />
-                                                    <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
-                                                </div>
-                                                <div class="star-rating"
-                                                    *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length != 0">
-                                                    <input type="radio"
-                                                        [checked]="allStaffList.avg_ratings[0].aggregate == '5'"
-                                                        id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
-                                                    <label for="5-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '4'"
-                                                        type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="4" />
-                                                    <label for="4-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '3'"
-                                                        type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="3" />
-                                                    <label for="3-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '2'"
-                                                        type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
-                                                        value="2" />
-                                                    <label for="2-stars_{{allStaffList.id}}"
-                                                        class="star">&#9733;</label>
-                                                    <input [checked]="allStaffList.avg_ratings[0].aggregate == '1'"
-                                                        type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
-                                                        value="1" />
-                                                    <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                        <div class="staff-details">
+                                            <div class="staff-img">
+                                                <img src="{{allStaffList.image}}">
+                                            </div>
+                                            <div class="staff-data">
+                                                <h5 class="ellipsis">{{allStaffList.firstname}} {{allStaffList.lastname}}
+                                                </h5>
+                                                <div class="d-flex statick-rating w-100">
+                                                    <div class="star-rating"
+                                                        *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length == 0">
+                                                        <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="5" />
+                                                        <label for="5-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="4" />
+                                                        <label for="4-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="3" />
+                                                        <label for="3-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="2" />
+                                                        <label for="2-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
+                                                            value="1" />
+                                                        <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    </div>
+                                                    <div class="star-rating"
+                                                        *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length != 0">
+                                                        <input type="radio"
+                                                            [checked]="allStaffList.avg_ratings[0].aggregate == '5'"
+                                                            id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
+                                                        <label for="5-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input [checked]="allStaffList.avg_ratings[0].aggregate == '4'"
+                                                            type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="4" />
+                                                        <label for="4-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input [checked]="allStaffList.avg_ratings[0].aggregate == '3'"
+                                                            type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="3" />
+                                                        <label for="3-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input [checked]="allStaffList.avg_ratings[0].aggregate == '2'"
+                                                            type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="2" />
+                                                        <label for="2-stars_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
+                                                        <input [checked]="allStaffList.avg_ratings[0].aggregate == '1'"
+                                                            type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
+                                                            value="1" />
+                                                        <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="text-left break-word" fxFlex="20">{{allStaffList.email}}</div>
                                     <div class="text-left " fxFlex="20">{{allStaffList.phone}}</div>
@@ -560,9 +575,14 @@
                                         </mat-slide-toggle>
                                     </div>
                                     <div class="text-left" fxFlex="10">
-                                        <button mat-mini-fab (click)="fnViewSingleStaff(allStaffList.id,i)">
+                                        <!-- <button class (click)="fnViewSingleStaff(allStaffList.id,i)">
                                             <mat-icon class="text-white">visibility</mat-icon>
-                                        </button>
+                                        </button> -->
+                                        <div class="table-action-btns">
+                                         <button class="sc-table-action-btn" (click)="fnViewSingleStaff(allStaffList.id,i)">
+                                            <mat-icon>visibility</mat-icon>
+                                        </button> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="staff-list-row " *ngIf="allStaffList == ''">
@@ -828,7 +848,7 @@
                                     <span class="fa fa-search form-control-feedback search-icon verticalLine"></span>
                                     <input name="searchPostalCode" [(ngModel)]="search.postalCode"
                                         (keyup)="postalCodeSearch()" type="text"
-                                        class="form-control searchbox_staff search-custom-wrap "
+                                        class="form-control searchbox_appointment search-custom-wrap "
                                         placeholder="Search postal code or area">
                                 </div>
                             </form>
@@ -1836,10 +1856,7 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Review">
-                    <div *ngIf="singleStaffDetail.staff[0].review != ''">
-                        <div *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"
-                            class="devider-slim pb-2 my-2">
-                            <div class="d-flex">
+                            <!-- <div class="d-flex">
                                 <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
                                     <div class="star-rating">
                                         <input type="radio" [checked]="customerReviews.rating == 5"
@@ -1865,21 +1882,57 @@
                                     </div>
                                 </div>
 
-                            </div>
-                            <div>
+                            </div> -->
+                            <!-- <div>
                                 <h6>{{customerReviews.rating_title}}</h6>
                                 <p>{{customerReviews.review}}</p>
-                            </div>
+                            </div> -->
 
-                            <div>
+                            <!-- <div>
                                 <button mat-button appearance="fill" class="view-btn"
                                     (click)="viewStaffReviewDetail(i,customerReviews.order_id)">
                                     <mat-icon aria-hidden="false">visibility</mat-icon>View
                                 </button>
+                            </div> -->
+                            <div *ngIf="singleStaffDetail.staff[0].review != ''" class="sc-table-view">
+                                <table class="table sc-table">
+                                    <thead class="sc-table-head">
+                                        <tr >
+                                                <th scope="col">Create On</th>
+                                                <th scope="col">Title</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Rating</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="sc-table-content">
+                                        <tr *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"  class="final-list">
+                                            <td>{{customerReviews.created_at}}</td> 
+                                            <td>{{customerReviews.rating_title}}</td>
+                                            <td> {{customerReviews.review}} </td>
+                                            <td> <div class="d-flex main-review-wrap statick-rating w-100" *ngIf="customerReviews.rating != null">
+                                                <div class="star-rating">
+                                                    <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
+                                                    <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
+                                                    <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
+                                                    <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
+                                                    <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                    <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
+                                                    <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                            <td class="table-action-btns">
+                                                <button appearance="fill" class="sc-table-action-btn" (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon></button>
+                                            </td>
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <hr>
-                        </div>
-                    </div>
                     <div class="w-100 text-center my-2" *ngIf="singleStaffDetail.staff[0].review == ''">
                         No Review Available
                     </div>

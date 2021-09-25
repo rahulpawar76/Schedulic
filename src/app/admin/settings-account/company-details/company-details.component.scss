@@ -21,20 +21,22 @@
 }
 
 .company-cancel-btn {
-    width: 100px;
-    height: 39px;
-    border-radius: 7px;
-    background-color: #dddddd;
+    width: 128px;
+    height: 37px;
+    border-radius: 5px;
+    margin-right: 7px;
+    background-color: #A1A1A1;
+    color: #fff;
+    margin-left: auto;
 }
 
 .company-save-btn {
     width: 109px;
     height: 39px;
-    border-radius: 7px;
-    background-color: #1173f4;
+    border-radius: 5px;
+    background-color: #F04589;
     color: white;
 }
-
 .account-statustoggle {
     margin: 30px 0;
 }

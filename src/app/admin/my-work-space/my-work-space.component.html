@@ -272,7 +272,7 @@
                                                     <div class="assign-dropdown-width"
                                                         *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
 
-                                                        <mat-select class="form-control form-control-trasprent"
+                                                        <mat-select class="form-control form-control-transparent"
                                                             [(value)]="selectedStaff"
                                                             (selectionChange)="fnOnClickStaff($event)">
                                                             <mat-option *ngFor="let staff of availableStaff"
@@ -332,7 +332,7 @@
                                     <div class="assign-dropdown-width"
                                         *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
                                         <mat-label>AssignTo</mat-label>
-                                        <mat-select class="form-control form-control-trasprent" (value)]="selectedStaff"
+                                        <mat-select class="form-control form-control-transparent" (value)]="selectedStaff"
                                             (selectionChange)="fnOnClickStaff($event)">
                                             <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">
                                                 {{staff.name}}</mat-option>
