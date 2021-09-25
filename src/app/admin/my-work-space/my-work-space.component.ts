@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
-import { Router, RouterOutlet } from '@angular/router';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminService } from '../_services/admin-main.service'
 import { DatePipe } from '@angular/common';
@@ -14,7 +13,7 @@ import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { NgxDaterangepickerMd, DaterangepickerDirective } from 'ngx-daterangepicker-material';
+import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { SharedService } from '@app/_services/shared.service';
 // import * as _moment from 'moment';
 // // tslint:disable-next-line:no-duplicate-imports
@@ -118,7 +117,7 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedDateRange:any;
   selectedStartDate:any;
   selectedEndDate:any;
-
+  pendingBookingCount:number=0;
   @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   constructor(
     public dialog: MatDialog,
@@ -126,12 +125,10 @@ export class MyWorkSpaceComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public router: Router,
     private adminService: AdminService,
-    private _snackBar: MatSnackBar,
-    private appComponent: AppComponent,
+    private _snackBar: MatSnackBar,    private appComponent: AppComponent,
     private authenticationService: AuthenticationService,
     private datePipe: DatePipe,
     private sharedService: SharedService) {
-    //this.appComponent.settingsModule(this.adminSettings);
     localStorage.setItem('isPOS', 'false');
     localStorage.setItem('isBusiness', 'false');
     this.businessId = localStorage.getItem('business_id');
@@ -141,10 +138,10 @@ export class MyWorkSpaceComponent implements OnInit {
       filterDate: [''],
     });
 
-  this.dateTypeFilterView=this.datePipe.transform(new Date(), 'd MMM, y');
+    this.dateTypeFilterView=this.datePipe.transform(new Date(), 'd MMM, y');
 
-  this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
-  this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
 
   ngOnInit() {
@@ -153,7 +150,6 @@ export class MyWorkSpaceComponent implements OnInit {
     this.selectedStatus = "all";
     this.selectedDate = this.datePipe.transform(new Date(), "yyyy-MM-dd")
     this.date = new FormControl(new Date());
-    console.log(this.selectedDate);
     this.fnGetSettingValue();
     this.fnGetAllCategories();
     this.fnGetTodayRevenue();
@@ -166,21 +162,14 @@ export class MyWorkSpaceComponent implements OnInit {
     this.adminService.getSettingValue(requestObject).subscribe((response: any) => {
 
       if (response.data == true && response.response != '') {
-        console.log("=====");
         this.settingsArr = response.response;
-
         this.currencySymbol = this.settingsArr.currency;
-
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-
         this.currencySymbolFormat = this.settingsArr.currency_format;
-
         let cancellation_buffer_time = JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time = JSON.parse(this.settingsArr.min_reseduling_time);
-
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes(this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes(this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       }
@@ -195,8 +184,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.selectedDate = this.datePipe.transform(new Date(event.value), "yyyy-MM-dd")
-    console.log(this.selectedDate);
+    this.selectedDate = this.datePipe.transform(new Date(event.value), "yyyy-MM-dd");
     this.fnGetTodayRevenue();
     this.fnGetAllAppointmentsByCategoryAndStatus();
   }
@@ -275,6 +263,7 @@ export class MyWorkSpaceComponent implements OnInit {
   fnselectCategoryActive(i) {
     this.selectedCategory = i;
   }
+  
   fnGetAllAppointmentsByCategoryAndStatus() {
     this.isLoaderAdmin = true;
     let requestObject = {
@@ -290,7 +279,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointments = response.response;
         this.appointments = this.appointments.sort(this.dynamicSort("booking_time"))
         this.activeBooking = 0;
-
+        this.fnGetPendingCount();
         this.appointments.forEach((element) => {
           var todayDateTime = new Date();
           element.booking_date_time = new Date(element.booking_date + " " + element.booking_time);
@@ -359,6 +348,33 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointments = [];
       }
 
+    this.isLoaderAdmin = false;
+    },
+      (err) => {
+        this.error = err;
+      });
+  }
+
+  fnGetPendingCount() {
+    this.isLoaderAdmin = true;
+    let requestObject = {
+      "business_id": this.businessId,
+      "category": this.selectedCategoryId,
+      "status_filter": 'P',
+      "booking_date": this.dateTypeFilter,
+      "start_date":this.selectedStartDate,
+      "end_date":this.selectedEndDate
+    };
+    this.adminService.getAllAppointmentsByCategoryAndStatus(requestObject).subscribe((response: any) => {
+      if (response.data == true) {
+        this.pendingBookingCount = response.response.length;
+      } else if (response.data == false && response.response !== 'api token or userid invaild') {
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+      }
     this.isLoaderAdmin = false;
     },
       (err) => {
@@ -496,6 +512,7 @@ export class MyWorkSpaceComponent implements OnInit {
       if (response.data == true) {
         this.categories = response.response;
         this.fnGetAllAppointmentsByCategoryAndStatus();
+        this.fnGetPendingCount();
         this.startWorkSpacePage = false;
       }
       else if (response.data == false && response.response !== 'api token or userid invaild') {
@@ -816,7 +833,6 @@ export class InterruptedReschedule {
 
     this.businessId = localStorage.getItem('business_id');
     this.detailsData = this.data.appointmentDetails;
-    console.log(this.detailsData);
     this.formAppointmentRescheduleAdmin = this._formBuilder.group({
       rescheduleDate: ['', Validators.required],
       rescheduleTime: ['', Validators.required],
@@ -870,18 +886,11 @@ export class InterruptedReschedule {
 
         this.minimumAdvanceBookingDateTimeObject = new Date();
         this.minimumAdvanceBookingDateTimeObject.setMinutes(this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime);
-        console.log("minimumAdvanceBookingDateTimeObject - " + this.minimumAdvanceBookingDateTimeObject);
         this.minDate = this.minimumAdvanceBookingDateTimeObject;
 
         this.maximumAdvanceBookingDateTimeObject = new Date();
         this.maximumAdvanceBookingDateTimeObject.setMinutes(this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime);
-        console.log("maximumAdvanceBookingDateTimeObject - " + this.maximumAdvanceBookingDateTimeObject);
         this.maxDate = this.maximumAdvanceBookingDateTimeObject;
-
-        // if(!this.data.appointmentData){
-        //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
-        //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
-        // }
       }
       else if (response.data == false && response.response !== 'api token or userid invaild') {
         this._snackBar.open(response.response, "X", {

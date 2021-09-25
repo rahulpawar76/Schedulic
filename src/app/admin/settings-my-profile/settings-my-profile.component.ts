@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 import { environment } from '@environments/environment';
+import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
 
 export interface DialogData {
   animal: string;
@@ -28,7 +29,7 @@ export class MyProfileComponent implements OnInit {
   adminId:any;
   myProfileImageUrl:any = '';
 
-  isLoader : boolean=true;
+  isLoaderAdmin : boolean=false;
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
   onlynumeric = /^\+(?:[0-9] ?){6,14}[0-9]$/
   hide1 = true;
@@ -68,7 +69,9 @@ export class MyProfileComponent implements OnInit {
 
     return pass === confirmPass ? null : { notSame: true }
   }
+
   getMyProfileDetails(){
+    this.isLoaderAdmin =true;
     this.AdminService.getMyProfileDetails().subscribe((response:any) => {
       if(response.data == true){
         this.profileDetails = response.response;
@@ -77,8 +80,31 @@ export class MyProfileComponent implements OnInit {
         this.settingMyProfile.controls['email'].setValue(this.profileDetails.email);
         this.settingMyProfile.controls['mobile'].setValue(this.profileDetails.phone);
       }
+      this.isLoaderAdmin =false;
     })
   }
+
+  onRemoveProfile(){
+    let requestObject = {
+      'user_type': 'A',
+      'user_id': this.adminId
+    }
+    this.isLoaderAdmin =true;
+    this.AdminService.removeImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        window.location.reload();
+        this.getMyProfileDetails();
+      }else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
+  }
+
   fnSubmitMyProfile(){
       if(this.settingMyProfile.valid){
         if(this.myProfileImageUrl === ''){
@@ -100,7 +126,9 @@ export class MyProfileComponent implements OnInit {
         this.updateProfile(this.updatedAdminProfileData);
       }
   }
+
   updateProfile(updatedAdminProfileData){
+    this.isLoaderAdmin =true;
     this.AdminService.updateProfile(updatedAdminProfileData).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open("Profile Updated.", "X", {
@@ -117,14 +145,16 @@ export class MyProfileComponent implements OnInit {
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition:'top',
-          panelClass :['green-snackbar']
+          panelClass :['red-snackbar']
         });
       }
+      this.isLoaderAdmin =false;
     })
   }
+
   fnChangePassword(){
     if(this.changePwd.valid){
-      this.isLoader = true;
+      this.isLoaderAdmin =true;
       let requestObject = {
         'user_id': this.adminId,
         'user_type':'A',
@@ -150,7 +180,7 @@ export class MyProfileComponent implements OnInit {
             panelClass :['red-snackbar']
           });
         }
-        this.isLoader = false;
+        this.isLoaderAdmin =false;
       })
     }
     else{
@@ -158,6 +188,7 @@ export class MyProfileComponent implements OnInit {
       this.changePwd.get("newPassword").markAsTouched();
     }
   }
+  
   myProfleImage() {
     const dialogRef = this.dialog.open(DialogMyProfileImageUpload, {
       width: '500px',

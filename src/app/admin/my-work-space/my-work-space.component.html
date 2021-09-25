@@ -112,7 +112,7 @@
                                     <!-- <p class="title-main mb-0">Appointments</p> -->
                                     <div *ngIf="bookingTypeView == 'all'" (click)="fnChangeBookingStatus('P')">
                                         <a class="heading-booking">Show new booking request </a>
-                                        <span class="badge-red"> 5 </span>
+                                        <span class="badge-red"> {{pendingBookingCount}} </span>
                                     </div>
                                     <div *ngIf="bookingTypeView == 'P'" (click)="fnChangeBookingStatus('all')">
                                         <a class="heading-booking">Show all bookings </a>

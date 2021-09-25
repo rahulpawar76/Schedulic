@@ -130,6 +130,7 @@ export class CustomersComponent implements OnInit {
   phoneCheckRequestObject:any;
   allcustomerIds :any=[];
   tagName:any;
+  tabIndex:number=0;
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
@@ -163,7 +164,6 @@ export class CustomersComponent implements OnInit {
       if (input) {
         input.value = '';
       }
-      console.log(this.tags);
       
     }
 
@@ -396,8 +396,6 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
-    console.log(this.createNewCustomer);
-
     if(this.createNewCustomer.get('customer_id').value != null){
       this.existingUserId = this.createNewCustomer.get('customer_id').value;
       if(this.createNewCustomer.valid){
@@ -581,14 +579,8 @@ customerUpdate(existingCustomerData){
         this.customerPersonalDetails = response.response.customer_details;
         // this.tags = [];
         this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
-        console.log('this.customerPersonalDetails--------------');
-        console.log(this.customerPersonalDetails);
         if(this.customerPersonalDetails.tag_id != null){
           this.tags = this.customerPersonalDetails.tag_id;
-          
-          console.log('---------------this.tags----------------')
-          console.log(this.tags)
-        //  alert('not null')
         }else{
           // alert('null')
           this.tags = [];
@@ -605,10 +597,8 @@ customerUpdate(existingCustomerData){
         this.customerNotes = response.response.notes;
 
         this.customerReviews = response.response.revirew;
-        // console.log(this.customerReviews);
 
         this.customerPayments = response.response.payment;
-        // console.log(this.customerPayments);
         this.customerPayments.forEach( (element) => { 
           element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy");
           element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"hh:mm a");
@@ -692,6 +682,7 @@ customerUpdate(existingCustomerData){
 
   }
   fnTabValue(tab){
+    this.tabIndex = tab;
     this.showPaymentForm=false;
     this.showPaymentTable=true;
   }
@@ -833,7 +824,6 @@ customerUpdate(existingCustomerData){
           return response;
         }),
         catchError(this.handleError)).subscribe((res) => {
-          console.log(this.createNewCustomer)
           if(res){
             if(res.data == false){
             resolve({ isPhoneUnique: true });
@@ -915,7 +905,6 @@ customerUpdate(existingCustomerData){
     this.adminService.viewReviewDetail(OrderId).subscribe((response:any) => {
       if(response.data == true){
         this.reviewOrderData = response.response;
-        console.log(this.reviewOrderData)
         this.reviewOrderData.forEach( (element) => { 
                   element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
                   element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
@@ -1063,8 +1052,6 @@ customerUpdate(existingCustomerData){
      dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
             this.customerImageUrl = result;
-            // this.fnCreateCustomerSubmit();
-            console.log(result);
            }
      });
   }
@@ -1096,8 +1083,6 @@ customerUpdate(existingCustomerData){
   }
   fnShowPaymentForm(index,amount,discount){
     this.customerPaymentIndex=index;
-    console.log(this.customerPayments[index]);
-
     this.serviceMainArr.order_item_id=this.customerPayments[index].orders.id;
     this.serviceMainArr.customer_id=this.customerPayments[index].customer_id;
     this.serviceMainArr.bookingDateForLabel=this.customerPayments[index].orders.bookingDateForLabel;
@@ -1140,10 +1125,6 @@ customerUpdate(existingCustomerData){
     });
     this.formPayment.controls['paymentAmount'].setValue(this.serviceMainArr.netCost);
     this.formPayment.controls['paymentDiscount'].setValue(this.serviceMainArr.discount);
-    console.log(this.serviceMainArr);
-    console.log(this.taxAmountArr);
-    console.log(this.taxArr);
-
     this.serviceMainArr.order_id=this.customerPayments[index].orders.order_id;
     this.serviceMainArr.order_subtotal=parseFloat(this.customerPayments[index].orders.orders_info.sub_total);
     this.serviceMainArr.order_discount_type=this.customerPayments[index].orders.orders_info.discount_type;
@@ -1157,10 +1138,6 @@ customerUpdate(existingCustomerData){
     this.serviceMainArr.order_discount=parseFloat(this.customerPayments[index].orders.orders_info.discount_amount);
     this.order_taxAmountArr=JSON.parse(this.customerPayments[index].orders.orders_info.tax)
     this.serviceMainArr.order_netCost=parseFloat(this.customerPayments[index].orders.orders_info.grand_total);
-    console.log(this.serviceMainArr);
-    console.log(this.order_taxAmountArr);
-    console.log(this.taxArr);
-
     this.serviceMainArr.paymentId=this.customerPayments[index].id;
     this.showPaymentForm=true;
     this.showPaymentTable=false;
@@ -1186,7 +1163,6 @@ customerUpdate(existingCustomerData){
         name:'',
         amount:0
       }
-      console.log(element.name+" -- "+element.value);
       if(this.taxType == "P"){
        taxTemp.value= element.value;
        taxTemp.name= element.name;
@@ -1199,19 +1175,11 @@ customerUpdate(existingCustomerData){
         amountAfterTax=amountAfterTax+taxTemp.amount;
       }
       this.taxAmountArr.push(taxTemp);
-      console.log(this.taxAmountArr);
     });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-
-    console.log(this.serviceMainArr);
-    console.log(this.taxAmountArr);
-    console.log(this.taxArr);
   }
 
   fnOnChangeAmount(event){
-    console.log("OnChangeAmount");
-    console.log(event.target.value);
-    console.log(this.formPayment.get('paymentDiscount').value);
     this.serviceMainArr.subtotal=parseFloat(event.target.value);
     this.serviceMainArr.service_cost=parseFloat((this.serviceMainArr.subtotal/this.serviceMainArr.service_qty).toFixed(2)) ;
     this.taxAmountArr.length=0;
@@ -1227,7 +1195,6 @@ customerUpdate(existingCustomerData){
         name:'',
         amount:0
       }
-      console.log(element.name+" -- "+element.value);
       if(this.taxType == "P"){
        taxTemp.value= element.value;
        taxTemp.name= element.name;
@@ -1240,13 +1207,8 @@ customerUpdate(existingCustomerData){
         amountAfterTax=amountAfterTax+taxTemp.amount;
       }
       this.taxAmountArr.push(taxTemp);
-      console.log(this.taxAmountArr);
     });
     this.serviceMainArr.netCost=amountAfterDiscount+amountAfterTax;
-
-    console.log(this.serviceMainArr);
-    console.log(this.taxAmountArr);
-    console.log(this.taxArr);
   }
 
   fnShowPaymentTable(){
@@ -1294,10 +1256,7 @@ customerUpdate(existingCustomerData){
          taxTemp.name= element.name;
          taxTemp.amount= element.amount;
         orderTax.push(taxTemp);
-        console.log(orderTax);
       });
-      
-      console.log(orderTax);
       orderTotalCost=this.serviceMainArr.netCost;
       this.customerPayments[this.customerPaymentIndex].orders.order_items.forEach(element=>{
         orderSubtotal=orderSubtotal+parseFloat(element.subtotal)
@@ -1312,13 +1271,6 @@ customerUpdate(existingCustomerData){
       this.serviceMainArr.order_discount=orderDiscount;
       this.order_taxAmountArr=orderTax;
       this.serviceMainArr.order_netCost=orderTotalCost;
-      console.log(this.formPayment.get('paymentAmount').value);
-      console.log(this.formPayment.get('paymentDiscount').value);
-      console.log(this.formPayment.get('paymentMode').value);
-      console.log(this.formPayment.get('paymentNote').value);
-      console.log(this.taxAmountArr);
-      console.log(this.order_taxAmountArr);
-      console.log(this.serviceMainArr);
    
     let paymentArr=[{
       "id":this.serviceMainArr.paymentId,
@@ -1353,7 +1305,6 @@ customerUpdate(existingCustomerData){
       "order":orderArr,
       "orderItem":orderItemArr
     }
-    console.log(requestObject);
     this.adminService.updatePaymentInfoAndStatus(requestObject).subscribe((response:any) => {
       if(response.data == true){
        this._snackBar.open("Payment Info Updated.", "X", {
@@ -1374,7 +1325,6 @@ customerUpdate(existingCustomerData){
       }
       },
       (err) =>{
-        console.log(err)
       })
   }
   fnPaymentFormSubmitOnline(){
@@ -1407,10 +1357,7 @@ customerUpdate(existingCustomerData){
          taxTemp.name= element.name;
          taxTemp.amount= element.amount;
         orderTax.push(taxTemp);
-        console.log(orderTax);
       });
-      
-      console.log(orderTax);
       orderTotalCost=this.serviceMainArr.netCost;
       this.customerPayments[this.customerPaymentIndex].orders.order_items.forEach(element=>{
         orderSubtotal=orderSubtotal+parseFloat(element.subtotal)
@@ -1425,13 +1372,6 @@ customerUpdate(existingCustomerData){
       this.serviceMainArr.order_discount=orderDiscount;
       this.order_taxAmountArr=orderTax;
       this.serviceMainArr.order_netCost=orderTotalCost;
-      console.log(this.formPayment.get('paymentAmount').value);
-      console.log(this.formPayment.get('paymentDiscount').value);
-      console.log(this.formPayment.get('paymentMode').value);
-      console.log(this.formPayment.get('paymentNote').value);
-      console.log(this.taxAmountArr);
-      console.log(this.order_taxAmountArr);
-      console.log(this.serviceMainArr);
    
       let orders = [{
         "tax" : this.order_taxAmountArr,
@@ -1507,7 +1447,6 @@ customerUpdate(existingCustomerData){
         "search":this.search.keyword,
         "business_id":this.businessId,
       }
-      console.log(requestObject);
       this.adminService.customerSearch(requestObject).subscribe((response:any) =>{
         if(response.data == true){
           this.allCustomers = response.response;
@@ -1575,7 +1514,6 @@ constructor(
   @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
     this.detailsData =  this.data.fulldata;
-    console.log(this.detailsData);
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.fnGetActivityLog(this.detailsData.id);
     this.fnGetBookingNotes(this.detailsData.id);
@@ -1754,7 +1692,6 @@ constructor(
     ).subscribe((response:any) => {
       if(response.data == true){
         this.availableStaff = response.response;
-        console.log(JSON.stringify(this.availableStaff));
       }
       else{
         this.availableStaff.length=0;
@@ -1765,7 +1702,6 @@ constructor(
     })
   }
   fnOnClickStaff(event){
-    console.log(event.value);
     let requestObject = {
       "order_item_id":this.detailsData.id,
       "staff_id":event.value
@@ -1869,7 +1805,6 @@ export class InterruptedReschedulecustomer {
 
   
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
       let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
       this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
       this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
@@ -1897,7 +1832,6 @@ export class InterruptedReschedulecustomer {
       ).subscribe((response:any) => {
         if(response.data == true){
           this.timeSlotArr=response.response;
-          console.log(this.timeSlotArr);
         }
         else{
         }
@@ -1908,7 +1842,6 @@ export class InterruptedReschedulecustomer {
   }
    
   fnChangeTimeSlot(selectedTimeSlot){
-    console.log(selectedTimeSlot);
     this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
     this.selectedTimeSlot=selectedTimeSlot;
     this.fnGetStaff(selectedTimeSlot);
@@ -1936,7 +1869,6 @@ export class InterruptedReschedulecustomer {
     ).subscribe((response:any) => {
       if(response.data == true){
           this.availableStaff = response.response;
-          console.log(JSON.stringify(this.availableStaff));
       } else{
         this.availableStaff.length=0;
       }
@@ -2011,7 +1943,6 @@ constructor(
   }
 
   handleFileInput(files): void {
-    console.log(files)
     this.fileToUpload = files.item(0);
 
     if(this.fileToUpload.type != "application/vnd.ms-excel"){
@@ -2367,18 +2298,15 @@ constructor(
         this.currencySymbol = this.settingsArr.currency;
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        console.log(this.settingsArr);
         this.minimumAdvanceBookingTime=JSON.parse(this.settingsArr.min_advance_booking_time);
         this.maximumAdvanceBookingTime=JSON.parse(this.settingsArr.max_advance_booking_time);
         
         this.minimumAdvanceBookingDateTimeObject = new Date();
         this.minimumAdvanceBookingDateTimeObject.setMinutes( this.minimumAdvanceBookingDateTimeObject.getMinutes() + this.minimumAdvanceBookingTime );
-        console.log("minimumAdvanceBookingDateTimeObject - "+this.minimumAdvanceBookingDateTimeObject);
         this.minDate = this.minimumAdvanceBookingDateTimeObject;
 
         this.maximumAdvanceBookingDateTimeObject = new Date();
         this.maximumAdvanceBookingDateTimeObject.setMinutes( this.maximumAdvanceBookingDateTimeObject.getMinutes() + this.maximumAdvanceBookingTime );
-        console.log("maximumAdvanceBookingDateTimeObject - "+this.maximumAdvanceBookingDateTimeObject);
         this.maxDate = this.maximumAdvanceBookingDateTimeObject;
 
       }
@@ -2400,7 +2328,6 @@ constructor(
       if(response.data == true){
         let tax = response.response
         this.taxArr=tax;
-        console.log(this.taxArr);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -2500,7 +2427,6 @@ constructor(
   }
 
   fnSelectCat(selected_cat_id){
-    console.log(selected_cat_id)
     this.fnGetSubCategory(selected_cat_id);
     this.subcatdata.length = 0;
     this.serviceData.length = 0;
@@ -2511,7 +2437,6 @@ constructor(
     this.selectedSubCatId=undefined;
     this.selectedServiceId=undefined;
     this.selectedStaffId=undefined;
-    console.log(this.selectedSubCatId);
   }
   // get Sub Category function
   fnGetSubCategory(selected_cat_id){
@@ -2533,7 +2458,6 @@ constructor(
         this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
        this.showSubCatDropDown=true;
       this.subcatdata = response.response;
-      // console.log(this.subcatdata)
       }else{
         this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].clearValidators();
         this.formAddNewAppointmentStaffStep2.controls['customerSubCategory'].updateValueAndValidity();           
@@ -2547,7 +2471,6 @@ constructor(
   }
 
   fnSelectSubCat(selected_subcat_id){
-    console.log(selected_subcat_id)
     this.fnGetAllServices(selected_subcat_id);
     this.serviceData.length = 0;
     this.formAddNewAppointmentStaffStep2.controls['customerService'].setValue(null);
@@ -2589,7 +2512,6 @@ constructor(
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2603,7 +2525,6 @@ constructor(
             }
             taxMain.push(taxTemp);
             this.serviceData[i].tax=taxMain;
-            console.log(this.serviceData[i].tax);
           });
 
           // this.serviceData[i].tax=0;
@@ -2615,7 +2536,6 @@ constructor(
           this.serviceData[i].assignedStaff=null;
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
         }
-        console.log(JSON.stringify(this.serviceCount));
       }else{
       }
     },
@@ -2656,7 +2576,6 @@ constructor(
               name:'',
               amount:0
             }
-            console.log(element.name+" -- "+element.value);
             if(this.taxType == "P"){
              taxTemp.value= element.value;
              taxTemp.name= element.name;
@@ -2670,7 +2589,6 @@ constructor(
             }
             taxMain.push(taxTemp);
             this.serviceData[i].tax=taxMain;
-            console.log(this.serviceData[i].tax);
           });
 
           this.serviceData[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
@@ -2681,7 +2599,6 @@ constructor(
           this.serviceCount[this.serviceData[i].id]=this.serviceData[i];
        
         }
-        console.log(JSON.stringify(this.serviceCount));
       }else{
         this._snackBar.open("No Sub-Category or Service Available", "X", {
         duration: 2000,
@@ -2696,7 +2613,6 @@ constructor(
   }
 
   fnSelectService(selected_service_id){
-    console.log(selected_service_id)
     this.availableStaff=[];
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
     this.selectedStaffId=undefined;
@@ -2718,7 +2634,6 @@ constructor(
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -2732,13 +2647,9 @@ constructor(
           }
           taxMain.push(taxTemp);
           this.serviceCount[i].tax=taxMain;
-          console.log(this.serviceCount[i].tax);
         });
 
         this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-        console.log(JSON.stringify(this.serviceCount));
-
         if(this.selectedDate){
           this.serviceCount[i].appointmentDate=this.selectedDate;
           this.fnGetTimeSlots(this.selectedDate);
@@ -2768,7 +2679,6 @@ constructor(
             name:'',
             amount:0
           }
-          console.log(element.name+" -- "+element.value);
           if(this.taxType == "P"){
            taxTemp.value= element.value;
            taxTemp.name= element.name;
@@ -2782,16 +2692,10 @@ constructor(
           }
           taxMain.push(taxTemp);
           this.serviceCount[i].tax=taxMain;
-          console.log(this.serviceCount[i].tax);
         });
 
         // this.serviceData[id].tax=0;
         this.serviceCount[i].totalCost=serviceAmountAfterDiscount+serviceTaxAmount;
-
-        // this.serviceCount[service_id].totalCost=1*this.serviceCount[service_id].service_cost;
-        console.log(JSON.stringify(this.serviceCount));
-
-        // this.serviceCount[i].totalCost=0;
         this.serviceCount[i].appointmentDate='';
         this.serviceCount[i].appointmentTimeSlot='';
         this.serviceCount[i].assignedStaff=null;
@@ -2800,11 +2704,9 @@ constructor(
     if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
       this.fnGetStaff();
     }
-    console.log(JSON.stringify(this.serviceCount));
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
     let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
     this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
@@ -2817,7 +2719,6 @@ constructor(
       this.serviceCount[this.selectedServiceId].appointmentDate=date
     }
     this.selectedDate=date;
-    console.log(JSON.stringify(this.serviceCount));
     this.fnGetTimeSlots(date);
   }
 
@@ -2867,7 +2768,6 @@ constructor(
   }
 
   fnSelectTime(timeSlot){
-    console.log(timeSlot);
     this.availableStaff=[];
     if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].appointmentTimeSlot =timeSlot;
@@ -2875,7 +2775,6 @@ constructor(
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
     this.selectedStaffId=undefined;
     this.selectedTime=timeSlot;
-    console.log(JSON.stringify(this.serviceCount));
     if(this.bussinessId != undefined && this.selectedServiceId != undefined && this.selectedDate != undefined && this.selectedTime != undefined){
       this.fnGetStaff();
     }
@@ -2904,7 +2803,6 @@ constructor(
       if(response.data == true){
         this.availableStaff = response.response;
         this.isStaffAvailable = true;
-        console.log(JSON.stringify(this.availableStaff));
       }else{
         this.availableStaff=[];
         this.isStaffAvailable = false;
@@ -2917,14 +2815,12 @@ constructor(
   }
 
   fnSelectStaff(selected_staff_id){
-    console.log(selected_staff_id);
     this.selectedStaffId=selected_staff_id;
     if(this.selectedStaffId == 'null'){
       this.serviceCount[this.selectedServiceId].assignedStaff = null;
     }else if(this.selectedServiceId != undefined){
       this.serviceCount[this.selectedServiceId].assignedStaff =this.selectedStaffId;
     }
-    console.log(JSON.stringify(this.serviceCount));
   }
 
   fnNewAppointmentStep2(){
@@ -3030,7 +2926,6 @@ constructor(
           name:'',
           amount:0
         }
-        console.log(element.name+" -- "+element.value);
         if(this.taxType == "P"){
           taxTemp.value= element.value;
           taxTemp.name= element.name;
@@ -3043,13 +2938,9 @@ constructor(
           amountAfterTax=amountAfterTax+taxTemp.amount;
         }
         this.taxAmountArr.push(taxTemp);
-        console.log(this.taxAmountArr);
       });
     }
     this.netCost=amountAfterDiscount+amountAfterTax;
-
-    console.log(this.taxAmountArr);
-    console.log(JSON.stringify(serviceCartArrTemp));
     const currentDateTime = new Date();
     let requestObject = {
       "postal_code": this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
@@ -3332,9 +3223,8 @@ onNoClick(): void {
 export class DialogViewReview {
 detailsData: any;
 orderDataFull:any;
-
-
-
+initials:any;
+customerShortName:any;
 constructor(
   public dialogRef: MatDialogRef<DialogViewReview>,
   private adminService: AdminService,
@@ -3342,8 +3232,11 @@ constructor(
 
      this.detailsData =  this.data.fulldata;
      this.orderDataFull =  this.data.orderData[0];
-     console.log(this.orderDataFull);
-    console.log(this.detailsData);
+    this.initials = this.orderDataFull.staff.fullname.split(" ",2);
+      this.customerShortName = '';
+      this.initials.forEach( (element2) => {
+        this.customerShortName = this.customerShortName+element2.charAt(0);
+      });
   }
 
 onNoClick(): void {
@@ -3410,7 +3303,6 @@ onNoClick(): void {
         this.currencySymbolFormat = this.settingsArr.currency_format;
         this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
         this.paymentData = this.data.fulldata;
-        console.log(this.paymentData)
         this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(this.paymentData.paymentDate,"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_email=this.paymentData.get_customer.email;
@@ -3509,43 +3401,6 @@ onNoClick(): void {
     }
 
     fnSendInvoiceEmail(){
-      // let setLable = "invoice";
-      // if (!document.getElementById('printInvoice')) {
-      //   return false;
-      // }
-      // let data = document.getElementById('printInvoice');
-      // let HTML_Width = document.getElementById('printInvoice').offsetWidth;
-      // let HTML_Height = document.getElementById('printInvoice').clientHeight;
-      // let top_left_margin = 35;
-      // let PDF_Width = HTML_Width + (top_left_margin * 2);
-      // let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-      // let canvas_image_width = HTML_Width;
-      // let canvas_image_height = HTML_Height;
-
-      // let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-      // let today = Date.now();
-     // let that = this;
-      // var formData = new FormData();
-      // var customer_email = this.paymentInfo.customer_email;
-
-      // domtoimage.toPng(document.getElementById('printInvoice')).then(function (blob) {
-
-      //   var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-      //     pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-      //     for (let i = 1; i <= totalPDFPages; i++) {
-      //       pdf.addPage(PDF_Width, PDF_Height);
-      //       pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      //     }
-      //     pdf.save("invoice_" + today + ".pdf");
-
-      //       setTimeout(() => { 
-              
-      //       // formData.append('invoice_pdf', pdf.output('blob'));
-      //         var binary = btoa(pdf.output());
-      //         formData.append('email', customer_email);
-      //         formData.append('invoice_pdf', binary);
-              
-         // console.log(this.paymentInfo);
           var formData = new FormData();
           formData.append('order_item_id', this.paymentInfo.order_item_id);
           formData.append('email',this.paymentInfo.customer_email);
