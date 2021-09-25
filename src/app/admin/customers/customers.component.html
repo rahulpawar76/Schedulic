@@ -260,6 +260,7 @@
                                 </div>
                             </div>
                         </div>
+                        <button *ngIf="tabIndex == 2" (click)="newAddNote(customerPersonalDetails.id)" class="sc-pink-btn customer-add-note-btn" mat-button>Add Note</button>
                         <mat-tab-group class="common-tab-group" (selectedIndexChange)="fnTabValue($event)">
                             <mat-tab id="Details" label="Details">
                                 <div class="d-flex my-3 px-3 common-details-wrap">
@@ -369,9 +370,6 @@
                                 </div>
                             </mat-tab>
                             <mat-tab label="Notes">
-                                    <div class="col-12 my-3 text-end">
-                                        <button (click)="newAddNote(customerPersonalDetails.id)" class="sc-pink-btn" mat-button>Add Note</button>
-                                    </div>
                                 <div *ngIf="customerNotes == ''" class="addNotes">
                                     <div class="Add-notes-background d-flex justify-content-center flex-wrap align-items-center" (click)="newAddNote(customerPersonalDetails.id)">
                                         <div class="d-flex justify-content-center flex-wrap">
