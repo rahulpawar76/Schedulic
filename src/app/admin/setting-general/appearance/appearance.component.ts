@@ -24,61 +24,62 @@ export interface DialogData {
 })
 export class AppearanceComponent implements OnInit {
   
-  Appearance:FormGroup;
-  allAppColor:any;
-  AppearanceData:any;
-  gradientColor : any;
-  settingData : any;
-  getAppearanceData : any;
-  ChangeName:boolean=false;
-  ChangeNumber:boolean=false;
-  ChangeRequired:boolean=false;
-  ChangeAddress:boolean=false;
-  settingSideMenuToggle:boolean =false;
-  isLoaderAdmin:boolean =false;
-  gradientColorDb:any;
-  appearanceValue :any;
-  formArr= {
-    contact_field_status:false,
-    nameField:{
-      status:0,
-      required:0
+  Appearance: FormGroup;
+  allAppColor: any;
+  AppearanceData: any;
+  gradientColor: any;
+  settingData: any;
+  getAppearanceData: any;
+  ChangeName: boolean = false;
+  ChangeNumber: boolean = false;
+  ChangeRequired: boolean = false;
+  ChangeAddress: boolean = false;
+  settingSideMenuToggle: boolean = false;
+  isTextCopie: boolean = false;
+  isLoaderAdmin: boolean = false;
+  gradientColorDb: any;
+  appearanceValue: any;
+  formArr = {
+    contact_field_status: false,
+    nameField: {
+      status: 0,
+      required: 0
     },
-    numberField:{
-      status:0,
-      required:0
+    numberField: {
+      status: 0,
+      required: 0
     },
-    emailField:{
-      status:0,
-      required:0
+    emailField: {
+      status: 0,
+      required: 0
     },
-    addressField:{
-      status:0,
-      required:0
+    addressField: {
+      status: 0,
+      required: 0
     },
   };
 
-  formSettingPage:boolean=false;
-  formSettingData:any=[];
+  formSettingPage: boolean = false;
+  formSettingData: any = [];
   primarycolor: any = '#2889e9';
   primarygradient1: any = '#2889e9';
   primarygradient2: any = '#4fa3f7';
   textcolor: any = '#000000';
   textbgcolor: any = '#ffffff';
   embededCode: any;
-  businessId:any
-  encodedBusinessId:any;
+  businessId: any
+  encodedBusinessId: any;
   selectedFont: any = 'Poppins, sans-serif'
-  defaultTheme:any = '1';
+  defaultTheme: any = '1';
   model: NgbDateStruct;
   dateformatter: NgbDateParserFormatter;
-  date: {year: number, month: number};
-  minDate: {year: number, month: number, day: number};
-  maxDate: {year: number, month: number, day: number};
+  date: { year: number, month: number };
+  minDate: { year: number, month: number, day: number };
+  maxDate: { year: number, month: number, day: number };
   displayMonths = 1;
-  companyDetailsData:any;
+  companyDetailsData: any;
   navigation = 'arrows';
-  widgetBGImage:any;
+  widgetBGImage: any;
   frontBookingUrl:any;
   constructor(
     private appComponent : AppComponent,
@@ -339,6 +340,10 @@ copyEmbedCode(val: string){
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.isTextCopie = true
+    setTimeout(() => {
+      this.isTextCopie = false
+    }, 5000);
   }
 
   fnCancelAppearance(){

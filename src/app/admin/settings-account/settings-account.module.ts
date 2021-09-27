@@ -9,7 +9,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { enableRipple } from '@syncfusion/ej2-base';
 import { SharedModule } from '../../shared.module';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CompanyDetailsComponent, DialogCompanyDetailsImageUpload } from './company-details/company-details.component';
 
 
@@ -32,7 +32,8 @@ enableRipple(true);
       MatSidenavModule,
       MatDatepickerModule,
       SharedModule,
-      NgxIntlTelInputModule
+      NgxIntlTelInputModule,
+      NgxMatSelectSearchModule
   ],
   exports: [
     FormsModule

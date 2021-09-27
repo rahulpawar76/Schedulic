@@ -1,19 +1,20 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { AdminService } from '../_services/admin-main.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { environment } from '@environments/environment';
-import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
 import { AppComponent } from '../../app.component';
+// import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
 import { SharedService } from '@app/_services/shared.service';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
@@ -121,6 +122,8 @@ export class AppointmentLiveComponent implements OnInit {
   note_description='';
   paymentData:any;
   Watinglist:any = [];
+  trackOrderList:any[];
+  // fireDB:AngularFireDatabase;
   selectedtab:any = 1;
   pendingBillTab: boolean = false
   currentUser: any;
@@ -172,8 +175,9 @@ export class AppointmentLiveComponent implements OnInit {
     public router: Router,
     private sharedService: SharedService,
     private _snackBar: MatSnackBar,
+    // private fireDb:AngularFireDatabase
   ) { 
-
+    // this.fireDB = fireDb;
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
       this.sharedService.updateSideMenuState(false);
@@ -1377,28 +1381,41 @@ export class AppointmentLiveComponent implements OnInit {
       return;
     }
 
-    var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
-    var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
-    // this.ShowMap = false;
+    // const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    // itemsRef.valueChanges().subscribe(
+    //   x=>{
+    //       this.trackOrderList =  x;
+    //       this.ShowMap = true;
+    //       this.lat = this.trackOrderList[0];
+    //       this.lng = this.trackOrderList[1];
+    //       this.origin.lat = this.trackOrderList[0];
+    //       this.origin.lng = this.trackOrderList[1];
+    //       this.destination.lat = this.trackOrderList[0];
+    //       this.destination.lng = this.trackOrderList[1];
+    //     }
+    // );
 
-    this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
-        if(response.status=='OK'){
-          this.ShowMap = true;
-          this.lat = response.results[0].geometry.location.lat;
-          this.lng = response.results[0].geometry.location.lng;
-          this.origin.lat = response.results[0].geometry.location.lat;
-          this.origin.lng = response.results[0].geometry.location.lng;
+    // var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
+    // var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
+    // // this.ShowMap = false;
 
-        }
-    });
+    // this.adminService.outdoorGoogleaddress(customer_address).subscribe((response: any) => {
+    //     if(response.status=='OK'){
+    //       this.ShowMap = true;
+    //       this.lat = response.results[0].geometry.location.lat;
+    //       this.lng = response.results[0].geometry.location.lng;
+    //       this.origin.lat = response.results[0].geometry.location.lat;
+    //       this.origin.lng = response.results[0].geometry.location.lng;
 
-    this.adminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
-        if(response.status=='OK'){
-          this.destination.lat = response.results[0].geometry.location.lat;
-          this.destination.lng = response.results[0].geometry.location.lng;
-        }
-     });
+    //     }
+    // });
 
+    // this.adminService.outdoorGoogleaddress(staff_address).subscribe((response: any) => {
+    //     if(response.status=='OK'){
+    //       this.destination.lat = response.results[0].geometry.location.lat;
+    //       this.destination.lng = response.results[0].geometry.location.lng;
+    //     }
+    //  });
   }
 
   fnOrderUpdateStatus(status,order_item_id,type){

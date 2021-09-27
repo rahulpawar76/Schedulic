@@ -788,6 +788,25 @@ fnAppointmentsReminderSMS(event){
     this.updateTwillioSettings(requestObject);
   }
 
+  fnNexmoStatus(event){
+    this.nexmoStatus =event;
+
+    let nexmoSetting = {
+      "api_key":this.nexmo.get("api_key").value,
+      "api_secret":this.nexmo.get("api_secret").value,
+      "admin_number":this.nexmo.get("adminNumber").value.number.replace(/\s/g, ""),
+      "countryCode":this.nexmo.get("adminNumber").value.dialCode,
+      "countryCodeTwo":this.nexmo.get("adminNumber").value.countryCode,
+      "status": this.nexmoStatus,
+    }
+
+    let requestObject = {
+      "business_id" :this.businessId,
+      "status":this.nexmoStatus,
+      "nexmo_setting" : nexmoSetting
+    }
+    this.updateNexmoSettings(requestObject);
+  }
   
   fnPhoneMouceLeaveTwilio(){
     if(this.twilio.get('adminNumber').value === null){
@@ -944,7 +963,7 @@ fnAppointmentsReminderSMS(event){
   updateNexmoSettings(requestObject){
     this.adminSettingsService.updateNexmoSettings(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this._snackBar.open("Twillio Setting is Updated.", "X", {
+        this._snackBar.open("Nexmo Setting is Updated.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
