@@ -544,10 +544,10 @@ export class StaffAppointmentComponent implements OnInit {
     currencySymbol:any;
     currencySymbolPosition:any;
     currencySymbolFormat:any;  
-    discount_amount:number;
+    discount_amount:number=0;
     discount_type:any;
-    appointmentSubTotal:number;
-    appointmentAmountAfterDiscount:number;
+    appointmentSubTotal:number=0;
+    appointmentAmountAfterDiscount:number=0;
     staffId:any;
     token:any;
     taxType:any="P";
@@ -573,6 +573,7 @@ export class StaffAppointmentComponent implements OnInit {
     Postalcode:any;
     currentUser:any
     is_disabled:boolean = false;
+    dialogTitle:any="New Appointment";
 
     constructor(
       public dialogRef: MatDialogRef<DialogAddNewAppointment>,
@@ -1325,6 +1326,12 @@ export class StaffAppointmentComponent implements OnInit {
     }
 
     applyCoupon(){
+      let serviceCartArrTemp:any= [];
+      for(let i=0; i<this.serviceCount.length;i++){
+        if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
+          serviceCartArrTemp.push(this.serviceCount[i]);
+        }
+      }
       if(this.formAddNewAppointmentStaffStep2.get('customerService').valid) {
         let couponRequestObject = {
           "coupon_code": this.formAddNewAppointmentStaffStep2.get('customerCouponCode').value,
@@ -1345,13 +1352,7 @@ export class StaffAppointmentComponent implements OnInit {
             this.discount_amount = response.response['coupon_value'];
   
             this.appointmentSubTotal = 0;
-            let serviceCartArrTemp:any= [];
-            for(let i=0; i<this.serviceCount.length;i++){
-              if(this.serviceCount[i] != null && this.serviceCount[i].count > 0){
-                serviceCartArrTemp.push(this.serviceCount[i]);
-              }
-            }
-      
+          
             this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
   
             if (this.discount_type == "F") {
@@ -1359,6 +1360,9 @@ export class StaffAppointmentComponent implements OnInit {
             } else if (this.discount_type == "P") {
               this.discount_amount = (this.appointmentSubTotal * this.discount_amount)/100;
               this.appointmentAmountAfterDiscount = this.appointmentSubTotal - this.discount_amount;
+            } else {
+              this.discount_amount = 0;
+              this.appointmentAmountAfterDiscount = this.appointmentSubTotal;
             }
           } else {
             this._snackBar.open("Coupon code not found", "X", {
@@ -1396,13 +1400,10 @@ export class StaffAppointmentComponent implements OnInit {
           serviceCartArrTemp.push(this.serviceCount[i]);
         }
       }
-      // if(serviceCartArrTemp[0].totalCost > 0){
-      //   if(this.taxType == "P"){
-      //     this.taxAmount= serviceCartArrTemp[0].totalCost * this.taxValue/100;
-      //   }else{
-      //     this.taxAmount= this.taxValue;
-      //   }
-      // }
+      if(this.appointmentAmountAfterDiscount == 0) {
+        this.appointmentSubTotal = serviceCartArrTemp[0].subtotal;
+        this.appointmentAmountAfterDiscount = this.appointmentSubTotal;
+      }
       var amountAfterDiscount=this.appointmentAmountAfterDiscount;
       var amountAfterTax=0;
       this.taxAmountArr.length=0;

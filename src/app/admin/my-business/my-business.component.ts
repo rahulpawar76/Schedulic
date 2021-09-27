@@ -27,6 +27,16 @@ export interface countryArry {
   name: string;
 }
 
+export interface StateArry {
+  id: string;
+  name: string;
+}
+
+export interface CityArry {
+  id: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-my-business',
   templateUrl: './my-business.component.html',
@@ -34,15 +44,15 @@ export interface countryArry {
 })
 
 export class MyBusinessComponent implements OnInit {
-  animal :any;
+  animal: any;
   allBusiness: any;
-  adminSettings : boolean = false;
-  isLoaderAdmin : boolean = true;
-  currentUser:any;
-  adminId:any;
-  token:any;
-  getIpAddress : any;
-  pageSlug:any;
+  adminSettings: boolean = false;
+  isLoaderAdmin: boolean = true;
+  currentUser: any;
+  adminId: any;
+  token: any;
+  getIpAddress: any;
+  pageSlug: any;
   firstBusiness:boolean=false;
   constructor(
     public dialog: MatDialog,
@@ -254,6 +264,14 @@ export class myCreateNewBusinessDialog {
   protected countryArry: countryArry[];
   public countryFilterCtrl: FormControl = new FormControl();
   public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
+  protected StateArry: StateArry[];
+  public StateFilterCtrl: FormControl = new FormControl();
+  public StateList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
+
+  // CityFilterCtrl
+  protected CityArry: CityArry[];
+  public CityFilterCtrl: FormControl = new FormControl();
+  public CityList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
   protected _onDestroy = new Subject<void>();
 
   constructor(
@@ -299,8 +317,8 @@ export class myCreateNewBusinessDialog {
     this.AdminService.gelAllCountry().subscribe((response:any) => {
       if(response.data == true){
         // this.allCountry = response.response
-        this.listTimeZoneListArry = response.response
-        this.countryList.next(this.listTimeZoneListArry.slice());
+        this.countryArry = response.response
+        this.countryList.next(this.countryArry.slice());
         this.countryFilterCtrl.valueChanges
         .pipe(takeUntil(this._onDestroy))
         .subscribe(() => {
@@ -326,7 +344,13 @@ export class myCreateNewBusinessDialog {
       if(response.data == true){
         this.allStates = response.response
         this.createBusiness.controls['business_state'].setValue('');
-        this.isLoaderAdmin =false;
+        this.StateArry = response.response
+        this.StateList.next(this.StateArry.slice());
+        this.StateFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterState();
+          });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = ''
@@ -336,8 +360,8 @@ export class myCreateNewBusinessDialog {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin =false;
       }
+        this.isLoaderAdmin =false;
     })
   }
 
@@ -346,8 +370,14 @@ export class myCreateNewBusinessDialog {
     this.AdminService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true){
         this.createBusiness.controls['business_city'].setValue('');
-        this.allCities = response.response
-        this.isLoaderAdmin =false;
+        // this.allCities = response.response
+        this.CityArry = response.response
+        this.CityList.next(this.CityArry.slice());
+        this.CityFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterCity();
+          });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = [];
@@ -357,8 +387,8 @@ export class myCreateNewBusinessDialog {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin =false;
       }
+        this.isLoaderAdmin =false;
     })
   }
   
@@ -554,6 +584,42 @@ export class myCreateNewBusinessDialog {
     // filter the banks
     this.countryList.next(
       this.countryArry.filter(countryArry => countryArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterState (){
+    if (!this.StateArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.StateFilterCtrl.value;
+    if (!search) {
+      this.StateList.next(this.StateArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.StateList.next(
+      this.StateArry.filter(StateArry => StateArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterCity (){
+    if (!this.CityArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.CityFilterCtrl.value;
+    if (!search) {
+      this.CityList.next(this.CityArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.CityList.next(
+      this.CityArry.filter(CityArry => CityArry.name.toLowerCase().indexOf(search) > -1)
     );
   }
 

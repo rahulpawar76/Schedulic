@@ -198,7 +198,7 @@
                         <h5 class="mb-1">Embed Web Widget</h5>
                         <p>Click to copy below script and paste it in your web page.</p>
                         <!-- <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button value="1">Script</mat-radio-button>
+                        <mat-radio-bu   tton value="1">Script</mat-radio-button>
                         <mat-radio-button value="2">Script with Autologin</mat-radio-button>
                     </mat-radio-group> -->
                         <h6 class="mt-4">To embed the widget on your website,follow these guidelines.</h6>
@@ -213,8 +213,12 @@
                     <mat-card class="card-content">
                         {{embededCode}}
                         <!-- <iframe height="100%" width="100%" src="http://localhost:4200/booking?business_id=34"></iframe> -->
-                        <div>
+                        <div *ngIf="isTextCopie==false">
                             <button mat-button type="submit" (click)="copyEmbedCode(embededCode)" class="appearance-save-btn">Copy Code</button>
+                        </div>
+                        <div *ngIf="isTextCopie==true">
+                            <button mat-button type="submit" class="appearance-save-btn">
+                                 <span class="material-icons-outlined">done</span> Copied </button>
                         </div>
                     </mat-card>
                     <!-- <div>

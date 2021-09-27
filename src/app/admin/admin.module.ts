@@ -50,7 +50,9 @@ import { SupportComponent } from './support/support.component';
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 
-
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { environment } from '@environments/environment';
 
 
 @NgModule({
@@ -113,7 +115,9 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
     NgxDaterangepickerMd.forRoot(),
     SharedModule,
     NgxMatSelectSearchModule,
-    NgbModule
+    NgbModule,
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireDatabaseModule, 
     //GoogleMapsModule
   ],
   exports: [

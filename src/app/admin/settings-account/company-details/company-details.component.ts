@@ -4,11 +4,25 @@ import { AdminSettingsService } from '../../_services/admin-settings.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
+import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface DialogData {
   animal: string;
   name: string;
   StaffCreate: FormGroup;
+}
+export interface countryArry {
+  id: string;
+  name: string;
+}
+export interface StateArry {
+  id: string;
+  name: string;
+}
+export interface CityArry {
+  id: string;
+  name: string;
 }
 @Component({
   selector: 'app-company-details',
@@ -29,6 +43,20 @@ export class CompanyDetailsComponent implements OnInit {
   selectedCountry: any;
   selectedState: any;
   selectedCity: any;
+
+  protected countryArry: countryArry[];
+  public countryFilterCtrl: FormControl = new FormControl();
+  public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
+
+  protected StateArry: StateArry[];
+  public StateFilterCtrl: FormControl = new FormControl();
+  public StateList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
+
+  protected CityArry: CityArry[];
+  public CityFilterCtrl: FormControl = new FormControl();
+  public CityList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
+
+  protected _onDestroy = new Subject<void>();
   
   phoneNumberInvalid:any = "valid";
   emailFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
@@ -94,55 +122,6 @@ export class CompanyDetailsComponent implements OnInit {
     });
   }
 
-  // numberOnly(event): boolean {
-  //   const charCode = (event.which) ? event.which : event.keyCode;
-  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-  //     return false;
-  //   }
-  //   return true;
-
-  // }
-  // fnPhoneMouceLeave(){
-  
-  //   if(this.companyDetails.get('comp_mobile').value==undefined){
-  //     this.phoneNumberInvalid = "required";
-  //     return;
-  //   }
-
-
-  //   if(this.companyDetails.get('comp_mobile').value === null){
-  //     this.phoneNumberInvalid = "required";
-    
-  //   }else if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
-  //     if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
-  //       this.phoneNumberInvalid = "valid";
-  //     }else{
-  //       this.phoneNumberInvalid = "length";
-  //     }
-  //   }
-
-  // }
-
-  // fnenterPhoneNumber(){
-    
-
-  //   if(this.companyDetails.get('comp_mobile').value==undefined){
-  //     this.phoneNumberInvalid = "required";
-  //     return;
-  //   }
-
-
-  //   if(this.companyDetails.get('comp_mobile').value !== '' || this.companyDetails.get('comp_mobile').value !== null){
-  //     if(this.companyDetails.get('comp_mobile').value.number.length >= 6 && this.companyDetails.get('comp_mobile').value.number.length <= 15){
-  //       this.phoneNumberInvalid = "valid";
-  //     }else{
-  //       this.phoneNumberInvalid = "length";
-  //     }
-  //   }else if(this.companyDetails.get('comp_mobile').value === '' || this.companyDetails.get('comp_mobile').value === null){
-  //     this.phoneNumberInvalid = "required";
-  //   }
-    
-  // }
 
   getCompanyDetails(){
     this.isLoaderAdmin = true;
@@ -190,7 +169,13 @@ export class CompanyDetailsComponent implements OnInit {
   gelAllCountry(){
     this.adminSettingsService.gelAllCountry().subscribe((response:any) => {
       if(response.data == true){
-        this.allCountry = response.response
+        this.countryArry = response.response
+        this.countryList.next(this.countryArry.slice());
+        this.countryFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterCountries();
+          });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCountry = [];
@@ -220,7 +205,13 @@ export class CompanyDetailsComponent implements OnInit {
 
     this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
-        this.allStates = response.response
+        this.StateArry = response.response
+        this.StateList.next(this.StateArry.slice());
+        this.StateFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterState();
+          });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = [];
@@ -243,7 +234,13 @@ export class CompanyDetailsComponent implements OnInit {
     }
     this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true && response.response!="no city found"){
-        this.allCities = response.response;
+        this.CityArry = response.response
+        this.CityList.next(this.CityArry.slice());
+        this.CityFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterCity();
+          });
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = [];
@@ -392,6 +389,61 @@ export class CompanyDetailsComponent implements OnInit {
             console.log(result);
            }
      });
+  }
+
+  protected filterCountries() {
+    if (!this.countryArry) {
+      return;
+    }
+    // get the search keyword
+    // debugger
+    let search = this.countryFilterCtrl.value;
+    if (!search) {
+      this.countryList.next(this.countryArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.countryList.next(
+      this.countryArry.filter(countryArry => countryArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterState (){
+    if (!this.StateArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.StateFilterCtrl.value;
+    if (!search) {
+      this.StateList.next(this.StateArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.StateList.next(
+      this.StateArry.filter(StateArry => StateArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterCity (){
+    if (!this.CityArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.CityFilterCtrl.value;
+    if (!search) {
+      this.CityList.next(this.CityArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.CityList.next(
+      this.CityArry.filter(CityArry => CityArry.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 
  
