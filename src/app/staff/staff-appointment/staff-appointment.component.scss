@@ -43,7 +43,14 @@
     padding-top: 11px;
     height: 31px;
 }
-
+::ng-deep .custom-select-modal-wrap{
+    background-color: #dbf3f1;
+    border: 1px solid #5dc8bf;
+    .mat-select-arrow-wrapper{
+        display: flex;
+        margin-left: 20px;
+    }
+}
 
 /*My Appointments css*/
 
