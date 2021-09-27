@@ -81,7 +81,7 @@
                         <div class="">
                             <div class="heads sc-table-head main-heading-content staff-list-row  "
                                 fxLayout="row">
-                                <div class="text-left" fxFlex="10">
+                                <div class="text-left" fxFlex="5">
                                     <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class="">
                                     </mat-checkbox>
                                 </div>
@@ -89,7 +89,7 @@
                                 <div class="text-left" fxFlex="10">Date & Time</div>
                                 <div class="text-left" fxFlex="20">Customer</div>
                                 <div class="text-left" fxFlex="15">Service</div>
-                                <div class="text-left" fxFlex="15">Staff</div>
+                                <div class="text-left" fxFlex="20">Staff</div>
                                 <div class="text-left" fxFlex="10">Amount</div>
                                 <div class="text-left" fxFlex="10">Status</div>
                                 <div class="text-left" fxFlex="10">Action</div>
@@ -97,7 +97,7 @@
                             <div class="sc-table-content staff-list">
                                 <div class="staff-list-row final-list {{fnOpenDetailsRow==i?'activeRow':''}}"
                                     *ngFor="let allAppointmentsData of allAppointments; let i=index">
-                                    <div class="text-left" fxFlex="10">
+                                    <div class="text-left" fxFlex="5">
                                         <mat-checkbox [checked]="allAppointmentsData.is_selected"
                                             (change)="fnAddOrderId($event.checked, allAppointmentsData.id,i)" class="">
                                         </mat-checkbox>
@@ -119,12 +119,12 @@
                                         <p>{{allAppointmentsData.service.service_name}}</p>
                                     </div>
 
-                                    <div class="text-left" fxFlex="15" *ngIf="allAppointmentsData.staff != null">
+                                    <div class="text-left" fxFlex="20" *ngIf="allAppointmentsData.staff != null">
                                         <p class="text-capitalize">{{allAppointmentsData.staff.firstname}}
                                             {{allAppointmentsData.staff.lastname}}</p>
                                         <p>Phone No: {{allAppointmentsData.staff.phone}}</p>
                                     </div>
-                                    <div class="text-left" fxFlex="15" *ngIf="allAppointmentsData.staff == null">
+                                    <div class="text-left" fxFlex="20" *ngIf="allAppointmentsData.staff == null">
                                         <p class="text-capitalize">Staff Not Assigned</p>
                                     </div>
                                     <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
@@ -183,12 +183,11 @@
                                                 (click)="confirmAppointment('CNF', allAppointmentsData.id)"
                                                 class="appointment-confirm-btn mr-1"><i
                                                     class="material-icons appointment-icon">done</i></button>
-                                            <button  (click)="fnOpenDetails(i)" class="sc-table-action-btn">
+                                            <button  matTooltip="View" (click)="fnOpenDetails(i)" class="sc-table-action-btn">
                                                 <mat-icon class="">visibility</mat-icon>
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="staff-list-row" *ngIf="allAppointments ==''">
                                     <p class="mx-auto">Record not found.</p>

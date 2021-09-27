@@ -75,16 +75,19 @@
     // }
     .staff-cancel-btn {
         width: 128px;
-        height: 37px;
-        border-radius: 7px;
-        background-color: #dddddd;
-        margin-left: auto;
+    height: 37px;
+    border-radius: 5px;
+    margin-right: 7px;
+    background-color: #A1A1A1;
+    color: #fff;
+    margin-left: auto;
     }
     .staff-save-btn {
-        width: 137px;
-        height: 37px;
-        border-radius: 7px;
-        background-color: #1173f4;
+        width: 109px;
+        height: 39px;
+        border-radius: 5px;
+        background-color: #F04589;
+        color: white;
     }
     .staff-profile-width {
         height: 100px;
@@ -893,6 +896,7 @@
             bottom: 0;
             width: calc(100% - 300px);
             margin: 0;
+            right: 0;
             box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
         }
     }
