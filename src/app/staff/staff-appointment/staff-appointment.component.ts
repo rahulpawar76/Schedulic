@@ -1501,6 +1501,7 @@ export class StaffAppointmentComponent implements OnInit {
     notes: any;
     bussinessId:any;
     staffId:any;
+    isLoader: boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogONTheWay>,
       public dialog: MatDialog,
@@ -1519,7 +1520,7 @@ export class StaffAppointmentComponent implements OnInit {
       this.dialogRef.close();
     }
     changeBookingStatus(order_item_id, status){
-      
+    this.isLoader=true;
     let requestObject = {
       'order_item_id': order_item_id,
       'order_status': status,
@@ -1544,6 +1545,7 @@ export class StaffAppointmentComponent implements OnInit {
           }); 
           this.dialogRef.close();
         }
+        this.isLoader=false;
       })
     }
 
@@ -1562,6 +1564,7 @@ export class StaffAppointmentComponent implements OnInit {
     notes: any;
     bussinessId:any;
     staffId:any;
+    isLoader: boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogWorkStarted>,
       public dialog: MatDialog,
@@ -1582,6 +1585,7 @@ export class StaffAppointmentComponent implements OnInit {
       
     }
     changeBookingStatus(order_item_id, status){
+      this.isLoader=true;
       let requestObject = {
         'order_item_id': order_item_id,
         'order_status': status,
@@ -1605,6 +1609,7 @@ export class StaffAppointmentComponent implements OnInit {
           }); 
           this.dialogRef.close();
         }
+        this.isLoader=false;
       })
     }
 
@@ -1622,6 +1627,7 @@ export class StaffAppointmentComponent implements OnInit {
     lateTime:any;
     bussinessId:any;
     staffId:any;
+    isLoader: boolean = false;
     constructor(
       public dialogRef: MatDialogRef<DialogGettingLate>,
       public dialog: MatDialog,
@@ -1642,6 +1648,7 @@ export class StaffAppointmentComponent implements OnInit {
       
     }
     changeBookingStatus(order_item_id, status){
+      this.isLoader=true;
       let requestObject = {
         'order_item_id': order_item_id,
         'gl_time': this.lateTime,
@@ -1663,6 +1670,7 @@ export class StaffAppointmentComponent implements OnInit {
           }); 
           this.dialogRef.close();
         }
+        this.isLoader=false;
       })
     }
 
@@ -2307,7 +2315,7 @@ export class StaffAppointmentComponent implements OnInit {
         let requestObject = {
           "order_item_id":orderItemId,
           "user_id": this.authenticationService.currentUserValue.user_id,
-          "user_type": 'C',
+          "user_type": 'SM',
           "note_type": 'normal',
           "notes":this.singlenote
         };
