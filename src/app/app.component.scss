@@ -1005,9 +1005,14 @@ input:focus {
                 }
             }
         }
+        .live-btn{
+            min-width: auto !important;
+        }
     }
 }
-
+.notification-svg{
+    width: 22px;
+}
 @-webkit-keyframes spaceboots {
 	0% { -webkit-transform: translate(2px, 0px) rotate(0deg); }
 	// 10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }

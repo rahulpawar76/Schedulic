@@ -39,7 +39,8 @@
                     <mat-slide-toggle  [checked]="staffAvailable" (change)="staffAvaibility($event.checked)" class="slidetoggle">Availability</mat-slide-toggle>
 
                     <button  mat-stroked-button class="bellborder notification-btn bell-color ml-3" (click)="openNotificationDialog()">
-                      <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                      <!-- <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i> -->
+                         <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                     <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                     </button>
                     <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
@@ -90,7 +91,7 @@
                         </div>
                     </span>
                     <span class="f13 d-flex align-items-center">
-                        <button mat-button class="sc-pink-btn mr-2 position-relative w-auto" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">
+                        <button mat-button class="sc-pink-btn live-btn mr-2 position-relative w-auto" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">
                             <label class="circle-animat-wrap"><span class="circle-blick-with-border"></span></label>
                             Live
                         </button>
@@ -102,7 +103,8 @@
                         <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
                         </span>
                                 <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
-                        <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                        <!-- <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i> -->
+                        <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                         <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
                                 <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
