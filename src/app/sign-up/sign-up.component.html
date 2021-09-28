@@ -1,68 +1,7 @@
-<!-- <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
+
+<div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="full-height">
     <img src="../../assets/sc-loader.svg" />
 </div>
-<div class="signup-screen d-flex justify-content-center align-items-center">
-    <div class="card-wrap col-lg-7 col-md-7 col-sm-9 col-xs-11">
-        <mat-card class="example-card login-card p-0 mb-0">
-            <mat-card-content class="login-container row">
-                <div id="login-form" class="left-side p-2 col-lg-12 col-md-12 col-sm-12 col-12 float-left justify-content-center align-items-center d-flex h-100">
-                    <form [formGroup]="signUpForm" class="w-75">
-                        <mat-card-title>
-                            <h2 class="text-center">Sign Up</h2>
-                            <p class="text-center text-dark">Already have an account? <a class="btn-link" (click)="login()">Log In</a></p>
-                        </mat-card-title>
-                        <div class="row">
-                            <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
-                                <input type="text" formControlName="firstName" placeholder="First Name" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('firstName').dirty || signUpForm.get('firstName').touched"><small *ngIf="signUpForm.get('firstName').hasError('required')" class="error">First name is required.</small></span>
-                            </div>
-                            <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
-                                <input type="text" formControlName="lastName" placeholder="Last Name" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('lastName').dirty || signUpForm.get('lastName').touched"><small *ngIf="signUpForm.get('lastName').hasError('required')" class="error">Last name is required.</small></span>
-                            </div>
-                            <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
-                                <input type="email" formControlName="email" placeholder="Email" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('email').dirty || signUpForm.get('email').touched"><small *ngIf="signUpForm.get('email').hasError('required')" class="error">Email is required.</small><small *ngIf="signUpForm.get('email').hasError('pattern')" class="error">Enter valid email.</small><small *ngIf="signUpForm.get('email').hasError('isEmailUnique')" class="error">Email is already exists.</small></span>
-                            </div>
-                            <div class="input-wrap col-12 col-lg-6 col-sm-12 float-left my-2 required-field">
-                                <input type="text" formControlName="phonenumber" placeholder="Phone Number" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('phonenumber').dirty || signUpForm.get('phonenumber').touched"><small *ngIf="signUpForm.get('phonenumber').hasError('required')" class="error">Phone number is required.</small><small *ngIf="signUpForm.get('phonenumber').hasError('pattern')" class="error">Phone number should be numeric.</small><small *ngIf="signUpForm.get('phonenumber').hasError('minlength') || signUpForm.get('phonenumber').hasError('maxlength')" class="error">Phone number should be min 6 and max 15 digit.</small></span>
-                            </div>
-                            <div class="input-wrap col-12 col-lg-12 col-sm-12 float-left my-2 required-field">
-                                <input type="password" formControlName="password" placeholder="Password" class="common-input form-control" />
-                                <span class="error-wrap" *ngIf="signUpForm.get('password').dirty || signUpForm.get('password').touched"><small *ngIf="signUpForm.get('password').hasError('required')" class="error">Password is required.</small><small *ngIf="signUpForm.get('password').hasError('minlength') || signUpForm.get('password').hasError('maxlength')" class="error">Password should  minimum 8 maximum 12 characters.</small></span>
-                            </div>
-                            <div class="input-wrap col-12 col my-3 text-center">
-                                <button type="submit" color="primary" (click)="signUpSubmit()" class="common-btn text-white buttion-but px-5">
-								Create Account
-							</button>
-                            </div>
-                        </div>
-                       
-                    </form>
-                </div>
-               
-                <div id="login-with-social" class="right-side p-2 col-lg-12 col-md-12 col-sm-12 col-12  float-left">
-                    <div class="w-75 row login-with-social">
-                        <div class="col-12 col-lg-6">
-                            <mat-card-title>
-                                <h2 class="text-center text-white">Sign Up</h2>
-                                <p class="text-center text-white">With one of your social <br/> account</p>
-                            </mat-card-title>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <div class="social-btns">
-                                <a class="btn social-login facebook" (click)="signInWithFB()"><i class="fa fa-facebook-f"></i></a>
-                                <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div> -->
-
 <div id="Main">
     <div class="container-fluid pl-0 custom-padding-wrap">
         <div class="row">

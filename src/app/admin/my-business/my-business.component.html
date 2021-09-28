@@ -17,7 +17,7 @@
             <div class="d-flex flex-wrap">
                 <div *ngFor="let allBusiness of allBusiness; let i=index" class="col-lg-3 col-md-6 col-sm-12 business-box">
 
-                    <mat-card class="text-center SelectBusiness mb-0">
+                    <mat-card class="text-center SelectBusiness h-100 mb-0">
                         <div class="pt-3 image-round-main d-flex">
                             <div class="SelectBusinessIcon">
                                 <img mat-card-avatar="" src="{{allBusiness.image?allBusiness.image:'../../assets/images/admin/multi-building.png'}}">
@@ -46,7 +46,9 @@
                         </div>
                     </mat-card>
                 </div>
-                <mat-card class="col-lg-3 col-md-6 col-sm-12 text-center NewBusiness-matcard pointer" (click)="creatNewBusiness()">
+                <div class="col-lg-3 col-md-6 col-sm-12 business-box ">
+                    
+                    <mat-card class="text-center h-100 NewBusiness-matcard mb-0 pointer" (click)="creatNewBusiness()">
                     <div class="business-btn-main">
                         <div class="AddNewBusinessIcon">
                             <img mat-card-avatar="" src="../../assets/images/admin/add.png">
@@ -58,7 +60,8 @@
                     <div class="pb-3 content">
                         Business/Location can be a physical or online address from where services are provided. Each business/location can have its own staff members, resources, services and settings.
                     </div>
-                </mat-card>
+                    </mat-card>
+                </div>
                 <p id="demo"></p>
             </div>
         </div>

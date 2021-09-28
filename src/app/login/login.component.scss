@@ -211,3 +211,12 @@
         justify-content: center;
     }
 }
+.loader-full-height{
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    z-index: 999;
+}

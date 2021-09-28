@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
         if (this.authenticationService.currentUserValue) {
             this.appComponent.fnCheckLoginStatus();
         }else{
-            this.dataLoaded=true;
             this.appComponent.fnCheckAuthState();
         }
     }
@@ -66,24 +65,23 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
+        this.dataLoaded = true;
         if(this.loginForm.invalid){
             this.loginForm.get('email').markAsTouched();
             this.loginForm.get('password').markAsTouched();
 
             return false;
         }
-        this.dataLoaded = false;
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .pipe(first()).subscribe(data => {
 
             if(data.data == true){
-                if(data.response.user_type == 'A' &&  (data.response.currentPlan == null || data.response.currentPlan.stripe_status == 'canceled' || data.response.currentPlan.stripe_status == 'incomplete')){
-                    localStorage.setItem('adminData',JSON.stringify(data.response))
-                    localStorage.removeItem('currentUser');
-                    this.router.navigate(["admin-select-subscription"]);
-                    return; 
-                }
+                // if(data.response.user_type == 'A' &&  (data.response.currentPlan == null || data.response.currentPlan.stripe_status == 'canceled' || data.response.currentPlan.stripe_status == 'incomplete')){
+                //     // localStorage.setItem('adminData',JSON.stringify(data.response))
+                //     localStorage.removeItem('currentUser');
+                //     this.router.navigate(["admin-select-subscription"]);
+                //     return; 
+                // }
                 // this.dataLoaded = false;
                 // debugger;
 
@@ -104,17 +102,16 @@ export class LoginComponent implements OnInit {
                     panelClass :['red-snackbar']
                     });
                 this.error = data.response; 
-                this.dataLoaded = true;
 
             }  else{
                 this.error = "Database Connection Error."; 
-                this.dataLoaded = true;
             }
+            this.dataLoaded = false;
 
         },
         error => {  
             this.error = "Database Connection Error."; 
-            this.dataLoaded = true;  
+            this.dataLoaded = false;  
         });
     }
     forgotPassword(){
