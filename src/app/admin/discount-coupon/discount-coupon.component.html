@@ -20,12 +20,12 @@
                     <form class="search_input-staff">
                         <div class="form-group has-search">
                             <mat-icon class="form-control-feedback">search</mat-icon>
-                            <input type="text" class="form-control searchbox_appointment " (keyup)="Search($event.target.value)" placeholder="Customer,Service Staff" placeholder="Search for items">
+                            <input type="text" class="form-control searchbox_appointment " (keyup)="Search($event.target.value)" placeholder="Search for items">
                         </div>
                     </form>
                 </div>
                 <div class="right-searchbar">
-                    <mat-select class="form-control form-control-transparent" (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
+                    <mat-select class="form-control form-control-transparent" placeholder="All" (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
                         <mat-option>None</mat-option>
                         <mat-option value="All">All</mat-option>
                         <mat-option value="Active">Active</mat-option>

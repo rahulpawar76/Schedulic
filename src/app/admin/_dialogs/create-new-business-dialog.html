@@ -1,6 +1,7 @@
 
 <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
-<div class="cretae-new-business-block">
+<div class="cretae-new-business-block-wrap">
+    <div class="cretae-new-business-block">
     <!-- <div class="common-top-header" *ngIf="!firstBusiness">
         <button type="button" class="model-close-btn ml-auto" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
             <span class="material-icons-outlined"> close </span>
@@ -180,7 +181,7 @@
         <div class="step-content">
             <div class="row">
                 <div class="col-12 common-input">
-                    <div class="input-group form-group">
+                    <div class="input-group search-category form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><img src="/assets/images/icons/searching.svg" /></span>
                         </div>
@@ -189,11 +190,12 @@
                 </div>
                 <div class="results-list-wrap">
                     <h4>Examples :</h4>
-                    <ul class="re-list">
+                    <ul class="re-list" *ngIf="businessCategories.length > 0">
                         <li *ngFor="let category of businessCategories; let i=index;">
                             <mat-checkbox (change)="onCateChange($event, category.id)">{{category.name}}</mat-checkbox>
                         </li>
                     </ul>
+                    <p class="text-left w-100 my-3" *ngIf="businessCategories.length == 0">No record found.</p>
                 </div>
             </div>
         </div>
@@ -307,5 +309,6 @@
             <p class="w-100">Sit tight, we’ll take you through your setup.</p>
             <button mat-button (click)="fnCreateBusiness()" class="sc-pink-btn long-width-btn">Go</button>
         </div>
+    </div>
     </div>
 </div>

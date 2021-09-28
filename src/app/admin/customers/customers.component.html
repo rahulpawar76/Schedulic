@@ -22,7 +22,7 @@
                 [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list"
                 class="customer-menu customer-left-menu">
                 <div class="leftarrow-icon d-flex align-items-center">
-                    <mat-select class="form-control form-select-main mr-3" [ngModel]="actionValue"
+                    <mat-select placeholder="Action" class="form-control form-select-main mr-3" [ngModel]="actionValue"
                         (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <mat-option value="delete">Delete</mat-option>
                     </mat-select>

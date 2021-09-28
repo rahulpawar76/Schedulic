@@ -2,54 +2,46 @@
     <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="isLoaderAdmin" fxLayoutAlign="center center" class="full-height">
         <img src="../../assets/sc-loader.svg" />
     </div>
-    <!-- <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div> -->
-    <div id="my-business-top">
-        <div class="col-12 d-flex inner">
-            <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Business</span></div>
-            <div class="col-lg-6 col-md-6 col-sm-12 second">
-                <a (click)="creatNewBusiness()">Add New Business/Location</a>
-            </div>
+    <div id="my-business-top" class="row mx-0 d-flex">
+        <div class="col-lg-6 col-md-6 col-sm-12 first d-flex"><span>My Business</span></div>
+        <div class="col-lg-6 col-md-6 col-sm-12 second">
+            <a (click)="creatNewBusiness()">Add New Business/Location</a>
         </div>
     </div>
 
-    <div class="" id="Add-new-business">
-        <div class="col-12">
-            <div class="d-flex flex-wrap">
-                <div *ngFor="let allBusiness of allBusiness; let i=index" class="col-lg-3 col-md-6 col-sm-12 business-box">
-
-                    <mat-card class="text-center SelectBusiness h-100 mb-0">
-                        <div class="pt-3 image-round-main d-flex">
-                            <div class="SelectBusinessIcon">
-                                <img mat-card-avatar="" src="{{allBusiness.image?allBusiness.image:'../../assets/images/admin/multi-building.png'}}">
+    <div class="" id="business-list">
+        <div class="row my-4 mx-2">
+            <div *ngFor="let allBusiness of allBusiness; let i=index" class="business-box">
+                <div class="text-center single-business">
+                    <div class="image-round-main d-flex">
+                        <div class="SelectBusinessIcon">
+                            <img mat-card-avatar="" src="{{allBusiness.image?allBusiness.image:'../../assets/images/admin/multi-building.png'}}">
+                        </div>
+                    </div>
+                    <div class="business-title">
+                        <h6 class="text-capitalize">{{allBusiness.business_name}}</h6>
+                    </div>
+                    <div class="content">
+                        {{allBusiness.address}}, {{allBusiness.city.name}}, {{allBusiness.state.name}}-{{allBusiness.zipcode}}, {{allBusiness.country.name}}.
+                    </div>
+                    <button mat-button class="businness-btn" (click)="fnSelectBusiness(allBusiness.id, allBusiness.business_name)">Select Business</button>
+                    <div class="delete-btn">
+                        <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="">more_vert</mat-icon>
+                        <ng-template class="popover custom-popover" #popContent>
+                            <div (click)="delete(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
+                                <i class="fa fa-trash mr-2"></i><span>Delete</span>
                             </div>
-                        </div>
-                        <div class="pt-3 business-title">
-                            <h6 class="text-capitalize">{{allBusiness.business_name}}</h6>
-                        </div>
-                        <div class="content">
-                            {{allBusiness.address}}, {{allBusiness.city.name}}, {{allBusiness.state.name}}-{{allBusiness.zipcode}}, {{allBusiness.country.name}}.
-                        </div>
-                        <div class="pt-3">
-                            <button mat-button class="businness-btn" (click)="fnSelectBusiness(allBusiness.id, allBusiness.business_name)">Select Business</button>
-                        </div>
-                        <div class="delete-btn">
-                            <mat-icon [ngbPopover]="popContent" placement="left" aria-hidden="false" aria-label="Example home icon" class="">more_vert</mat-icon>
-                            <ng-template class="popover custom-popover" #popContent>
-                                <div (click)="delete(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
-                                    <i class="fa fa-trash mr-2"></i><span>Delete</span>
-                                </div>
-                                <div (click)="duplicate(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
-                                    <i class="fa fa-clone mr-2" aria-hidden="true"></i><span>Duplicate</span>
-                                </div>
+                            <div (click)="duplicate(allBusiness.id)" class="align-items-center pop-menu-item d-flex">
+                                <i class="fa fa-clone mr-2" aria-hidden="true"></i><span>Duplicate</span>
+                            </div>
 
-                            </ng-template>
-                        </div>
-                    </mat-card>
+                        </ng-template>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 business-box ">
-                    
-                    <mat-card class="text-center h-100 NewBusiness-matcard mb-0 pointer" (click)="creatNewBusiness()">
-                    <div class="business-btn-main">
+            </div>
+            <div class="business-box">
+                <div class="text-center single-business new-business-card pointer" (click)="creatNewBusiness()">
+                    <div class="image-round-main d-flex">
                         <div class="AddNewBusinessIcon">
                             <img mat-card-avatar="" src="../../assets/images/admin/add.png">
                         </div>
@@ -57,12 +49,10 @@
                     <div class="pt-4">
                         <h6>Add New Business/Location</h6>
                     </div>
-                    <div class="pb-3 content">
+                    <div class="content">
                         Business/Location can be a physical or online address from where services are provided. Each business/location can have its own staff members, resources, services and settings.
                     </div>
-                    </mat-card>
                 </div>
-                <p id="demo"></p>
             </div>
         </div>
     </div>

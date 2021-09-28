@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.667" height="24.667" viewBox="0 0 24.667 24.667">
+  <g id="Group_61" data-name="Group 61" transform="translate(-334.667 -130.667)">
+    <path id="calendar_6_" data-name="calendar (6)" d="M21.584,3.083H20.556V1.028A1.028,1.028,0,0,0,19.528,0H18.5a1.028,1.028,0,0,0-1.028,1.028V3.083H7.195V1.028A1.028,1.028,0,0,0,6.167,0H5.139A1.028,1.028,0,0,0,4.111,1.028V3.083H3.084A3.087,3.087,0,0,0,0,6.167V21.583a3.087,3.087,0,0,0,3.083,3.083h18.5a3.087,3.087,0,0,0,3.083-3.083V6.167a3.087,3.087,0,0,0-3.083-3.083Zm1.028,18.5a1.029,1.029,0,0,1-1.028,1.028H3.084a1.029,1.029,0,0,1-1.028-1.028V10.319H22.611Zm0,0" transform="translate(334.666 130.667)" fill="#0e0e0e"/>
+    <g id="Rectangle_764" data-name="Rectangle 764" transform="translate(341 144)" fill="#fff" stroke="#0e0e0e" stroke-width="1">
+      <rect width="12" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="11" height="1" rx="0.5" fill="none"/>
+    </g>
+    <g id="Rectangle_765" data-name="Rectangle 765" transform="translate(341 148)" fill="#fff" stroke="#0e0e0e" stroke-width="1">
+      <rect width="9" height="2" rx="1" stroke="none"/>
+      <rect x="0.5" y="0.5" width="8" height="1" rx="0.5" fill="none"/>
+    </g>
+  </g>
+</svg>

@@ -796,7 +796,6 @@ i.fa.fa-plus-circle.pl-2.note-icon {
     position: fixed;
     top: 65px;
     height: calc(100vh - 64px);
-    box-shadow: 1px 1px 3px #e5e3e3;
     z-index: 12;
     overflow-y: scroll;
     padding-top: 15px;
@@ -1131,6 +1130,7 @@ textarea {
         padding-top: 3px;
         .has-search .form-control {
             padding-left: 2.375rem;
+            padding-top: 14px;
         }
         .has-search .form-control-feedback {
             position: absolute;
@@ -1141,17 +1141,18 @@ textarea {
             color: #0e0e0e;
             text-align: center;
             width: 2.375rem;
-            font-size: 25px;
+            font-size: 22px;
         }
         .searchbox_appointment {
-            border-bottom: 1px solid #0e0e0e !important;
+            border-bottom: 1px solid #828989 !important;
             border: 0;
             background-color: transparent;
             border-radius: 0;
             color: #0e0e0e;
+            font-size: 14px;
             &::placeholder {
-                font-size: 12px;
-                color: #0e0e0e;
+                font-size: 14px;
+                color: #565657;
             }
         }
     }
@@ -1165,17 +1166,43 @@ textarea {
     height: 40px;
     border: 1px solid #70707040;
     border-radius: 4px;
+    &::placeholder {
+        font-size: 14px;
+        color: #0E0E0E !important;
+    }
 }
+body .md-drppicker td.active, .md-drppicker td.active:hover{
+    background-color: #f04589;
+    border-color: transparent;
+    color: #fff;
+}
+body .md-drppicker .btn.btn-default {
+    color: #fff;
+    background-color: #A1A1A1;
+}
+body .md-drppicker .btn {
+    background-color: #f04589;
+    line-height: unset;
+    text-transform: capitalize;
+    padding: 4px 18px;
+    margin-left: 14px;
+    box-shadow: none;
+    border-radius: 5px;
+}
+// .mat-select-placeholder{
+//     color: #0E0E0E;
+// }
 mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     box-sizing: border-box;
-    height: 10px;
-    width: 10px;
+    height: 8px;
+    width: 8px;
     border-style: solid;
-    border-color: #0e0e0e;
+    border-color: #565657;
     border-width: 0px 2px 2px 0px;
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
-    margin-top: -10px;
+    margin-top: -8px;
+    margin-right: 10px;
 }
 
 .sc-table-view {
@@ -1311,34 +1338,39 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     background-color: #ffe482;
     color: #0e0e0e;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
+    width: 150px;
 }
 .sc-pink-btn {
     background-color: #f04589;
     color: #ffffff;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
+    width: 150px;
 }
 
 .sc-grey-btn {
     background-color: #a1a1a1;
     color: #ffffff;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
+    width: 150px;
 }
 
 .sc-light-green-btn {
     background-color: #00a89b;
     color: #ffffff;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
+    width: 150px;
 }
 
 .sc-red-btn {
     background-color: #ff5757;
     color: #ffffff;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
+    width: 150px;
 }
 .pink-btn-md {
     width: 120px;
@@ -1774,4 +1806,41 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         margin-bottom: 0px;
         color: #565657;
     }
+}
+.getting-started-label{
+    display: none !important;
+}
+.calender-formgroup{
+    position: relative;
+    img{
+        position: absolute;
+        top: 10px;
+        width: 20px;
+        left: 28px;
+    }
+    .form-control {
+        padding-left: 56px;
+        &::placeholder{
+            color: #565657;
+        }
+    }
+    
+}
+input{
+    &::placeholder{
+        color: #565657 !important;
+        font-size: 14px;
+    }
+}
+mat-select{
+    .mat-select-placeholder{
+        color: #565657 !important;
+        font-size: 14px;
+    }
+}
+:-ms-input-placeholder{
+    color: #565657;
+}
+:-webkit-input-placeholder{
+    color: #565657;
 }
