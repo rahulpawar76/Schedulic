@@ -4,13 +4,16 @@
     </div>
     <div class="modal-content Appointment-add-form">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead mb-0  work-content">{{dialogTitle}}</p>
+            <p class="heading lead mb-0 note-icon-wrap">
+                <img src="/assets/images/icons/add-booking-icon.svg" />
+                {{dialogTitle}}
+            </p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
         </div>
         <div class="modal-body" *ngIf="!secondStep">
-            <form [formGroup]="formAddNewAppointmentStaffStep1">
+            <form class="py-4" [formGroup]="formAddNewAppointmentStaffStep1">
                 <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -121,13 +124,13 @@
                     </div>
                 </div>
 
-                <div class="col-12 mt-2">
+                <div class="col-12 mt-2 middle-head">
                     <h6>Appointment Address</h6>
-                </div>
-                <div class="col-12 mb-2">
-                    <mat-checkbox [checked]="is_checked" class="example-margin mr-0" (change)="sameAddress($event)">
-                        <label class="mb-0"> &nbsp;&nbsp; Same as above</label>
-                    </mat-checkbox>
+                    <div class="w-100 mb-2">
+                        <mat-checkbox [checked]="is_checked" class="example-margin mr-0" (change)="sameAddress($event)">
+                            <label class="mb-0"> Same as above</label>
+                        </mat-checkbox>
+                    </div>
                 </div>
 
                 <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6">
@@ -194,9 +197,8 @@
             </form>
         </div>
         <div class="modal-body app-custom-body-wrap" *ngIf="secondStep">
-            <form [formGroup]="formAddNewAppointmentStaffStep2">
-
-                <div class="row">
+            <form class="py-4" [formGroup]="formAddNewAppointmentStaffStep2">
+                <div class="row mx-0">
                     <div class="col-6 mb-3 common-input">
                         <div class="form-group">
                             <label class="mb-1">Category</label>
@@ -257,14 +259,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="col-6 px-0">
+                <div class="row mx-0">
+                    <div class="col-6 pr-0">
                         <div class="input-group common-input mb-3">
                             <label class="">Select Date</label>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><img
-                                            src="/assets/images/icons/date-calendar.svg" /></span>
+                                    <span class="input-group-text">
+                                        <img src="/assets/images/icons/date-calendar.svg" />
+                                    </span>
                                 </div>
                                 <input type="text" [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter"
                                     [matDatepicker]="picker" formControlName="customerDate" class="form-control"
@@ -280,7 +283,6 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        
                         <div class="input-group common-input mb-3">
                             <label class="">Select Time</label>
                             <div class="input-group form-group">
@@ -303,32 +305,32 @@
                             </span>
                         </div>
                     </div>
-                </div>
-               
-                <div class="input-group common-input mb-3">
-                    <label class="">Select Staff</label>
-                    <div class="input-group form-group">
-                        <mat-select placeholder="Select Staff" class="form-control formcontrol custom-select-modal"
-                            [disabled]="" formControlName="customerStaff"
-                            (selectionChange)="fnSelectStaff($event.value)">
-                            <mat-option value="null">Any Staff</mat-option>
-                            <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}
-                            </mat-option>
-                            <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
-                        </mat-select>
+                    <div class="col-12 common-input mb-3">
+                        <div class="form-group">
+                            <label class="">Select Staff</label>
+                            <mat-select placeholder="Select Staff" class="form-control formcontrol custom-select-modal"
+                                [disabled]="" formControlName="customerStaff"
+                                (selectionChange)="fnSelectStaff($event.value)">
+                                <mat-option value="null">Any Staff</mat-option>
+                                <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}
+                                </mat-option>
+                                <mat-option *ngIf="availableStaff.length==0" disabled>No Staff Available</mat-option>
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').dirty || formAddNewAppointmentStaffStep2.get('customerStaff').touched">
+                                <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')"
+                                    class="error">Staff is required.</small>
+                            </span>
+                        </div>
                     </div>
-                    <span class="error-wrap"
-                        *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').dirty || formAddNewAppointmentStaffStep2.get('customerStaff').touched">
-                        <small *ngIf="formAddNewAppointmentStaffStep2.get('customerStaff').hasError('required')"
-                            class="error">Staff is required.</small>
-                    </span>
                 </div>
-                <div class="row common-input" *ngIf="!data.appointmentData">
-                    <div class="col-6 form-group">
-                        <input class="form-control" formControlName="customerCouponCode"
-                            placeholder="Coupon Code">
+                
+                <div class="row mx-0 " *ngIf="!data.appointmentData">
+                    <div class="col-6 common-input">
+                        <div class=" form-group">
+                            <input class="form-control" formControlName="customerCouponCode" placeholder="Coupon Code">
+                        </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 d-flex justify-content-end mb-3">
                         <button mat-button class="sc-pink-btn ml-3" (click)="applyCoupon()">Apply Coupon</button>
                     </div>
                     <div class="col-4" *ngIf="appointmentSubTotal > 0">

@@ -3,7 +3,7 @@
         <div class="modal-dialog mt-0 mb-0" role="document">
             <div class="modal-content detail-popup Appointment-modal-wrap">
                 <div class="modal-header">
-                    <h5 class="modal-title">Appointment Details</h5>
+                    <h5 class="modal-title">Booking Details</h5>
                     <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -42,7 +42,7 @@
 
                 </div>
 
-                <div class="modal-body p-3">
+                <div class="modal-body ml-2 p-3">
                     <div class="appointment-details-wrap">
                         <div class="common-appointment-details">
                             <div class="appointment-details">
@@ -201,11 +201,11 @@
                     </div>
 
                 </div>
-                <div class="card-body-margin booking-detail-main mb-0">
+                <div class="card-body-margin ml-2 booking-detail-main mb-0">
                     <div class="common-details-customer pt-0">
                         <h6 class="heading-title">Customer Details</h6>
                         <div class="d-flex align-items-center py-2">
-                            <p class="customer-profile-img">{{customerShortName}}</p>
+                            <p class="customer-profile-img text-uppercase">{{customerShortName}}</p>
                             <div class="customer-name pr-3">
                                 <h3 class="">{{detailsData.customer.fullname}}</h3>
                                 <p class="mb-0">{{detailsData.customer.email}}</p>

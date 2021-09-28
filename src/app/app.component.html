@@ -100,14 +100,13 @@
                             <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
                                 <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
                             </div>
-                        <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+                            <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
                         </span>
-                                <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
-                        <!-- <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i> -->
-                        <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
-                        <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+                        <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
+                            <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
+                            <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                            <img class="logout-btn pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
+                        <img class="logout-btn ml-3 pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
@@ -322,7 +321,7 @@
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
-                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                            <mat-list-item role="listitem" class="matlist pointer logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/icons/menu-icons/left-menu-logo.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add">
@@ -410,7 +409,7 @@
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" mode="side" opened>
                         <div class="top_admin_menu">
-                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                            <mat-list-item role="listitem" class="matlist pointer logo">
                                 <div (click)="fnClickLogo('superAdmin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
                             </mat-list-item>
                             <mat-list-item class="{{pageHeading=='My Admins'?'active':''}}" role="listitem" (click)="myAdminsNav(); fnPostUrl('myAdmins');">
@@ -442,21 +441,21 @@
     <mat-drawer #drawer position="end">
         <mat-list role="list" *ngIf="isCustomerUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
+            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <p class="font-weight-bold mt-2 p-1">{{currentUser.fullname}}</p>
             </mat-list-item>
             <mat-list-item role="listitem" (click)="UserAppointment('./user-appointment')" (click)="drawer.toggle()">
-                <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
+                <button mat-menu-item class=""><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <button mat-menu-item (click)="customerLogout();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
-                     <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+                <button mat-menu-item (click)="customerLogout();" class="" matTooltip="Logout" aria-label="clcik on Logout">
+                     <i mat-list-icon class="fa fa-sign-out mr-3"></i>Logout</button>
             </mat-list-item>
         </mat-list>
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
+            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
                     <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>

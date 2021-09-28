@@ -91,30 +91,7 @@
         }
     }
 }
-// <!----- new-appointment-dialog---->
-// ::ng-deep .new-appointment{
- ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 10px 0 10px 10px;
-}
 
- ::ng-deep .mat-form-field-infix {
-    border-top: unset;
-}
-
- ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-    transform: inherit;
-}
-
- ::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-    padding-top: 8px;
-}
-
- ::ng-deep .mat-form-field-prefix .mat-icon,
-.mat-form-field-suffix .mat-icon {
-    font-size: 17px;
-}
-
-// }
 #appointment {
      ::ng-deep .dataTables_wrapper {
         .dataTables_filter {
@@ -241,5 +218,19 @@
         width: 200px;
         text-indent: 30px;
         margin-left: 20px;
+    }
+}
+::ng-deep .Appointment-add-form{
+    .middle-head{
+        h6{
+            font-size: 16px;
+            color: #0E0E0E;
+            font-weight: 500;
+        }
+        label{
+            font-size: 14px;
+            color: #0E0E0E;
+            font-weight: 500;
+        }
     }
 }
