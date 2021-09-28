@@ -21,5 +21,5 @@
     facebook_id?: string; //Use with fake backend
     internal_staff?: string; //Use with fake backend
     image?: string; //Use with fake backend
-    avgRatings?: []; //Use with fake backend
+    avgRatings?: any; //Use with fake backend
 }

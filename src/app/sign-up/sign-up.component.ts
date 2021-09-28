@@ -9,6 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import decode from 'jwt-decode';
 import { AppComponent } from '../app.component';
 import { AuthenticationService } from '@app/_services';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
     hide1 = true;
 	termsCheckbox:boolean = true;
 	termsCheckboxChecked:boolean = false;
+    error = '';
 
   	constructor(private _formBuilder: FormBuilder,
   		private _snackBar: MatSnackBar,
@@ -105,7 +107,8 @@ export class SignUpComponent implements OnInit {
 					panelClass : ['green-snackbar']
 				});
 					this.dataLoaded = false;
-					this.router.navigate(["admin-select-subscription"]);
+					// this.router.navigate(["admin-select-subscription"]);
+					this.fnLogin(this.signUpForm.get("email").value, this.signUpForm.get("cpassword").value);
 			  }else{
 				this.dataLoaded = false;
 				this._snackBar.open(response.response, "X", {
@@ -162,5 +165,42 @@ export class SignUpComponent implements OnInit {
 		this.termsCheckboxChecked = check;
 		this.termsCheckbox = check;
 	}
+
+	
+    fnLogin(email, password) {
+        this.dataLoaded = true;
+        this.authenticationService.login(email, password)
+        .pipe(first()).subscribe(data => {
+
+            if(data.data == true){
+
+                if(data.response.user_type == "A"){
+                    this.router.navigate(["admin"]);
+                }else if(data.response.user_type == "SM"){
+                    localStorage.setItem('internal_staff','N');
+                    this.router.navigate(["staff"]);
+                }
+                
+            }else if(data.data == false){
+
+                this._snackBar.open(data.response, "X", {
+                    duration: 2000,
+                    verticalPosition:'top',
+                    panelClass :['red-snackbar']
+                    });
+                this.error = data.response; 
+                this.dataLoaded = true;
+
+            }  else{
+                this.error = "Database Connection Error."; 
+                this.dataLoaded = true;
+            }
+			this.dataLoaded =false;
+        },
+        error => {  
+            this.error = "Database Connection Error."; 
+            this.dataLoaded = true;  
+        });
+    }
 
 }

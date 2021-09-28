@@ -79,6 +79,10 @@
                             Settings
                         </label>
                     </div>
+                    <label class="business_logo" *ngIf="isBusiness()">
+                        <img src="/assets/images/logo-black.svg" />
+                    </label>
+                    <!-- {{pageHeading}} -->
                     <span class="example-fill-remaining-space">
                         <div class="selected-business-btn-main">
                         <label class="text-capitalize" *ngIf="isBusinessSelected() && !isBusiness()">Business : <span>{{selectedBusinessName}}</span></label>
