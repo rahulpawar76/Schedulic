@@ -458,7 +458,7 @@
                 <div>
                     <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>
                     <div *ngIf="currentUser.avgRatings.length != 0" class="d-flex statick-rating staff-dash w-100">
-                        <div class="star-rating" *ngIf="currentUser.avgRatings">
+                        <!-- <div class="star-rating" *ngIf="currentUser.avgRatings">
                             <input type="radio" [checked]="currentUser.avgRatings[0].aggregate == '5'" id="5-stars_{{currentUser.id}}" name="rating_2" value="5" />
                             <label for="5-stars_{{currentUser.id}}" class="star">&#9733;</label>
                             <input [checked]="currentUser.avgRatings[0].aggregate == '4'" type="radio" id="4-stars_{{currentUser.id}}" name="rating_2" value="4" />
@@ -469,23 +469,29 @@
                             <label for="2-stars_{{currentUser.id}}" class="star">&#9733;</label>
                             <input [checked]="currentUser.avgRatings[0].aggregate == '1'" type="radio" id="1-star_{{currentUser.id}}" name="rating_2" value="1" />
                             <label for="1-star_{{currentUser.id}}" class="star">&#9733;</label>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </mat-list-item>
-            <mat-list-item role="listitem" (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" role="listitem" (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
+                <button  mat-menu-item class="menuitem">
+             <!-- <i mat-list-icon class="fa fa-briefcase mr-3"></i> -->
+                My Work Space</button>
+            </mat-list-item>
+            <mat-list-item class="menuitem" role="listitem" (click)="StaffAppointment('./staff-appointment')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">
-        <i mat-list-icon class="fa fa-briefcase mr-3"></i>My Work Space</button>
+                    <!-- <i mat-list-icon   class="fa fa-calendar mr-3"></i> -->
+                  My Appointmets</button>
             </mat-list-item>
-            <mat-list-item role="listitem" (click)="StaffAppointment('./staff-appointment')" (click)="drawer.toggle()">
-                <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointmets</button>
+            <mat-list-item class="menuitem" role="listitem" (click)="WorkProfile('./work-profile')" (click)="drawer.toggle()">
+                <button mat-menu-item class="menuitem">
+                    <!-- <i mat-list-icon class="material-icons mr-3">people_alt</i> -->
+                    Work Profile</button>
             </mat-list-item>
-            <mat-list-item role="listitem" (click)="WorkProfile('./work-profile')" (click)="drawer.toggle()">
-                <button mat-menu-item class="menuitem"><i mat-list-icon class="material-icons mr-3">people_alt</i>Work Profile</button>
-            </mat-list-item>
-            <mat-list-item role="listitem">
+            <mat-list-item class="menuitem" role="listitem">
                 <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
-                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout
+                    <!-- <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i> -->
+                    Logout
                 </button>
             </mat-list-item>
         </mat-list>

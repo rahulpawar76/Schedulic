@@ -49,7 +49,7 @@
         /*border-radius: 10px 10px;
         border: 20px solid #ffffff6e;*/
         border-radius: 0px;
-        background-color: #b9c1c1ba;
+        background-color: #b9c1c1cf;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         .line {
@@ -81,7 +81,7 @@
                 }
                 .beside-icon {
                     display: flex;
-                    width: 226px;
+                    width: 189px;
                     align-items: center;
                     h4 {
                         margin-bottom: 0;
@@ -101,23 +101,28 @@
         }
     }
 }
-
+.work-service-bg-main{
+    .icon-color-wrap{
+        color: #00a89b;
+    }
+}
 .left-time-main {
     position: relative;
     &:before {
         content: "";
         position: absolute;
-        border: 0.5px solid #fff;
-        left: -8%;
-        top: 5%;
-        height: 90%;
-        opacity: 0.2;
+        border: 0.1px solid #00000063;
+        left: -9%;
+        top: 17%;
+        height: 70%;
     }
     span {
         position: absolute;
-        left: -12%;
+        left: -14%;
         font-size: 11px;
-        top: -11px;
+        top: 14px;
+        color: #000;
+        font-weight: 600;
     }
 }
 
@@ -133,17 +138,21 @@
             border-radius: 4px 4px;
             background-color: #ffda53;
             color: #000;
+            margin-left: 60px;
             .customer-profile-width {
                 .customer-name-profile {
                     background-color: white;
                     border-radius: 50%;
                     /*width: 10%;*/
                     padding: 10px;
-                    color: #79b2fd;
+                    // color: #79b2fd;
+                    color: #000;
                     text-align: center;
+                    font-weight: 600;
                 }
             }
-            .customer-name-width {}
+            .customer-name-width {
+            }
             .Details-button-width {
                 display: block;
                 margin-left: auto;
@@ -155,7 +164,7 @@
                     line-height: 2;
                     margin: 4px;
                     // border: 1px solid white;
-                    padding: 0 20px;
+                    padding: 0 16px;
                 }
             }
         }
@@ -204,7 +213,7 @@
     }
 }
 
-@media only screen and (max-width: 645px) and (orientation:portrait) {
+@media only screen and (max-width: 645px) and (orientation: portrait) {
     .customer-name {
         width: 100% !important;
     }
@@ -216,7 +225,7 @@
     }
 }
 
-@media only screen and (max-width: 767px) and (orientation:portrait) {
+@media only screen and (max-width: 767px) and (orientation: portrait) {
     .work-space-main {
         .container {
             .service-background {
@@ -248,7 +257,6 @@
         }
     }
 }
-
 
 /*Image Upload*/
 
@@ -330,10 +338,9 @@
     display: table;
 }
 
-
 /* Image Upload Dialog */
 
- ::ng-deep .modal-info {
+::ng-deep .modal-info {
     margin: 0 !important;
     .modal-bcolor-primary {
         background-color: #d9f0fe;
@@ -342,7 +349,7 @@
             padding: 0;
         }
     }
-     ::ng-deep .modal-body {
+    ::ng-deep .modal-body {
         .work-content {
             text-align: center;
             padding-left: 10px;
@@ -355,6 +362,6 @@
     }
 }
 
- ::ng-deep .mat-dialog-container {
+::ng-deep .mat-dialog-container {
     padding: 0 !important;
 }
