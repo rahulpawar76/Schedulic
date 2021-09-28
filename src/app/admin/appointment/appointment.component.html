@@ -2,8 +2,8 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="row m-0">
         <div class="appointment-header px-0 col-12">
-            <div class="d-flex mr-4 col-12 sc-table-top-bar header-content">
-                <div class="col-lg-7 col-12 col-md-3 col-sm-12 d-flex">
+            <div class="d-flex col-12 sc-table-top-bar header-content">
+                <div class="col-lg-7 pl-0 col-12 col-md-3 col-sm-12 d-flex">
                     <mat-select class="form-control form-control-transparent mr-2"
                         matTooltip="{{durationType == 'all'? 'All Day' : ''}}"
                         (selectionChange)="selectdurationType($event.value)" [(value)]="durationType">
@@ -45,7 +45,7 @@
                         </div>
                     </div> -->
                 </div>
-                <div class="col-lg-5 col-12 col-md-4 col-sm-12 d-flex sc-table-top-bar justify-content-end">
+                <div class="col-lg-5 col-12 pr-0 col-md-4 col-sm-12 d-flex sc-table-top-bar justify-content-end">
                     <div class="searchbox col-8">
                         <form class="search_input-staff">
                             <div class="form-group has-search">
@@ -79,7 +79,7 @@
                                 <div class="text-left" fxFlex="20">Staff</div>
                                 <div class="text-left" fxFlex="10">Amount</div>
                                 <div class="text-left" fxFlex="10">Status</div>
-                                <div class="text-left" fxFlex="10">Action</div>
+                                <div class="text-right" fxFlex="10">Action</div>
                             </div>
                             <div class="sc-table-content staff-list">
                                 <div class="staff-list-row final-list {{fnOpenDetailsRow==i?'activeRow':''}}"
@@ -155,23 +155,23 @@
                                             Getting Late</p>
                                     </div>
 
-                                    <div class="text-left" fxFlex="10">
-                                        <div class="table-action-btns">
+                                    <div class="text-right" fxFlex="10">
+                                        <div class="table-action-btns justify-content-end">
                                             <button (click)="fnEditAppointment(i)" matTooltip="Edit"
-                                                class="appointment-edit-btn  mr-1"
+                                                class="appointment-edit-btn"
                                                 *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i
                                                     class="material-icons appointment-icon">edit</i></button>
                                             <button matTooltip="Cancel"
                                                 *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()"
                                                 (click)="cancelAppointment('C', allAppointmentsData.id)"
-                                                class="appointment-cancel-btn mr-1"><i
+                                                class="appointment-cancel-btn ml-1"><i
                                                     class="material-icons appointment-icon">close</i></button>
                                             <button matTooltip="Done" *ngIf="allAppointmentsData.order_status == 'P'"
                                                 (click)="confirmAppointment('CNF', allAppointmentsData.id)"
-                                                class="appointment-confirm-btn mr-1"><i
+                                                class="appointment-confirm-btn ml-1"><i
                                                     class="material-icons appointment-icon">done</i></button>
                                             <button matTooltip="View" (click)="fnOpenDetails(i)"
-                                                class="sc-table-action-btn">
+                                                class="sc-table-action-btn ml-1">
                                                 <mat-icon class="">visibility</mat-icon>
                                             </button>
                                         </div>

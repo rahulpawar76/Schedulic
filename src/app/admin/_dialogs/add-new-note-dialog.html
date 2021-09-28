@@ -1,29 +1,39 @@
 <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-            
-            <p class="modal-title"><span class="note-icon-wrap"><img src="/assets/images/icons/Group 56.svg" /></span>{{noteData ? 'Update Note' : 'New Note'}}</p>
+
+            <p class="modal-title"><span class="note-icon-wrap"><img
+                        src="/assets/images/icons/Group 56.svg" /></span>{{noteData ? 'Update Note' : 'New Note'}}</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
-          <span class="close-icon" aria-hidden="true">&times;</span>
-        </button>
+                <span class="close-icon" aria-hidden="true">&times;</span>
+            </button>
         </div>
         <form [formGroup]="createNewNote">
-            <div class="modal-body pb-0">
-                <!-- <mat-form-field class="bottom-border-field"> -->
-                    <!-- <mat-label>Subject</mat-label> -->
-                    <input class="custom-input-wrap form-control pl-2 mb-3" matInput type="text" formControlName="note_subject" placeholder="Subject">
-                <!-- </mat-form-field> -->
-                <span class="error-wrap" *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject is required.</small></span>
-                <!-- <mat-form-field class="bottom-border-field"> -->
-                    <!-- <mat-label>Description</mat-label> -->
-                    <textarea class="min-h-70 custom-input-wrap form-control pl-2" rows="5" matInput formControlName="note_description" placeholder="Description"></textarea>
-                <!-- </mat-form-field> -->
-                <span class="error-wrap" *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Description is required.</small></span>
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <input class="custom-input-wrap form-control" type="text" formControlName="note_subject"
+                        placeholder="Subject">
+                    <span class="error-wrap"
+                        *ngIf="createNewNote.get('note_subject').dirty || createNewNote.get('note_subject').touched"><small
+                            *ngIf="createNewNote.get('note_subject').hasError('required')" class="error">Subject is
+                            required.</small></span>
+                </div>
+                <div class="form-group mb-3">
+                    <textarea class="min-h-70 custom-input-wrap form-control pl-2" rows="5"
+                        formControlName="note_description" placeholder="Description"></textarea>
+                    <span class="error-wrap"
+                        *ngIf="createNewNote.get('note_description').dirty || createNewNote.get('note_description').touched"><small
+                            *ngIf="createNewNote.get('note_description').hasError('required')" class="error">Description
+                            is required.</small></span>
+                </div>
+                <div class="modal-bottom-action-btn">
+                    <button type="button" class="cancel-btn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
+                    <button type="button" class="save-btn" data-dismiss="modal" (click)="fnSubmit()">{{noteData ?
+                        'Update' : 'Save'}}</button>
+                </div>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn cancelbtn back-btn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
-                <button type="button" class="btn save-btn addbtn" data-dismiss="modal" (click)="fnSubmit()">{{noteData ? 'Update' : 'Save'}}</button>
-            </div>
+
         </form>
     </div>
 </div>

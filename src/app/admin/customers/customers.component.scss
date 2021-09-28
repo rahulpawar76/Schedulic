@@ -211,16 +211,16 @@
         width: 60%;
     }
     .registration {
-        width: 32%;
+        width: 33%;
+        padding-right: 40px;
     }
     .lastBookedAppoint {
-        width: 35%;
+        width: 33%;
+        padding-right: 40px;
     }
     .lastBookedService {
         width: 33%;
-    }
-    .notes {
-        color: blue;
+        padding-right: 40px;
     }
     .addNotes {
         display: flex;
@@ -1095,4 +1095,24 @@ mat-chip-list {
     margin-right: 20px;
     z-index: 9;
     margin-top: 6px;
+    justify-content: center;
+    height: 30px;
+    line-height: 2.2;
 }
+
+    .profile-img-wrap{
+        width: 150px;
+        height: 150px;
+        background-color: #EAF7F6;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 5px; 
+        .default-img{
+            width: 40px;
+        }
+        .service-profile-image {
+            // width: 100%;
+            // height: 100%;
+        }
+    }

@@ -179,7 +179,7 @@
                         <p class="mb-1 pb-1 border-bottom" *ngFor="let note of singleBookingNotes; let i=index">
                             {{note.notes}}, <br>
                             Added by <br>
-                            {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
+                            {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
                     </div>
                 </mat-card>
                 <div class="p-1-5 bottom-border">
