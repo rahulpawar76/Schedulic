@@ -105,10 +105,7 @@
                         <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                         <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                                <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                        <!-- <i mat-list-icon class="fa fa-sign-out"></i> -->
-                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
-                        </button>
+                            <img class="logout-btn pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
