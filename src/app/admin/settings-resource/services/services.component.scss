@@ -308,9 +308,23 @@
     }
 }
 
-.edit-box {
-    font-size: 20px;
-    color: #1173f4;
+.edit-box-icon{
+    background-color: #fed74b;
+    padding: 6px 6px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    margin-right: 12px;
+    justify-content: center; 
+    .mat-icon{
+        font-size: 22px;
+        color: #565657;
+        height: 22px;
+        width: 22px;
+    }
+}
+.cdk-drag-handle{
+    font-size: 18px;
 }
 
 .service-dlt-btn {

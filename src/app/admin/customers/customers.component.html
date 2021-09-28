@@ -221,10 +221,10 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-12 col-md-4">
+                                        <div class="col-lg-3 col-12 col-md-4 common-input">
                                             <div class="form-group">
                                                 <mat-select placeholder="Country"
-                                                    class="form-control formcontrol custom-select-modal" [disabled]=""
+                                                    class="form-control" [disabled]=""
                                                     formControlName="">
                                                     <mat-option value="null">india</mat-option>
                                                     <mat-option  disabled>No Staff Available</mat-option>
@@ -241,10 +241,10 @@
                                                     class="error">State must be at least 2 character.</small>
                                             </span> -->
                                         </div>
-                                        <div class="col-lg-3 col-12 col-md-4">
+                                        <div class="col-lg-3 col-12 col-md-4 common-input">
                                             <div class="form-group">
                                                 <mat-select placeholder="State"
-                                                   class="form-control formcontrol custom-select-modal" [disabled]=""
+                                                   class="form-control" [disabled]=""
                                                    formControlName="">
                                                    <mat-option value="null">Demo</mat-option>
                                                    <mat-option  disabled>No Staff Available</mat-option>
@@ -339,10 +339,13 @@
 
                 <div *ngIf="fullDetailsOfCustomer && customersDetails != null" id="Customer-Listing" class="pl-0 pr-0">
                     <div class="mb-0">
-                        <div class="d-flex top-profile-details">
-                            <div class="customerProfile-width"
+                        <div class="d-flex top-profile-details profile-img-wrap">
+                            <div class="customerProfile-width" *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
                                 [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
                                 <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->
+                            </div>
+                            <div class="customerProfile-width default-img" *ngIf="customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'">
+                                <img class="w-100 h-100" src="/assets/images/icons/image-placeholder.svg">
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>

@@ -39,7 +39,8 @@
                     <mat-slide-toggle  [checked]="staffAvailable" (change)="staffAvaibility($event.checked)" class="slidetoggle">Availability</mat-slide-toggle>
 
                     <button  mat-stroked-button class="bellborder notification-btn bell-color ml-3" (click)="openNotificationDialog()">
-                      <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
+                      <!-- <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i> -->
+                         <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                     <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                     </button>
                     <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
@@ -51,31 +52,31 @@
                 <mat-toolbar-row *ngIf="isAdminUser()" class="admin-header">
                     <div class="page-head">
                         <label *ngIf="pageHeading == 'My Workspace'">
-                            <img src="/assets/images/header-icons/bookings.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/bookings.svg" class="mr-2" aria-hidden="true">
                             My Workspace
                         </label>
                         <label *ngIf="pageHeading == 'My Appointments'">
-                            <img src="/assets/images/header-icons/bookings.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/bookings.svg" class="mr-2" aria-hidden="true">
                             My Bookings
                         </label>
                         <label *ngIf="pageHeading == 'My Customer'">
-                            <img src="/assets/images/header-icons/customers.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/customers.svg" class="mr-2" aria-hidden="true">
                             My Customers
                         </label>
                         <label *ngIf="pageHeading == 'My Reports'">
-                            <img src="/assets/images/header-icons/report.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/report.svg" class="mr-2" aria-hidden="true">
                             My Reports
                         </label>
                         <label *ngIf="pageHeading == 'My Discount Coupon'">
-                            <img src="/assets/images/header-icons/coupon.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/coupon.svg" class="mr-2" aria-hidden="true">
                             My Discount Coupon
                         </label>
                         <label *ngIf="pageHeading == 'My Profile'">
-                            <img src="/assets/images/header-icons/profile.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/profile.svg" class="mr-2" aria-hidden="true">
                             My Profile
                         </label>
                         <label *ngIf="pageHeading == 'My Settings'">
-                            <img src="/assets/images/header-icons/settings.svg" class="mr-3" aria-hidden="true">
+                            <img src="/assets/images/header-icons/settings.svg" class="mr-2" aria-hidden="true">
                             Settings
                         </label>
                     </div>
@@ -90,7 +91,7 @@
                         </div>
                     </span>
                     <span class="f13 d-flex align-items-center">
-                        <button mat-button class="sc-pink-btn mr-2 position-relative w-auto" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">
+                        <button mat-button class="sc-pink-btn live-btn mr-2 position-relative w-auto" *ngIf="!isBusiness()" (click)="MyLiveAppointmentNav()">
                             <label class="circle-animat-wrap"><span class="circle-blick-with-border"></span></label>
                             Live
                         </button>
@@ -99,16 +100,13 @@
                             <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
                                 <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
                             </div>
-                        <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+                            <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
                         </span>
-                                <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
-                        <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                        <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+                        <button *ngIf="!isBusiness()" mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
+                            <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
+                            <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                                <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                        <!-- <i mat-list-icon class="fa fa-sign-out"></i> -->
-                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
-                        </button>
+                        <img class="logout-btn ml-3 pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
@@ -323,7 +321,7 @@
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
-                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                            <mat-list-item role="listitem" class="matlist pointer logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/icons/menu-icons/left-menu-logo.svg"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add">
@@ -411,7 +409,7 @@
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" mode="side" opened>
                         <div class="top_admin_menu">
-                            <mat-list-item role="listitem" class="matlist pointer menuitem logo">
+                            <mat-list-item role="listitem" class="matlist pointer logo">
                                 <div (click)="fnClickLogo('superAdmin')" class="logo"><img src="assets/images/admin/admin-logo-orange.png"></div>
                             </mat-list-item>
                             <mat-list-item class="{{pageHeading=='My Admins'?'active':''}}" role="listitem" (click)="myAdminsNav(); fnPostUrl('myAdmins');">
@@ -443,21 +441,21 @@
     <mat-drawer #drawer position="end">
         <mat-list role="list" *ngIf="isCustomerUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer menuitem">
+            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <p class="font-weight-bold mt-2 p-1">{{currentUser.fullname}}</p>
             </mat-list-item>
             <mat-list-item role="listitem" (click)="UserAppointment('./user-appointment')" (click)="drawer.toggle()">
-                <button mat-menu-item class="menuitem"><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
+                <button mat-menu-item class=""><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
             </mat-list-item>
             <mat-list-item role="listitem">
-                <button mat-menu-item (click)="customerLogout();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">
-                     <i mat-list-icon class="fa fa-sign-out mr-3 menuitem"></i>Logout</button>
+                <button mat-menu-item (click)="customerLogout();" class="" matTooltip="Logout" aria-label="clcik on Logout">
+                     <i mat-list-icon class="fa fa-sign-out mr-3"></i>Logout</button>
             </mat-list-item>
         </mat-list>
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer menuitem">
+            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
                     <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>

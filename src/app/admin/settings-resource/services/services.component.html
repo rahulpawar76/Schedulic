@@ -422,7 +422,7 @@
                                     <div class="" fxFlex="10">
                                         <mat-slide-toggle (change)="changeServiceStaus($event.checked,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
                                     </div>
-                                    <div class="pointer" fxFlex="5" (click)="fnEditService(i,categoryServicesList.id,'category')"><i class="fa fa-pencil-square edit-box"></i></div>
+                                    <div class="pointer edit-box-icon" fxFlex="5" (click)="fnEditService(i,categoryServicesList.id,'category')"> <mat-icon>mode_edit</mat-icon></div>
                                     <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                                 </div>
                             </div>
@@ -595,7 +595,9 @@
                                         <div class="" fxFlex="10">
                                             <mat-slide-toggle (change)="changeServiceStaus($event.checked,subCategoryServicesList.id)" [checked]="subCategoryServicesList.status == 'E'"></mat-slide-toggle>
                                         </div>
-                                        <div class="pointer" fxFlex="5" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')"><i class="fa fa-pencil-square edit-box"></i></div>
+                                        <div class="pointer edit-box-icon" fxFlex="5" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')">
+                                            <mat-icon>mode_edit</mat-icon>
+                                        </div>
                                         <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                                     </div>
                                 </div>

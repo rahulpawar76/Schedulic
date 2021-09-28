@@ -762,7 +762,7 @@ export class DialogAddNewAppointment {
   disableCategory:boolean=false;
   disableSubCategory:boolean=false;
   disableService:boolean=false;
-  dialogTitle:any="New Appointment";
+  dialogTitle:any="New Booking";
   showSubCatDropDown=true;
   is_checked:boolean=false;
   valide_postal_code:boolean =false;
