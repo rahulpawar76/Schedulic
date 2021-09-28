@@ -211,16 +211,16 @@
         width: 60%;
     }
     .registration {
-        width: 32%;
+        width: 33%;
+        padding-right: 40px;
     }
     .lastBookedAppoint {
-        width: 35%;
+        width: 33%;
+        padding-right: 40px;
     }
     .lastBookedService {
         width: 33%;
-    }
-    .notes {
-        color: blue;
+        padding-right: 40px;
     }
     .addNotes {
         display: flex;
@@ -1096,4 +1096,6 @@ mat-chip-list {
     z-index: 9;
     margin-top: 6px;
     justify-content: center;
+    height: 30px;
+    line-height: 2.2;
 }
