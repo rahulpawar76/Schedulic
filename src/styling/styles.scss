@@ -1339,14 +1339,14 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     color: #0e0e0e;
     font-weight: 500;
     font-size: 14px;
-    width: 150px;
+   min-width: 150px !important;
 }
 .sc-pink-btn {
     background-color: #f04589;
     color: #ffffff;
     font-weight: 500;
     font-size: 14px;
-    width: 150px;
+   min-width: 150px !important;
 }
 
 .sc-grey-btn {
@@ -1354,7 +1354,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     color: #ffffff;
     font-weight: 500;
     font-size: 14px;
-    width: 150px;
+   min-width: 150px !important;
 }
 
 .sc-light-green-btn {
@@ -1362,7 +1362,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     color: #ffffff;
     font-weight: 500;
     font-size: 14px;
-    width: 150px;
+   min-width: 150px !important;
 }
 
 .sc-red-btn {
@@ -1370,7 +1370,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     color: #ffffff;
     font-weight: 500;
     font-size: 14px;
-    width: 150px;
+   min-width: 150px !important;
 }
 .pink-btn-md {
     width: 120px;
