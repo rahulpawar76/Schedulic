@@ -66,16 +66,18 @@
                                     <p>{{onGoingAppointmentData.booking_dateForLabel}}</p>
                                     <p>{{onGoingAppointmentData.booking_timeForLabel}}</p>
                                 </div>
-                                <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <form>
-                                        <!-- <mat-form-field class=" bottom-border-field"> -->
+                                <div class="col-6 col-sm-3 col-md-6 col-lg-6  text-right">
+                                    <form class="common-input">
+                                        <div class="form-group"> 
+                                            <!-- <mat-form-field class=" bottom-border-field"> -->
                                             <!-- <mat-label>Change Status</mat-label> -->
                                             <mat-select name="status" class="form-control formcontrol custom-select-modal-wrap " placeholder="Change Status"  [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)">
                                                 <mat-option [disabled]="(onGoingAppointmentData.timeToServiceDecimal > 60) || onGoingAppointmentData.service.service_sub_type == 'in_store' || onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
                                                 <mat-option [disabled]="onGoingAppointmentData.timeToServiceDecimal > 30" value="WS">Work Started</mat-option>
                                                 <mat-option value="GL">Getting Late</mat-option>
                                             </mat-select>
-                                        <!-- </mat-form-field> -->
+                                            <!-- </mat-form-field> -->
+                                        </div>
                                     </form>
                                     <label class="font-weight-bold mt-2">Current Status</label>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'P'">

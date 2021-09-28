@@ -51,6 +51,10 @@
         margin-bottom: 0px;
         padding: 0px 8px;
         padding-top: 4px;
+        .form-control {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
     }
 }
 #customer_report,
@@ -311,5 +315,6 @@
     height: calc(100vh - 90px);
     .setting-menu{
         border-right: 1px solid #00a89b;
+        overflow: unset;
     }
 }

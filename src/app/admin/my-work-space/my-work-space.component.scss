@@ -85,6 +85,8 @@
             i {
                 display: flex;
                 align-items: center;
+                font-size: 30px;
+                margin-left: auto;
             }
             p {
                 padding-top: 16px;
@@ -99,11 +101,6 @@
     }
     .after-appont-title {
         font-size: 12px;
-    }
-    .title-main {
-        i {
-            margin-left: auto;
-        }
     }
     // .has-search .form-control {
     //     padding-left: 2.375rem;
@@ -431,6 +428,9 @@ height: calc(100vh - 190px);
         color: #0e0e0e;
         line-height: 15px;
         margin-bottom: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .icon-size {
         font-size: 1.5rem;
@@ -438,17 +438,21 @@ height: calc(100vh - 190px);
     }
     .Time {
         width: 22%;
+    align-items: center;
     }
     .customer-name {
         width: 30%;
         margin-right: 6px;
+        align-items: center;
     }
     .service-person {
         width: 25%;
-        line-height: 1.2;
+        align-items: center;
     }
     .money {
         width: 20%;
+        align-items: center;
+        display: flex;
     }
     .service-background {
         .work-space-font {
@@ -557,10 +561,18 @@ height: calc(100vh - 190px);
 body .left-time-main .hourse-font {
     color: #565657 !important;
 }
-
+.today-button-text{
+    align-items: center;
+    display: flex;
+    i{
+        font-size: 28px; 
+    }
+}
 .title-main {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
+    align-items: center;
+
 }
 
 @media only screen and (max-width: 645px) and (orientation: portrait) {

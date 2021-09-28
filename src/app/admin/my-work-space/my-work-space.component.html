@@ -6,14 +6,17 @@
                 <div class="top-header-bar mb-3" *ngIf="revenue != null && revenue != undefined">
                     <div class="col-lg-2 col-md-4 col-6 flex-align-center">
                         <h6 [ngbPopover]="popContent" placement="bottom" aria-hidden="false"
-                            aria-label="Example home icon" class="mb-0 cursor-pointer text-capitalize">
+                            aria-label="Example home icon" class="mb-0 cursor-pointer today-button-text text-capitalize">
                             <span
                                 *ngIf="dateTypeFilter == 'today' || dateTypeFilter == 'tomorrow'">{{dateTypeFilter}}</span>
                             <span
                                 *ngIf="dateTypeFilter == 'week' || dateTypeFilter == 'month' || dateTypeFilter == 'year'">This
                                 {{dateTypeFilter}}</span>
                             <span *ngIf="dateTypeFilter == 'custom'">{{dateTypeFilter}} Date</span>
-                            <i class="fa fa-chevron-down ml-2" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-chevron-down ml-2" aria-hidden="true"></i> -->
+                            <i class="material-icons-outlined">
+                                expand_more
+                            </i>
                         </h6>
 
                         <ng-template class="popover common-popover" #popContent>
@@ -92,14 +95,18 @@
                             <li class="bottom-border plr-25 pointer"
                                 [ngClass]="{'active': selectedCategory == 'all' }"
                                 (click)="fnOnClickCategory('all','Services'); fnselectCategoryActive('all');">
-                                <p class="title-main">All Services<i class="fa fa-chevron-right"
-                                        aria-hidden="true"></i></p>
+                                <p class="title-main">All Services
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </p>
                             </li>
                             <li class="bottom-border plr-25 pointer" [ngClass]="{'active': selectedCategory == i }"
                                 *ngFor="let category of categories; let i=index"
                                 (click)="fnOnClickCategory(category.id,category.category_title); fnselectCategoryActive(i);">
-                                <p class="title-main">{{category.category_title}}<i class="fa fa-chevron-right"
-                                        aria-hidden="true"></i></p>
+                                <p class="title-main">{{category.category_title}} <i class="material-icons-outlined">
+                                    chevron_right
+                                </i></p>
                             </li>
                         </ul>
                     </div>
@@ -204,8 +211,7 @@
                                                     *ngIf="appointment.order_status == 'CO'">Completed</p>
                                                 <p class="status-stamp ff-stamper pt-0 "
                                                     *ngIf="appointment.order_status == 'GL'">
-                                                    Getting late {{appointment.gl_time && appointment.gl_time !=
-                                                    ''?'(Late Time : '+appointment.gl_time+')':''}}
+                                                    Getting late
                                                 </p>
                                             </div>
                                             <h5 class="service-name">
@@ -280,7 +286,7 @@
                                                             Available</mat-option>
                                                     </mat-select>
                                                 </div>
-                                                <button mat-button type="button" class="sc-grey-btn"
+                                                <button mat-button type="button" class="sc-pink-btn"
                                                     *ngIf="(appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Assigned</button>
 
                                                 <button mat-button type="button"
@@ -320,7 +326,7 @@
                                         class="fa fa-repeat repeat pr-1"></i>Reschedule</label>
 
 
-                                <button mat-button type="button" class="sc-grey-btn"
+                                <button mat-button type="button" class="sc-pink-btn"
                                     *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' || appointmentDetails.staffId != null)">Assigned</button>
                                 <button mat-button type="button"
                                     class="d-block btn-primary float-right add-booking-notes"

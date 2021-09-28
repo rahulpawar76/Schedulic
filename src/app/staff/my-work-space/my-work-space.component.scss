@@ -28,6 +28,9 @@
     .work-space-font {
         font-size: 12px;
     }
+    .custom-font-weight{
+        font-weight: 600;
+    }
     .icon-size {
         font-size: 1.5rem;
     }
@@ -111,10 +114,11 @@
     &:before {
         content: "";
         position: absolute;
-        border: 0.1px solid #00000063;
+        border: 0.5px solid #000000c2;
         left: -9%;
-        top: 17%;
+        top: 23%;
         height: 70%;
+        opacity: 0.5;
     }
     span {
         position: absolute;

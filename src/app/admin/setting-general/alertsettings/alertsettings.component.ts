@@ -770,6 +770,12 @@ fnAppointmentsReminderSMS(event){
 
   fnTwillioStatus(event){
     this.twilliStatus =event;
+    // debugger
+    if (this.twilliStatus == true) {
+      this.fnNexmoStatus(false)
+      this.fnTextLocalStatus(false)
+    }
+
     let twilioSetting = {
       "account_sid":this.twilio.get("accountSID").value,
       "auth_token":this.twilio.get("authToken").value,
@@ -790,7 +796,12 @@ fnAppointmentsReminderSMS(event){
 
   fnNexmoStatus(event){
     this.nexmoStatus =event;
-
+    // debugger
+    if (this.nexmoStatus == true) {
+      this.fnTwillioStatus(false)
+      this.fnTextLocalStatus(false)
+    }
+    
     let nexmoSetting = {
       "api_key":this.nexmo.get("api_key").value,
       "api_secret":this.nexmo.get("api_secret").value,
@@ -1003,6 +1014,11 @@ fnAppointmentsReminderSMS(event){
   fnTextLocalStatus(event){
 
     this.textLocalStatus = event;
+    // debugger
+    if (this.textLocalStatus) {
+      this.fnTwillioStatus(false)
+      this.fnNexmoStatus(false)
+    }
 
     let textLocalSetting = {
       "api_key":this.textLocal.get("apiKey").value,
