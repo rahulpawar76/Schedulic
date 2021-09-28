@@ -45,7 +45,7 @@ export interface CityArry {
 
 export class MyBusinessComponent implements OnInit {
   animal: any;
-  allBusiness: any;
+  allBusiness: any=[];
   adminSettings: boolean = false;
   isLoaderAdmin: boolean = true;
   currentUser: any;
@@ -101,7 +101,8 @@ export class MyBusinessComponent implements OnInit {
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.firstBusiness=true;
-        this.allBusiness = ''
+        this.creatNewBusiness();
+        this.allBusiness = [];
       }
       this.isLoaderAdmin = false;
     })
@@ -174,11 +175,12 @@ export class MyBusinessComponent implements OnInit {
     localStorage.setItem('business_name', busisness_name);
     this.router.navigate(['/admin/my-workspace']);
     this.appComponent.getNotificationCount(business_id);
+    this.appComponent.getBusinessSetup(business_id);
   }
 
   creatNewBusiness() {
     const dialogRef = this.dialog.open(myCreateNewBusinessDialog, {
-      width: '900px',
+      width: '1000px',
       data:{firstBusiness:this.firstBusiness}
     });
 

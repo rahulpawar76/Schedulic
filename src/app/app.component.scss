@@ -97,8 +97,16 @@ mat-drawer-content {
 .mat-list-icon {
     color: $iconcolors;
 }
-
-
+.menuitem{
+    padding: 0px 103px 0px 15px;
+    font-weight: 600;
+    &:hover{
+        background-color: #ffda53;
+    }
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content{
+    padding: 0px!important;
+}
 
 
 /*Css For Toggle Bar*/
@@ -541,6 +549,7 @@ input:focus {
     }
      ::ng-deep app-my-business {
         height: 100%;
+        width: 100%;
     }
      ::ng-deep app-billing {
         width: 100%;
@@ -1014,4 +1023,9 @@ input:focus {
 }
 .logout-svg{
     width: 24px;
+}
+.business_logo{
+    img{
+        height: 30px;
+    }
 }
