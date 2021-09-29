@@ -218,11 +218,25 @@
                 &:hover{
                     background-color: #EAF7F6;
                 }
+                &.mat-expanded{
+                    .mat-expansion-indicator{
+                        &:after{
+                            margin-top: -3px;
+                            margin-left: 0px;
+                        }
+                    }
+                }
                 .mat-content {
                     .mat-expansion-panel-header-title{
                         color: #0E0E0E;
                         font-weight: 500;
                         font-size: 14px;
+                        p{
+                            width: 165px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                     }
                 }
                 .mat-expansion-indicator{
@@ -269,12 +283,16 @@
                         color: #0E0E0E;
                         font-weight: 500;
                         font-size: 14px;
+                        width: 100%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
                 &::before {
                     content: '';
                     border-left: 1px solid #00A89B;
-                    height: calc(100% - 32px);
+                    height: calc(100% - 28px);
                     width: auto;
                 }
             }

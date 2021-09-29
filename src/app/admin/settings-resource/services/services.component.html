@@ -106,13 +106,13 @@
             </div>
             <mat-accordion class="category-list" cdkDropList (cdkDropListDropped)="drop($event)">
                 <mat-expansion-panel class="category-main" cdkDragHandle *ngFor="let allCetegoryList of allCetegoryList; let i=index">
-                    <mat-expansion-panel-header class="category-title-head" [ngClass]="{'active':selectedCategoryID === allCetegoryList.id}" (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
+                    <mat-expansion-panel-header [matTooltip]="allCetegoryList.category_title" class="category-title-head" [ngClass]="{'active':selectedCategoryID === allCetegoryList.id}" (click)="fnSelectCategoryNavigation(allCetegoryList.id,i)">
                         <mat-panel-title class="">
                             <p class="category-title mb-0">{{allCetegoryList.category_title}}</p>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div *ngIf="allCetegoryList.subcategory != ''">
-                        <div [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="my-2 sub-category-title-head" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
+                        <div [matTooltip]="subcategoryList.sub_category_name" [ngClass]="{'active':selectedSubCategoryID === subcategoryList.id}" (click)="fnSelectSubCategoryNavigate(subcategoryList.id,i)" class="my-2 sub-category-title-head" *ngFor="let subcategoryList of allCetegoryList.subcategory; let i=index">
                             <p class="sub-category-title mb-0">{{subcategoryList.sub_category_name}}</p>
                         </div>
                     </div>
@@ -366,7 +366,7 @@
                         
                     </div>
                 </div>
-                <div class="row mx-0 sc-table-view">
+                <div class="row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services'">
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
                             <div class="form-group action-dropdown mr-2">
@@ -387,7 +387,7 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="selectCategoryPage == 'services'" class="sc-table w-100 for_category">
+                    <div class="sc-table w-100 for_category">
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="sc-table-head drageble " fxLayout="row">
                                 <div class="" fxFlex="5">
@@ -540,7 +540,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="row mx-0 sc-table-view">
+                <div *ngIf="singleSubCategoryPage == 'services'" class="row mx-0 sc-table-view">
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
                             <div class="form-group action-dropdown mr-2">
@@ -561,7 +561,7 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="singleSubCategoryPage == 'services'" class="sc-table w-100 for_subcategory">
+                    <div class="sc-table w-100 for_subcategory">
                             <div *ngIf="subCategoryServicesList != ''" class="">
                                 <div class="sc-table-head drageble" fxLayout="row">
                                     <div class="" fxFlex="5">
