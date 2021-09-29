@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="staff-form row">
-                                <div class="col-6 common-input">
+                                <div class="col-6 pr-2 common-input">
                                     <div class="input-group form-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><img
@@ -148,7 +148,7 @@
                                             class="error">First name should 3 to 11 charactor.</small>
                                     </span>
                                 </div>
-                                <div class="col-6 common-input">
+                                <div class="col-6 pl-2 common-input">
                                     <div class="input-group form-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><img
@@ -236,7 +236,7 @@
                                             class="error">Description can not be greater than 255 character.</small>
                                     </span>
                                 </div>
-                                <div class="col-6 common-input">
+                                <div class="col-6 pr-2 common-input">
                                     <div class="form-group">
                                         <mat-select placeholder="Country" formControlName="country" class="form-control"
                                             (selectionChange)="selectCountry($event.value)">
@@ -250,7 +250,7 @@
                                             class="error">Country is required.</small>
                                     </span>
                                 </div>
-                                <div class="col-6 common-input">
+                                <div class="col-6 pl-2 common-input">
                                     <div class="form-group">
                                         <mat-select placeholder="State" formControlName="state" class="form-control"
                                             (selectionChange)="selectStates($event.value)">
@@ -264,7 +264,7 @@
                                             is required.</small>
                                     </span>
                                 </div>
-                                <div class="col-6 common-input">
+                                <div class="col-6 pr-2 common-input">
                                     <div class="form-group">
                                         <mat-select placeholder="City" formControlName="city" class="form-control">
                                             <mat-option *ngFor="let allCities of allCities" [value]="allCities.id">
@@ -277,7 +277,7 @@
                                             is required.</small>
                                     </span>
                                 </div>
-                                <div class="col-6 common-input">
+                                <div class="col-6 pl-2 common-input">
                                     <div class="form-group">
                                         <input formControlName="zip" class="form-control" placeholder="Postal Code">
                                     </div>
@@ -346,7 +346,7 @@
 
                         <div class="col-lg-3 col-md-3 col-12 select-service">
                             <div class="h-100">
-                                <h6 style="font-weight: 400;">Select Service for the Staff</h6>
+                                <h6 style="font-weight: 400; font-size: 16px;">Select Service for the Staff</h6>
                                 <!-- <mat-form-field class="pb-3 bottom-border-field">
                                     <input matInput placeholder="Category, Sub Category, Service" (keyup)="searchService($event);">
                                     <mat-icon matPrefix>search</mat-icon>
@@ -838,11 +838,11 @@
                 <mat-tab label="Postal Codes">
                     <div class="postal-heading-wrap">
                         <div>
-                            <h6 class="mb-0 mt-3">Postal codes are defined geographical boundaries within a location.
+                            <h6 class="mb-0 mt-3">Postal codes are defined geographical boundaries within a location.<br>
                                 Staff can be these area code.</h6>
                             <p>Customers will only be show staff members in the area code they select.</p>
                         </div>
-                        <div class="searchbox mr-2">
+                        <div class="searchbox  mt-3">
                             <form class="search_input-staff postal-header-search">
                                 <div class="form-group has-search position-relative">
                                     <span class="fa fa-search form-control-feedback search-icon verticalLine"></span>
@@ -863,15 +863,18 @@
                                 <div *ngIf="singleStaffDetail.postalCode != undefined" class="">
                                     <div class="heads main-heading-content example-box header-background "
                                         fxLayout="row">
-                                        <div class="" fxFlex="4"></div>
-                                        <div class="" fxFlex="41">Zipcode</div>
+                                        <div class="" fxFlex="4">
+                                            <mat-checkbox class="postal-code-checkbox">
+                                            </mat-checkbox>
+                                        </div>
+                                        <div class="" fxFlex="40">Zipcode</div>
                                         <div class="" fxFlex="30">Area</div>
                                         <div class="" fxFlex="25">
                                             <!-- <div class="" fxFlex="30">Status</div> -->
                                             <!-- <mat-form-field class="bottom-border-field dropdown-width"> -->
                                             <!-- <mat-label>Select an option</mat-label> -->
                                             <mat-select class="form-control form-control-transparent"
-                                                [(ngModel)]="selectedValue"
+                                                [(ngModel)]="selectedValue" placeholder="Select an option"
                                                 (selectionChange)="fnAssignPostalToStaff($event.value)"
                                                 [disabled]="addPostalCodeId.length == 0">
                                                 <mat-option value="E">Set Active</mat-option>
@@ -1278,7 +1281,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showMondayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1361,7 +1364,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showTuesdayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1441,7 +1444,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showWednesdayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1521,7 +1524,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showThursdayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1600,7 +1603,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showFridayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1681,7 +1684,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showSaturdayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1761,7 +1764,7 @@
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showSundayAddForm">
-                                                        <div class="d-flex">
+                                                        <div class="d-flex mt-2">
                                                             <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
                                                             <mat-select
                                                                 class="form-control form-control-transparent custom-mat-select-wrap"
@@ -1794,7 +1797,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="!sundayOn" fxFlex="10">Day Off</div>
+                                                <div *ngIf="!sundayOn" fxFlex="11">Day Off</div>
                                                 <div class="" fxFlex="20">
                                                 </div>
                                             </div>

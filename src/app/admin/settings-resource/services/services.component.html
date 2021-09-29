@@ -133,26 +133,26 @@
             <div class="" *ngIf="servicesList" class="service-listing sc-table-view">
                 <div class="sc-table">
                     <div class="heads sc-table-head main-heading-content drageble " fxLayout="row">
-                        <div class="" fxFlex="30">Service1</div>
-                        <div class="" fxFlex="15">Duration (Mins)</div>
-                        <div class="" fxFlex="13">Price</div>
-                        <div class="" fxFlex="10">Unit</div>
-                        <div class="" fxFlex="12">Visibility</div>
-                        <div class="" fxFlex="10">Status</div>
-                        <div class="" fxFlex="10">Action</div>
+                        <div class="text-left" fxFlex="30">Service</div>
+                        <div class="text-left" fxFlex="15">Duration (Mins)</div>
+                        <div class="text-left" fxFlex="13">Price</div>
+                        <div class="text-left" fxFlex="10">Unit</div>
+                        <div class="text-left" fxFlex="12">Visibility</div>
+                        <div class="text-left" fxFlex="10">Status</div>
+                        <div class="text-left" fxFlex="10">Action</div>
                     </div>
                     <div class="drageble-list sc-table-content" cdkDropList (cdkDropListDropped)="drop($event)">
                         <div *ngIf="allServicesList.length > 0">
                             <div class="final-list drageble-box mx-0" *ngFor="let element of allServicesList; let i=index" cdkDrag fxLayout="row">
-                                <div class="wrap-column" fxFlex="30">{{element.service_name}}</div>
-                                <div class="wrap-column" fxFlex="15">{{element.service_time}}</div>
-                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='left'">
+                                <div class="text-left" fxFlex="30">{{element.service_name}}</div>
+                                <div class="text-left" fxFlex="15">{{element.service_time}}</div>
+                                <div class="text-left" fxFlex="13" *ngIf="currencySymbolPosition=='left'">
                                     {{currencySymbol| currencySymbol:'wide'}} {{ element.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                 </div>
-                                <div class="wrap-column" fxFlex="13" *ngIf="currencySymbolPosition=='right'">
+                                <div class="text-left" fxFlex="13" *ngIf="currencySymbolPosition=='right'">
                                     {{ element.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
-                                <div class="wrap-column" fxFlex="10">{{element.service_unit}}</div>
-                                <div class="" *ngIf="element.private_status == 'N'" fxFlex="12">Public</div>
+                                <div class="text-left" fxFlex="10">{{element.service_unit}}</div>
+                                <div class="text-left" *ngIf="element.private_status == 'N'" fxFlex="12">Public</div>
                                 <div class="private-color" *ngIf="element.private_status == 'Y'" fxFlex="12">Private</div>
                                 <div class="" fxFlex="10">
                                     <mat-slide-toggle (change)="changeServiceStaus($event.checked,element.id)" [checked]="element.status == 'E'"></mat-slide-toggle>
@@ -369,7 +369,7 @@
                 <div class="row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services'">
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
-                            <div class="form-group action-dropdown mr-2">
+                            <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                     <mat-option value="all">All</mat-option>
                                     <mat-option value="E">Active</mat-option>
@@ -378,7 +378,7 @@
                                     <mat-option value="Y">Private</mat-option>
                                 </mat-select>
                             </div>
-                            <div class="form-group ml-auto action-dropdown">
+                            <div class="top-actions">
                                 <mat-select class="form-control form-control-transparent" placeholder="Action" [disabled]="actionServiceIdarr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
@@ -393,37 +393,44 @@
                                 <div class="" fxFlex="5">
                                     <mat-checkbox [checked]="selectAllCategory" (change)="checkAllCategory($event)" class=""></mat-checkbox>
                                 </div>
-                                <div class="" fxFlex="30">Service2</div>
-                                <div class="" fxFlex="15">Duration (Mins)</div>
-                                <div class="" fxFlex="10">Price</div>
-                                <div class="" fxFlex="10">Unit</div>
-                                <div class="" fxFlex="10">Visibility</div>
-                                <div class="" fxFlex="10">Status</div>
-                                <div class="" fxFlex="10"></div>
+                                <div class="text-left" fxFlex="25">Service</div>
+                                <div class="text-left" fxFlex="15">Duration (Mins)</div>
+                                <div class="text-left" fxFlex="15">Price</div>
+                                <div class="text-left" fxFlex="10">Unit</div>
+                                <div class="text-left" fxFlex="10">Visibility</div>
+                                <div class="text-left" fxFlex="10">Status</div>
+                                <div class="text-left" fxFlex="10"></div>
                             </div>
                             <div class="sc-table-content drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
                                 <div class="final-list drageble-box mx-0" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
-                                    <div class="" fxFlex="5">
+                                    <div class="text-left" fxFlex="5">
                                         <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); ">
                                         </mat-checkbox>
                                     </div>
-                                    <div class="wrap-column" fxFlex="30">{{categoryServicesList.service_name}}</div>
-                                    <div class="wrap-column" fxFlex="15">{{categoryServicesList.service_time}}</div>
-                                    <!-- <div class="wrap-column" fxFlex="10">$ {{categoryServicesList.service_cost}}</div> -->
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                    <div class="text-left" fxFlex="25">{{categoryServicesList.service_name}}</div>
+                                    <div class="text-left" fxFlex="15">{{categoryServicesList.service_time}}</div>
+                                    <!-- <div class="text-left" fxFlex="10">$ {{categoryServicesList.service_cost}}</div> -->
+                                    <div class="text-left" fxFlex="15" *ngIf="currencySymbolPosition=='left'">
                                         {{currencySymbol| currencySymbol:'wide'}} {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                    <div class="text-left" fxFlex="15" *ngIf="currencySymbolPosition=='right'">
                                         {{ categoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
-                                    <div class="wrap-column" fxFlex="10">{{categoryServicesList.service_unit}}</div>
-                                    <div class="wrap-column" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                                    <div class="text-left" fxFlex="10">{{categoryServicesList.service_unit}}</div>
+                                    <div class="text-left" *ngIf="categoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
                                     <div class="" *ngIf="categoryServicesList.private_status == 'Y'" fxFlex="10">Private
                                     </div>
-                                    <div class="" fxFlex="10">
+                                    <div class="text-left" fxFlex="10">
                                         <mat-slide-toggle (change)="changeServiceStaus($event.checked,categoryServicesList.id)" [checked]="categoryServicesList.status == 'E'"></mat-slide-toggle>
                                     </div>
-                                    <div class="pointer edit-box-icon" fxFlex="5" (click)="fnEditService(i,categoryServicesList.id,'category')"> <mat-icon>mode_edit</mat-icon></div>
-                                    <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                                    <div class="text-left table-action-btns" fxFlex="10">
+                                        
+                                        <div class="sc-table-action-btn ml-0 mr-2" (click)="fnEditService(i,categoryServicesList.id,'category')">
+                                            <mat-icon>mode_edit</mat-icon>
+                                        </div>
+                                            <div cdkDragHandle class="handler"> 
+                                                <i class="fa fa-arrows" aria-hidden="true"></i>
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -497,53 +504,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <!-- <div class="row" layout-padding *ngIf="singleSubCategoryPage == 'services'">
-                                <div class="mx-2">
-                                    <button mat-button (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Import</button>
-                                </div>
-                                <div class="mx-2">
-                                    <button mat-button (click)="fnExportService(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Export</button>
-                                </div>
-                            </div> -->
-                        
-                    </div>
                 </div>
-                <!-- <div class="top-category-bar">
-                    <div class="d-flex mt-1 mb-4 mx-2 service-top-bar">
-                        <div class="ml-1 d-flex justify-content-center">
-                            <div class="service-profile-background mr-3 ">
-                                <img src="{{selectedSubCategoryDetails?selectedSubCategoryDetails.sub_category_image:''}}" class="service-profile-image mb-2 h-100 w-100">
-                            </div>
-                            <div>
-                                <div class=" Details-button-width d-flex">
-                                    <h5 class="mt-2 mb-2">{{selectedSubCategoryDetails?selectedSubCategoryDetails.sub_category_name:''}}</h5>
-                                    <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'N'" mat-button class="public-button">Public</button>
-                                    <button *ngIf="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_private == 'Y'" mat-button class="public-button">Private</button>
-                                </div>
-                                <button (click)="editSubCategory(selectedSubCategoryDetails.id)" class="salon-edit-btn mr-2"><i class="fa fa-pencil salon-icon"></i></button>
-                                <button class="salon-cancel-btn mr-3" (click)="deleteSubCategory(selectedSubCategoryDetails.id)"><i class="fa fa-trash-o salon-icon"></i></button>
-                                <mat-slide-toggle (change)="changeSubCategoryStatus($event.checked,selectedSubCategoryDetails.id)" [checked]="selectedSubCategoryDetails && selectedSubCategoryDetails.sub_category_status == 'E'">
-                                </mat-slide-toggle>
-                            </div>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="row" layout-padding *ngIf="singleSubCategoryPage == 'services'">
-                                <div class="mx-2">
-                                    <button mat-button (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Import</button>
-                                </div>
-                                <div class="mx-2">
-                                    <button mat-button (click)="fnExportService(selectedSubCategoryDetails.id, 'subcategory')" class="d-block ml-auto service-create-btn">Export</button>
-                                </div>
-                            </div>
-                            <button mat-button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','upper')" class="addservice-btn d-block ml-auto" *ngIf="singleSubCategoryPage == 'services'">Add Service</button>
-                        </div>
-                    </div>
-                </div> -->
                 <div *ngIf="singleSubCategoryPage == 'services'" class="row mx-0 sc-table-view">
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
-                            <div class="form-group action-dropdown mr-2">
+                            <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
                                     <mat-option value="all">All</mat-option>
                                     <mat-option value="E">Active</mat-option>
@@ -552,7 +517,7 @@
                                     <mat-option value="Y">Private</mat-option>
                                 </mat-select>
                             </div>
-                            <div class="form-group ml-auto action-dropdown">
+                            <div class="top-actions">
                                 <mat-select class="form-control form-control-transparent" placeholder="Action" [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
@@ -567,38 +532,47 @@
                                     <div class="" fxFlex="5">
                                         <mat-checkbox [checked]="selectAllSubCat" (change)="checkAllSubcat($event)" class=""></mat-checkbox>
                                     </div>
-                                    <div class="" fxFlex="30">Service</div>
-                                    <div class="" fxFlex="15">Duration (Mins)</div>
-                                    <div class="" fxFlex="10">Price</div>
-                                    <div class="" fxFlex="10">Unit</div>
-                                    <div class="" fxFlex="10">Visibility</div>
-                                    <div class="" fxFlex="10">Status</div>
-                                    <div class="" fxFlex="10"></div>
+                                    <div class="text-left" fxFlex="25">Service</div>
+                                <div class="text-left" fxFlex="15">Duration (Mins)</div>
+                                <div class="text-left" fxFlex="15">Price</div>
+                                <div class="text-left" fxFlex="10">Unit</div>
+                                <div class="text-left" fxFlex="10">Visibility</div>
+                                <div class="text-left" fxFlex="10">Status</div>
+                                <div class="text-left" fxFlex="10"></div>
                                 </div>
                                 <div class="sc-table-content drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
                                     <div class="final-list drageble-box mx-0" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
-                                        <div class="" fxFlex="5">
+                                        <div class="text-left" fxFlex="5">
                                             <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,subCategoryServicesList.id,i)">
                                             </mat-checkbox>
                                         </div>
-                                        <div class="wrap-column" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
-                                        <div class="wrap-column" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
-                                        <!-- <div class="wrap-column" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
-                                        <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        <div class="text-left" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
+                                        <div class="text-left" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
+                                        <!-- <div class="text-left" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
+                                        <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
                                             {{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                         </div>
-                                        <div class="wrap-column" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                        <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
                                             {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
-                                        <div class="wrap-column" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
-                                        <div class="wrap-column" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
-                                        <div class="wrap-column" *ngIf="subCategoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
+                                        <div class="text-left" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
+                                        <div class="text-left" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
+                                        <div class="text-left" *ngIf="subCategoryServicesList.private_status == 'Y'" fxFlex="10">Private</div>
                                         <div class="" fxFlex="10">
                                             <mat-slide-toggle (change)="changeServiceStaus($event.checked,subCategoryServicesList.id)" [checked]="subCategoryServicesList.status == 'E'"></mat-slide-toggle>
                                         </div>
-                                        <div class="pointer edit-box-icon" fxFlex="5" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')">
+                                        <!-- <div class="pointer edit-box-icon" fxFlex="5" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')">
                                             <mat-icon>mode_edit</mat-icon>
                                         </div>
-                                        <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+                                        <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div> -->
+                                        <div class="text-left table-action-btns" fxFlex="10">
+                                        
+                                            <div class="sc-table-action-btn ml-0 mr-2" (click)="fnEditService(i,categoryServicesList.id,'category')">
+                                                <mat-icon>mode_edit</mat-icon>
+                                            </div>
+                                                <div cdkDragHandle class="handler"> 
+                                                    <i class="fa fa-arrows" aria-hidden="true"></i>
+                                                </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

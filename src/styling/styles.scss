@@ -1208,12 +1208,12 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     height: 8px;
     width: 8px;
     border-style: solid;
-    border-color: #565657;
+    border-color: #0E0E0E;
     border-width: 0px 2px 2px 0px;
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
     margin-top: -8px;
-    margin-right: 10px;
+    // margin-right: 10px;
 }
 
 .sc-table-view {
@@ -1328,7 +1328,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 }
 
 .page-title {
-    font-size: 20px;
+    font-size: 18px;
     color: #0e0e0e;
     font-weight: 500;
 }
@@ -1775,6 +1775,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         display: table;
         padding: 8px 16px;
         border-radius: 50px;
+    }
+    .text-center{
+        text-align: center;
     }
 }
 

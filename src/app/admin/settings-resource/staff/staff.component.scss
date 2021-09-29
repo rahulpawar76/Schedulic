@@ -63,7 +63,7 @@
         color: blue;
     }
      ::ng-deep .mat-checkbox {
-        color: blue;
+        color: #000;
     }
      ::ng-deep .mat-checkbox-layout {
         margin-bottom: 0px;
@@ -225,7 +225,7 @@
         background: transparent!important;
     }
     .custom-service-box{
-        border: 1px solid #00a89b;
+        border: 1px solid #00a89b85;
         padding: 10px!important;
     }
     ::ng-deep.postal-code-checkbox{
@@ -263,6 +263,7 @@
                font-weight: 500;
                border-radius: 5px;
                width: 65%;
+               padding-left: 20px;
                .add-braek-btn {
                    width: 100px;
                    height: 34px;
@@ -274,7 +275,7 @@
                    }
                }
                .breaktime-slot-main{
-                   margin-bottom: 10px;
+                   margin-bottom: 0px;
                }
            }
    
@@ -603,7 +604,7 @@
         }
         .mat-expansion-panel-body{
             border-left: 1px solid #00A89B;
-            padding-bottom: 16px !important;
+            // padding-bottom: 16px !important;
         }
     }
     .staff-delete-btn {
@@ -686,7 +687,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 190px;
+    width: 160px;
 }
 
 // .mat-drawer-content {
@@ -709,7 +710,7 @@
 }
 .postal-heading-wrap{
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     h6{
         font-size: 16px;
         color: #000;
@@ -724,11 +725,15 @@
     .search-custom-wrap{
         border: 1px solid #ccc!important;
         border-radius: 4px!important;
+        height: 45px;
+        width: 300px;
+        padding-top: 6px;
     }
     .search-icon{
         width: 42px!important;
         font-size: 16px!important;
         color: #00a89b!important;
+        line-height: 2.8;
     }
 }
 .container {
@@ -1004,6 +1009,8 @@
             display: flex;
             justify-content: center;
             margin: 15px 0;
+            align-items: center;
+            flex-direction: column;
         }
     }
     .staff-form{
