@@ -81,13 +81,13 @@
 ::ng-deep .action-dropdown {
     width: 180px;
     margin-bottom: 0;
-    mat-select {
-        background-color: transparent;
-        border-color: #565657;
-        .mat-select-placeholder {
-            color: #0e0e0e;
-        }
-    }
+    // mat-select {
+    //     background-color: transparent;
+    //     border-color: #565657;
+    //     .mat-select-placeholder {
+    //         color: #0e0e0e;
+    //     }
+    // }
 }
 ::ng-deep .add-new-postalcode {
     .form-group {
