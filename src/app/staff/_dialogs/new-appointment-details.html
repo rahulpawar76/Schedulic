@@ -13,19 +13,19 @@
                     <button class="d-block btn btn-primary acceptbtn " (click)="changeBookingStatus(detailData.id, 'AC')">Accept</button>
                 </div>
                 <div class="d-flex m-2" *ngIf="dialogType=='ongoing'">
-                    <div class="row ongoingdetails mx-0">
+                    <div class="row ongoingdetails w-100 mx-0">
                         <div class="col-6 col-lg-6 col-sm-3 col-md-6 d-flex">
                             <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime && detailData.booking_date_time && minReschedulingTime.getTime() < detailData.booking_date_time.getTime()">Reschedule</button>
                         </div>
-                        <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                            <form>
-                                <mat-form-field class="bottom-border-field">
-                                    <mat-label>Change Status</mat-label>
-                                    <mat-select [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
+                        <div class="col-6 col-sm-3 col-md-6 col-lg-6 common-input text-right">
+                            <form class="form-group">
+                                <!-- <mat-form-field class="bottom-border-field"> -->
+                                    <!-- <mat-label>Change Status</mat-label> -->
+                                    <mat-select class="form-control" [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
                                         <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
                                         <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                     </mat-select>
-                                </mat-form-field>
+                                <!-- </mat-form-field> -->
                             </form>
                         </div>
                     </div>
