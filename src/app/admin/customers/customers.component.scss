@@ -140,18 +140,6 @@
     p {
         margin-bottom: 0px;
     }
-    .customerProfile-width {
-        border-radius: 6px!important;
-        width: 90px;
-        height: 90px;
-        overflow: hidden;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-position: center;
-        background-size: cover;
-    }
     .customerName-width {
         width: 60%;
         margin-left: 14px;
@@ -520,82 +508,7 @@
     }
 }
 
-//Import Files
-::ng-deep .file-upload {
-    background-color: #ffffff;
-    margin: 0 auto;
-    padding: 20px;
-    .image-upload-wrap {
-        margin-top: 20px;
-        border: 2px dashed #03a9f4;
-        position: relative;
-        padding: 30px 0;
-        .fileuploadinput {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            opacity: 0;
-            cursor: pointer;
-            margin-top: -30px;
-            top: 0;
-        }
-    }
-    .drag-text {
-        text-align: center;
-        h6 {
-            font-size: 18px;
-        }
-        h3 {
-            font-size: 14px;
-        }
-    }
-    .imgbtn {
-        margin: 15px auto;
-        display: table;
-        padding: 8px 16px;
-        border-radius: 50px;
-    }
-}
 
-.profile-img-wrap {
-    border-radius: 100%;
-    height: 120px;
-    max-width: 120px;
-    overflow: hidden;
-    position: relative;
-    transition: 0.3s all;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:hover .camera-alt {
-        transition: 0.3s all;
-        display: flex;
-    }
-    .customer-profile-img {
-        width: 100%;
-        height: 100%;
-    }
-    .camera-alt {
-        display: none;
-        position: absolute;
-        top: 0;
-        border-radius: 100%;
-        width: 100%;
-        height: 100%;
-        background-color: #00000070;
-        justify-content: center;
-        align-items: center;
-        i {
-            font-size: 45px;
-            width: auto;
-            color: #ffffff;
-        }
-    }
-}
 
 .single-customer-list {
     &.active {
@@ -618,12 +531,6 @@
 .service-profile-image {
     width: 42%;
     height: 42%;
-}
-
-.services-customer-profile-background {
-    background-color: #eaf7f6;
-    width: 120px;
-    border-radius: 7px;
 }
 
  ::ng-deep .upload-preview-img {
@@ -1099,7 +1006,20 @@ mat-chip-list {
     height: 30px;
     line-height: 2.2;
 }
-
+.static-image-display{
+    width: 120px;
+    height: 120px;
+    background-color: #EAF7F6;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 5px; 
+    display: flex;
+    align-items: center;
+    .default-img{
+        width: 40px;
+    }
+}
     .profile-img-wrap{
         width: 150px;
         height: 150px;
@@ -1108,11 +1028,13 @@ mat-chip-list {
         margin: 0 auto;
         overflow: hidden;
         border-radius: 5px; 
+        display: flex;
+        align-items: center;
         .default-img{
             width: 40px;
         }
         .service-profile-image {
-            // width: 100%;
-            // height: 100%;
+            width: 100%;
+            height: 100%;
         }
     }

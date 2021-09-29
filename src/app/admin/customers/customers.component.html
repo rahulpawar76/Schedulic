@@ -82,20 +82,13 @@
                             <div class="row">
                                 <div class="col-lg-12 col-12 col-md-4 py-3">
                                     <div class="float-left mr-4">
-                                        <div class="d-flex profile-img-wrap services-customer-profile-background">
-                                            <img *ngIf="!existingUserId && customerImageUrl != ''" mat-card-avatar
-                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!existingUserId && customerImageUrl == ''"
-                                                class="service-profile-image mx-auto"
-                                                src="/assets/images/admin/picture-user.png">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image"
-                                                class="service-profile-image mx-auto"
-                                                src="{{customerPersonalDetails.image}}">
-                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image"
-                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image"
-                                                class="service-profile-image mx-auto"
-                                                src="/assets/images/admin/picture-user.png">
+                                        <div class="d-flex profile-img-wrap">
+                                            <img *ngIf="!existingUserId && customerImageUrl != ''" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="default-img" src="/assets/images/icons/image-placeholder.svg">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'" class="default-img" src="/assets/images/icons/image-placeholder.svg">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="default-img" src="/assets/images/icons/image-placeholder.svg">
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -325,7 +318,7 @@
                                     <div class="mx-2" *ngIf="!existingUserId">
                                         <button mat-button type="submit" appearance="fill"
                                             (click)="fnCreateCustomerSubmit()"
-                                            class="sc-pink-btn save-btn">Save</button>
+                                            class="sc-pink-btn">Save</button>
                                     </div>
                                     <div class="mx-2" *ngIf="existingUserId">
                                         <button mat-button type="submit" appearance="fill"
@@ -339,13 +332,15 @@
 
                 <div *ngIf="fullDetailsOfCustomer && customersDetails != null" id="Customer-Listing" class="pl-0 pr-0">
                     <div class="mb-0">
-                        <div class="d-flex top-profile-details profile-img-wrap">
-                            <div class="customerProfile-width" *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
-                                [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
-                                <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->
-                            </div>
-                            <div class="customerProfile-width default-img" *ngIf="customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'">
-                                <img class="w-100 h-100" src="/assets/images/icons/image-placeholder.svg">
+                        <div class="d-flex top-profile-details">
+                            <div class=" static-image-display">
+                                <div class="w-100 h-100" *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
+                                    [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
+                                    <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->
+                                </div>
+                                <div *ngIf="customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'">
+                                    <img class="default-img" src="/assets/images/icons/image-placeholder.svg">
+                                </div>
                             </div>
                             <div class="customerName-width">
                                 <h6>{{customerPersonalDetails.fullname}}</h6>

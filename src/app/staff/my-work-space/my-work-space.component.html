@@ -27,26 +27,26 @@
                         <div class="d-flex flex-wrap pl-3">
                             <div class="d-flex Time">
                                 <i class="fa fa-clock-o pr-2 icon-color-wrap" aria-hidden="true"></i>
-                                <p class="work-space-font">{{todayAppointmentData.booking_time}}</p>
+                                <p class="work-space-font custom-font-weight">{{todayAppointmentData.booking_time}}</p>
                             </div>
                             <div class="d-flex customer-name">
                                 <i class="fa fa-user-o pr-2 icon-color-wrap" aria-hidden="true"></i>
-                                <p class="work-space-font ">{{todayAppointmentData.customer.fullname}}</p>
+                                <p class="work-space-font custom-font-weight ">{{todayAppointmentData.customer.fullname}}</p>
                             </div>
                             <div class="money">
                                 <!-- <p class="work-space-font ">$ {{todayAppointmentData.total_cost}}</p> -->
-                                <p class="work-space-font" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                <p class="work-space-font" *ngIf="currencySymbolPosition=='right'">{{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                <p class="work-space-font custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                <p class="work-space-font custom-font-weight" *ngIf="currencySymbolPosition=='right'">{{ todayAppointmentData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                             </div>
                         </div>
                         <div class="pl-3 c-name-main">
-                            <div class="d-flex">
+                            <div class="d-flex align-items-center">
                                 <div class="customer-profile-width">
                                     <p class="customer-name-profile">CN</p>
                                 </div>
                                 <div class="customer-name-width">
-                                    <p class="mb-0 work-space-font pl-3">{{todayAppointmentData.customer.fullname}}</p>
-                                    <p class="work-space-font pl-3">{{todayAppointmentData.customer.phone}}</p>
+                                    <p class="mb-0 work-space-font custom-font-weight pl-2">{{todayAppointmentData.customer.fullname}}</p>
+                                    <p class="work-space-font pl-2">{{todayAppointmentData.customer.phone}}</p>
                                 </div>
                             </div>
                             <div class="pr-3 Details-button-width">
