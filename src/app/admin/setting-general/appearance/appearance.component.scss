@@ -32,6 +32,7 @@
     box-shadow: unset !important;
     align-items: center;
     padding: 0px 19px !important;
+    font-size: 14px;
 }
 
 .contact-field-toggle {
@@ -43,16 +44,8 @@
 }
 
 .custom-content-wrap {
-    h5 {
-        font-size: 20px;
-        color: #000;
-    }
-    p {
-        font-size: 15px;
-        color: #777;
-    }
     h6 {
-        font-size: 16px;
+        font-size: 14px;
         color: #000;
         margin-bottom: 17px;
     }
@@ -234,16 +227,24 @@
     box-shadow: unset !important;
     background-color: transparent !important;
     margin: 15px;
-    h5 {
-        font-size: 18px;
-        color: #000;
-    }
-    p {
-        font-size: 15px;
-        color: #777;
-    }
     .bg-wrap {
         background-color: #edf4fe;
+    }
+}
+.service-boking-text-wrap{
+    box-shadow: unset!important;
+    padding: 0px 30px;
+    .bg-wrap{
+        background-color: #eaf7f6;
+        padding: 20px 30px!important;
+        h5{
+           font-size: 16px;
+           color: #0e0e0e;
+        }
+        p{
+            font-size: 14px;
+            color: #565657;
+        }
     }
 }
 #appearance {
