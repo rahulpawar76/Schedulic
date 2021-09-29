@@ -2885,7 +2885,7 @@ export class StaffAppointmentComponent implements OnInit {
           "payment" : payment,
           "email" : this.appointDetailData.customer.email,
           //"email" : "bikalpitbhadani@gmail.com",
-          "URL": environment.urlForLink+'/online-payment?order-item='+this.appointDetailData.id
+          "URL": environment.bookpageLink+'/online-payment?order-item='+this.appointDetailData.id
         }
         console.log(requestObject);
         this.StaffService.onlinePayment(requestObject).subscribe((response:any) =>{
