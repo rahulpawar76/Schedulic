@@ -1247,6 +1247,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         .table-action-btns {
             display: flex;
             align-items: center;
+            justify-content:flex-end;
             .sc-table-action-btn {
                 background-color: #fed74b;
                 padding: 5px;
@@ -1806,7 +1807,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 20px;
     h5 {
         margin-bottom: 6px;
     }

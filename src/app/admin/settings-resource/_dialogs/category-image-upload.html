@@ -19,7 +19,7 @@
                             </div>
                             <img [src]="imageSrc" *ngIf="imageSrc" class="upload-preview-img">
                         </div>
-                        <button [disabled]="!imageSrc" type="submit" (click)="uploadImage()" class="btn btn-primary imgbtn">Upload</button>
+                        <button [disabled]="!imageSrc" (click)="uploadImage()"  mat-button class="sc-pink-btn d-flex mx-auto justify-content-center mt-3">Upload</button>
                     </form>
                 </div>
             </div>

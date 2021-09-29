@@ -1656,8 +1656,8 @@ export class StaffComponent implements OnInit {
   fnEditStaff(staffId){
     this.editStaffId = staffId;
     this.gelAllCountry();
-    this.selectCountry(this.singleStaffDetail.staff[0].country_details.id);
-    this.selectStates(this.singleStaffDetail.staff[0].state_details.id);
+    this.selectCountry(this.singleStaffDetail.staff[0].country_details.id?this.singleStaffDetail.staff[0].country_details.id:1);
+    this.selectStates(this.singleStaffDetail.staff[0].state_details.id?this.singleStaffDetail.staff[0].state_details.id:1);
     this.isLoaderAdmin = true;
     this.addStaffPage = true;
     this.staffListPage = false;

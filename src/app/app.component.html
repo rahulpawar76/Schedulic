@@ -108,7 +108,7 @@
                         </button>
                         <img class="logout-btn ml-3 pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
                     </span>
-                    <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status" class="getting-started-window-wrap">
+                    <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status && pageHeading == 'My Workspace'" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
                             <mdb-carousel class="setup-step-slider" [isControls]="true" [animation]="'slide'" [interval]="'0'">
                                 <mdb-carousel-item class="signle-item">

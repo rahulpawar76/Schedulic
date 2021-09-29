@@ -78,7 +78,7 @@
     cursor: move;
 }
 
-.main-working-hours-content, .main-breaks-content {
+.main-working-hours-content {
     margin: 30px;
 }
 
@@ -267,7 +267,7 @@
 ::ng-deep .common-tab-group{
     .mat-tab-header{
         background-color: #ffe4816b;
-        padding: 0px 40px;
+        padding: 0px 30px;
         .mat-ink-bar{
             height: 5px;
             border-radius: 40px;
