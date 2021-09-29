@@ -370,7 +370,7 @@
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
                             <div class="form-group action-dropdown mr-2">
-                                <mat-select class="form-control" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
+                                <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                     <mat-option value="all">All</mat-option>
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
@@ -379,7 +379,7 @@
                                 </mat-select>
                             </div>
                             <div class="form-group ml-auto action-dropdown">
-                                <mat-select class="form-control" placeholder="Action" [disabled]="actionServiceIdarr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
+                                <mat-select class="form-control form-control-transparent" placeholder="Action" [disabled]="actionServiceIdarr.length == 0" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedCategoryDetails.id,'category')">
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
                                     <mat-option value="DEL">Delete</mat-option>
@@ -544,7 +544,7 @@
                     <div class="w-100 d-flex sc-table-top-bar">
                         <div class="ml-auto d-flex">
                             <div class="form-group action-dropdown mr-2">
-                                <mat-select class="form-control" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
+                                <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
                                     <mat-option value="all">All</mat-option>
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
@@ -553,7 +553,7 @@
                                 </mat-select>
                             </div>
                             <div class="form-group ml-auto action-dropdown">
-                                <mat-select class="form-control" placeholder="Action" [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
+                                <mat-select class="form-control form-control-transparent" placeholder="Action" [disabled]="actionServiceIdarr == [] || actionServiceIdarr == ''" [(ngModel)]="selectedValue" (selectionChange)="fnServiceAction($event.value,selectedSubCategoryDetails.id,'subcategory')">
                                     <mat-option value="E">Active</mat-option>
                                     <mat-option value="D">Inactive</mat-option>
                                     <mat-option value="DEL">Delete</mat-option>
