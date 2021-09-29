@@ -185,8 +185,16 @@ export class MyBusinessComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      this.animal = result;
-      this.getAllBusiness();
+      if(result){
+        console.log(result)
+        localStorage.setItem('business_id', result.id);
+        localStorage.setItem('business_name',result.business_name);
+        this.router.navigate(['/admin/my-workspace']);
+        this.appComponent.getNotificationCount(result.id);
+        this.appComponent.getBusinessSetup(result.id);
+      }else{
+        this.getAllBusiness();
+      }
      });
   }
 
@@ -496,7 +504,7 @@ export class myCreateNewBusinessDialog {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.dialogRef.close();
+        this.dialogRef.close(response.response);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {

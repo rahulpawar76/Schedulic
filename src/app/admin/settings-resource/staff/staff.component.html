@@ -486,11 +486,11 @@
                                     </mat-checkbox>
                                 </div>
                                 <div class="text-left" fxFlex="30">Name</div>
-                                <div class="text-left" fxFlex="22">Email</div>
-                                <div class="text-left" fxFlex="18">Mobile</div>
+                                <div class="text-left" fxFlex="25">Email</div>
+                                <div class="text-left" fxFlex="15">Mobile</div>
                                 <div class="text-left" fxFlex="10">Visibility</div>
                                 <div class="text-left" fxFlex="10">Status</div>
-                                <div class="text-left" fxFlex="10">View</div>
+                                <div class="text-right" fxFlex="5">View</div>
 
                             </div>
                             <div class="sc-table-content staff-list">
@@ -563,21 +563,16 @@
                                         </div>
                                         
                                     </div>
-                                    <div class="text-left break-word" fxFlex="22">{{allStaffList.email}}</div>
-                                    <div class="text-left " fxFlex="18">{{allStaffList.phone}}</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'">
-                                        Private</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'">
-                                        Public</div>
+                                    <div class="text-left break-word" fxFlex="25">{{allStaffList.email}}</div>
+                                    <div class="text-left " fxFlex="15">{{allStaffList.phone}}</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'"> Private</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'"> Public</div>
                                     <div class="text-left" fxFlex="10">
                                         <mat-slide-toggle [checked]="allStaffList.status  == 'E'"
                                             (change)="fnChangeStaffStatus($event.checked,allStaffList.id)">
                                         </mat-slide-toggle>
                                     </div>
-                                    <div class="text-left" fxFlex="10">
-                                        <!-- <button class (click)="fnViewSingleStaff(allStaffList.id,i)">
-                                            <mat-icon class="text-white">visibility</mat-icon>
-                                        </button> -->
+                                    <div class="text-left" fxFlex="5">
                                         <div class="table-action-btns">
                                          <button class="sc-table-action-btn" (click)="fnViewSingleStaff(allStaffList.id,i)">
                                             <mat-icon>visibility</mat-icon>
@@ -670,13 +665,10 @@
                 </div>
                 <div class="staff-btn">
                     <div class="mx-2">
-                        <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill"
-                            class="staff-edit-btn text-center pl-0">Edit Details</button>
-
+                        <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill" class="staff-edit-btn  text-center pl-0">Edit Details</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button (click)="fnDeleteStaff(singleStaffDetail.staff[0].id)" appearance="fill"
-                            class="staff-delete-btn" mat-raised-button color="warn">Delete</button>
+                        <button mat-button (click)="fnDeleteStaff(singleStaffDetail.staff[0].id)" appearance="fill" class="staff-delete-btn" mat-raised-button color="warn">Delete</button>
                     </div>
                 </div>
             </div>
@@ -794,15 +786,9 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <!-- <div class="heads main-heading-content example-box header-background " fxLayout="row">
-                                        <div class="" fxFlex="10"></div>
-                                        <div class="" fxFlex="40">Service</div>
-                                        <div class="" fxFlex="30">Duration</div>
-                                        <div class="" fxFlex="20">Rate</div>
-                                    </div> -->
                                     <div class="content" class="example-list">
                                         <div *ngFor="let staffService of singleStaffDetail.services; let i=index"
-                                            class="example-box custom-service-box">
+                                            class="example-box custom-service-box"[ngClass]="{'checked' : selectedServiceNewStaff.indexOf(staffService.id) >-1 }" >
                                             <div class="custom_check_main" fxFlex="5">
                                                 <mat-checkbox
                                                     (change)="fnAssignServiceToStaff($event.checked, staffService.id)"

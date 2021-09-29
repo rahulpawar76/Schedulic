@@ -225,8 +225,10 @@
         background: transparent!important;
     }
     .custom-service-box{
-        border: 1px solid #00a89b85;
         padding: 10px!important;
+        &.checked{
+            border: 1px solid #00a89b85;
+        }
     }
     ::ng-deep.postal-code-checkbox{
         .mat-checkbox-layout{
