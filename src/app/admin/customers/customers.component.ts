@@ -1400,7 +1400,7 @@ customerUpdate(existingCustomerData){
       "orderItem":orderItems,
       "email" : this.serviceMainArr.customer_email,
       //"email" : "bikalpitbhadani@gmail.com",
-      "URL": environment.urlForLink+'/online-payment?order-item='+this.serviceMainArr.order_item_id
+      "URL": environment.bookpageLink+'/online-payment?order-item='+this.serviceMainArr.order_item_id
     }
     this.adminService.onlinePayment(requestObject).subscribe((response:any) => {
       if(response.data == true){

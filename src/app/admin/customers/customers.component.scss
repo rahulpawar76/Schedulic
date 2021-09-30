@@ -972,6 +972,9 @@ mat-chip-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        img{
+            width: 200px;
+        }
     }
 }
 

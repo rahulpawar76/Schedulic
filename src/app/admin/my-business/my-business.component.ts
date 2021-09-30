@@ -186,7 +186,6 @@ export class MyBusinessComponent implements OnInit {
 
      dialogRef.afterClosed().subscribe(result => {
       if(result){
-        console.log(result)
         localStorage.setItem('business_id', result.id);
         localStorage.setItem('business_name',result.business_name);
         this.router.navigate(['/admin/my-workspace']);

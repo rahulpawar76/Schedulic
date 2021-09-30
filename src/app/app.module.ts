@@ -26,21 +26,15 @@ import { CarouselModule, WavesModule } from 'angular-bootstrap-md'
 import { ConfirmationDialogComponent } from './_components/confirmation-dialog/confirmation-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { FrontbookingComponent, theme2CartPopup,theme2DateTimeSelection, theme2CheckoutDialog } from './frontbooking/frontbooking.component';
 import { OnlinePaymentComponent } from './online-payment/online-payment.component';
 import { SubscriptionComponent  } from './subscription/subscription.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, DialogNotification, DialogLogoutAppointment, DialogNotificationAppointment, DialogReAuthentication } from './app.component';
 import { DialogSubscriptionCardForm } from './subscription/subscription.component'
 import { LoginComponent } from './login';
-import { CustomerLoginComponent } from './customer-login';
 import { SignUpComponent } from './sign-up';
 import { LoaderComponent } from './_components/loader/loader.component';
 import { DialogAuthentication } from './_services/auth.component'
-import { FrontBookingThemeFourComponent, theme4DateTimeSelection } from './front-booking-theme-four/front-booking-theme-four.component';
-import { FrontBookingThemeSixComponent, theme6DateTimeSelection } from './front-booking-theme-six/front-booking-theme-six.component';
-import { FrontBookingThemeThreeComponent, theme3DateTimeSelection } from './front-booking-theme-three/front-booking-theme-three.component';
-import { FrontBookingThemeFiveComponent } from './front-booking-theme-five/front-booking-theme-five.component'; 
 import { ResponsePageComponent } from './response-page/response-page.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 //import { GoogleMapsModule } from '@angular/google-maps'
@@ -70,31 +64,19 @@ export function provideConfig() {
     declarations: [
         AppComponent,
         LoginComponent,
-        CustomerLoginComponent,
         SignUpComponent,
         LoaderComponent,
         ConfirmationDialogComponent,
         ForgotPasswordComponent,
         SubscriptionComponent,
         ResetPasswordComponent,
-        FrontbookingComponent,
         DialogNotification,
         DialogSubscriptionCardForm,
         DialogNotificationAppointment,
-        theme2CartPopup,
-        theme2CheckoutDialog,
-        theme2DateTimeSelection,
-        theme4DateTimeSelection,
-        theme6DateTimeSelection,
-        theme3DateTimeSelection,
         DialogLogoutAppointment,
         OnlinePaymentComponent,
         DialogReAuthentication,
         DialogAuthentication,
-        FrontBookingThemeFourComponent,
-        FrontBookingThemeSixComponent,
-        FrontBookingThemeThreeComponent,
-        FrontBookingThemeFiveComponent,
         ResponsePageComponent,
         PaymentSuccessComponent
         ],
@@ -154,12 +136,6 @@ export function provideConfig() {
       DialogNotificationAppointment,
       DialogReAuthentication,
       DialogSubscriptionCardForm,
-      theme2CartPopup,
-      theme2CheckoutDialog,
-      theme2DateTimeSelection,
-      theme4DateTimeSelection,
-      theme6DateTimeSelection,
-      theme3DateTimeSelection,
       DialogAuthentication,
     ],
 })
