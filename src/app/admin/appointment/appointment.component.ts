@@ -571,7 +571,6 @@ export class AppointmentComponent implements OnInit {
         //this.getAllAppointments(this.selectedServices);
         this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
         this.getAllAppointments();
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -579,13 +578,14 @@ export class AppointmentComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   cancelAppointment(status, orderId){
     this.orderItemsIdArr.push(orderId);
+    this.isLoaderAdmin = true;
     this.adminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
@@ -595,7 +595,6 @@ export class AppointmentComponent implements OnInit {
         });
         this.orderItemsIdArr.length = 0;
         this.getAllAppointments();
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -603,13 +602,14 @@ export class AppointmentComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   confirmAppointment(status, orderId){
     this.orderItemsIdArr.push(orderId);
+    this.isLoaderAdmin = true;
     this.adminService.fnAppointAction(status, this.orderItemsIdArr).subscribe((response:any) => {
       if(response.data == true){
         this._snackBar.open(response.response, "X", {
@@ -619,7 +619,6 @@ export class AppointmentComponent implements OnInit {
         });
         this.orderItemsIdArr.length = 0;
         this.getAllAppointments();
-        this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -627,8 +626,8 @@ export class AppointmentComponent implements OnInit {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
-        this.isLoaderAdmin = false;
       }
+        this.isLoaderAdmin = false;
     })
   }
 

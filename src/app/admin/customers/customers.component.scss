@@ -861,11 +861,18 @@ mat-chip-list {
             bottom: 0;
             width: calc(100% - 390px);
             margin: 0;
-            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+            box-shadow: 0 3px 17px rgb(0 168 155 / 25%), 0 4px 5px 0 rgb(0 168 155 / 25%) !important;
             right: 0;
             background-color: #fff;
             .save-btn{
                 padding: 0px 35px;
+            }
+        }
+    }
+    .short-content-area{
+        #Add-New-Customer {
+            .footer-action-btn {
+                width: calc(100% - 190px);
             }
         }
     }

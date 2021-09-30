@@ -45,7 +45,7 @@
 }
 
 .main-custmer-content {
-    padding: 18px 0px;
+    padding: 10px 0px;
     background-color: #ffe482;
     .common-input {
         margin-bottom: 0px;
@@ -160,6 +160,7 @@
     width: calc(100% - 250px);
     margin-top: 65px;
     background-color: #fff;
+    transition: all 0.4s;
 }
 
 .short-menu {
@@ -197,8 +198,8 @@
 }
 
 .short-content-area {
-    margin-left: 70px;
-    width: calc(100% - 70px);
+    margin-left: 60px;
+    width: calc(100% - 60px);
 }
 
 ::ng-deep body {

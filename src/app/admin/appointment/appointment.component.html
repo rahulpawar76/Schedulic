@@ -157,21 +157,10 @@
 
                                     <div class="text-right" fxFlex="10">
                                         <div class="table-action-btns justify-content-end">
-                                            <button (click)="fnEditAppointment(i)" matTooltip="Edit"
-                                                class="appointment-edit-btn"
-                                                *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i
-                                                    class="material-icons appointment-icon">edit</i></button>
-                                            <button matTooltip="Cancel"
-                                                *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()"
-                                                (click)="cancelAppointment('C', allAppointmentsData.id)"
-                                                class="appointment-cancel-btn ml-1"><i
-                                                    class="material-icons appointment-icon">close</i></button>
-                                            <button matTooltip="Done" *ngIf="allAppointmentsData.order_status == 'P'"
-                                                (click)="confirmAppointment('CNF', allAppointmentsData.id)"
-                                                class="appointment-confirm-btn ml-1"><i
-                                                    class="material-icons appointment-icon">done</i></button>
-                                            <button matTooltip="View" (click)="fnOpenDetails(i)"
-                                                class="sc-table-action-btn ml-1">
+                                            <button (click)="fnEditAppointment(i)" matTooltip="Edit" class="appointment-edit-btn" *ngIf="allAppointmentsData.order_status != 'C' && allAppointmentsData.order_status != 'CC' && allAppointmentsData.order_status != 'CO' && minReschedulingTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">edit</i></button>
+                                            <button matTooltip="Cancel" (click)="cancelAppointment('C', allAppointmentsData.id)" class="appointment-cancel-btn ml-1" *ngIf="allAppointmentsData.order_status !== 'C' && allAppointmentsData.order_status !== 'CC' && allAppointmentsData.order_status !== 'CO' && cancellationBufferTime.getTime() < allAppointmentsData.booking_date_time.getTime()"><i class="material-icons appointment-icon">close</i></button>
+                                            <button matTooltip="Done" (click)="confirmAppointment('CNF', allAppointmentsData.id)" class="appointment-confirm-btn ml-1" *ngIf="allAppointmentsData.order_status == 'P'"><i class="material-icons appointment-icon">done</i></button>
+                                            <button matTooltip="View" (click)="fnOpenDetails(i)" class="sc-table-action-btn ml-1">
                                                 <mat-icon class="">visibility</mat-icon>
                                             </button>
                                         </div>
