@@ -132,6 +132,8 @@
 
 .single-booking {
     cursor: pointer;
+    margin-left: 60px;
+    color: #000;
     &.active {
         .c-name-main {
             display: flex !important;
