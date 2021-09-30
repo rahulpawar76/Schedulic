@@ -203,9 +203,9 @@
                                     <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                 </div>
                                 <div class="footer-action">
-                                    <button class="sc-pink-btn text-white" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
-                                    <button class="sc-pink-btn text-white" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
-                                    <button class="sc-light-green-btn text-white" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
+                                    <button class="sc-pink-btn text-white min-width-auto" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
+                                    <button class="sc-pink-btn text-white min-width-auto" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
+                                    <button class="sc-light-green-btn text-white min-width-auto" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
                                 </div>
                             </div>
                         </div>

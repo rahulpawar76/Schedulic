@@ -54,14 +54,7 @@
 }
 
 // Add Menu Css
-.add-content {
-    .bottom-border {
-        border-bottom: 1px solid black;
-    }
-    .add-new {
-        padding: 7px 11px;
-    }
-}
+
 
 
 /*Appoinment Menu Css*/
@@ -353,7 +346,7 @@ input:focus {
                     padding: 10px;
                     margin: 10px 0;
                     &.add {
-                        background-color: #79b3fd;
+                        background-color: #CCEDEB;
                         border-radius: 100%;
                         height: 30px;
                         text-align: center;
@@ -362,7 +355,7 @@ input:focus {
                         justify-content: center;
                         align-items: center;
                         img {
-                            width: 15px;
+                            width: 25px;
                         }
                     }
                 }
@@ -386,15 +379,38 @@ input:focus {
         margin-left: 96px !important;
     }
 }
-
-.admin-add-menu {
-    mat-list-item {
-        padding: 7px 20px;
-        cursor: pointer;
-        display: flex;
-        &:hover {
-            background-color: #417bff47;
-            color: #417bff;
+.add-popover{
+    background-color: #ffffff;
+    border-radius: 5px;
+    .add-content {
+        padding: 15px;
+        box-shadow: 0 3px 25px rgb(0 168 155 / 45%);
+        border-radius: 5px;
+        .add-new {
+            padding: 0px 15px 7px;
+            font-size: 16px;
+            color: #0E0E0E;
+            border-bottom: 1px solid rgba(112, 112, 112, 0.24);
+        }
+    }
+    .admin-add-menu {
+        margin-top: 10px;
+        margin-bottom: 0;
+        mat-list-item {
+            padding: 6px 10px;
+            cursor: pointer;
+            display: flex;
+            .common-menu{
+                font-size: 14px;
+                img{
+                    width: 28px;
+                    height: 22px;
+                }
+            }
+            &:hover {
+                background-color: #EAF7F6;
+                color: #00A89B;
+            }
         }
     }
 }
@@ -1015,6 +1031,7 @@ input:focus {
         }
         .live-btn{
             min-width: auto !important;
+            height: 36px;
         }
     }
 }
@@ -1041,4 +1058,11 @@ input:focus {
     img{
         height: 30px;
     }
+}
+
+::ng-deep .mde-popover-direction-arrow{
+    left: -16px !important;
+    top: 26px !important;
+    transform: rotate(-90deg);
+    border-width: 0px 11px 11px !important;
 }

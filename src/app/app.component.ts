@@ -296,10 +296,6 @@ export class AppComponent implements AfterViewInit {
     return this.currentUser && this.currentUser.user_type === Role.SuperAdmin;
   }
 
-  isCustomerUser() {
-    return this.currentUser && this.currentUser.user_type === Role.Customer;
-  }
-
   isStaffUser() {
     return this.currentUser && this.currentUser.user_type === Role.Staff;
   }
@@ -313,13 +309,6 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  isFront() {
-    if (localStorage.getItem('isFront') && localStorage.getItem('isFront') == "true") {
-      return true;
-    } else {
-      return false;
-    }
-  }
   isBusiness() {
     if (localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true") {
       this.businessComponent = false;
@@ -486,11 +475,6 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/login']);
   }
 
-  customerLogout() {
-    let businessId = localStorage.getItem('frontBusiness_id')
-    this.authenticationService.customerLogout();
-    this.router.navigate(['/customer-login/'+window.btoa(businessId)]);
-  }
 
   logout2(callGoogleSignOut) {
     this.dialogRef2.closeAll();
@@ -520,8 +504,6 @@ export class AppComponent implements AfterViewInit {
                       this.router.navigate(["admin"]);
                   }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
                       this.router.navigate(["staff"]);
-                  }else if(Role.Customer){
-                      this.router.navigate(["user"]);
                   }
               }else{
                   if(this.isSignOut){
@@ -541,8 +523,6 @@ export class AppComponent implements AfterViewInit {
                     this.router.navigate(["admin"]);
                 }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
                     this.router.navigate(["staff"]);
-                }else if(Role.Customer){
-                    this.router.navigate(["user"]);
                 }
             }else{
                 if(this.isSignOut){
@@ -557,8 +537,6 @@ export class AppComponent implements AfterViewInit {
           this.router.navigate(["admin"]);
       }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
           this.router.navigate(["staff"]);
-      }else if(Role.Customer){
-          this.router.navigate(["user"]);
       }
     }
   }
@@ -575,9 +553,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnClickLogo(userType){
-    if(userType == 'customer'){
-    this.router.navigate(['/user']);
-    }else if(userType == 'staff'){
+    if(userType == 'staff'){
       this.router.navigate(['/staff']);
     }
     else if(userType == 'admin'){
@@ -588,15 +564,6 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  /*Customer Navigation*/
-
-  UserProfile() {
-    this.router.navigate(['/user/my-profile']);
-  }
-
-  UserAppointment() {
-    this.router.navigate(['/user']);
-  }
 
   signInWithGoogle(loginForm): void {
     this.loginForm=loginForm;

@@ -25,7 +25,7 @@
                     </form>
                 </div>
                 <div class="right-searchbar">
-                    <mat-select class="form-control form-control-transparent" placeholder="All" (selectionChange)="fnStatusChange($event.value)" [(value)]="selected">
+                    <mat-select class="form-control form-control-transparent" placeholder="All" (selectionChange)="fnStatusChange($event.value)">
                         <mat-option>None</mat-option>
                         <mat-option value="All">All</mat-option>
                         <mat-option value="Active">Active</mat-option>
@@ -52,7 +52,7 @@
                                     <div class="text-left" fxFlex="20">Maximum Redemptions</div>
                                     <div class="text-left" fxFlex="10">Used</div>
                                     <div class="text-left" fxFlex="10">Status</div>
-                                    <div class="text-left" fxFlex="10">Action</div>
+                                    <div class="text-right" fxFlex="10">Action</div>
                                     <!-- <div class="text-left" fxFlex="5">View</div>
                                     <div class="text-left" fxFlex="5">Edit</div>
                                     <div class="text-left" fxFlex="5">Delete</div> -->
@@ -203,12 +203,9 @@
                         <div class="common-input col-lg-2 col-12 col-sm-12 col-md-3 ">
                             <label>Discount</label>
                             <div class="form-group">
-                                <mat-select (selectionChange)="fnChangeDiscountType($event)" [(value)]="selected" class="form-control" formControlName="discount_type">
-                                    <mat-option>None</mat-option>
-                                    <mat-option value="P">
-                                     Percentage</mat-option>
-                                    <mat-option value="F">
-                                        Fixed Amount</mat-option>
+                                <mat-select placeholder="Select Type" (selectionChange)="fnChangeDiscountType($event)" class="form-control" formControlName="discount_type">
+                                    <mat-option value="P"> Percentage</mat-option>
+                                    <mat-option value="F"> Fixed Amount</mat-option>
                                 </mat-select>
                              </div>
                                 <span class="error-wrap" *ngIf="discountCoupon.get('discount_type').touched || discountCoupon.get('discount_type').dirty">
