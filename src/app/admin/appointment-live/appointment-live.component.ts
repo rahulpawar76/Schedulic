@@ -12,7 +12,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
 import { AppComponent } from '../../app.component'
-// import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
+import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
 import { Observable, throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
@@ -122,7 +122,7 @@ export class AppointmentLiveComponent implements OnInit {
   paymentData:any;
   Watinglist:any = [];
   trackOrderList:any[];
-  // fireDB:AngularFireDatabase;
+  fireDB:AngularFireDatabase;
   selectedtab:any = 1;
   pendingBillTab: boolean = false
   currentUser: any;
@@ -169,9 +169,9 @@ export class AppointmentLiveComponent implements OnInit {
     private authenticationService: AuthenticationService,
     public router: Router,
     private _snackBar: MatSnackBar,
-    // private fireDb:AngularFireDatabase,
+    private fireDb:AngularFireDatabase,
   ) { 
-    // this.fireDB = fireDb;
+    this.fireDB = fireDb;
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
     this.router.events.subscribe(event => {
@@ -180,7 +180,7 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
+    this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],
@@ -1347,7 +1347,8 @@ export class AppointmentLiveComponent implements OnInit {
       "search_by" : search_by
     };
 
- 
+    console.log("*******");
+    console.log(requestObject);
 
     this.adminService.outdoorOrders(requestObject).subscribe((response: any) => {
       if (response.data == true) {
@@ -1378,19 +1379,18 @@ export class AppointmentLiveComponent implements OnInit {
       return;
     }
     
-    // const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
-    // itemsRef.valueChanges().subscribe(
-    //   x=>{
-    //       this.trackOrderList =  x;
-    //       this.ShowMap = true;
-    //       this.lat = this.trackOrderList[0];
-    //       this.lng = this.trackOrderList[1];
-    //       this.origin.lat = this.trackOrderList[0];
-    //       this.origin.lng = this.trackOrderList[1];
-    //       this.destination.lat = this.trackOrderList[0];
-    //       this.destination.lng = this.trackOrderList[1];
-    //     }
-    // );
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    itemsRef.valueChanges().subscribe(
+      x=>{
+          this.trackOrderList =  x;
+          console.log(this.trackOrderList);
+          this.ShowMap = true;
+          this.lat = parseFloat(this.trackOrderList[0]);
+          this.lng = parseFloat(this.trackOrderList[1]);
+          this.origin = { lat: this.lat, lng: this.lng };
+          this.destination = { lat: this.lat, lng: this.lng };
+        }
+    );
 
     // var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
     // var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
