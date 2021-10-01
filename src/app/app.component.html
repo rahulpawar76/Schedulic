@@ -90,7 +90,7 @@
                             <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                        <img class="logout-btn ml-3 pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
+                        <img (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg ml-3 pointer">
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status && pageHeading == 'My Workspace'" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
@@ -283,8 +283,8 @@
                             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
+                    <button mat-stroked-button class="bellborder bell-color pointer" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
+                        <img src="/assets/images/icons/logout.svg" class="logout-svg pointer">
                         </button>
                     </span>
                 </mat-toolbar-row>

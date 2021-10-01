@@ -74,17 +74,7 @@ export class LoginComponent implements OnInit {
         }
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .pipe(first()).subscribe(data => {
-
             if(data.data == true){
-                // if(data.response.user_type == 'A' &&  (data.response.currentPlan == null || data.response.currentPlan.stripe_status == 'canceled' || data.response.currentPlan.stripe_status == 'incomplete')){
-                //     // localStorage.setItem('adminData',JSON.stringify(data.response))
-                //     localStorage.removeItem('currentUser');
-                //     this.router.navigate(["admin-select-subscription"]);
-                //     return; 
-                // }
-                // this.dataLoaded = false;
-                // debugger;
-
                 if(data.response.user_type == "A"){
                     this.router.navigate(["admin"]);
                 }else if(data.response.user_type == "SM"){
@@ -93,21 +83,17 @@ export class LoginComponent implements OnInit {
                 }else{
                     this.router.navigate(["user"]);
                 }
-                
             }else if(data.data == false){
-
                 this._snackBar.open(data.response, "X", {
                     duration: 2000,
                     verticalPosition:'top',
                     panelClass :['red-snackbar']
                     });
                 this.error = data.response; 
-
-            }  else{
+            }else{
                 this.error = "Database Connection Error."; 
             }
             this.dataLoaded = false;
-
         },
         error => {  
             this.error = "Database Connection Error."; 
