@@ -580,8 +580,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="staff-list-row " *ngIf="allStaffList == ''">
-                                    <p class="mx-auto">Record not found</p>
+                                <div class="no-staff-data" *ngIf="allStaffList == ''">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -786,7 +789,7 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="content" class="example-list">
+                                    <div class="content" class="example-list" *ngIf="singleStaffDetail.services.length > 0">
                                         <div *ngFor="let staffService of singleStaffDetail.services; let i=index"
                                             class="example-box custom-service-box"[ngClass]="{'checked' : selectedServiceNewStaff.indexOf(staffService.id) >-1 }" >
                                             <div class="custom_check_main" fxFlex="5">
@@ -814,6 +817,12 @@
                                                 staffService.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                                 {{currencySymbol| currencySymbol:'wide'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="no-staff-service" *ngIf="singleStaffDetail.services.length == 0">
+                                        <div class="no-data-badge">
+                                            <img src="/assets/images/nodata.svg" />
+                                            <label>No Data Found.</label>
                                         </div>
                                     </div>
                                 </div>
@@ -889,8 +898,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="singleStaffDetail.postalCode == undefined">
-                                    <p class="text-center"> No postal code found.</p>
+                                <div class="no-staff-postalcode" *ngIf="singleStaffDetail.postalCode == undefined">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1828,85 +1840,50 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Review">
-                            <!-- <div class="d-flex">
-                                <div class="d-flex statick-rating w-100" *ngIf="customerReviews.rating != null">
-                                    <div class="star-rating">
-                                        <input type="radio" [checked]="customerReviews.rating == 5"
-                                            id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}"
-                                            value="5" />
-                                        <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                        <input type="radio" [checked]="customerReviews.rating == 4"
-                                            id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}"
-                                            value="4" />
-                                        <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                        <input type="radio" [checked]="customerReviews.rating == 3"
-                                            id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}"
-                                            value="3" />
-                                        <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                        <input type="radio" [checked]="customerReviews.rating == 2"
-                                            id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}"
-                                            value="2" />
-                                        <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                        <input type="radio" [checked]="customerReviews.rating == 1"
-                                            id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}"
-                                            value="1" />
-                                        <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                    <div *ngIf="singleStaffDetail.staff[0].review != ''" class="sc-table-view">
+                        <table class="table sc-table">
+                            <thead class="sc-table-head">
+                                <tr >
+                                        <th scope="col">Create On</th>
+                                        <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Rating</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="sc-table-content">
+                                <tr *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"  class="final-list">
+                                    <td>{{customerReviews.created_at}}</td> 
+                                    <td>{{customerReviews.rating_title}}</td>
+                                    <td> {{customerReviews.review}} </td>
+                                    <td> <div class="d-flex main-review-wrap statick-rating w-100" *ngIf="customerReviews.rating != null">
+                                        <div class="star-rating">
+                                            <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
+                                            <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
+                                            <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
+                                            <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
+                                            <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
+                                            <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                        </div>
                                     </div>
-                                </div>
-
-                            </div> -->
-                            <!-- <div>
-                                <h6>{{customerReviews.rating_title}}</h6>
-                                <p>{{customerReviews.review}}</p>
-                            </div> -->
-
-                            <!-- <div>
-                                <button mat-button appearance="fill" class="view-btn"
-                                    (click)="viewStaffReviewDetail(i,customerReviews.order_id)">
-                                    <mat-icon aria-hidden="false">visibility</mat-icon>View
-                                </button>
-                            </div> -->
-                            <div *ngIf="singleStaffDetail.staff[0].review != ''" class="sc-table-view">
-                                <table class="table sc-table">
-                                    <thead class="sc-table-head">
-                                        <tr >
-                                                <th scope="col">Create On</th>
-                                                <th scope="col">Title</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Rating</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="sc-table-content">
-                                        <tr *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"  class="final-list">
-                                            <td>{{customerReviews.created_at}}</td> 
-                                            <td>{{customerReviews.rating_title}}</td>
-                                            <td> {{customerReviews.review}} </td>
-                                            <td> <div class="d-flex main-review-wrap statick-rating w-100" *ngIf="customerReviews.rating != null">
-                                                <div class="star-rating">
-                                                    <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
-                                                    <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
-                                                    <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
-                                                    <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
-                                                    <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                    <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
-                                                    <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                            <td class="table-action-btns">
-                                                <button appearance="fill" class="sc-table-action-btn" (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon></button>
-                                            </td>
-                                           
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                    <div class="w-100 text-center my-2" *ngIf="singleStaffDetail.staff[0].review == ''">
-                        No Review Available
+                                </td>
+                                    <td class="table-action-btns">
+                                        <button appearance="fill" class="sc-table-action-btn" (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon></button>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="no-staff-review" *ngIf="singleStaffDetail.staff[0].review == ''">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
                     </div>
                 </mat-tab>
             </mat-tab-group>

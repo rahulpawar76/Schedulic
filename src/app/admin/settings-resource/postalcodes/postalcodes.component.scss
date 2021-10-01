@@ -176,3 +176,10 @@
         }
     }
 }
+.no-postal-data{
+    height: calc(100vh - 410px);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}

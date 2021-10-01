@@ -233,3 +233,11 @@
         }
     }
 }
+
+.no-appointment-data{
+    height: calc(100vh - 178px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

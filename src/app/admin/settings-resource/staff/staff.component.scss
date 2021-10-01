@@ -1025,3 +1025,25 @@
         width: calc(100% - 220px);
     }
 }
+.no-staff-data{
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 290px);
+    justify-content: center;
+    align-items: center;
+}
+.no-staff-service,
+.no-staff-review{
+    height: calc(100vh - 315px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.no-staff-postalcode{
+    height: calc(100vh - 470px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}

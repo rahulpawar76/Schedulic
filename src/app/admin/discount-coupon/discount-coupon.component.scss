@@ -120,10 +120,16 @@
 }
 
 .container-height {
-    height: calc(100% - 90px) !important;
+    height: calc(100% - 64px) !important;
 }
 
 #Discount-Coupon {
+    .sc-table-view{
+        height: calc(100% - 110px);
+        .sc-table{
+            height: calc(100% - 60px);
+        }
+    }
     .footer-action-btn {
         padding: 16px;
         position: fixed;
@@ -189,16 +195,12 @@
                 padding-bottom: 16px !important;
             }
         }
-        // .staff-delete-btn {
-        //     border-radius: 26px;
-        //     background-color: #fe0000;
-        //     color: white;
-        //     right: 50px;
-        //     z-index: 4;
-        //     position: absolute;
-        //     height: 35px;
-        //     width: 135px;
-        //     height: 37px;
-        // }
     }
+}
+.no-coupon-data{
+    width: 100%;
+    height: calc(100% - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

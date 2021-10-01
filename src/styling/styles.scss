@@ -945,6 +945,7 @@ i.fa.fa-plus-circle.pl-2.note-icon {
     margin-top: 65px;
     background-color: #fff;
     transition: all 0.4s;
+    height: calc(100% - 65px);
     &.short-content-area {
         margin-left: 60px;
         width: calc(100% - 60px);
@@ -1872,4 +1873,18 @@ mat-select{
 
 .min-width-auto{
     min-width: auto !important;
+}
+.no-data-badge{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    img{
+        width: 140px;
+    }
+    label{
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
 }

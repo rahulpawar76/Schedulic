@@ -166,8 +166,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="staff-list-row" *ngIf="allAppointments ==''">
-                                    <p class="mx-auto">Record not found.</p>
+                                <div class="no-appointment-data" *ngIf="allAppointments ==''">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

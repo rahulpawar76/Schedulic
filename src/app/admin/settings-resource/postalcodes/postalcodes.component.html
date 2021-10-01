@@ -168,7 +168,11 @@
 
 
                                 </div>
-                                <div class="postalcode-box" *ngIf="postalCodeList.length == 0">No Postal Code Available
+                                <div class="no-postal-data" *ngIf="postalCodeList.length == 0">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

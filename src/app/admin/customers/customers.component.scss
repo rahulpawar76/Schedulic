@@ -213,6 +213,10 @@
     .addNotes {
         display: flex;
         justify-content: center;
+        display: flex;
+        justify-content: center;
+        height: calc(100vh - 355px);
+        align-items: center;
         .Add-notes-background {
             width: 30%;
             height: 165px;
@@ -1048,3 +1052,25 @@ mat-chip-list {
             height: 100%;
         }
     }
+
+.no-customer-list{
+    height: calc(100% - 101px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-customer-detail{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-cus-appo-data,
+.no-cus-pay-data,
+.no-cus-review-data{
+    height: calc(100vh - 355px);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}

@@ -4,8 +4,8 @@ import { AdminService } from '../_services/admin-main.service';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, from } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError, from, ReplaySubject, Subject } from 'rxjs';
+import { take, takeUntil, map, catchError } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services';
@@ -25,6 +25,22 @@ export interface DialogData {
   animal: string;
   name: string;
  
+}
+
+
+export interface countryArry {
+  id: string;
+  name: string;
+}
+
+export interface StateArry {
+  id: string;
+  name: string;
+}
+
+export interface CityArry {
+  id: string;
+  name: string;
 }
 export interface Tag {
   
@@ -131,6 +147,24 @@ export class CustomersComponent implements OnInit {
   allcustomerIds :any=[];
   tagName:any;
   tabIndex:number=0;
+  noCustomer:boolean=true;
+
+  allCountry: any;
+  allStates: any;
+  allCities: any;
+  
+  protected countryArry: countryArry[];
+  public countryFilterCtrl: FormControl = new FormControl();
+  public countryList: ReplaySubject<countryArry[]> = new ReplaySubject<countryArry[]>(1);
+  protected StateArry: StateArry[];
+  public StateFilterCtrl: FormControl = new FormControl();
+  public StateList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
+
+  // CityFilterCtrl
+  protected CityArry: CityArry[];
+  public CityFilterCtrl: FormControl = new FormControl();
+  public CityList: ReplaySubject<StateArry[]> = new ReplaySubject<StateArry[]>(1);
+  protected _onDestroy = new Subject<void>();
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService,
@@ -144,7 +178,8 @@ export class CustomersComponent implements OnInit {
       localStorage.setItem('isBusiness', 'false');
       if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
-    }
+      }
+      this.gelAllCountry();
     }
     private handleError(error: HttpErrorResponse) {
       console.log(error);
@@ -223,8 +258,9 @@ export class CustomersComponent implements OnInit {
       cus_officenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_homenumber : ['', [Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       cus_address : ['', Validators.required],
-      cus_state : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
-      cus_city : ['', Validators.required,Validators.pattern('[a-zA-Z ]*')],
+      cus_state : ['', Validators.required],
+      cus_city : ['', Validators.required],
+      cus_country : ['', Validators.required],
       cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
@@ -296,16 +332,12 @@ export class CustomersComponent implements OnInit {
         }
         this.fnSelectCustomer(this.allCustomers[0].id,action);
         this.customerDetailId = this.allCustomers[0].id
+        this.noCustomer = false;
         this.isLoaderAdmin = false;
       }
       else if(response.response == 'Customer not created.'){
-        this.allCustomers = "";
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
         this.allCustomers = [];
+        this.noCustomer = true;
         this.isLoaderAdmin = false;
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -340,12 +372,6 @@ export class CustomersComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
       else if(response.response == 'Customer not created.'){
-        this.allCustomers = "";
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
         this.allCustomers = [];
         this.isLoaderAdmin = false;
       }
@@ -411,6 +437,7 @@ export class CustomersComponent implements OnInit {
             "address" : this.createNewCustomer.get('cus_address').value,
             "state" : this.createNewCustomer.get('cus_state').value,
             "city" : this.createNewCustomer.get('cus_city').value,
+            "country" : this.createNewCustomer.get('cus_country').value,
             "zip" : this.createNewCustomer.get('cus_zip').value,
             'image': this.customerImageUrl
           }
@@ -426,6 +453,7 @@ export class CustomersComponent implements OnInit {
             "address" : this.createNewCustomer.get('cus_address').value,
             "state" : this.createNewCustomer.get('cus_state').value,
             "city" : this.createNewCustomer.get('cus_city').value,
+            "country" : this.createNewCustomer.get('cus_country').value,
             "zip" : this.createNewCustomer.get('cus_zip').value,
           }
         }
@@ -441,6 +469,7 @@ export class CustomersComponent implements OnInit {
         this.createNewCustomer.get('cus_address').markAsTouched();
         this.createNewCustomer.get('cus_state').markAsTouched();
         this.createNewCustomer.get('cus_city').markAsTouched();
+        this.createNewCustomer.get('cus_country').markAsTouched();
         this.createNewCustomer.get('cus_zip').markAsTouched();
     }
   }
@@ -456,6 +485,7 @@ export class CustomersComponent implements OnInit {
           "address" : this.createNewCustomer.get('cus_address').value,
           "state" : this.createNewCustomer.get('cus_state').value,
           "city" : this.createNewCustomer.get('cus_city').value,
+          "country" : this.createNewCustomer.get('cus_country').value,
           "zip" : this.createNewCustomer.get('cus_zip').value,
           'image': this.customerImageUrl
         }
@@ -469,6 +499,7 @@ export class CustomersComponent implements OnInit {
         this.createNewCustomer.get('cus_address').markAsTouched();
         this.createNewCustomer.get('cus_state').markAsTouched();
         this.createNewCustomer.get('cus_city').markAsTouched();
+        this.createNewCustomer.get('cus_country').markAsTouched();
         this.createNewCustomer.get('cus_zip').markAsTouched();
     }
   }
@@ -488,6 +519,7 @@ fnCreateNewCustomer(newCustomerData){
       this.fnCancelNewCustomer();
       this.customerImageUrl = '';
       this.isLoaderAdmin = false;
+      this.noCustomer = false;
     }
     else if(response.data == false && response.response !== 'api token or userid invaild'){
       this._snackBar.open(response.response, "X", {
@@ -500,6 +532,89 @@ fnCreateNewCustomer(newCustomerData){
     }
   })
 }
+
+
+gelAllCountry(){
+  this.isLoaderAdmin =true;
+  this.adminService.gelAllCountry().subscribe((response:any) => {
+    if(response.data == true){
+      // this.allCountry = response.response
+      this.countryArry = response.response
+      this.countryList.next(this.countryArry.slice());
+      this.countryFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+      this.filterCountries();
+    });
+      this.isLoaderAdmin =false;
+    }
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.allCountry = ''
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      this.isLoaderAdmin =false;
+    }
+  })
+}
+
+selectCountry(country_id){
+  this.isLoaderAdmin =true;
+  this.adminService.gelAllState(country_id).subscribe((response:any) => {
+    if(response.data == true){
+      this.allStates = response.response
+      this.createNewCustomer.controls['cus_state'].setValue('');
+      this.StateArry = response.response
+      this.StateList.next(this.StateArry.slice());
+      this.StateFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+          this.filterState();
+        });
+    }
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.allStates = ''
+      this.createNewCustomer.controls['cus_state'].setValue('');
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+    }
+      this.isLoaderAdmin =false;
+  })
+}
+
+selectStates(state_id){
+  this.isLoaderAdmin =true;
+  this.adminService.gelAllCities(state_id).subscribe((response:any) => {
+    if(response.data == true){
+      this.createNewCustomer.controls['cus_city'].setValue('');
+      // this.allCities = response.response
+      this.CityArry = response.response
+      this.CityList.next(this.CityArry.slice());
+      this.CityFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+          this.filterCity();
+        });
+    }
+    else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.allCities = [];
+      this.createNewCustomer.controls['cus_city'].setValue('');
+      this._snackBar.open(response.response, "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+    }
+      this.isLoaderAdmin =false;
+  })
+}
+
+
 customerUpdate(existingCustomerData){
   this.isLoaderAdmin = true;
   this.adminService.customerUpdate(existingCustomerData).subscribe((response:any) => {
@@ -540,6 +655,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
+      cus_country : ['', Validators.required],
       cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
@@ -741,6 +857,7 @@ customerUpdate(existingCustomerData){
       cus_address : ['', Validators.required],
       cus_state : ['', Validators.required],
       cus_city : ['', Validators.required],
+      cus_country : ['', Validators.required],
       cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
@@ -1474,6 +1591,60 @@ customerUpdate(existingCustomerData){
       this.getAllCustomers();
       this.isLoaderAdmin=false;
     }
+  }
+
+  protected filterCountries() {
+    if (!this.countryArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.countryFilterCtrl.value;
+    if (!search) {
+      this.countryList.next(this.countryArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.countryList.next(
+      this.countryArry.filter(countryArry => countryArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterState (){
+    if (!this.StateArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.StateFilterCtrl.value;
+    if (!search) {
+      this.StateList.next(this.StateArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.StateList.next(
+      this.StateArry.filter(StateArry => StateArry.name.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  protected filterCity (){
+    if (!this.CityArry) {
+      return;
+    }
+    // get the search keyword
+    let search = this.CityFilterCtrl.value;
+    if (!search) {
+      this.CityList.next(this.CityArry.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks
+    this.CityList.next(
+      this.CityArry.filter(CityArry => CityArry.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 }
 
