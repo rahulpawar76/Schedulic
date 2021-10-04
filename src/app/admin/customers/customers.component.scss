@@ -213,6 +213,10 @@
     .addNotes {
         display: flex;
         justify-content: center;
+        display: flex;
+        justify-content: center;
+        height: calc(100vh - 355px);
+        align-items: center;
         .Add-notes-background {
             width: 30%;
             height: 165px;
@@ -861,11 +865,18 @@ mat-chip-list {
             bottom: 0;
             width: calc(100% - 390px);
             margin: 0;
-            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+            box-shadow: 0 3px 17px rgb(0 168 155 / 25%), 0 4px 5px 0 rgb(0 168 155 / 25%) !important;
             right: 0;
             background-color: #fff;
             .save-btn{
                 padding: 0px 35px;
+            }
+        }
+    }
+    .short-content-area{
+        #Add-New-Customer {
+            .footer-action-btn {
+                width: calc(100% - 190px);
             }
         }
     }
@@ -1041,3 +1052,25 @@ mat-chip-list {
             height: 100%;
         }
     }
+
+.no-customer-list{
+    height: calc(100% - 101px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-customer-detail{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-cus-appo-data,
+.no-cus-pay-data,
+.no-cus-review-data{
+    height: calc(100vh - 355px);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}

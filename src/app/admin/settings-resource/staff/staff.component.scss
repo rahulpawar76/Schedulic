@@ -457,6 +457,12 @@
     color: red;
 }
 
+.save-box {
+    font-size: 20px;
+    color: #00A89B;
+}
+
+
 
 /*Image Upload*/
 
@@ -904,7 +910,7 @@
             width: calc(100% - 300px);
             margin: 0;
             right: 0;
-            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 4px 12px 0 rgba(0, 0, 0, .4)!important;
+            box-shadow: 0 3px 17px rgb(0 168 155 / 25%), 0 4px 5px 0 rgb(0 168 155 / 25%) !important;
         }
     }
     &.short-content-area {
@@ -1018,4 +1024,26 @@
     .staff-form{
         width: calc(100% - 220px);
     }
+}
+.no-staff-data{
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 290px);
+    justify-content: center;
+    align-items: center;
+}
+.no-staff-service,
+.no-staff-review{
+    height: calc(100vh - 315px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.no-staff-postalcode{
+    height: calc(100vh - 470px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }

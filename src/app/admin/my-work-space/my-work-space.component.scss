@@ -1111,3 +1111,9 @@ body .left-time-main .hourse-font {
 ::ng-deep .without_border {
     height: auto !important;
 }
+.no-appointment-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

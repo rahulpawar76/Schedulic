@@ -18,9 +18,8 @@
             </div>
         </div>
         <div class="w-100 customer-bottom-area">
-            <div *ngIf="allCustomers.length > 0 || newCustomer"
-                [ngClass]="{ 'short-menu': customerSideMenuToggle === true }" id="Customer-list"
-                class="customer-menu customer-left-menu">
+            <div *ngIf="!noCustomer || newCustomer" [ngClass]="{ 'short-menu': customerSideMenuToggle === true }"
+                id="Customer-list" class="customer-menu customer-left-menu">
                 <div class="leftarrow-icon d-flex align-items-center">
                     <mat-select placeholder="Action" class="form-control form-select-main mr-3" [ngModel]="actionValue"
                         (selectionChange)="fnMultiDeleteCustomer($event.value)">
@@ -65,10 +64,15 @@
                     </div>
 
                 </div>
-
+                <div *ngIf="allCustomers.length == 0" class="no-customer-list">
+                    <div class="no-data-badge">
+                        <img src="/assets/images/nodata.svg" />
+                        <label>No Data Found.</label>
+                    </div>
+                </div>
             </div>
 
-            <div *ngIf="allCustomers.length > 0 || newCustomer" class="pl-0 pr-0 customer-right-side-content"
+            <div *ngIf="!noCustomer || newCustomer" class="pl-0 pr-0 customer-right-side-content"
                 [ngClass]="{ 'short-content-area': customerSideMenuToggle === true }">
                 <div *ngIf="newCustomer" id="Add-New-Customer" class="pl-0 pr-0 h-100">
                     <mat-card class="mb-0 form-container">
@@ -83,12 +87,19 @@
                                 <div class="col-lg-12 col-12 col-md-4 py-3">
                                     <div class="float-left mr-4">
                                         <div class="d-flex profile-img-wrap">
-                                            <img *ngIf="!existingUserId && customerImageUrl != ''" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="default-img" src="/assets/images/icons/image-placeholder.svg">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'" class="service-profile-image mx-auto" src="{{customerPersonalDetails.image}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'" class="default-img" src="/assets/images/icons/image-placeholder.svg">
-                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image" class="service-profile-image mx-auto" src="{{customerImageUrl}}">
-                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image" class="default-img" src="/assets/images/icons/image-placeholder.svg">
+                                            <img *ngIf="!existingUserId && customerImageUrl != ''"
+                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="!existingUserId && customerImageUrl == ''" class="default-img"
+                                                src="/assets/images/icons/image-placeholder.svg">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
+                                                class="service-profile-image mx-auto"
+                                                src="{{customerPersonalDetails.image}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && customerPersonalDetails.image && customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'"
+                                                class="default-img" src="/assets/images/icons/image-placeholder.svg">
+                                            <img *ngIf="existingUserId && customerImageUrl != '' && customerPersonalDetails.image"
+                                                class="service-profile-image mx-auto" src="{{customerImageUrl}}">
+                                            <img *ngIf="existingUserId && customerImageUrl == '' && !customerPersonalDetails.image"
+                                                class="default-img" src="/assets/images/icons/image-placeholder.svg">
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -114,7 +125,7 @@
                                                         pattern="[a-zA-Z ]*">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched || formSubmitclicked">
+                                                    *ngIf="createNewCustomer.get('cus_fullname').dirty || createNewCustomer.get('cus_fullname').touched">
                                                     <small
                                                         *ngIf="createNewCustomer.get('cus_fullname').hasError('required')"
                                                         class="error">Fullname is required.</small>
@@ -135,7 +146,7 @@
                                                         class="form-control" placeholder="Home Number">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched || formSubmitclicked"><small
+                                                    *ngIf="createNewCustomer.get('cus_homenumber').dirty || createNewCustomer.get('cus_homenumber').touched"><small
                                                         *ngIf="createNewCustomer.get('cus_homenumber').hasError('pattern') || (createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength')))"
                                                         class="error">Home phone should in numbers.</small><small
                                                         *ngIf="!createNewCustomer.get('cus_homenumber').hasError('pattern') && (createNewCustomer.get('cus_homenumber').hasError('minlength') || createNewCustomer.get('cus_homenumber').hasError('maxlength'))"
@@ -154,7 +165,7 @@
                                                         placeholder="Email">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched || formSubmitclicked">
+                                                    *ngIf="createNewCustomer.get('cus_email').dirty || createNewCustomer.get('cus_email').touched">
                                                     <small
                                                         *ngIf="createNewCustomer.get('cus_email').hasError('required')"
                                                         class="error">Email is required.</small>
@@ -179,7 +190,7 @@
                                                         class="form-control" placeholder="Address">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched || formSubmitclicked"><small
+                                                    *ngIf="createNewCustomer.get('cus_address').dirty || createNewCustomer.get('cus_address').touched"><small
                                                         *ngIf="createNewCustomer.get('cus_address').hasError('required')"
                                                         class="error">Address is required.</small></span>
                                             </div>
@@ -196,7 +207,7 @@
                                                         placeholder="Phone Number">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched || formSubmitclicked">
+                                                    *ngIf="createNewCustomer.get('cus_phone').dirty || createNewCustomer.get('cus_phone').touched">
                                                     <small
                                                         *ngIf="createNewCustomer.get('cus_phone').hasError('required')"
                                                         class="error">Contact number is required.</small>
@@ -216,44 +227,35 @@
                                         </div>
                                         <div class="col-lg-3 col-12 col-md-4 pr-2 common-input">
                                             <div class="form-group">
-                                                <mat-select placeholder="Country"
-                                                    class="form-control" [disabled]=""
-                                                    formControlName="">
-                                                    <mat-option value="null">india</mat-option>
-                                                    <mat-option  disabled>No Staff Available</mat-option>
+                                                <mat-select placeholder="Country" class="form-control" formControlName="cus_country" (selectionChange)="selectCountry($event.value)">
+                                                    <mat-option>
+                                                        <ngx-mat-select-search placeholderLabel="Search"
+                                                            noEntriesFoundLabel="No record found"
+                                                            [formControl]="countryFilterCtrl"></ngx-mat-select-search>
+                                                    </mat-option>
+                                                    <mat-option *ngFor="let country of countryList | async"
+                                                        [value]="country.id">
+                                                        {{country.name}}
+                                                    </mat-option>
                                                 </mat-select>
-                                                <!-- <input type="text" formControlName="cus_state"
-                                                    class="form-control bg-wrap-control" placeholder="State"
-                                                    pattern="[a-zA-Z ]*"> -->
                                             </div>
-                                            <!-- <span class="error-wrap"
-                                                *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
-                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')"
-                                                    class="error">State is required.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') "
-                                                    class="error">State must be at least 2 character.</small>
-                                            </span> -->
                                         </div>
                                         <div class="col-lg-3 col-12 col-md-4 pl-2 common-input">
                                             <div class="form-group">
-                                                <mat-select placeholder="State"
-                                                   class="form-control" [disabled]=""
-                                                   formControlName="">
-                                                   <mat-option value="null">Demo</mat-option>
-                                                   <mat-option  disabled>No Staff Available</mat-option>
+                                                <mat-select placeholder="State" class="form-control"
+                                                    formControlName="cus_state"
+                                                    (selectionChange)="selectStates($event.value)">
+                                                    <mat-option>
+                                                        <ngx-mat-select-search placeholderLabel="Search"
+                                                            noEntriesFoundLabel="No record found"
+                                                            [formControl]="StateFilterCtrl"></ngx-mat-select-search>
+                                                    </mat-option>
+                                                    <mat-option *ngFor="let allStates of StateList | async"
+                                                        [value]="allStates.id">
+                                                        {{allStates.name}}
+                                                    </mat-option>
                                                 </mat-select>
-
-                                                <!-- <input type="text" formControlName="cus_state"
-                                                    class="form-control bg-wrap-control" placeholder="State"
-                                                    pattern="[a-zA-Z ]*"> -->
                                             </div>
-                                            <!-- <span class="error-wrap"
-                                                *ngIf="createNewCustomer.get('cus_state').dirty || createNewCustomer.get('cus_state').touched || formSubmitclicked">
-                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('required')"
-                                                    class="error">State is required.</small>
-                                                <small *ngIf="createNewCustomer.get('cus_state').hasError('minlength') "
-                                                    class="error">State must be at least 2 character.</small>
-                                            </span> -->
                                         </div>
                                         <div class="col-lg-6 col-12 col-md-6">
                                             <div class="common-input col-lg-12 col-12 col-sm-12 col-md-6 p-0">
@@ -266,7 +268,7 @@
                                                         class="form-control" placeholder="Office Number">
                                                 </div>
                                                 <span class="error-wrap"
-                                                    *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched || formSubmitclicked"><small
+                                                    *ngIf="createNewCustomer.get('cus_officenumber').dirty || createNewCustomer.get('cus_officenumber').touched"><small
                                                         *ngIf="createNewCustomer.get('cus_officenumber').hasError('pattern') || (createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength')))"
                                                         class="error">Office phone should in numbers.</small><small
                                                         *ngIf="!createNewCustomer.get('cus_officenumber').hasError('pattern') && (createNewCustomer.get('cus_officenumber').hasError('minlength') || createNewCustomer.get('cus_officenumber').hasError('maxlength'))"
@@ -274,14 +276,23 @@
                                                         digits.</small></span>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-12 col-md-4 pr-2">
+                                        <div class="col-lg-3 col-12 col-md-4 pr-2 common-input">
                                             <div class=" form-group mb-0">
-                                                <input type="text" formControlName="cus_city"
-                                                    class="form-control bg-wrap-control" placeholder="City"
-                                                    pattern="[a-zA-Z ]*">
+                                                <mat-select placeholder="City" class="form-control"
+                                                    formControlName="cus_city">
+                                                    <mat-option>
+                                                        <ngx-mat-select-search placeholderLabel="Search"
+                                                            noEntriesFoundLabel="No record found"
+                                                            [formControl]="CityFilterCtrl"></ngx-mat-select-search>
+                                                    </mat-option>
+                                                    <mat-option *ngFor="let allCities of CityList | async"
+                                                        [value]="allCities.id">
+                                                        {{allCities.name}}
+                                                    </mat-option>
+                                                </mat-select>
                                             </div>
                                             <span class="error-wrap"
-                                                *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched || formSubmitclicked">
+                                                *ngIf="createNewCustomer.get('cus_city').dirty || createNewCustomer.get('cus_city').touched">
                                                 <small *ngIf="createNewCustomer.get('cus_city').hasError('required')"
                                                     class="error">City is required.</small>
 
@@ -296,12 +307,12 @@
                                                     pattern="[a-zA-Z ]*">
                                             </div>
                                             <span class="error-wrap"
-                                                *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched || formSubmitclicked">
+                                                *ngIf="createNewCustomer.get('cus_zip').dirty || createNewCustomer.get('cus_zip').touched">
                                                 <small *ngIf="createNewCustomer.get('cus_zip').hasError('required')"
-                                                    class="error">Zipcode is required.</small>
+                                                    class="error">Postal Code is required.</small>
                                                 <small
                                                     *ngIf="createNewCustomer.get('cus_zip').hasError('minlength') || createNewCustomer.get('cus_zip').hasError('maxlength')"
-                                                    class="error">Zipcode should be 5 to 7 characters.</small>
+                                                    class="error">Postal Code should be 5 to 7 characters.</small>
                                             </span>
                                         </div>
 
@@ -317,8 +328,7 @@
                                     </div>
                                     <div class="mx-2" *ngIf="!existingUserId">
                                         <button mat-button type="submit" appearance="fill"
-                                            (click)="fnCreateCustomerSubmit()"
-                                            class="sc-pink-btn">Save</button>
+                                            (click)="fnCreateCustomerSubmit()" class="sc-pink-btn">Save</button>
                                     </div>
                                     <div class="mx-2" *ngIf="existingUserId">
                                         <button mat-button type="submit" appearance="fill"
@@ -330,15 +340,18 @@
                     </mat-card>
                 </div>
 
-                <div *ngIf="fullDetailsOfCustomer && customersDetails != null" id="Customer-Listing" class="pl-0 pr-0">
+                <div *ngIf="allCustomers.length > 0 && fullDetailsOfCustomer && customersDetails != null"
+                    id="Customer-Listing" class="pl-0 pr-0">
                     <div class="mb-0">
                         <div class="d-flex top-profile-details">
                             <div class=" static-image-display">
-                                <div class="w-100 h-100" *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
+                                <div class="w-100 h-100"
+                                    *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
                                     [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
                                     <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->
                                 </div>
-                                <div *ngIf="customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'">
+                                <div
+                                    *ngIf="customerPersonalDetails.image == 'https://api.schedulic.com/customer-images/default.png'">
                                     <img class="default-img" src="/assets/images/icons/image-placeholder.svg">
                                 </div>
                             </div>
@@ -509,8 +522,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div *ngIf="customerAppoint == ''" class="Customer-appointment-table">
-                                    <p class="text-center py-3">No Record Found.</p>
+                                <div class="no-cus-appo-data" *ngIf="customerAppoint ==''">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </mat-tab>
                             <mat-tab label="Notes">
@@ -625,9 +641,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm"
-                                    class="">
-                                    <p class="text-center py-3">No Record Found.</p>
+                                
+                                <div class="no-cus-pay-data" *ngIf="(customerPayments == [] || customerPayments == '') && !showPaymentForm">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                                 <div class="" *ngIf="showPaymentForm">
                                     <form [formGroup]="formPayment">
@@ -643,7 +662,7 @@
                                                             formControlName="paymentAmount"
                                                             (change)="fnOnChangeAmount($event)">
                                                         <span class="error-wrap"
-                                                            *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched || formSubmitclicked">
+                                                            *ngIf="formPayment.get('paymentAmount').dirty || formPayment.get('paymentAmount').touched">
                                                             <small
                                                                 *ngIf="formPayment.get('paymentAmount').hasError('required')"
                                                                 class="error">Amount is required.</small>
@@ -667,7 +686,7 @@
                                                             formControlName="paymentDiscount"
                                                             (change)="fnOnChangeDiscount($event)">
                                                         <span class="error-wrap"
-                                                            *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched || formSubmitclicked">
+                                                            *ngIf="formPayment.get('paymentDiscount').dirty || formPayment.get('paymentDiscount').touched">
                                                             <small
                                                                 *ngIf="formPayment.get('paymentDiscount').hasError('required')"
                                                                 class="error">Discount is required.</small>
@@ -685,7 +704,7 @@
                                                         <mat-radio-button value="Stripe">Online</mat-radio-button>
                                                     </mat-radio-group>
                                                     <span class="error-wrap"
-                                                        *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched || formSubmitclicked">
+                                                        *ngIf="formPayment.get('paymentMode').dirty || formPayment.get('paymentMode').touched">
                                                         <small
                                                             *ngIf="formPayment.get('paymentMode').hasError('required')"
                                                             class="error">Payment mode is required.</small>
@@ -698,7 +717,7 @@
                                                             placeholder="Enter Payment Note"
                                                             formControlName="paymentNote"></textarea>
                                                         <span class="error-wrap"
-                                                            *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched || formSubmitclicked"><small
+                                                            *ngIf="formPayment.get('paymentNote').dirty || formPayment.get('paymentNote').touched"><small
                                                                 *ngIf="formPayment.get('paymentNote').hasError('required')"
                                                                 class="error">Payment note is required.</small></span>
                                                     </div>
@@ -896,16 +915,24 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div *ngIf="customerReviews == ''" class="">
-                                    <p class="text-center py-3">No Record Found.</p>
+                                <div class="no-cus-review-data" *ngIf="customerReviews ==''">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
                                 </div>
                             </mat-tab>
                         </mat-tab-group>
                     </div>
                 </div>
+                <div *ngIf="!noCustomer && allCustomers.length == 0" class="no-customer-detail">
+                    <div class="no-data-badge">
+                        <img src="/assets/images/nodata.svg" />
+                        <label>No Data Found.</label>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="fullDetailsOfCustomer && (allCustomers.length == 0 || customersDetails == null)"
-                class="blank-container">
+            <div *ngIf="noCustomer && !newCustomer" class="blank-container">
                 <div class="no-customer-box">
                     <img src="/assets/images/no-customer-banner.svg" />
                     <p class="w-100 my-3 text-center">In publishing and graphic design, Lorem ipsum is a placeholder

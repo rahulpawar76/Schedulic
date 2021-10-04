@@ -945,6 +945,7 @@ i.fa.fa-plus-circle.pl-2.note-icon {
     margin-top: 65px;
     background-color: #fff;
     transition: all 0.4s;
+    height: calc(100% - 65px);
     &.short-content-area {
         margin-left: 60px;
         width: calc(100% - 60px);
@@ -1231,6 +1232,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             .text-left {
                 font-size: 14px;
             }
+            .text-right {
+                font-size: 14px;
+            }
         }
         .sc-table-content {
             .final-list {
@@ -1248,12 +1252,19 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             display: flex;
             align-items: center;
             justify-content:flex-end;
+            button{
+                width: 30px;
+                height: 30px;
+                i, mat-icon{
+                    font-size: 18px;
+                }
+            }
             .sc-table-action-btn {
                 background-color: #fed74b;
                 padding: 5px;
                 display: flex;
                 align-items: center;
-                border-radius: 4px;
+                border-radius: 3px;
                 margin-left: 12px;
                 .material-icons {
                     font-size: 20px;
@@ -1858,4 +1869,22 @@ mat-select{
 }
 :-webkit-input-placeholder {
     color: #565657;
+}
+
+.min-width-auto{
+    min-width: auto !important;
+}
+.no-data-badge{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    img{
+        width: 140px;
+    }
+    label{
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
 }

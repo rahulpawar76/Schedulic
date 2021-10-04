@@ -1,19 +1,19 @@
 
 <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="loader-full-height">
-    <img src="../../assets/sc-loader.svg" />
+    <img src="/assets/sc-loader.svg" />
 </div>
 <div id="Main">
     <div class="container-fluid pl-0 custom-padding-wrap">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pr-0 left-img-wrap">
                 <div class="left-col-image-wrap"> 
-                    <img src="../../assets/images/login-banner.svg" class="img-fluid w-100" alt="image">
+                    <img src="/assets/images/login-banner.svg" class="img-fluid w-100" alt="image">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 pl-0 custom-wrap-center">
                 <div class="right-col-wrap">
                     <div class="logo-wrap">
-                        <img src="../../assets/images/logo-black.svg" alt="logo">
+                        <img src="/assets/images/logo-black.svg" alt="logo">
                     </div>
                     <div class="heading-text-wrap">
                         <h4>Sign in with your Schedulic Account</h4>
@@ -25,7 +25,7 @@
                                 <label>Email</label>
                                 <input formControlName="email" placeholder="Enter your email address" type="email"
                                     class=" input-wrap">
-                                <span *ngIf="!loginForm.get('email').hasError('required') && !loginForm.get('email').hasError('pattern')" class="placeholder_icon valid-sign"><img alt="" src="../../assets/images/Path.png"></span>
+                                <span *ngIf="!loginForm.get('email').hasError('required') && !loginForm.get('email').hasError('pattern')" class="placeholder_icon valid-sign"><img alt="" src="/assets/images/Path.png"></span>
                                 <span class="error-wrap" *ngIf="loginForm.get('email').dirty || loginForm.get('email').touched"><small *ngIf="loginForm.get('email').hasError('required')" class="error text-left">Email is required.</small><small *ngIf="loginForm.get('email').hasError('email') || loginForm.get('email').hasError('pattern')" class="error text-left">Enter a valid email address.</small></span>
                             </div>
                             <div class="input-group-meta mb-4">

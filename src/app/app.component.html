@@ -3,27 +3,11 @@
     font-family: '{{appearenceColor.font}}', sans-serif !important;
   } */
 </style>
-<mat-drawer-container [ngClass]="{'main-container-top': isFront()}" class="main-container">
-    <mat-drawer-content [ngClass]="{'main-content-top': isFront()}" class="">
+<mat-drawer-container class="main-container">
+    <mat-drawer-content class="">
         <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
         <main fxLayout="column" fxLayoutGap="0">
-            <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="(isLogin() && !isFront()) && !isPOS()">
-                <mat-toolbar-row *ngIf="isCustomerUser()">
-                    <div class="logo">
-                        <a (click)="fnClickLogo('customer')"><img src="/assets/img/logo.png"></a>
-                    </div>
-                    <div class="logo"><a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>{{pageHeading}}</a></div>
-                    <span class="example-fill-remaining-space"></span>
-                    <span class="f13">
-                        <button  mat-stroked-button class="bellborder notification-btn bell-color ml-3" (click)="openNotificationDialog()">
-                        <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-                        <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
-                    </button>
-                    <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-                        <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
-                    </mat-button-toggle>
-                    </span>
-                </mat-toolbar-row>
+            <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isPOS()">
                 <mat-toolbar-row *ngIf="isStaffUser()">
                     <div class="logo">
                         <a (click)="fnClickLogo('staff')"><img src="/assets/img/logo.png"></a>
@@ -106,7 +90,7 @@
                             <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                        <img class="logout-btn ml-3 pointer" (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg">
+                        <img (click)="logout2(true)" src="/assets/images/icons/logout.svg" class="logout-svg ml-3 pointer">
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status && pageHeading == 'My Workspace'" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
@@ -299,75 +283,68 @@
                             <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
                             <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                         </button>
-                    <button mat-stroked-button class="bellborder bell-color" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
-                        <img src="/assets/images/icons/logout.svg" class="logout-svg">
+                    <button mat-stroked-button class="bellborder bell-color pointer" (click)="logout2(true)" matTooltip="Logout" aria-label="clcik on Logout">
+                        <img src="/assets/images/icons/logout.svg" class="logout-svg pointer">
                         </button>
                     </span>
                 </mat-toolbar-row>
             </mat-toolbar>
-            <div class="bottom_header" *ngIf="!isLogin() && !isFront()" fxFlex="100">
+            <div class="bottom_header" *ngIf="!isLogin()" fxFlex="100">
                 <router-outlet #outlet="outlet"></router-outlet>
             </div>
-            <div class="bottom_header" *ngIf="isFront()" fxFlex="100">
+            <div class="bottom_header" *ngIf="isStaffUser()" fxFlex="100">
                 <router-outlet #outlet="outlet"></router-outlet>
             </div>
-            <div class="bottom_header" *ngIf="isCustomerUser() && !isFront()" fxFlex="100">
-                <router-outlet #outlet="outlet"></router-outlet>
-            </div>
-            <div class="bottom_header" *ngIf="isStaffUser() && !isFront()" fxFlex="100">
-                <router-outlet #outlet="outlet"></router-outlet>
-            </div>
-            <div class="bottom_header" *ngIf="isAdminUser() && !isFront()" fxFlex="100">
+            <div class="bottom_header" *ngIf="isAdminUser()" fxFlex="100">
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer logo">
                                 <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/icons/menu-icons/left-menu-logo.svg"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" class="add">
+                            <mat-list-item role="listitem" class="add" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
                                 <div>
-                                    <div matTooltip="Add New" class="add common-menu" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
-                                        <img src="/assets/images/admin/add.png">
+                                    <div matTooltip="Add New" class="add common-menu" >
+                                        <img src="/assets/images/admin/add.svg">
                                     </div>
-                                    <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
-                                        <mat-card class=" p-0" style="max-width: 300px" (click)="closePopover()">
-                                            <mat-card-content class="add-content">
+                                    <mde-popover #appPopover="mdePopover" mdePopoverArrowColor="white" mdePopoverOffsetX="60" mdePopoverOffsetY="-60" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+                                        <div class="add-popover p-0" style="max-width: 300px" (click)="closePopover()">
+                                            <div class="add-content">
                                                 <p class="mb-0 add-new">Add New</p>
-                                                <div class="bottom-border"></div>
                                                 <ul class="admin-add-menu">
                                                     <mat-list-item role="listitem" (click)="addNewAppointNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Appointment.png" /> Appointment
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/booking.svg" /> Appointment
                                                         </div>
                                                     </mat-list-item>
                                                     <mat-list-item role="listitem" (click)="addNewCategoryNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Category.png" /> Category
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/category.svg" /> Category
                                                         </div>
                                                     </mat-list-item>
                                                     <mat-list-item role="listitem" (click)="addNewStaffNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Staff.png" /> Staff
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/staff.svg" /> Staff
                                                         </div>
                                                     </mat-list-item>
                                                     <mat-list-item role="listitem" (click)="addNewCustomerNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/Customer.png" /> Customer
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/customer.svg" /> Customer
                                                         </div>
                                                     </mat-list-item>
                                                     <mat-list-item role="listitem" (click)="addNewPostalCodeNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/postal-code.png" /> Postal Code
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/postalcode.svg" /> Postal Code
                                                         </div>
                                                     </mat-list-item>
                                                     <mat-list-item role="listitem" (click)="addNewDiscountCouponNav()">
                                                         <div class="common-menu">
-                                                            <img class="add-new-img pr-2" src="../../../../assets/images/admin/settings-menu/add/discount.png" /> Discount Coupon
+                                                            <img class="add-new-img pr-2" src="/assets/images/admin/settings-menu/add/coupon.svg" /> Discount Coupon
                                                         </div>
                                                     </mat-list-item>
                                                 </ul>
-                                            </mat-card-content>
-                                        </mat-card>
+                                            </div>
+                                        </div>
                                     </mde-popover>
                                 </div>
                             </mat-list-item>
@@ -405,7 +382,7 @@
                     </mat-drawer-content>
                 </mat-drawer-container>
             </div>
-            <div class="bottom_header" *ngIf="isSuperAdmin() && !isFront()" fxFlex="100">
+            <div class="bottom_header" *ngIf="isSuperAdmin()" fxFlex="100">
                 <mat-drawer-container class="main-container left-admin-menu">
                     <mat-drawer [disableClose]="true" class="main_admin_menu" mode="side" opened>
                         <div class="top_admin_menu">
@@ -439,20 +416,6 @@
         <!-- right drawer menu code -->
     </mat-drawer-content>
     <mat-drawer #drawer position="end">
-        <mat-list role="list" *ngIf="isCustomerUser()">
-            <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="UserProfile('./user-profile')" class="matlist pointer">
-                <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
-                <p class="font-weight-bold mt-2 p-1">{{currentUser.fullname}}</p>
-            </mat-list-item>
-            <mat-list-item role="listitem" (click)="UserAppointment('./user-appointment')" (click)="drawer.toggle()">
-                <button mat-menu-item class=""><i mat-list-icon   class="fa fa-calendar mr-3"></i>My Appointments</button>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-                <button mat-menu-item (click)="customerLogout();" class="" matTooltip="Logout" aria-label="clcik on Logout">
-                     <i mat-list-icon class="fa fa-sign-out mr-3"></i>Logout</button>
-            </mat-list-item>
-        </mat-list>
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer">
@@ -497,19 +460,5 @@
                 </button>
             </mat-list-item>
         </mat-list>
-        <!-- <mat-list role="list" *ngIf="isStaffUser() && isAdminUser()">
-            <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)="MyProfile('./my-profile')" class="matlist pointer menuitem">
-                <img class="customer-profile-img ml-2 mr-2 mb-2" src="/assets/img/avatar-rihan.jpg">
-                <p class="font-weight-bold mt-2 p-1">Userxyzee</p>
-            </mat-list-item>
-            <mat-list-item role="listitem" (click)="myWorkSpaceNav()" (click)="drawer.toggle()">
-                <button mat-menu-item class="menuitem"><i mat-list-icon  class="fa fa-calendar mr-3"></i>My Appointmets</button>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-                <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem">
-                    <i mat-list-icon class="fa fa-sign-out mr-3 menuitem" matTooltip="Logout" aria-label="clcik on Logout"></i>Logout</button>
-            </mat-list-item>
-        </mat-list> -->
     </mat-drawer>
 </mat-drawer-container>

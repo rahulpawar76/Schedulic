@@ -145,29 +145,27 @@
             </div>
         </div>
 
-        <div id="appointment_listing" *ngIf="isAppointmentReport">
-            <div id="Customer-Listing" class=" pl-0 pr-0 ">
-                <div class="common-heading-details">
-                    <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
+        <div class="common-data-container" id="appointment_listing" *ngIf="isAppointmentReport">
+            <div class="common-heading-details">
+                <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
 
-                    <p class="customer-report" *ngIf="dateFilter=='booking_date'">Appointment Report (Appointment Date
-                        Wise)</p>
-                    <div class="records-details">
-                        <p class="total-records">Total Records :<span
-                                class="pl-1">{{appointmentReportTotalRecords}},</span></p>
-                        <p class="total-records">Expected Revenue :
-                            <span *ngIf="currencySymbolPosition=='left'" class="pl-1">{{currencySymbol|
-                                currencySymbol:'wide'}} {{
-                                appointmentReportExpectedRevenue |
-                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
-                                }} </span>
-                            <span *ngIf="currencySymbolPosition=='right'" class="pl-1">
-                                {{ appointmentReportExpectedRevenue |
-                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
-                                currencySymbol:'wide'}}
-                            </span>
-                        </p>
-                    </div>
+                <p class="customer-report" *ngIf="dateFilter=='booking_date'">Appointment Report (Appointment Date
+                    Wise)</p>
+                <div class="records-details">
+                    <p class="total-records">Total Records :<span
+                            class="pl-1">{{appointmentReportTotalRecords}},</span></p>
+                    <p class="total-records">Expected Revenue :
+                        <span *ngIf="currencySymbolPosition=='left'" class="pl-1">{{currencySymbol|
+                            currencySymbol:'wide'}} {{
+                            appointmentReportExpectedRevenue |
+                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat
+                            }} </span>
+                        <span *ngIf="currencySymbolPosition=='right'" class="pl-1">
+                            {{ appointmentReportExpectedRevenue |
+                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                            currencySymbol:'wide'}}
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="Customer-appointment-table sc-table-view">
@@ -218,10 +216,11 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody class="sc-table-content" *ngIf="appointmentReport.length==0">
-                            <tr class="final-list ">
-                                <td colspan="5" class="mb-0 text-center">No data available.</td>
-                            </tr>
+                        <tbody *ngIf="appointmentReport.length==0" class="no-report-detail">
+                            <div class="no-data-badge">
+                                <img src="/assets/images/nodata.svg" />
+                                <label>No Data Found.</label>
+                            </div>
                         </tbody>
                     </table>
                     <table class="table sc-table" *ngIf="isAppointmentsGroupBy">
@@ -246,10 +245,16 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody class="sc-table-content" *ngIf="appointmentReport.length==0">
+                        <!-- <tbody class="sc-table-content" *ngIf="appointmentReport.length==0">
                             <tr class="final-list" scope="row">
                                 <td colspan="5" class="mb-0 text-center">No data available.</td>
                             </tr>
+                        </tbody> -->
+                        <tbody *ngIf="appointmentReport.length==0" class="no-report-detail">
+                            <div class="no-data-badge">
+                                <img src="/assets/images/nodata.svg" />
+                                <label>No Data Found.</label>
+                            </div>
                         </tbody>
                     </table>
                 </div>
@@ -282,7 +287,7 @@
             </div>
         </div>
 
-        <div id="sales_report" *ngIf="isSalesReport">
+        <div class="common-data-container" id="sales_report" *ngIf="isSalesReport">
             <div class="common-heading-details">
                 <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
 
@@ -407,10 +412,16 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody class="sc-table-content" *ngIf="salesReport.length==0">
+                        <!-- <tbody class="sc-table-content" *ngIf="salesReport.length==0">
                             <tr class="final-list" scope="row">
                                 <td colspan="5" class="mb-0 text-center">No data available.</td>
                             </tr>
+                        </tbody> -->
+                        <tbody *ngIf="salesReport.length==0" class="no-report-detail">
+                            <div class="no-data-badge">
+                                <img src="/assets/images/nodata.svg" />
+                                <label>No Data Found.</label>
+                            </div>
                         </tbody>
                     </table>
                     <table class="table sc-table" *ngIf="isSalesGroupBy">
@@ -445,10 +456,16 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="salesReport.length==0">
+                        <!-- <tbody *ngIf="salesReport.length==0">
                             <tr scope="row">
                                 <td colspan="5" class="mb-0 text-center">No data available.</td>
                             </tr>
+                        </tbody> -->
+                        <tbody *ngIf="salesReport.length==0" class="no-salereport-detail">
+                            <div class="no-data-badge">
+                                <img src="/assets/images/nodata.svg" />
+                                <label>No Data Found.</label>
+                            </div>
                         </tbody>
                     </table>
                 </div>
@@ -478,7 +495,7 @@
             </div>
         </div>
 
-        <div id="customer_report" *ngIf="isCustomerReport">
+        <div class="common-data-container" id="customer_report" *ngIf="isCustomerReport">
             <div class="common-heading-details">
                 <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
 
@@ -507,10 +524,16 @@
                                 <td class="text-center">{{customer.email}}</td>
                             </tr>
                         </tbody>
-                        <tbody class="sc-table-content" *ngIf="customerReport.length==0">
+                        <!-- <tbody class="sc-table-content" *ngIf="customerReport.length==0">
                             <tr class="final-list" scope="row">
                                 <td colspan="5" class="mb-0 text-center">No data available.</td>
                             </tr>
+                        </tbody> -->
+                        <tbody *ngIf="customerReport.length==0" class="no-report-detail">
+                            <div class="no-data-badge">
+                                <img src="/assets/images/nodata.svg" />
+                                <label>No Data Found.</label>
+                            </div>
                         </tbody>
                     </table>
                 </div>
