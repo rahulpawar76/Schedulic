@@ -13,7 +13,7 @@
                     <div class="" *ngFor="let notifications of notifications;  let i=index;">
                         <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'P'" class="single-notification pointer">
                             <div class="row mx-0">
-                                <div class="col-12">
+                                <div class="col-12 d-flex align-items-center justify-content-between">
                                     <label class="mb-0 bluefont">New Appointment</label>
                                     <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
                                     <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
@@ -30,12 +30,12 @@
                                     </p>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
                         </div>
                         <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'"
                             class="single-notification pointer">
                             <div class="row mx-0">
-                                <div class="col-12">
+                                <div class="col-12 d-flex align-items-center justify-content-between">
                                     <label class="mb-0 orangefont">Status Update</label>
                                     <label *ngIf="notifications.timeToService != '0'" class="mb-0 x-small float-right">{{notifications.timeToService}} hours ago</label>
                                     <label *ngIf="notifications.timeToService == '0'" class="mb-0 x-small float-right">Just Now</label>
@@ -57,7 +57,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
                         </div>
                         <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CC' || notifications.order_status == 'C'" class="single-notification pointer">
                             <div class="row mx-0">
@@ -79,7 +79,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
                         </div>
                         <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'CO'" class="single-notification pointer">
                             <div class="row mx-0">
@@ -101,7 +101,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
                         </div>
                         <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'RSS' || notifications.order_status == 'RSA' || notifications.order_status == 'RSC'" class="single-notification pointer">
                             <div class="row mx-0">
@@ -124,7 +124,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="mb-0">
                         </div>
                     </div>
                 </div>

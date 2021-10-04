@@ -278,7 +278,8 @@ input:focus {
 
 ::ng-deep .bluefont {
     font-size: $fs-14;
-    color: blue;
+    // color: blue;
+    color: #00a89b;
 }
 
 ::ng-deep .orangefont {
