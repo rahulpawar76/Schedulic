@@ -665,12 +665,13 @@ $calendarsize: 10px;
                 .page-link {
                     background-color: #ffffff;
                     color: #00a89b;
-                    padding: 6px 14px;
+                    padding: 6px 12px;
                     font-weight: 400;
                     transition: all 0.3s;
                     cursor: pointer;
-                    border: 1px solid #00a89b;
+                    border: 1px solid rgba(0, 168, 155, 0.23);
                     border-radius: 4px;
+                    font-size: 13px;
                     &:hover {
                         background-color: #00a89b;
                         color: #fff;
@@ -687,7 +688,7 @@ $calendarsize: 10px;
             }
             .nextprev {
                 .page-link {
-                    padding: 6px 6px;
+                    padding: 2px 6px;
                     background-color: transparent;
                     border: none;
                     i {
