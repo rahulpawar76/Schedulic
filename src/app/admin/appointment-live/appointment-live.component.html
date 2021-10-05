@@ -485,12 +485,12 @@
                                         <p class="mb-0 font-weight-bold">{{workStartedAppointments.order_from}}</p>
                                     </div>
                                     <div class="" *ngIf="workStartedAppointments.customer" fxFlex="20">
-                                        <p class="mb-0">{{workStartedAppointments.customer.fullname}}</p>
+                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.customer.fullname}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
+                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
                                         <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
                                         <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
                                     </div>

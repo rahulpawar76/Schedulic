@@ -36,7 +36,7 @@
     align-items: center;
     padding: 0 15px;
     .tab-label{
-        font-size: 20px;
+        font-size: 18px;
         color: #0E0E0E;
         margin-bottom: 0;
         font-weight: 500;
@@ -87,7 +87,7 @@
         label{
             margin-bottom: 0;
             padding: 2px 15px;
-            font-size: 18px;
+            font-size: 16px;
             color: #0E0E0E;
             font-weight: 500;
             &:first-child{
@@ -315,8 +315,8 @@ table {
                     padding: 0 20px;
                     width: unset !important;
                     .mat-tab-label-content {
-                        font-size: 20px;
-                        font-weight: 400;
+                        font-size: 16px;
+                        font-weight: 500;
                         color: #0E0E0E;
                         img{
                             width: 30px;
@@ -353,10 +353,12 @@ table {
                     padding-top: 16px;
                     display: flex;
                     letter-spacing: 0px;
-                    font-size: 18px;
-                    font-weight: 400;
+                    font-size: 16px;
+                    font-weight: 500;
+                    align-items: center;
                     svg{
                         margin-left: auto;
+                        width: 8px;
                         path{
                             fill: #0E0E0E;
                         }
@@ -388,9 +390,12 @@ table {
         }
         .category-lable {
             letter-spacing: 0px;
-            color: #2C2C2C;
-            font-size: 22px;
-            font-weight: 500;
+            // color: #2C2C2C;
+            // font-size: 22px;
+            // font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0e0e0e !important;
         }
     }
     .bottom-border {
@@ -466,13 +471,13 @@ table {
                     -webkit-box-align: center;
                     align-items: center;
                     color: #0E0E0E;
-                    font-size: 18px;
+                    font-size: 15px;
                     margin: 0;
                     float: left;
                     cursor: pointer;
                     position: relative;
                     height: 100%;
-                    font-weight: 500;
+                    font-weight: 600;
                     span{
                         width: 40px;
                         height: 40px;
@@ -522,7 +527,7 @@ table {
                 label{
                     margin-bottom: 0;
                     padding: 2px 15px;
-                    font-size: 18px;
+                    font-size: 16px;
                     color: #0E0E0E;
                     font-weight: 500;
                     &:first-child{
@@ -751,6 +756,7 @@ table {
                         height: 25px;
                         line-height: 1.8;
                         font-size: 14px;
+                        margin-left: -12px;
                     }
                 }
             }
@@ -773,6 +779,7 @@ table {
                 font-size: 14px;
                 text-align: left;
                 margin-bottom: 0;
+                font-weight: 600;
             }
             .value {
                 color: #0E0E0E;
@@ -915,7 +922,7 @@ mat-radio-group {
 
 .unselect-bill {
     background-color: #D9F0FE;
-    border: 1px solid #1172F4;
+    border: 1px solid #00a89bb8;
 }
 
 .unselect-bill label {
@@ -935,7 +942,7 @@ mat-radio-group {
 
 .select-bill span {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
 }
 .custom-bill-btn{
     .btn-secondary{
@@ -1213,11 +1220,13 @@ mat-radio-group {
         background-color: #f04589;
         color: #fff;
         border-color: #f04589;
+        padding: 5px 30px;
     }
     .btn-secondary{
         background-color: #00a89b;
         color: #fff;
         border-color: #00a89b;
+        padding: 5px 30px;
     }
 }
 
