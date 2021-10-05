@@ -818,6 +818,7 @@ table {
             }
         }
     }
+    
     .action-list {
         margin: 8px 0;
         display: flex;
@@ -849,7 +850,10 @@ table {
         }
     }
 }
-
+.custom-font-weight{
+    font-weight: 600;
+    font-size: 14px;
+}
 mat-radio-group {
     mat-radio-button {
         margin: 0 10px;
@@ -1249,6 +1253,10 @@ mat-radio-group {
     .order-items {
         height: calc(100vh - 423px);
         overflow-y: auto;
+        
+    }
+    .border-color-wrap{
+        border-color: #d9f0fe;
     }
 }
 
