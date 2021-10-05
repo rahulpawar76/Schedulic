@@ -1,20 +1,8 @@
 #Discount-Coupon {
-    
-    // .icon-img {
-    //     opacity: 40%;
-    // }
-    // .bottom-border {
-    //     border-bottom: 1px solid #dedede;
-    // }
     li {
         list-style: none;
-        //padding: 0px 25px;
         font-size: 14px;
         // i {
-        //     display: flex;
-        //     align-items: center;
-        //     margin-left: auto;
-        // }
         p {
             padding-top: 16px;
             display: flex;
@@ -42,10 +30,10 @@
      ::ng-deep .mat-expansion-panel-body {
         margin-left: 25px;
         padding-bottom: 0px;
-        color: blue;
+        color: #0e0e0e;
     }
      ::ng-deep .mat-checkbox {
-        color: blue;
+        color: #0e0e0e;
     }
      ::ng-deep .mat-checkbox-layout {
         margin-bottom: 0px;

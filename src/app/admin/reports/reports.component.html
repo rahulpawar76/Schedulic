@@ -216,12 +216,12 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="appointmentReport.length==0" class="no-report-detail">
+                        <div *ngIf="appointmentReport.length==0" class="no-report-detail">
                             <div class="no-data-badge">
                                 <img src="/assets/images/nodata.svg" />
                                 <label>No Data Found.</label>
                             </div>
-                        </tbody>
+                        </div>
                     </table>
                     <table class="table sc-table" *ngIf="isAppointmentsGroupBy">
                         <thead class="sc-table-head main-heading-content">
