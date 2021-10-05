@@ -287,7 +287,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-top: 1px solid #00a89b;
+        border-top: 1px solid rgba(0, 168, 155, 0.5);
         padding: 30px 0px;
 
         h5 {
@@ -311,12 +311,11 @@
             &:last-child {
                 margin-right: 0px;
             }
-            
         }
     }
 }
 .common-alert-card-two {
-    border-top: 1px solid #00a89b;
+    border-top: 1px solid rgba(0, 168, 155, 0.5);
     padding: 30px 0px;
     .main-lead-wrap {
         display: flex;
@@ -339,7 +338,6 @@
 }
 .mail-form-main {
     padding: 0px;
-   
 }
 .matcard-space {
     .common-customize-alert {
@@ -354,7 +352,7 @@
             font-weight: 400;
             margin-bottom: 0px;
         }
-       
+
         .bottom-char-main {
             display: block;
             text-align: end;
@@ -384,19 +382,17 @@
             }
         }
     }
-   .textlocal-img{
-    width: 70px;
-   }
-   .common-gateway-form{
-    .form-group{
-        margin-bottom: 22px;
-
-      
+    .textlocal-img {
+        width: 70px;
     }
-   }
+    .common-gateway-form {
+        .form-group {
+            margin-bottom: 22px;
+        }
+    }
 }
-.mobile-form-control{
-    .form-control{
+.mobile-form-control {
+    .form-control {
         background-color: transparent;
     }
 }
