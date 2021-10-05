@@ -199,7 +199,7 @@
         <div class="modal-body app-custom-body-wrap" *ngIf="secondStep">
             <form class="py-4" [formGroup]="formAddNewAppointmentStaffStep2">
                 <div class="row mx-0">
-                    <div class="col-6 mb-3 common-input">
+                    <div class="col-6 pr-2 mb-2 common-input">
                         <div class="form-group">
                             <label class="mb-1">Category</label>
                             <mat-select placeholder="Select Category" [(value)]="selectedCatId"
@@ -219,7 +219,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6 mb-3 common-input" *ngIf="showSubCatDropDown">
+                    <div class="col-6 mb-2 pl-2 common-input" *ngIf="showSubCatDropDown">
                         <div class="form-group">
                             <label class="mb-1">Sub Category</label>
                             <mat-select placeholder="Select Sub Category"
@@ -239,7 +239,7 @@
                         </div>
                     </div>
 
-                    <div [ngClass]="showSubCatDropDown?'col-12 mb-3 common-input':'col-6 mb-3 common-input'">
+                    <div [ngClass]="showSubCatDropDown?'col-12 mb-2 common-input':'col-6 mb-3 common-input'">
                         <div class="form-group">
                             <label class="mb-1">Service</label>
                             <mat-select placeholder="Select Service"
@@ -261,7 +261,7 @@
                 </div>
                 <div class="row mx-0">
                     <div class="col-6 pr-0">
-                        <div class="input-group common-input mb-3">
+                        <div class="input-group common-input mb-2">
                             <label class="">Select Date</label>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
@@ -283,7 +283,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="input-group common-input mb-3">
+                        <div class="input-group common-input mb-2">
                             <label class="">Select Time</label>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">

@@ -190,7 +190,7 @@
                               </span>
                         </div>
                        
-                        <div class="common-input col-lg-2 col-12 col-sm-12 col-md-3 ">
+                        <div class="common-input col-lg-2 col-12 col-sm-12 col-md-3 pr-2 ">
                             <label>Discount</label>
                             <div class="form-group">
                                 <mat-select placeholder="Select Type" (selectionChange)="fnChangeDiscountType($event)" class="form-control" formControlName="discount_type">
@@ -202,7 +202,7 @@
                                 <small *ngIf="discountCoupon.get('discount_type').hasError('required')" class="error"> Discount type is required.</small>           
                                 </span>
                         </div>
-                        <div class="common-input mt-2 col-lg-4 col-12 col-sm-12 col-md-3">
+                        <div class="common-input mt-2 col-lg-4 col-12 col-sm-12 col-md-3 pl-2">
                            <div class="form-group mt-24">
                             <input (keyup)="discount_check()" class="form-control" formControlName="discount_value" placeholder="Enter Discount">
                            </div>

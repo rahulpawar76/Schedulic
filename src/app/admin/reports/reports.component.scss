@@ -42,6 +42,7 @@
 
 .main-cust-table-content {
     padding: 0;
+    height: 100%;
 }
 
 .main-custmer-content {
@@ -335,8 +336,9 @@
 }
 
 .no-report-detail{
-    width: 100%;
+    // width: 100%;
     height: 100%;
+    width: calc(100% - -668px);
     display: flex;
     justify-content: center;
     align-items: center;
