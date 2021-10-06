@@ -396,34 +396,19 @@
                                     *ngFor="let pendingAppointments of pendingAppointments; let i=index"
                                     class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
-                                        <p class="mb-0 font-weight-bold">Order Id: {{pendingAppointments.id}}</p>
-                                        <p class="mb-0">Unit :
-                                            {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}
-                                        </p>
-                                        <p class="mb-0">
-                                            {{pendingAppointments.service?pendingAppointments.service.service_name:''}}
-                                        </p>
+                                        <p class="mb-0 custom-font-weight">Order Id: {{pendingAppointments.id}}</p>
+                                        <p class="mb-0">Unit : {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}</p>
+                                        <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
                                     </div>
                                     <div class=" " fxFlex="25">
-                                        <p class="mb-0 font-weight-bold">
-                                            {{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}
-                                        </p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
-                                            No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}
-                                        </p>
-                                        <p class="mb-0"><i
-                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}
-                                        </p>
+                                        <p class="mb-0 custom-font-weight">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
                                     </div>
                                     <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0 font-weight-bold">
-                                            {{pendingAppointments.staff?pendingAppointments.staff.firstname+'
-                                            '+pendingAppointments.staff.lastname :''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
-                                            No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
-                                        <p class="mb-0"><i
-                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}
-                                        </p>
+                                        <p class="mb-0 custom-font-weight">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
                                     </div>
                                     <div *ngIf="pendingAppointments.order_status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
@@ -435,19 +420,14 @@
                                     <!-- <div class="" fxFlex="10">
                                           {{pendingAppointments.total_cost}}
                                         </div> -->
-                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
-                                        {{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost |
-                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{
-                                        pendingAppointments.total_cost |
-                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
-                                        currencySymbol:'wide'}}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10">
+                                    <div class="custom-font-weight" fxFlex="10">
                                         {{pendingAppointments.booking_date}}
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10">
+                                    <div class="custom-font-weight" fxFlex="10">
                                         {{pendingAppointments.booking_time}}
                                     </div>
                                 </div>
@@ -604,46 +584,29 @@
                                         <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.order_from}}</p>
+                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.order_from}}</p>
                                     </div>
                                     <div class="" *ngIf="workStartedAppointments.customer" fxFlex="20">
-                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.customer.fullname}}
-                                        </p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
-                                            No:{{workStartedAppointments.customer.phone}}</p>
-                                        <p class="mb-0"><i
-                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}
-                                        </p>
+                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.customer.fullname}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0 font-weight-bold">
-                                            {{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}}
-                                            {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}
-                                        </p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
-                                            No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}
-                                        </p>
-                                        <p class="mb-0"><i
-                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}
-                                        </p>
+                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="20">
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='left'">
-                                            {{currencySymbol| currencySymbol:'wide'}} {{
-                                            workStartedAppointments.total_cost |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='right'">{{
-                                            workStartedAppointments.total_cost |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                            {{currencySymbol| currencySymbol:'wide'}}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10">
+                                    <div class="custom-font-weight" fxFlex="10">
                                         {{workStartedAppointments.booking_date}}
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10">
+                                    <div class="custom-font-weight" fxFlex="10">
                                         {{workStartedAppointments.booking_time}}
                                     </div>
                                 </div>
@@ -704,7 +667,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-8 col-lg-8 col-xl-9 left-order-listing">
+                    <div class="col-8 col-lg-8 px-4 py-3 col-xl-9 left-order-listing">
                         <div class="row">
                             <!-- {{ pendingBillingData | json}} -->
                             <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
@@ -781,11 +744,11 @@
                         </div>
                     </div>
 
-                    <div class="col-4 col-lg-4 col-xl-3 px-0 shadow billing-cart">
+                    <div class="col-4 col-lg-4 col-xl-3 px-0  billing-cart">
                         <div class="px-3 pt-3 pb-0 ord-bill-head">
                             Billing Order
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-2 border-color-wrap">
                         <div class="px-3">
                             <div class="customer-details">Customer Details
                                 <div class="row ">
@@ -838,8 +801,9 @@
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                                 {{currencySymbol| currencySymbol:'wide'}}</span>
                                         </div>
+                                        
                                     </div>
-                                    <hr class="my-2">
+                                    <hr class="my-2 border-color-wrap">
                                 </div>
                             </div>
 
@@ -847,21 +811,16 @@
                             <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-8">
-                                        <span *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol|
-                                            currencySymbol:'wide'}} {{ pendingBillingOrdeTotal |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                        <span *ngIf="currencySymbolPosition=='right'"> Subtotal : {{
-                                            pendingBillingOrdeTotal |
-                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                            {{currencySymbol| currencySymbol:'wide'}}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='right'"> Subtotal : {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-4 ">
-                                        <span>Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
+                                        <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
                                     </div>
                                 </div>
                             </div>
+                            <hr class="my-0 mt-2 border-color-wrap">
                         </div>
-                        <hr class="my-0">
                         <div class="px-3 py-2 mt-3 total-bill">
                             <div class="row ">
                                 <div class="col-8">

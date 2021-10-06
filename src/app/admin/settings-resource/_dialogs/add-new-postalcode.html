@@ -20,7 +20,7 @@
                 <small *ngIf="formCreatePostalCode.get('postalCode').hasError('minlength') || formCreatePostalCode.get('postalCode').hasError('maxlength')" class="error">Postal code length must be between 3 to 7 characters.</small>
              </span> -->
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 pr-2">
                         <div class="form-group">
                             <label> Postal Code</label>
                             <input formControlName="postalCode" class="form-control" placeholder="">
@@ -34,7 +34,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 pl-2">
                         <div class="form-group">
                         <label> Staff</label>
                         <mat-select class="form-control" formControlName="postalCodeStaff" multiple>
