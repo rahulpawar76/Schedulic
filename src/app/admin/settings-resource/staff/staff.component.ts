@@ -1232,24 +1232,18 @@ export class StaffComponent implements OnInit {
     this.adminSettingsService.fnViewSingleStaff(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.singleStaffDetail = response.response
-        console.log(this.singleStaffDetail);
         if(this.singleStaffDetail.postalCode.length == 0){
           this.singleStaffDetail.postalCode = undefined;
         }
         this.selectedServiceNewStaff=[];
         this.singleStaffDetail.staff[0].services.forEach(element => {
-          // this.selectedServicesArr.push(element.id);
           this.selectedServiceNewStaff.push(element.id);
         });
-        console.log("selectedServiceNewStaff");
-        console.log(this.selectedServiceNewStaff);
         this.singleStaffDetail.staff[0].postal_codes.forEach(element => {
           this.selectedPostalCodeArr.push(element.id);
         });
-        console.log( this.selectedPostalCodeArr);
         if(this.singleStaffDetail.workingHours.length>0){
           this.workingHoursList=this.singleStaffDetail.workingHours;
-          console.log(this.workingHoursList);
           this.workingHoursList.forEach(element => {
             if(element.week_day_id == 0){
               element.week_day_name="Sunday";
@@ -1340,7 +1334,6 @@ export class StaffComponent implements OnInit {
         }
         if(this.singleStaffDetail.breaktime.length>0){
           this.breakTimeList= this.singleStaffDetail.breaktime;
-          console.log(this.breakTimeList);
           this.breakTimeList.forEach(element => {
             if(element.break_start_time){
              element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_start_time),"HH:mm");
@@ -1355,7 +1348,6 @@ export class StaffComponent implements OnInit {
 
         if(this.singleStaffDetail.timeoff.length>0){
         this.timeOffList= this.singleStaffDetail.timeoff;
-        console.log(this.timeOffList);
         this.timeOffList.forEach(element => {
           if(element.start_date){
             element.start_date=this.datePipe.transform(new Date(element.start_date),"MMM dd, yyyy");
@@ -1369,8 +1361,10 @@ export class StaffComponent implements OnInit {
       }
 
         this.staffListPage = false;
+        this.addStaffPage = false;
         this.singleStaffView = true;
         this.isLoaderAdmin = false;
+        
       }
       else if (response.data == false) {
         this.isLoaderAdmin = false;
@@ -1565,6 +1559,9 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this.allStates = response.response
         this.StaffCreate.controls['state'].setValue('');
+        if(this.editStaffId){
+          this.StaffCreate.controls['state'].setValue(this.singleStaffDetail.staff[0].state_details.id);
+        }
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allStates = ''
@@ -1584,6 +1581,9 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this.StaffCreate.controls['city'].setValue('');
         this.allCities = response.response;
+        if(this.editStaffId){
+          this.StaffCreate.controls['city'].setValue(this.singleStaffDetail.staff[0].city_details.id);
+        }
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.allCities = [];
@@ -2050,15 +2050,6 @@ export class StaffComponent implements OnInit {
     this.singleStaffView = false;
     this.selectedServiceNewStaff=[];
     this.files =[];
-    // this.validationArr=this.isEmailUnique.bind(this);
-    // this.StaffCreate.get('email').clearValidators();
-    // this.StaffCreate.controls['email'].setValidators([this.singleStaffDetail.staff[0].email,[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]); 
-    // this.StaffCreate.controls['email'].setValidators([Validators.required,Validators.email,Validators.pattern(this.emailFormat),this.isEmailUnique.bind(this)]);
-
-
-    //this.StaffCreate.controls['email'].setValidators([[Validators.required,Validators.pattern(this.emailFormat)],this.isEmailUnique.bind(this)]);
-    // this.StaffCreate.controls['email'].updateValueAndValidity();
-console.log(this.singleStaffDetail.staff[0])
     this.StaffCreate = this._formBuilder.group({
       firstname : [this.singleStaffDetail.staff[0].firstname,[ Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
       lastname : [this.singleStaffDetail.staff[0].lastname, [Validators.required,Validators.minLength(3),Validators.maxLength(11)]],
@@ -2067,15 +2058,13 @@ console.log(this.singleStaffDetail.staff[0])
       phone : [this.singleStaffDetail.staff[0].phone, [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
       description : [this.singleStaffDetail.staff[0].description,Validators.maxLength(255)],
       country : [this.singleStaffDetail.staff[0].country_details.id,Validators.required],
-      state : [this.singleStaffDetail.staff[0].state_details.id,Validators.required],
-      city : [this.singleStaffDetail.staff[0].city_details.id,Validators.required],
+      state : ['', Validators.required],
+      city : ['', Validators.required],
       zip : [this.singleStaffDetail.staff[0].zip,Validators.required],
       staff_id : [staffId],
     });
-    
 
     this.singleStaffDetail.staff[0].services.forEach(element => {
-      // this.selectedServicesArr.push(element.id);
       this.selectedServiceNewStaff.push(element.id);
     });
     console.log(this.StaffCreate);
@@ -2108,11 +2097,6 @@ console.log(this.singleStaffDetail.staff[0])
    
  }
 
-
-
-
-
-
   addTimeOff() {
     const dialogRef = this.dialog.open(DialogAddNewTimeOff, {
       width: '500px',
@@ -2132,15 +2116,34 @@ console.log(this.singleStaffDetail.staff[0])
   staffImage() {
     const dialogRef = this.dialog.open(DialogStaffImageUpload, {
       width: '500px',
-
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
         this.staffImageUrl = result;
-        this.singleStaffDetail.staff[0].image=result;
+        // this.singleStaffDetail.staff[0].image=result;
       }
     });
+  }
+
+  staffRemoveImage() {
+    let requestObject = {
+      'user_type': 'SM',
+      'user_id': this.singleStaffDetail.staff[0].id
+    }
+    this.isLoaderAdmin =true;
+    this.adminSettingsService.removeImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnViewSingleStaff(this.singleStaffDetail.staff[0].id, this.singleStaffIndex);
+      }else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin =false;
+    })
   }
 
   fnGetTimeSlotsList(start, end,interval){

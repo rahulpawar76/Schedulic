@@ -51,7 +51,7 @@
                         <mat-checkbox (change)="fnAddCustomerId($event.checked, allCustomers.id)"
                             [checked]="selectedCustomerId.indexOf(allCustomers.id) > -1" class="customer-checkbox">
                         </mat-checkbox>
-                        <div (click)="fnSelectCustomer(allCustomers.id,'not-new')" class="customer-name-width pointer">
+                        <div (click)="fnSelectCustomer(allCustomers.id,'not-new')" class="customer-name-width customer-image pointer">
                             <div [ngStyle]="{'background-image': 'url(' + allCustomers.image + ')'}"
                                 class="customer-name text-uppercase">
                                 <!-- <img src="{{allCustomers.image}}"> -->
@@ -345,7 +345,7 @@
                     <div class="mb-0">
                         <div class="d-flex top-profile-details">
                             <div class=" static-image-display">
-                                <div class="w-100 h-100"
+                                <div class="w-100 h-100 customer-image"
                                     *ngIf="customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'"
                                     [ngStyle]="{'background-image': 'url(' + customerPersonalDetails.image + ')'}">
                                     <!-- <img class="w-100 h-100" src="{{customerPersonalDetails.image}}"> -->

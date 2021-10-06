@@ -78,7 +78,7 @@
                                 </ul>
                             </div>
                             <div class="service-list-main col-6 py-3">
-                                <div class="row mx-0">
+                                <div class="row mx-0" *ngIf="ServiceList.length > 0">
                                     <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index">
                                         <input class="d-none" type="radio" name="service" id="service-{{i}}">
                                         <label for="service-{{i}}" [ngClass]="{'selected': val.id == service_id}"
@@ -90,10 +90,16 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="no-service-data d-flex h-100 justify-content-center align-items-center" *ngIf="ServiceList.length == 0">
+                                    <div class="no-data-badge">
+                                        <img src="/assets/images/nodata.svg" />
+                                        <label>No Data Found.</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12 col-md-3 col-lg-3 px-0 h-100">
                                 <div class="select-staff-container">
-                                    <div class="head">
+                                    <div class="head" *ngIf="StaffList.length > 0">
                                         <h3>Staff</h3>
                                         <mat-select placeholder="Filter" class="form-control form-control-transparent"
                                             (selectionChange)="fnFilterStaff($event.value)">
@@ -115,8 +121,15 @@
                                                 (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
-                                    <div class="single-staff" *ngIf="StaffList.length==0">
+
+                                    <!-- <div class="single-staff" *ngIf="StaffList.length==0">
                                         <p class="mb-0 text-center w-100">Staff not available</p>
+                                    </div> -->
+                                    <div class="no-service-data d-flex h-100 justify-content-center align-items-center" *ngIf="StaffList.length == 0">
+                                        <div class="no-data-badge">
+                                            <img src="/assets/images/nodata.svg" />
+                                            <label>No Data Found.</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +196,7 @@
                                                             class="form-control" placeholder="Enter name">
                                                     </div>
                                                     <span class="error-wrap"
-                                                        *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
+                                                        *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched">
                                                         <small *ngIf="newCustomer.get('cus_name').hasError('required')"
                                                             class="error">Fullname is required.</small>
                                                     </span>
@@ -280,7 +293,7 @@
                     </div>
                 </div>
                 <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
-                    <div class="row mx-0 my-2">
+                    <div class="row mx-0 my-2" *ngIf="Watinglist.length > 0">
                         <div *ngFor="let val of Watinglist; let i=index"
                             class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
                             <mat-card class="card">
@@ -350,6 +363,12 @@
                             </mat-card>
                         </div>
                     </div>
+                    <div class="no-waiting-data" *ngIf="Watinglist.length == 0">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -389,50 +408,53 @@
                                 <div class="" fxFlex="10">Date</div>
                                 <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class="content" class="appointment-live-list">
+                            <div class="content" class="appointment-live-list" *ngIf="pendingAppointments.length > 0">
                                 <div (click)="fnOpenDetails(i)"
-                                    *ngFor="let pendingAppointments of pendingAppointments; let i=index"
+                                    *ngFor="let element of pendingAppointments; let i=index"
                                     class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
-                                        <p class="mb-0 custom-font-weight">Order Id: {{pendingAppointments.id}}</p>
-                                        <p class="mb-0">Unit : {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}</p>
-                                        <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
+                                        <p class="mb-0 custom-font-weight">Order Id: {{element.id}}</p>
+                                        <p class="mb-0">Unit : {{element.service?element.service.service_unit:''}}</p>
+                                        <p class="mb-0">{{element.service?element.service.service_name:''}}</p>
                                     </div>
                                     <div class=" " fxFlex="25">
-                                        <p class="mb-0 custom-font-weight">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
+                                        <p class="mb-0 custom-font-weight">{{element.customer?element.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.customer?element.customer.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer?element.customer.email:''}}</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0 custom-font-weight">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
+                                    <div *ngIf="element.staff != null" class="" fxFlex="25">
+                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname+' '+element.staff.lastname :''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.staff?element.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff?element.staff.email:''}}</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.order_status == 'P'" class="" fxFlex="25">
+                                    <div *ngIf="element.order_status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.order_status == 'CNF' && pendingAppointments.staff == null"
+                                    <div *ngIf="element.order_status == 'CNF' && element.staff == null"
                                         class="" fxFlex="25">
                                         <p class="mb-0">--</p>
                                     </div>
-                                    <!-- <div class="" fxFlex="10">
-                                          {{pendingAppointments.total_cost}}
-                                        </div> -->
-                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
-                                        {{pendingAppointments.booking_date}}
+                                        {{element.booking_date}}
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
-                                        {{pendingAppointments.booking_time}}
+                                        {{element.booking_time}}
                                     </div>
+                                </div>
+                            </div>
+                            <div class="no-live-data appointment-live-list" *ngIf="pendingAppointments.length == 0">
+                                <div class="no-data-badge">
+                                    <img src="/assets/images/nodata.svg" />
+                                    <label>No Data Found.</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="table_pagination" *ngIf="pendingAppointments != ''">
+                        <div class="table_pagination" *ngIf="pendingAppointments.length > 0">
                             <div class="col-3 pull-left">Showing record of {{fromRecord_pending}}-{{toRecord_pending}} (
                                 Total {{totalRecord_pending}} )</div>
                             <nav aria-label="Page navigation example">
@@ -467,8 +489,7 @@
                 <img src="/assets/images/icons/outdoor-live.svg" /> Out Door
             </ng-template>
             <div class="common-header">
-                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out
-                    Door</label>
+                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out Door</label>
                 <div class="today-time-function">
                     <label class="live-time">{{liveTime}}</label>
                     <label class="live-date">{{liveDate}}</label>
@@ -485,10 +506,6 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="search-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by Order ID" (keyup)="fnOutdoorOrders($event.target.value,'order_id')">
-                    </div> -->
                     <div class="order-listing" *ngIf="outdoorOrdersArr.length > 0">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
                             <label class="order-id">Order ID : {{val.order_id}}</label>
@@ -522,9 +539,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="order-listing" *ngIf="outdoorOrdersArr.length == 0">
-                        <p class="my-3 text-center">No Record Found.</p>
+                    <div class="no-out-door-data w-100" *ngIf="outdoorOrdersArr.length == 0">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
                     </div>
                 </div>
 
@@ -533,7 +552,12 @@
                     </agm-direction>
                 </agm-map>
                 <!-- <p *ngIf="!ShowMap && outdoorOrdersArr.length > 0" class="col-6 text-right mt-4"><strong>No At Home Bookings</strong></p> -->
-                <p *ngIf="outdoorOrdersArr.length == 0" class="col-6 text-right mt-4">No Record Found.</p>
+                <div class="no-out-door-map-data" *ngIf="outdoorOrdersArr.length == 0">
+                    <div class="no-data-badge">
+                        <img src="/assets/images/nodata.svg" />
+                        <label>No Data Found.</label>
+                    </div>
+                </div>
             </div>
 
         </mat-tab>
@@ -573,44 +597,50 @@
                                 <div class="" fxFlex="10">Date</div>
                                 <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class="content" class="appointment-live-list">
+                            <div class="content" class="appointment-live-list" *ngIf="workStartedAppointments.length > 0">
                                 <div (click)="fnOpenWorkStartedDetails(i)"
-                                    *ngFor="let workStartedAppointments of workStartedAppointments; let i=index"
+                                    *ngFor="let element of workStartedAppointments; let i=index"
                                     class="appointment-live-list-details">
-                                    <div class="" *ngIf="workStartedAppointments.service" fxFlex="20">
-                                        <p class="mb-0">Order Id: {{workStartedAppointments.id}}</p>
-                                        <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
+                                    <div class="" *ngIf="element.service" fxFlex="20">
+                                        <p class="mb-0">Order Id: {{element.id}}</p>
+                                        <p class="mb-0">{{element.service.service_name}}</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.order_from}}</p>
+                                        <p class="mb-0 custom-font-weight">{{element.order_from}}</p>
                                     </div>
-                                    <div class="" *ngIf="workStartedAppointments.customer" fxFlex="20">
-                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.customer.fullname}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                                    <div class="" *ngIf="element.customer" fxFlex="20">
+                                        <p class="mb-0 custom-font-weight">{{element.customer.fullname}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.customer.phone}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer.email}}</p>
                                     </div>
-                                    <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0 custom-font-weight">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
+                                    <div *ngIf="element.staff != null" class="" fxFlex="20">
+                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname:'-'}} {{element.staff?element.staff.lastname:'-'}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.staff.phone?element.staff.phone:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff.email?element.staff.email:''}}</p>
                                     </div>
-                                    <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="20">
+                                    <div *ngIf="element.staff == null" class="" fxFlex="20">
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='right'">{{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
-                                        {{workStartedAppointments.booking_date}}
+                                        {{element.booking_date}}
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
-                                        {{workStartedAppointments.booking_time}}
+                                        {{element.booking_time}}
                                     </div>
                                 </div>
                             </div>
+                            <div class="no-live-data appointment-live-list" *ngIf="workStartedAppointments.length == 0">
+                                <div class="no-data-badge">
+                                    <img src="/assets/images/nodata.svg" />
+                                    <label>No Data Found.</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="table_pagination" *ngIf="workStartedAppointments != ''">
+                        <div class="table_pagination" *ngIf="workStartedAppointments.length > 0">
                             <div class="col-3 pull-left">Showing record of
                                 {{fromRecord_workstart}}-{{toRecord_workstart}} ( Total {{totalRecord_workstart}} )
                             </div>
@@ -663,7 +693,7 @@
                     <label class="live-date">{{liveDate}}</label>
                 </div>
             </div>
-            <div class="container-fluid">
+            <div class="container-fluid" *ngIf="pendingBillingData.length > 0">
                 <div class="row">
                     <div class="col-8 col-lg-8 px-4 py-3 col-xl-9 left-order-listing">
                         <div class="row">
@@ -841,6 +871,12 @@
                                 (click)="fnPaymentBillingMode('email')">E-Bill</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="no-billing-data" *ngIf="pendingBillingData.length == 0">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
                 </div>
             </div>
         </mat-tab>

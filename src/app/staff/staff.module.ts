@@ -14,24 +14,24 @@ import { StaffRoutingModule } from './staff-routing.module';
 
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { WorkProfileComponent } from './work-profile/work-profile.component';
-import { StaffAppointmentComponent } from './staff-appointment/staff-appointment.component';
+import { MyBookingComponent } from './my-booking/my-booking.component';
 
-import { DialogONTheWay } from './staff-appointment/staff-appointment.component';
-import { DialogWorkStarted } from './staff-appointment/staff-appointment.component';
-import { DialogInterrupted } from './staff-appointment/staff-appointment.component';
-import { InterruptedReschedule } from './staff-appointment/staff-appointment.component';
-import { DialogAddNewAppointment } from './staff-appointment/staff-appointment.component';
+import { DialogONTheWay } from './my-booking/my-booking.component';
+import { DialogWorkStarted } from './my-booking/my-booking.component';
+import { DialogInterrupted } from './my-booking/my-booking.component';
+import { InterruptedReschedule } from './my-booking/my-booking.component';
+import { DialogAddNewAppointment } from './my-booking/my-booking.component';
 // import { DialogNewAppointment } from './staff-appointment/staff-appointment.component';
-import { DialogStaffMyAppointmentDetails } from './staff-appointment/staff-appointment.component';
+import { DialogStaffMyAppointmentDetails } from './my-booking/my-booking.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
-import { OnGoingAppointmentDetails } from './staff-appointment/staff-appointment.component';
-import { CompleteAppointmentDetails } from './staff-appointment/staff-appointment.component';
+import { OnGoingAppointmentDetails } from './my-booking/my-booking.component';
+import { CompleteAppointmentDetails } from './my-booking/my-booking.component';
 
-import { DialogCashPaymentMode } from './staff-appointment/staff-appointment.component';
-import { DialogOnlinePaymentMode } from './staff-appointment/staff-appointment.component';
-import { DialogCashPaymentDetails } from './staff-appointment/staff-appointment.component';
-import { DialogOnlinePaymentDetails } from './staff-appointment/staff-appointment.component';
-import { DialogGettingLate } from './staff-appointment/staff-appointment.component';
+import { DialogCashPaymentMode } from './my-booking/my-booking.component';
+import { DialogOnlinePaymentMode } from './my-booking/my-booking.component';
+import { DialogCashPaymentDetails } from './my-booking/my-booking.component';
+import { DialogOnlinePaymentDetails } from './my-booking/my-booking.component';
+import { DialogGettingLate } from './my-booking/my-booking.component';
 import { DialogTodayAppointmentDetail } from './my-work-space/my-work-space.component';
 
 import { DialogStaffImageUpload } from './my-profile/my-profile.component';
@@ -42,7 +42,7 @@ import { SharedModule } from '../shared.module';
   declarations: [
     MyProfileComponent,
     WorkProfileComponent,
-    StaffAppointmentComponent,
+    MyBookingComponent,
     DialogONTheWay, 
     DialogWorkStarted,
     DialogInterrupted,
