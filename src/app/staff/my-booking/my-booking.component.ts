@@ -1,17 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { StaffService } from '../_services/staff.service'
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe} from '@angular/common';
 import { environment } from '@environments/environment';
-import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
-import { Observable, throwError } from 'rxjs';
-import {  DialogReAuthentication  } from '@app/app.component';
+import { throwError } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 
 export interface status {
@@ -28,12 +26,12 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-staff-appointment',
-  templateUrl: './staff-appointment.component.html',
-  styleUrls: ['./staff-appointment.component.scss'],
+  selector: 'my-booking',
+  templateUrl: './my-booking.component.html',
+  styleUrls: ['./my-booking.component.scss'],
   providers: [DatePipe]
 })
-export class StaffAppointmentComponent implements OnInit {
+export class MyBookingComponent implements OnInit {
   animal: any;
 	bussinessId: any;
   status: any;

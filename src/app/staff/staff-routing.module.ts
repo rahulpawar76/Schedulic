@@ -6,7 +6,7 @@ import { AuthGuard } from '@app/_helpers';
 
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { WorkProfileComponent } from './work-profile/work-profile.component';
-import { StaffAppointmentComponent } from './staff-appointment/staff-appointment.component';
+import { MyBookingComponent } from './my-booking/my-booking.component';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 
 const routes: Routes = [
@@ -38,10 +38,10 @@ const routes: Routes = [
   },
 
   { 
-    path: 'my-appointment', 
+    path: 'my-bookings', 
     canActivate: [AuthGuard],
     data: {roles: Role.Staff},
-    component: StaffAppointmentComponent,
+    component: MyBookingComponent,
   },
   // { 
   //   path: 'improvement-focus-area/overview', 

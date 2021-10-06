@@ -7,15 +7,6 @@
     padding-top: .9rem;
 }
 
-.logo-link {
-    color: #232324;
-    font-size: 1rem;
-}
-
-.logo img {
-    width: 28px;
-    object-fit: contain;
-}
 
 .menu-comman {
     margin-bottom: 0px;
@@ -106,11 +97,9 @@ mat-drawer-content {
 
 .toggleborder {
     border: 0;
-}
-
-.toggle-color {
-    color: #4d72a4;
-    font-size: $fs-20;
+    img{
+        width: 26px;
+    }
 }
 
 .toolbar {
@@ -738,6 +727,18 @@ input:focus {
         display: flex !important;
         align-items: center;
         padding: 0 !important;
+        .logo-image{
+            img{
+                height: 30px;
+                margin-right: 20px;
+            }
+        }
+        .logo-link{
+            color: #565657;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+        }
     }
 }
 

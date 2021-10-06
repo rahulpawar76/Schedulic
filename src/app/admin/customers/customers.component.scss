@@ -1007,6 +1007,11 @@ mat-chip-list {
 #Customer-Listing{
     .top-profile-details{
         padding: 25px 20px;
+        .customer-image{
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
     }
 }
 .customer-add-note-btn{

@@ -104,7 +104,6 @@ table {
 }
 
 .table-background {
-    background-color: #fafafa;
     margin-bottom: 0;
     padding: 0px;
 }
@@ -114,7 +113,7 @@ table {
     border-radius: 0px;
     display: block;
     overflow: hidden;
-    height: calc(100vh - 280px);
+    height: calc(100vh - 185px);
     overflow-y: auto;
     .service-name {
         font-weight: 600;
@@ -1028,7 +1027,7 @@ mat-radio-group {
         width: 360px;
         background-color: #fff;
         box-shadow: 0 1px 10px #00000050;
-        height: calc(100vh - 140px);
+        height: calc(100vh - 123px);
         display: flex;
         z-index: 1;
         flex-wrap: wrap;
@@ -1276,4 +1275,35 @@ mat-radio-group {
 agm-map {
     height: calc(100vh - 140px);
     width: 100%;
+}
+
+.no-live-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-out-door-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-out-door-map-data{
+    width: calc(100% - 360px);
+    height: calc(100vh - 125px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-billing-data{
+    height: calc(100vh - 123px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no-waiting-data{
+    height: calc(100vh - 123px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -5,7 +5,7 @@
             <div class="col-lg-6 col-6 col-md-4  main-account-my-profile">
                 <div class="user-image-upload">
                     <div class="d-flex profile-img-wrap">
-                        <img class="mx-auto service-profile-image default-img" *ngIf="profileDetails && (!profileDetails.image || profileDetails.image == 'https://api.schedulic.com/admin-images/default.png')" src="/assets/images/icons/image-placeholder.svg">
+                        <img class="mx-auto default-img" *ngIf="profileDetails && !myProfileImageUrl && (!profileDetails.image || profileDetails.image == 'https://api.schedulic.com/admin-images/default.png')" src="/assets/images/icons/image-placeholder.svg">
                         <img class="mx-auto service-profile-image uploaded" *ngIf="profileDetails && profileDetails.image && !myProfileImageUrl && profileDetails.image != 'https://api.schedulic.com/admin-images/default.png'" src="{{profileDetails.image}}">
                         <img class="add-staff mx-auto" *ngIf="myProfileImageUrl" src="{{myProfileImageUrl}}">
                     </div>

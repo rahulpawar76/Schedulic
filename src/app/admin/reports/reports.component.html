@@ -170,7 +170,7 @@
             </div>
             <div class="Customer-appointment-table sc-table-view">
                 <div class="main-table-content main-cust-table-content">
-                    <table class="table sc-table" *ngIf="!isAppointmentsGroupBy">
+                    <table class="table sc-table" *ngIf="!isAppointmentsGroupBy && appointmentReport.length>0">
                         <thead class="sc-table-head">
                             <tr>
                                 <th scope="col" class="text-center">Appointment Date</th>
@@ -180,7 +180,7 @@
                                 <th scope="col" class="text-center">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="sc-table-content" *ngIf="appointmentReport.length>0">
+                        <tbody class="sc-table-content">
                             <tr class="final-list" scope="row" *ngFor="let appRep of appointmentReport; let i=index">
                                 <td scope="col" class="text-center">
                                     <p class="mb-0">{{appRep.booking_date}}</p>
@@ -216,14 +216,8 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <div *ngIf="appointmentReport.length==0" class="no-report-detail">
-                            <div class="no-data-badge">
-                                <img src="/assets/images/nodata.svg" />
-                                <label>No Data Found.</label>
-                            </div>
-                        </div>
                     </table>
-                    <table class="table sc-table" *ngIf="isAppointmentsGroupBy">
+                    <table class="table sc-table" *ngIf="isAppointmentsGroupBy && appointmentReport.length>0">
                         <thead class="sc-table-head main-heading-content">
                             <tr>
                                 <th scope="col" class="text-center">Date</th>
@@ -231,7 +225,7 @@
                                 <th scope="col" class="text-center">Customers</th>
                             </tr>
                         </thead>
-                        <tbody class="sc-table-content" *ngIf="appointmentReport.length>0">
+                        <tbody class="sc-table-content">
                             <tr class="final-list" scope="row" *ngFor="let appRep of appointmentReport; let i=index">
                                 <td scope="col" class="text-center">
                                     <p class="mb-0" *ngIf="reportFilter=='date'">{{appRep.dates}}</p>
@@ -245,18 +239,13 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <!-- <tbody class="sc-table-content" *ngIf="appointmentReport.length==0">
-                            <tr class="final-list" scope="row">
-                                <td colspan="5" class="mb-0 text-center">No data available.</td>
-                            </tr>
-                        </tbody> -->
-                        <tbody *ngIf="appointmentReport.length==0" class="no-report-detail">
-                            <div class="no-data-badge">
-                                <img src="/assets/images/nodata.svg" />
-                                <label>No Data Found.</label>
-                            </div>
-                        </tbody>
                     </table>
+                    <div *ngIf="appointmentReport.length==0" class="no-report-detail">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="table_pagination" *ngIf="appointmentReport.length > 0">
                     <div class="col-4 pull-left">Showing record of {{appointmentFromRecord}}-{{appointmentToRecord}} (
@@ -364,7 +353,7 @@
             </div>
             <div class="Customer-appointment-table sc-table-view">
                 <div class="main-table-content main-cust-table-content">
-                    <table class="table sc-table" *ngIf="!isSalesGroupBy">
+                    <table class="table sc-table" *ngIf="!isSalesGroupBy && salesReport.length>0">
                         <thead class="main-heading-content sc-table-head">
                             <tr>
                                 <th scope="col" class="text-center">Payment Date</th>
@@ -374,7 +363,7 @@
                                 <th scope="col" class="text-center">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="sc-table-content" *ngIf="salesReport.length>0">
+                        <tbody class="sc-table-content">
                             <tr class="final-list" *ngFor="let sales of salesReport; let i=index">
                                 <td scope="row" class="text-center">
                                     <p class="mb-0">{{sales.payment_date}}</p>
@@ -412,19 +401,8 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <!-- <tbody class="sc-table-content" *ngIf="salesReport.length==0">
-                            <tr class="final-list" scope="row">
-                                <td colspan="5" class="mb-0 text-center">No data available.</td>
-                            </tr>
-                        </tbody> -->
-                        <tbody *ngIf="salesReport.length==0" class="no-report-detail">
-                            <div class="no-data-badge">
-                                <img src="/assets/images/nodata.svg" />
-                                <label>No Data Found.</label>
-                            </div>
-                        </tbody>
                     </table>
-                    <table class="table sc-table" *ngIf="isSalesGroupBy">
+                    <table class="table sc-table" *ngIf="isSalesGroupBy && salesReport.length>0">
                         <thead class="main-heading-content sc-table-head">
                             <tr>
                                 <th scope="col" class="text-center">Date</th>
@@ -433,7 +411,7 @@
                                 <th scope="col" class="text-center">Revenue</th>
                             </tr>
                         </thead>
-                        <tbody class="sc-table-content" *ngIf="salesReport.length>0">
+                        <tbody class="sc-table-content">
                             <tr class="final-list" *ngFor="let sales of salesReport; let i=index">
                                 <td scope="row" class="text-center">
                                     <p class="mb-0" *ngIf="reportFilter=='date'">{{sales.dates}}</p>
@@ -456,18 +434,14 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <!-- <tbody *ngIf="salesReport.length==0">
-                            <tr scope="row">
-                                <td colspan="5" class="mb-0 text-center">No data available.</td>
-                            </tr>
-                        </tbody> -->
-                        <tbody *ngIf="salesReport.length==0" class="no-salereport-detail">
-                            <div class="no-data-badge">
-                                <img src="/assets/images/nodata.svg" />
-                                <label>No Data Found.</label>
-                            </div>
-                        </tbody>
                     </table>
+                    
+                    <div *ngIf="salesReport.length==0" class="no-salereport-detail no-report-detail">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="table_pagination" *ngIf="salesReport.length > 0">
                     <div class="col-4 pull-left">Showing record of {{salesReportFromRecord}}-{{salesReportToRecord}} (
@@ -503,7 +477,7 @@
                 </div>
             <div class="Customer-appointment-table sc-table-view">
                 <div class="main-table-content main-cust-table-content">
-                    <table class="table sc-table">
+                    <table class="table sc-table"  *ngIf="customerReport.length>0">
                         <thead class="main-heading-content sc-table-head">
                             <tr>
                                 <th scope="col" class="text-center">Registration Date</th>
@@ -513,7 +487,7 @@
                                 <th scope="col" class="text-center">Email</th>
                             </tr>
                         </thead>
-                        <tbody class="sc-table-content" *ngIf="customerReport.length>0">
+                        <tbody class="sc-table-content">
                             <tr class="final-list" *ngFor="let customer of customerReport; let i=index">
                                 <td scope="row" class="text-center">
                                     <p class="mb-0">{{customer.created_at}}</p>
@@ -524,18 +498,14 @@
                                 <td class="text-center">{{customer.email}}</td>
                             </tr>
                         </tbody>
-                        <!-- <tbody class="sc-table-content" *ngIf="customerReport.length==0">
-                            <tr class="final-list" scope="row">
-                                <td colspan="5" class="mb-0 text-center">No data available.</td>
-                            </tr>
-                        </tbody> -->
-                        <tbody *ngIf="customerReport.length==0" class="no-report-detail">
-                            <div class="no-data-badge">
-                                <img src="/assets/images/nodata.svg" />
-                                <label>No Data Found.</label>
-                            </div>
-                        </tbody>
                     </table>
+                    
+                    <div *ngIf="customerReport.length==0" class="no-report-detail">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="table_pagination" *ngIf="customerReport.length > 0">
                     <div class="col-4 pull-left">Showing record of

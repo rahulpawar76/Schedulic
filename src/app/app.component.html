@@ -10,11 +10,11 @@
             <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isPOS()">
                 <mat-toolbar-row *ngIf="isStaffUser()">
                     <div class="logo">
-                        <a (click)="fnClickLogo('staff')"><img src="/assets/img/logo.png"></a>
+                        <a class="logo-image" (click)="fnClickLogo('staff')"><img src="/assets/images/logo-black.svg"></a>
                     </div>
                     <div class="logo">
-                        <a class='logo-link'><i class="fa fa-shopping-bag mr-3 shoppingbagsize" aria-hidden="true"></i>
-                        {{pageHeading}}
+                        <a class='logo-link'>
+                        {{pageHeading?pageHeading:'My Booking'}}
                         </a>
                     </div>
                     <span class="example-fill-remaining-space"></span>
@@ -28,7 +28,7 @@
                     <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
                     </button>
                     <mat-button-toggle class="toggleborder" (click)="drawer.toggle()">
-                        <i class="fa fa-bars toggle-color" aria-hidden="true"></i>
+                        <img src="/assets/images/toogle-menu-icon.svg" />
                     </mat-button-toggle>
                     <!-- <img src="/assets/images/icons/logout.svg" class="logout-svg"> -->
                     </span>
@@ -418,7 +418,7 @@
     <mat-drawer #drawer position="end">
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('./staff-profile')" class="matlist pointer">
+            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('My Profile')" class="matlist pointer">
                 <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
                     <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>
@@ -438,17 +438,17 @@
                     </div>
                 </div>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="WorkSpace('./my-work-space')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" role="listitem" (click)="WorkSpace('My Workspace')" (click)="drawer.toggle()">
                 <button  mat-menu-item class="menuitem">
              <!-- <i mat-list-icon class="fa fa-briefcase mr-3"></i> -->
                 My Work Space</button>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="StaffAppointment('./staff-appointment')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" role="listitem" (click)="StaffAppointment('My Booking')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">
                     <!-- <i mat-list-icon   class="fa fa-calendar mr-3"></i> -->
-                  My Appointmets</button>
+                  My Bookings</button>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="WorkProfile('./work-profile')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" role="listitem" (click)="WorkProfile('My Work Profile')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">
                     <!-- <i mat-list-icon class="material-icons mr-3">people_alt</i> -->
                     Work Profile</button>
