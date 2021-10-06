@@ -19,7 +19,9 @@
         }
     }
 }
-
+.notification-svg{
+    width: 22px;
+}
 ::ng-deep #mat-tab-label-0-0.mat-tab-label {
     min-width: 80px;
 }
@@ -1176,7 +1178,6 @@ mat-radio-group {
         height: 64px;
     }
     .profile-head {
-        width: 100%;
         display: flex;
         align-items: center;
         .customer-profile-img {

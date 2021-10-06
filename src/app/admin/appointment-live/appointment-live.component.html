@@ -1,6 +1,7 @@
 <div class="content-main" id="live_appointments">
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
-    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp common-tab-group">
+    <mat-tab-group [(selectedIndex)]="selectedtab" (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start"
+        class="main-tab-grp common-tab-group">
         <mat-tab>
             <ng-template mat-tab-label>
                 <img class="mr-0" src="/assets/images/icons/dashboard.svg" />
@@ -10,18 +11,23 @@
             <ng-template mat-tab-label>
                 <img src="/assets/images/icons/store-live.svg" /> In Store
             </ng-template>
-            <div class="in-store-tabs" [ngClass]="{'service-tab': inStoreTabName == 'service','waiting-tab': inStoreTabName == 'waiting'}">
+            <div class="in-store-tabs"
+                [ngClass]="{'service-tab': inStoreTabName == 'service','waiting-tab': inStoreTabName == 'waiting'}">
                 <div class="sub-header">
                     <div class="top-tabs">
-                        <label [ngClass]="{'active': inStoreTabName == 'service'}" (click)="fnChangeSubTab('service')" class="signle-tab"><span><img src="/assets/images/icons/bolt.svg" /></span>Service</label>
-                        <label [ngClass]="{'active': inStoreTabName == 'waiting'}" (click)="fnChangeSubTab('waiting')" class="signle-tab"><span><img src="/assets/images/icons/third-quarter.svg" /></span>Waiting</label>
+                        <label [ngClass]="{'active': inStoreTabName == 'service'}" (click)="fnChangeSubTab('service')"
+                            class="signle-tab"><span><img src="/assets/images/icons/bolt.svg" /></span>Service</label>
+                        <label [ngClass]="{'active': inStoreTabName == 'waiting'}" (click)="fnChangeSubTab('waiting')"
+                            class="signle-tab"><span><img
+                                    src="/assets/images/icons/third-quarter.svg" /></span>Waiting</label>
                     </div>
                     <div class="seach-bar">
                         <div class="searchbox mr-2">
                             <form class="search_input-staff">
                                 <div class="has-search">
                                     <mat-icon class="form-control-feedback">search</mat-icon>
-                                    <input name="searchKeyword" (keyup)="fnSearch($event.target.value)" type="text"class="form-control searchbox_appointment" placeholder="Search for items">
+                                    <input name="searchKeyword" (keyup)="fnSearch($event.target.value)" type="text"
+                                        class="form-control searchbox_appointment" placeholder="Search for items">
                                 </div>
                             </form>
                         </div>
@@ -39,20 +45,32 @@
                                     <li class="bottom-border plr-25">
                                         <p class="category-lable">Categories</p>
                                     </li>
-                                    <li class="bottom-border plr-25 pointer " [ngClass]="{'active':inStoreSelectedCat === 'all'}">
+                                    <li class="bottom-border plr-25 pointer "
+                                        [ngClass]="{'active':inStoreSelectedCat === 'all'}">
                                         <p class="title-main" (click)="fngetService('')">
                                             All Services
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11" viewBox="0 0 11.497 20.11">
-                                                <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z" transform="translate(-11.251 -6.194)" fill="#00a89b"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
+                                                viewBox="0 0 11.497 20.11">
+                                                <path id="Icon_ionic-ios-arrow-back"
+                                                    data-name="Icon ionic-ios-arrow-back"
+                                                    d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
+                                                    transform="translate(-11.251 -6.194)" fill="#00a89b" />
                                             </svg>
                                         </p>
                                     </li>
 
-                                    <li (click)="fngetService(val.id)" [ngClass]="{'active':inStoreSelectedCat === val.id}" class="bottom-border plr-25 pointer" *ngFor="let val of CategoryList; let i=index">
+                                    <li (click)="fngetService(val.id)"
+                                        [ngClass]="{'active':inStoreSelectedCat === val.id}"
+                                        class="bottom-border plr-25 pointer"
+                                        *ngFor="let val of CategoryList; let i=index">
                                         <p class="title-main">
                                             {{val.category_title}}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11" viewBox="0 0 11.497 20.11">
-                                                <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back" d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z" transform="translate(-11.251 -6.194)" fill="#00a89b"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
+                                                viewBox="0 0 11.497 20.11">
+                                                <path id="Icon_ionic-ios-arrow-back"
+                                                    data-name="Icon ionic-ios-arrow-back"
+                                                    d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
+                                                    transform="translate(-11.251 -6.194)" fill="#00a89b" />
                                             </svg>
                                         </p>
                                     </li>
@@ -63,11 +81,12 @@
                                 <div class="row mx-0">
                                     <div class="col-6 col-lg-4 px-2" *ngFor="let val of ServiceList; let i=index">
                                         <input class="d-none" type="radio" name="service" id="service-{{i}}">
-                                        <label for="service-{{i}}" [ngClass]="{'selected': val.id == service_id}" class="signle-service" (click)="fngetStaff(val.id,i)">
+                                        <label for="service-{{i}}" [ngClass]="{'selected': val.id == service_id}"
+                                            class="signle-service" (click)="fngetStaff(val.id,i)">
                                             <img [src]="val.service_image" />
-                                             <div class="service-label">
-                                                  <p>{{val.service_name}}</p>
-                                             </div>
+                                            <div class="service-label">
+                                                <p>{{val.service_name}}</p>
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -76,11 +95,12 @@
                                 <div class="select-staff-container">
                                     <div class="head">
                                         <h3>Staff</h3>
-                                            <mat-select placeholder="Filter" class="form-control form-control-transparent" (selectionChange)="fnFilterStaff($event.value)">
-                                                <mat-option value="all">All</mat-option>
-                                                <mat-option value="ideal">Ideal</mat-option>
-                                                <mat-option value="working">Working</mat-option>
-                                            </mat-select>
+                                        <mat-select placeholder="Filter" class="form-control form-control-transparent"
+                                            (selectionChange)="fnFilterStaff($event.value)">
+                                            <mat-option value="all">All</mat-option>
+                                            <mat-option value="ideal">Ideal</mat-option>
+                                            <mat-option value="working">Working</mat-option>
+                                        </mat-select>
                                     </div>
                                     <div class="single-staff" *ngFor="let val of StaffList; let i=index">
                                         <div class="left-side">
@@ -91,7 +111,8 @@
                                         <div class="right-side">
                                             <p>Free At</p>
                                             <span class="time">{{val.free_at?val.free_at:'-'}}</span>
-                                            <button mat-button class="assign-btn" (click)="fnAssignStaff(val.id,i)">Assign</button>
+                                            <button mat-button class="assign-btn"
+                                                (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
 
@@ -109,7 +130,8 @@
                         </div>
                         <div class="customer-container">
                             <mat-accordion>
-                                <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                                <mat-expansion-panel [expanded]="panelOpenState" (opened)="panelOpenState = true"
+                                    (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Add Customer Detail
@@ -121,32 +143,51 @@
                                             <div class="row mb-3">
                                                 <div class="common-input col-lg-12 col-12 col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" formControlName="cus_email" class="form-control"
-                                                            placeholder="Enter email address">
+                                                        <input type="text" formControlName="cus_email"
+                                                            class="form-control" placeholder="Enter email address">
                                                     </div>
-                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
-                                                        <small *ngIf="newCustomer.get('cus_email').hasError('required')" class="error">Email is required.</small>
-                                                        <small *ngIf="newCustomer.get('cus_email').hasError('pattern')" class="error">Enter valid email address.</small>
-                                                        <small *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')" class="error">Email already in use.</small>
+                                                    <span class="error-wrap"
+                                                        *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('required')"
+                                                            class="error">Email is required.</small>
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('pattern')"
+                                                            class="error">Enter valid email address.</small>
+                                                        <small
+                                                            *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')"
+                                                            class="error">Email already in use.</small>
                                                     </span>
                                                 </div>
                                                 <div class="common-input col-lg-6 col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" formControlName="cus_mobile" class="form-control" placeholder="Enter mobile no.">
+                                                        <input type="text" formControlName="cus_mobile"
+                                                            class="form-control" placeholder="Enter mobile no.">
                                                     </div>
-                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
-                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))" class="error">Mobile number is  required.</small>
-                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')" class="error">Mobile number should be minimum 6 or maximum 15 digits.</small>
-                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')" class="error">Mobile number should be numbers only (Country code is required)..</small>
-                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('isPhoneUnique')" class="error">Phone No is already in use.</small>
+                                                    <span class="error-wrap"
+                                                        *ngIf="newCustomer.get('cus_mobile').dirty || newCustomer.get('cus_mobile').touched">
+                                                        <small
+                                                            *ngIf="newCustomer.get('cus_mobile').hasError('required') || (newCustomer.get('cus_mobile').hasError('required') && newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength'))"
+                                                            class="error">Mobile number is required.</small>
+                                                        <small
+                                                            *ngIf="newCustomer.get('cus_mobile').hasError('minlength') || newCustomer.get('cus_mobile').hasError('maxlength')"
+                                                            class="error">Mobile number should be minimum 6 or maximum
+                                                            15 digits.</small>
+                                                        <small *ngIf="newCustomer.get('cus_mobile').hasError('pattern')"
+                                                            class="error">Mobile number should be numbers only (Country
+                                                            code is required)..</small>
+                                                        <small
+                                                            *ngIf="newCustomer.get('cus_mobile').hasError('isPhoneUnique')"
+                                                            class="error">Phone No is already in use.</small>
                                                     </span>
                                                 </div>
                                                 <div class="common-input col-lg-6 col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" formControlName="cus_name" class="form-control" placeholder="Enter name">
+                                                        <input type="text" formControlName="cus_name"
+                                                            class="form-control" placeholder="Enter name">
                                                     </div>
-                                                    <span class="error-wrap" *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
-                                                        <small *ngIf="newCustomer.get('cus_name').hasError('required')" class="error">Fullname is required.</small>
+                                                    <span class="error-wrap"
+                                                        *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched || formSubmitclicked">
+                                                        <small *ngIf="newCustomer.get('cus_name').hasError('required')"
+                                                            class="error">Fullname is required.</small>
                                                     </span>
                                                 </div>
                                             </div>
@@ -163,49 +204,78 @@
                                 <div class="" fxFlex="15">Price</div>
                             </div>
                             <div class="item-list">
-        
+
                                 <div class="item" *ngFor="let val of cartArr; let i=index">
-                                    <div class="" fxFlex="10"><i (click)="fnDeleteItem(i)" class="fa fa-trash pointer" aria-hidden="true"></i></div>
+                                    <div class="" fxFlex="10"><i (click)="fnDeleteItem(i)" class="fa fa-trash pointer"
+                                            aria-hidden="true"></i></div>
                                     <div class="service-name" fxFlex="45">
                                         <label>{{val.service_name}}</label>
                                         <label class="staff-name">Staff : {{val.StaffName}}</label>
                                     </div>
                                     <div class="" fxFlex="35">
                                         <div class="qty-counter">
-                                            <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('minus',i)">-</button>
-                                            <input type="text" class="qty_value" id="servicecount_1" value="{{val.count}}" readonly/>
-                                            <button mat-fab class="action-btn qty-minus" (click)="fncartUpdate('plus',i)">+</button>
+                                            <button mat-fab class="action-btn qty-minus"
+                                                (click)="fncartUpdate('minus',i)">-</button>
+                                            <input type="text" class="qty_value" id="servicecount_1"
+                                                value="{{val.count}}" readonly />
+                                            <button mat-fab class="action-btn qty-minus"
+                                                (click)="fncartUpdate('plus',i)">+</button>
                                         </div>
                                     </div>
-                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol: 'wide'}} {{ val.totalCost | currency:selectedCurrency: '': '1.2-2':currencySymbolFormat }}</div>
-                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='right'">{{ val.totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
+                                        currencySymbol: 'wide'}} {{ val.totalCost | currency:selectedCurrency: '':
+                                        '1.2-2':currencySymbolFormat }}</div>
+                                    <div class="" fxFlex="15" *ngIf="currencySymbolPosition=='right'">{{ val.totalCost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</div>
                                 </div>
                                 <div class="item subtotal">
                                     <div class="service-name" fxFlex="70">
-                                        <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                        <label *ngIf="currencySymbolPosition=='right'">Subtotal :  {{ totalCost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+                                        <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol|
+                                            currencySymbol:'wide'}} {{ totalCost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+                                        <label *ngIf="currencySymbolPosition=='right'">Subtotal : {{ totalCost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</label>
                                     </div>
                                     <!-- <div class="" fxFlex="30">Tax : <i class="fa fa-rupee pr-1"></i> {{totalTax}}</div> -->
-                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='left'">Tax : {{currencySymbol| currencySymbol:'wide'}} {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='right'">Tax : {{ totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
+                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='left'">Tax :
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ totalTax |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
+                                    <div class="" fxFlex="30" *ngIf="currencySymbolPosition=='right'">Tax : {{ totalTax
+                                        | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</div>
                                 </div>
                             </div>
                             <div class="cart-footer">
                                 <div class="add-note">
                                     <p *ngIf="!note_description" (click)="fnAddNote()" class="title">Add Note</p>
-                                    <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">Note :
+                                    <p *ngIf="note_description" (click)="fnAddNote()" class="title with-icon d-flex">
+                                        Note :
                                         <mat-icon>sticky_note_2</mat-icon>
                                     </p>
                                 </div>
                                 <div class="total">
                                     <p fxFlex="50" class="title text-left">Total</p>
-                                    <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                    <p fxFlex="50" class="amount text-right mb-0" *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                    <p fxFlex="50" class="amount text-right mb-0"
+                                        *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
+                                        currencySymbol:'wide'}} {{ (totalCost+totalTax) |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p fxFlex="50" class="amount text-right mb-0"
+                                        *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</p>
                                 </div>
                                 <div class="footer-action">
-                                    <button class="sc-pink-btn text-white min-width-auto" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')" mat-button>Save & Print</button>
-                                    <button class="sc-pink-btn text-white min-width-auto" [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')" mat-button>Save & Ebill</button>
-                                    <button class="sc-light-green-btn text-white min-width-auto" [disabled]="cartArr.length == 0" mat-button (click)="fnplaceOrder('place')">Place</button>
+                                    <button class="sc-pink-btn text-white min-width-auto"
+                                        [disabled]="cartArr.length == 0" (click)="fnPaymentMode('print')"
+                                        mat-button>Save & Print</button>
+                                    <button class="sc-pink-btn text-white min-width-auto"
+                                        [disabled]="cartArr.length == 0" (click)="fnPaymentMode('email')"
+                                        mat-button>Save & Ebill</button>
+                                    <button class="sc-light-green-btn text-white min-width-auto"
+                                        [disabled]="cartArr.length == 0" mat-button
+                                        (click)="fnplaceOrder('place')">Place</button>
                                 </div>
                             </div>
                         </div>
@@ -213,36 +283,38 @@
                 </div>
                 <div *ngIf="inStoreTabName == 'waiting'" class="waiting-container">
                     <div class="row mx-0 my-2">
-                        <div *ngFor="let val of Watinglist; let i=index" class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
+                        <div *ngFor="let val of Watinglist; let i=index"
+                            class="col-12 col-sm-6 col-md-4 col-lg-3 single-booking float-left">
                             <mat-card class="card">
                                 <div class="row">
                                     <div class="col-6">
                                         <label class="single-value">
-                                        <p class="title">Waiting No.</p>
-                                        <p class="value">{{i+1}}</p>
-                                    </label>
+                                            <p class="title">Waiting No.</p>
+                                            <p class="value">{{i+1}}</p>
+                                        </label>
                                         <label class="single-value">
-                                        <p class="title">Customer</p>
-                                        <p class="value">{{val.customer?val.customer.fullname:'-'}}</p>
-                                    </label>
+                                            <p class="title">Customer</p>
+                                            <p class="value">{{val.customer?val.customer.fullname:'-'}}</p>
+                                        </label>
                                         <label class="single-value">
-                                        <p class="title">Staff</p>
-                                        <p class="value">{{val.staff ? val.staff.firstname : '-' +' '+val.staff?val.staff.lastname:'-'}}</p>
-                                    </label>
+                                            <p class="title">Staff</p>
+                                            <p class="value">{{val.staff ? val.staff.firstname : '-' +'
+                                                '+val.staff?val.staff.lastname:'-'}}</p>
+                                        </label>
                                     </div>
                                     <div class="col-6 right-side">
                                         <label class="single-value">
-                                        <p class="title">Time</p>
-                                        <p class="value">{{todayTime}}</p>
-                                    </label>
+                                            <p class="title">Time</p>
+                                            <p class="value">{{todayTime}}</p>
+                                        </label>
                                         <label class="single-value">
-                                        <p class="title">Order ID</p>
-                                        <p class="value">{{val.order_id}}</p>
-                                    </label>
+                                            <p class="title">Order ID</p>
+                                            <p class="value">{{val.order_id}}</p>
+                                        </label>
                                         <label class="single-value">
-                                        <p class="title">Work Start At</p>
-                                        <p class="value">{{val.booking_time}}</p>
-                                    </label>
+                                            <p class="title">Work Start At</p>
+                                            <p class="value">{{val.booking_time}}</p>
+                                        </label>
                                     </div>
                                     <div class="col-12 service-list-head">
                                         <div class="w-50 float-left title text-left">
@@ -262,13 +334,15 @@
                                     </div>
                                     <div class="col-12 action-list">
                                         <div class="w-50 float-left text-left">
-                                            <button mat-button class="cancel-btn" (click)="fncancelOrder(val.id);">Cancel</button>
+                                            <button mat-button class="cancel-btn"
+                                                (click)="fncancelOrder(val.id);">Cancel</button>
                                         </div>
                                         <div class="w-50 float-left text-right right-side">
-                                            <mat-icon *ngIf="val.booking_notes !== null" (click)="fnShowNote(val.booking_notes.notes)">sticky_note_2</mat-icon>
+                                            <mat-icon *ngIf="val.booking_notes !== null"
+                                                (click)="fnShowNote(val.booking_notes.notes)">sticky_note_2</mat-icon>
                                             <img src="/assets/images/icons/timer-clock.svg">
                                             <span class="timing"><small class="title">hh:mm:ss</small>
-                                                    <!-- {{counter | formatTime}} -->
+                                                <!-- {{counter | formatTime}} -->
                                                 <!-- {{hoursToDday}} :{{minutesToDday}} : {{secondsToDday}} -->
                                                 {{countDown(val.booking_date+' '+val.booking_time)}}
                                             </span>
@@ -280,7 +354,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
@@ -293,7 +367,9 @@
                         <div class="search_input-staff">
                             <div class="has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
-                                <input  [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)" type="text"class="form-control searchbox_appointment" placeholder="Search for items">
+                                <input [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)"
+                                    type="text" class="form-control searchbox_appointment"
+                                    placeholder="Search for items">
                             </div>
                         </div>
                     </div>
@@ -316,34 +392,57 @@
                                 <div class="" fxFlex="10">Time</div>
                             </div>
                             <div class="content" class="appointment-live-list">
-                                <div (click)="fnOpenDetails(i)" *ngFor="let pendingAppointments of pendingAppointments; let i=index" class="appointment-live-list-details">
+                                <div (click)="fnOpenDetails(i)"
+                                    *ngFor="let pendingAppointments of pendingAppointments; let i=index"
+                                    class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
                                         <p class="mb-0 font-weight-bold">Order Id: {{pendingAppointments.id}}</p>
-                                        <p class="mb-0">Unit : {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}</p>
-                                        <p class="mb-0">{{pendingAppointments.service?pendingAppointments.service.service_name:''}}</p>
+                                        <p class="mb-0">Unit :
+                                            {{pendingAppointments.service?pendingAppointments.service.service_unit:''}}
+                                        </p>
+                                        <p class="mb-0">
+                                            {{pendingAppointments.service?pendingAppointments.service.service_name:''}}
+                                        </p>
                                     </div>
                                     <div class=" " fxFlex="25">
-                                        <p class="mb-0 font-weight-bold">{{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}</p>
+                                        <p class="mb-0 font-weight-bold">
+                                            {{pendingAppointments.customer?pendingAppointments.customer.fullname:''}}
+                                        </p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{pendingAppointments.customer?pendingAppointments.customer.phone:''}}
+                                        </p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.customer?pendingAppointments.customer.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="pendingAppointments.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0 font-weight-bold">{{pendingAppointments.staff?pendingAppointments.staff.firstname+' '+pendingAppointments.staff.lastname :''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}</p>
+                                        <p class="mb-0 font-weight-bold">
+                                            {{pendingAppointments.staff?pendingAppointments.staff.firstname+'
+                                            '+pendingAppointments.staff.lastname :''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{pendingAppointments.staff?pendingAppointments.staff.phone:''}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{pendingAppointments.staff?pendingAppointments.staff.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="pendingAppointments.order_status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
                                     </div>
-                                    <div *ngIf="pendingAppointments.order_status == 'CNF' && pendingAppointments.staff == null" class="" fxFlex="25">
+                                    <div *ngIf="pendingAppointments.order_status == 'CNF' && pendingAppointments.staff == null"
+                                        class="" fxFlex="25">
                                         <p class="mb-0">--</p>
                                     </div>
                                     <!-- <div class="" fxFlex="10">
                                           {{pendingAppointments.total_cost}}
                                         </div> -->
-                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ pendingAppointments.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ pendingAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    <div class="font-weight-bold" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{
+                                        pendingAppointments.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}
                                     </div>
                                     <div class="font-weight-bold" fxFlex="10">
                                         {{pendingAppointments.booking_date}}
@@ -356,14 +455,28 @@
                         </div>
 
                         <div class="table_pagination" *ngIf="pendingAppointments != ''">
-                            <div class="col-3 pull-left">Showing record of {{fromRecord_pending}}-{{toRecord_pending}} ( Total {{totalRecord_pending}} )</div>
+                            <div class="col-3 pull-left">Showing record of {{fromRecord_pending}}-{{toRecord_pending}} (
+                                Total {{totalRecord_pending}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page_pending==1?'pointernone':''}} " (click)="navigateTo_pending(first_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_pending(prev_page_url_pending)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" [ngClass]="{'active':current_page_pending == i+1}" *ngFor="let pagenumber of arrayOne_pending(last_page_pending); let i = index;" (click)="navigateToPageNumber_pending(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                    <li class="page-item" (click)="navigateTo_pending(next_page_url_pending)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item {{arrayOne_pending(last_page_pending).length==current_page_pending?'pointernone':''}} " (click)="navigateTo_pending(last_page_url_pending)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_pending==1?'pointernone':''}} "
+                                        (click)="navigateTo_pending(first_page_url_pending)"><a class="page-link"><i
+                                                class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="page-item" (click)="navigateTo_pending(prev_page_url_pending)"><a
+                                            class="page-link"><i class="fa fa-angle-left arrow-icon"
+                                                aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_pending == i+1}"
+                                        *ngFor="let pagenumber of arrayOne_pending(last_page_pending); let i = index;"
+                                        (click)="navigateToPageNumber_pending(i+1)"><a class="page-link">{{i+1}}</a>
+                                    </li>
+                                    <li class="page-item" (click)="navigateTo_pending(next_page_url_pending)"><a
+                                            class="page-link"><i class="fa fa-angle-right arrow-icon"
+                                                aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_pending(last_page_pending).length==current_page_pending?'pointernone':''}} "
+                                        (click)="navigateTo_pending(last_page_url_pending)"><a class="page-link"><i
+                                                class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -376,7 +489,8 @@
                 <img src="/assets/images/icons/outdoor-live.svg" /> Out Door
             </ng-template>
             <div class="common-header">
-                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out Door</label>
+                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out
+                    Door</label>
                 <div class="today-time-function">
                     <label class="live-time">{{liveTime}}</label>
                     <label class="live-date">{{liveDate}}</label>
@@ -387,9 +501,9 @@
                     <div class="searchbox col-12 mt-3">
                         <form class="search_input-staff">
                             <div class="has-search">
-                               <mat-icon class="form-control-feedback">search</mat-icon>
-                               <input (keyup)="fnOutdoorOrders($event.target.value,'order_id')"
-                                type="text" class="form-control searchbox_appointment" placeholder="Search by Order ID">
+                                <mat-icon class="form-control-feedback">search</mat-icon>
+                                <input (keyup)="fnOutdoorOrders($event.target.value,'order_id')" type="text"
+                                    class="form-control searchbox_appointment" placeholder="Search by Order ID">
                             </div>
                         </form>
                     </div>
@@ -399,7 +513,7 @@
                     </div> -->
                     <div class="order-listing" *ngIf="outdoorOrdersArr.length > 0">
                         <div class="single-order" *ngFor="let val of outdoorOrdersArr;let i=index">
-                            <label class="order-id">Order ID :  {{val.order_id}}</label>
+                            <label class="order-id">Order ID : {{val.order_id}}</label>
                             <div class="location-container" (click)="OutDootMap(i)">
                                 <div class="pickup-point">
                                     <img src="/assets/images/admin/delivery.png">
@@ -407,17 +521,22 @@
                                 </div>
                                 <div class="drop-point">
                                     <mat-icon>location_on</mat-icon>
-                                    <p>{{val.orders_info.booking_address+', '+val.orders_info.booking_city+' '+val.orders_info.booking_state+' '+val.orders_info.booking_zipcode}}</p>
+                                    <p>{{val.orders_info.booking_address+', '+val.orders_info.booking_city+'
+                                        '+val.orders_info.booking_state+' '+val.orders_info.booking_zipcode}}</p>
                                 </div>
                             </div>
                             <div class="action-btn mt-2">
-                                <button (click)="fnOpenOnTheWayDetails(val);" mat-button class="detail-btn">Appointment Details</button>
-                                <button *ngIf="val.order_status=='OW'" mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Work Started
+                                <button (click)="fnOpenOnTheWayDetails(val);" mat-button class="detail-btn">Appointment
+                                    Details</button>
+                                <button *ngIf="val.order_status=='OW'" mat-button class="ws-btn"
+                                    (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Work Started
                                 </button>
-                                <button *ngIf="val.order_status=='WS'" mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Completed
+                                <button *ngIf="val.order_status=='WS'" mat-button class="ws-btn"
+                                    (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">Completed
                                 </button>
-                                <button *ngIf="val.order_status!='WS' && val.order_status!='OW'" mat-button class="otw-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
-                                       On The Way
+                                <button *ngIf="val.order_status!='WS' && val.order_status!='OW'" mat-button
+                                    class="otw-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'out_store')">
+                                    On The Way
                                 </button>
                                 <!-- <button mat-button class="ws-btn" (click)="fnOrderUpdateStatus(val.order_status,val.id,'in_store')" *ngIf="val.service.service_sub_type=='in_store'">
                                     {{val.order_status=="AC"?"Work Started ":"Completedeed"}} 
@@ -452,7 +571,8 @@
                         <div class="search_input-staff">
                             <div class="has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
-                                <input  [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch()" type="text" class="form-control searchbox_appointment" placeholder="Search for items">
+                                <input [(ngModel)]="search.workStartedKeyword" (keyup)="WSAppointSearch()" type="text"
+                                    class="form-control searchbox_appointment" placeholder="Search for items">
                             </div>
                         </div>
                     </div>
@@ -476,7 +596,9 @@
                                 <div class="" fxFlex="10">Time</div>
                             </div>
                             <div class="content" class="appointment-live-list">
-                                <div (click)="fnOpenWorkStartedDetails(i)" *ngFor="let workStartedAppointments of workStartedAppointments; let i=index" class="appointment-live-list-details">
+                                <div (click)="fnOpenWorkStartedDetails(i)"
+                                    *ngFor="let workStartedAppointments of workStartedAppointments; let i=index"
+                                    class="appointment-live-list-details">
                                     <div class="" *ngIf="workStartedAppointments.service" fxFlex="20">
                                         <p class="mb-0">Order Id: {{workStartedAppointments.id}}</p>
                                         <p class="mb-0">{{workStartedAppointments.service.service_name}}</p>
@@ -485,21 +607,38 @@
                                         <p class="mb-0 font-weight-bold">{{workStartedAppointments.order_from}}</p>
                                     </div>
                                     <div class="" *ngIf="workStartedAppointments.customer" fxFlex="20">
-                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.customer.fullname}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.customer.phone}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}</p>
+                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.customer.fullname}}
+                                        </p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{workStartedAppointments.customer.phone}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.customer.email}}
+                                        </p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0 font-weight-bold">{{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}} {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}</p>
+                                        <p class="mb-0 font-weight-bold">
+                                            {{workStartedAppointments.staff?workStartedAppointments.staff.firstname:'-'}}
+                                            {{workStartedAppointments.staff?workStartedAppointments.staff.lastname:'-'}}
+                                        </p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{workStartedAppointments.staff.phone?workStartedAppointments.staff.phone:''}}
+                                        </p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{workStartedAppointments.staff.email?workStartedAppointments.staff.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="workStartedAppointments.staff == null" class="" fxFlex="20">
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='right'">{{ workStartedAppointments.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='left'">
+                                            {{currencySymbol| currencySymbol:'wide'}} {{
+                                            workStartedAppointments.total_cost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="font-weight-bold mb-0" *ngIf="currencySymbolPosition=='right'">{{
+                                            workStartedAppointments.total_cost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
                                     <div class="font-weight-bold" fxFlex="10">
                                         {{workStartedAppointments.booking_date}}
@@ -511,14 +650,29 @@
                             </div>
                         </div>
                         <div class="table_pagination" *ngIf="workStartedAppointments != ''">
-                            <div class="col-3 pull-left">Showing record of {{fromRecord_workstart}}-{{toRecord_workstart}} ( Total {{totalRecord_workstart}} )</div>
+                            <div class="col-3 pull-left">Showing record of
+                                {{fromRecord_workstart}}-{{toRecord_workstart}} ( Total {{totalRecord_workstart}} )
+                            </div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
-                                    <li class="page-item {{current_page_workstart==1?'pointernone':'' }}" (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" (click)="navigateTo_workstart(prev_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item" [ngClass]="{'active':current_page_workstart == i+1}" *ngFor="let pagenumber of arrayOne_workstart(last_page_workstart); let i = index;" (click)="navigateToPageNumber_workstart(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                    <li class="page-item" (click)="navigateTo_workstart(next_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
-                                    <li class="page-item {{arrayOne_workstart(last_page_workstart).length==current_page_workstart?'pointernone':''}}" (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{current_page_workstart==1?'pointernone':'' }}"
+                                        (click)="navigateTo_workstart(first_page_url_workstart)"><a class="page-link"><i
+                                                class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="page-item" (click)="navigateTo_workstart(prev_page_url_workstart)"><a
+                                            class="page-link"><i class="fa fa-angle-left arrow-icon"
+                                                aria-hidden="true"></i></a></li>
+                                    <li class="page-item" [ngClass]="{'active':current_page_workstart == i+1}"
+                                        *ngFor="let pagenumber of arrayOne_workstart(last_page_workstart); let i = index;"
+                                        (click)="navigateToPageNumber_workstart(i+1)"><a class="page-link">{{i+1}}</a>
+                                    </li>
+                                    <li class="page-item" (click)="navigateTo_workstart(next_page_url_workstart)"><a
+                                            class="page-link"><i class="fa fa-angle-right arrow-icon"
+                                                aria-hidden="true"></i></a></li>
+                                    <li class="page-item {{arrayOne_workstart(last_page_workstart).length==current_page_workstart?'pointernone':''}}"
+                                        (click)="navigateTo_workstart(last_page_url_workstart)"><a class="page-link"><i
+                                                class="fa fa-angle-double-right arrow-icon" aria-hidden="true"></i></a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -537,7 +691,8 @@
                         <form class="search_input-staff">
                             <div class="has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
-                                <input (keyup)="fnPendingBilling($event.target.value)" type="text" class="form-control searchbox_appointment" placeholder="Search for items">
+                                <input (keyup)="fnPendingBilling($event.target.value)" type="text"
+                                    class="form-control searchbox_appointment" placeholder="Search for items">
                             </div>
                         </form>
                     </div>
@@ -553,7 +708,8 @@
                         <div class="row">
                             <!-- {{ pendingBillingData | json}} -->
                             <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
-                                <div class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
+                                <div
+                                    class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
@@ -579,7 +735,8 @@
                                     <div class="row ">
                                         <div class="col-6 pt-2">
                                             <label>Staff</label><br>
-                                            <span>{{val.orders.staff ? val.orders.staff.firstname:''}} {{val.orders.staff ? val.orders.staff.lastname:''}}</span>
+                                            <span>{{val.orders.staff ? val.orders.staff.firstname:''}}
+                                                {{val.orders.staff ? val.orders.staff.lastname:''}}</span>
                                         </div>
                                         <div class="col-6 pt-2 text-right">
                                             <label>Order From</label><br>
@@ -598,8 +755,12 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-8">
-                                            <span *ngIf="val.service && val.service.service_sub_type == 'in_store'">{{val.service.service_name}} (In Store)</span>
-                                            <span *ngIf="val.service && val.service.service_sub_type == 'at_home'">{{val.service.service_name}} (At Home)</span>
+                                            <span
+                                                *ngIf="val.service && val.service.service_sub_type == 'in_store'">{{val.service.service_name}}
+                                                (In Store)</span>
+                                            <span
+                                                *ngIf="val.service && val.service.service_sub_type == 'at_home'">{{val.service.service_name}}
+                                                (At Home)</span>
                                         </div>
                                         <div class="col-4 text-right">
                                             <span>{{val.orders ? val.orders.service_qty : '-'}}</span>
@@ -608,7 +769,9 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-12 text-center">
-                                            <button class="btn select-btn  {{val.is_selected==false?'btn-primary':'btn-secondary'}} " (click)="fnSelect(i,val.customer_id,val.order_item_id);">
+                                            <button
+                                                class="btn select-btn  {{val.is_selected==false?'btn-primary':'btn-secondary'}} "
+                                                (click)="fnSelect(i,val.customer_id,val.order_item_id);">
                                                 {{val.is_selected==false?'Seleted':'Unselect'}}
                                             </button>
                                         </div>
@@ -634,7 +797,7 @@
                                     </div>
                                     <div class="col-6 pt-2">
                                         <label>Phone No.</label><br>
-                                        <span>                    
+                                        <span>
                                             {{selectedBillCustomerData.get_customer?selectedBillCustomerData.get_customer.phone:''}}
                                         </span>
                                     </div>
@@ -661,14 +824,19 @@
                                     <div class="row col-12">
                                         <div class="col-7">
                                             <span>{{val.service.service_name}}</span>
-                                            <p>Staff : {{val.orders.staff ? val.orders.staff.firstname:''}} {{val.orders.staff ? val.orders.staff.lastname:''}}</p>
+                                            <p>Staff : {{val.orders.staff ? val.orders.staff.firstname:''}}
+                                                {{val.orders.staff ? val.orders.staff.lastname:''}}</p>
                                         </div>
                                         <div class="col-3">
                                             <span>{{val.orders ? val.orders.service_qty: '-'}}</span>
                                         </div>
                                         <div class="col-2">
-                                            <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ val.orders.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                            <span *ngIf="currencySymbolPosition=='right'"> {{ val.orders.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                            <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
+                                                currencySymbol:'wide'}} {{ val.orders.service_cost |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                            <span *ngIf="currencySymbolPosition=='right'"> {{ val.orders.service_cost |
+                                                currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                                {{currencySymbol| currencySymbol:'wide'}}</span>
                                         </div>
                                     </div>
                                     <hr class="my-2">
@@ -679,8 +847,13 @@
                             <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-8">
-                                        <span *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                        <span *ngIf="currencySymbolPosition=='right'"> Subtotal : {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                        <span *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol|
+                                            currencySymbol:'wide'}} {{ pendingBillingOrdeTotal |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span *ngIf="currencySymbolPosition=='right'"> Subtotal : {{
+                                            pendingBillingOrdeTotal |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-4 ">
                                         <span>Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
@@ -695,14 +868,20 @@
                                     <span>Total</span>
                                 </div>
                                 <div class="col-4 ">
-                                    <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                    <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                    <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
+                                        currencySymbol:'wide'}} {{ pendingBillingOrdeTotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                    <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="px-3 py-2 text-center custom-bill-btn">
-                            <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer" (click)="fnPaymentBillingMode('print')">Print</button>
-                            <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer" (click)="fnPaymentBillingMode('email')">E-Bill</button>
+                            <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer"
+                                (click)="fnPaymentBillingMode('print')">Print</button>
+                            <button class="btn btn-secondary m-1 px-5" [disabled]="!selectedBillCustomer"
+                                (click)="fnPaymentBillingMode('email')">E-Bill</button>
                         </div>
                     </div>
                 </div>
@@ -711,16 +890,19 @@
     </mat-tab-group>
     <div class="admin-header">
         <span class="f13 d-flex align-items-center">
-        <button mat-stroked-button class="bellborder notification-btn bell-color" (click)="openNotificationDialog()">
-            <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i>
-            <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
-        </button>
-        <span class="profile-head">
-            <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
-                <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';" >
-            </div>
-          <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
-        </span>
+            <span class="profile-head">
+                <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
+                    <img class="h-100 w-100" src="{{currentUser.image}}" onerror="this.src='../assets/img/user.png';">
+                </div>
+                <p class="my-2 p-1" *ngIf="currentUser.full_name">{{currentUser.full_name}}</p>
+            </span>
+            <button mat-stroked-button class="bellborder notification-btn bell-color"
+                (click)="openNotificationDialog()">
+                <!-- <i mat-list-icon class="fa fa-bell-o" aria-hidden="true"></i> -->
+                <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
+                <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
+            </button>
+            
         </span>
     </div>
 </div>
