@@ -1237,15 +1237,12 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  fnSelect(index,customer_id){
-    
-
+  fnSelect(index,customer_id,order_id){
     if(this.selectedBillCustomer==null){
       this.selectedBillCustomer = customer_id;
       this.pendingBillingData[index].is_selected = true;
       this.selectedBillCustomerData = this.pendingBillingData[index];
     }else if(this.selectedBillCustomer!=customer_id){
-
       this._snackBar.open('Select Same customer', "X", {
         duration: 2000,
         verticalPosition: 'top',

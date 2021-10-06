@@ -698,10 +698,8 @@
                 <div class="row">
                     <div class="col-8 col-lg-8 px-4 py-3 col-xl-9 left-order-listing">
                         <div class="row">
-                            <!-- {{ pendingBillingData | json}} -->
                             <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
-                                <div
-                                    class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
+                                <div class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
