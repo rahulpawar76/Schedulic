@@ -41,17 +41,17 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex payment-details px-2">
-            <label class="service">Total Amount</label>
-            <label *ngIf="currencySymbolPosition=='left'" class="amount font-weight-bold">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-            <label *ngIf="currencySymbolPosition=='right'" class="amount font-weight-bold">{{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+        <div class="d-flex payment-details px-3">
+            <label class="service mb-0">Total Amount</label>
+            <label *ngIf="currencySymbolPosition=='left'" class="amount mb-0 font-weight-bold">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
+            <label *ngIf="currencySymbolPosition=='right'" class="amount mb-0 font-weight-bold">{{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
         </div>
         <hr>
         <div class="d-flex my-3 payment-confirm-btns">
 
-            <button (click)="cancelPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block btn btn-secondary cancelbtn float-right">Cancel</button>
-            <button (click)="onlinePayment()" *ngIf="paymentMethod == 'Online'" class="d-block btn btn-primary confirmpaymentbtn">Send Payment Link To Customer</button>
-            <button (click)="confirmCashPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block btn btn-primary confirmbtn float-right">Confirm</button>
+            <button (click)="cancelPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block text-light btn sc-grey-btn cancelbtn float-right">Cancel</button>
+            <button (click)="onlinePayment()" *ngIf="paymentMethod == 'Online'" class="d-block btn text-light sc-pink-btn confirmpaymentbtn">Send Payment Link To Customer</button>
+            <button (click)="confirmCashPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block text-light btn sc-pink-btn confirmbtn float-right">Confirm</button>
         </div>
 
 

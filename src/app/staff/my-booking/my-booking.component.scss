@@ -194,7 +194,7 @@
     }
     .confirmpaymentbtn {
         width: 75%;
-        border-radius: 50px;
+        border-radius: 3px;
         margin: auto;
     }
      ::ng-deep .modal-info {
@@ -437,6 +437,7 @@
         color: $text-bg;
         text-align: center;
         line-height: 1;
+        color: #fff;
     }
 }
 
