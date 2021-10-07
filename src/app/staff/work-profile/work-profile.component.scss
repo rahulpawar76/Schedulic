@@ -220,3 +220,10 @@
 .flaticon-calendar:before {
     content: "\f100";
 }
+
+.no-service-data{
+    height: calc(100vh - 119px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
