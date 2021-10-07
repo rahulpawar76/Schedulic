@@ -67,15 +67,10 @@
         height: 110px;
         text-align: center;
     }
-    .Customer-appointment-table{
-        height: calc(100% - 110px);
-        .main-table-content{
-            .sc-table{
-                height: 100%;
-                
-            }
-        }
-    }
+    // .Customer-appointment-table{
+    //     height: calc(100% - 110px);
+        
+    // }
 }
 #customer_report,
 #sales_report,
@@ -338,8 +333,9 @@
 .no-report-detail{
     // width: 100%;
     height: 100%;
-    width: calc(100% - -657px);
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 8rem;
 }

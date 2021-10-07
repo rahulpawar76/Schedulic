@@ -261,7 +261,9 @@ export class AppComponent implements AfterViewInit {
       const slashIndex = cleanUrl.indexOf("/");
       if (slashIndex >= 0) {
         cleanUrl = cleanUrl.substr(slashIndex + 1, 8);
-        this.pageHeading = this.authenticationService.pageName(cleanUrl,this.currentUser?this.currentUser.user_type:null);
+        if(this.currentUser.user_type != 'SM'){
+          this.pageHeading = this.authenticationService.pageName(cleanUrl,this.currentUser?this.currentUser.user_type:null);
+        }
         return cleanUrl;
       } else {
         return null;
@@ -452,20 +454,24 @@ export class AppComponent implements AfterViewInit {
 
 
   /*StaffDashboard Navigation*/
-  StaffProfile() {
+  StaffProfile(pageHead) {
+    this.pageHeading = pageHead;
     this.router.navigate(['/staff/my-profile']);
   }
 
-  StaffAppointment() {
-    this.router.navigate(['/staff/my-appointment']);
+  StaffAppointment(pageHead) {
+    // this.pageHeading = pageHead;
+    this.router.navigate(['/staff/my-bookings']);
   }
 
 
-  WorkProfile() {
+  WorkProfile(pageHead) {
+    // this.pageHeading = pageHead;
     this.router.navigate(['/staff/work-profile']);
   }
 
-  WorkSpace() {
+  WorkSpace(pageHead) {
+    // this.pageHeading = pageHead;
     this.router.navigate(['/staff']);
   }
 

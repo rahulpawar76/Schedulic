@@ -115,18 +115,19 @@
                                         src="/assets/images/icons/image-placeholder.svg">
                                     <img class="mx-auto service-profile-image uploaded"
                                         *ngIf="!editStaffId && staffImageUrl" src="{{staffImageUrl}}">
-                                    <img class="add-staff mx-auto" *ngIf="editStaffId && !staffImageUrl"
+                                    <img class="add-staff mx-auto" *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'"
                                         src="{{singleStaffDetail.staff[0].image}}">
                                     <img class="add-staff mx-auto uploaded" *ngIf="editStaffId && staffImageUrl"
                                         src="{{staffImageUrl}}">
+                                    <img class="mx-auto default-img" *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png'" src="/assets/images/icons/image-placeholder.svg">
                                 </div>
                                 <div class="img-upload-btns">
-                                    <button *ngIf="!editStaffId || !staffImageUrl" class="sc-yellow-btn mb-2"
+                                    <button *ngIf="(!editStaffId && !staffImageUrl) || (editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png')" class="sc-yellow-btn mb-2"
                                         (click)="staffImage()" mat-button>Add Image</button>
-                                    <button *ngIf="editStaffId && staffImageUrl" class="sc-yellow-btn mb-2"
+                                    <button *ngIf="editStaffId && (staffImageUrl || (singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'))" class="sc-yellow-btn mb-2"
                                         (click)="staffImage()" mat-button>Change Image</button>
-                                    <button *ngIf="editStaffId && staffImageUrl" class="sc-yellow-btn mb-2"
-                                        (click)="staffImage()" mat-button>Remove Image</button>
+                                    <button *ngIf="editStaffId && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'" class="sc-yellow-btn mb-2"
+                                        (click)="staffRemoveImage()" mat-button>Remove Image</button>
                                 </div>
                             </div>
                             <div class="staff-form row">
@@ -617,7 +618,7 @@
                 </div>
             </div>
         </div>
-        <mat-card *ngIf="singleStaffView" class="h-100vh">
+        <div *ngIf="singleStaffView" class="h-100vh">
             <div class="d-flex align-items-center flex-wrap single-staff-header">
 
                 <div class="w-100 mt-4">
@@ -1887,6 +1888,6 @@
                     </div>
                 </mat-tab>
             </mat-tab-group>
-        </mat-card>
+        </div>
     </div>
 </mat-drawer-content>
