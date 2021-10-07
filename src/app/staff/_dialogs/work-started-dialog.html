@@ -9,13 +9,13 @@
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body common-input">
             <p class="h5 work-content">You have started the work!</p>
-
-            <label>Add Note</label>
-            <textarea class="form-control mb-2" [(ngModel)]="notes" placeholder="Dummy text lorem ipsum"></textarea>
-
-            <button class="d-block btn btn-primary addbtn float-right" (click)="changeBookingStatus(booking_id, status)">Add Status</button>
+            <div class="form-group">
+               <label>Add Note</label>
+               <textarea class="form-control mb-2" [(ngModel)]="notes" placeholder="Dummy text lorem ipsum"></textarea>
+            </div>
+            <button class=" btn btn-primary addbtn float-right" (click)="changeBookingStatus(booking_id, status)">Add Status</button>
         </div>
     </div>
 </div>
