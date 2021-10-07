@@ -10,12 +10,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6 col-lg-6 col-sm-3 col-md-6 mb-2">
-                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <label class="d-block custom-font-weight">Date & Time</label>
                                     <p>{{newAppointmentData.booking_dateForLabel}}</p>
                                     <p>{{newAppointmentData.booking_timeForLabel}}</p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <label class="font-weight-bold">Status</label>
+                                    <label class="custom-font-weight">Status</label>
                                     <p *ngIf="newAppointmentData.order_status == 'P'">Waiting For Confirmation</p>
                                     <p *ngIf="newAppointmentData.order_status == 'CNF'">Confirm</p>
                                     <p *ngIf="newAppointmentData.order_status == 'RSC'">Reschedule By Customer</p>
@@ -23,15 +23,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
-                                    <label class="font-weight-bold">Service</label>
+                                    <label class="custom-font-weight">Service</label>
                                     <p>{{newAppointmentData.service?newAppointmentData.service.service_name:'-'}}</p>
                                     <p class="mb-2">Duration: {{newAppointmentData.service?newAppointmentData.service.service_time:'-'}} Min
                                     </p>
-                                    <label class="font-weight-bold">Amount</label>
+                                    <label class="custom-font-weight">Amount</label>
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p *ngIf="currencySymbolPosition=='right'">{{ newAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </p>
-                                    <label class="font-weight-bold mt-2 ">Customer</label>
+                                    <label class="custom-font-weight mt-2 ">Customer</label>
                                     <p class="text-capitalize">
                                         {{newAppointmentData.customer?newAppointmentData.customer.fullname:''}}</p>
                                     <p class="text-capitalize">Phone No:{{newAppointmentData.customer?newAppointmentData.customer.phone:''}}
@@ -65,7 +65,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6 col-lg-6 col-sm-3 col-md-6">
-                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <label class="d-block custom-font-weight">Date & Time</label>
                                     <p>{{onGoingAppointmentData.booking_dateForLabel}}</p>
                                     <p>{{onGoingAppointmentData.booking_timeForLabel}}</p>
                                 </div>
@@ -82,7 +82,7 @@
                                             <!-- </mat-form-field> -->
                                         </div>
                                     </form>
-                                    <!-- <label class="font-weight-bold mt-2">Current Status</label>
+                                    <!-- <label class="custom-font-weight mt-2">Current Status</label>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'P'">
                                         Waiting For Confirmation</p>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'AC'">
@@ -108,17 +108,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6">
-                                    <label class="font-weight-bold">Service</label>
+                                    <label class="custom-font-weight">Service</label>
                                     <p>{{onGoingAppointmentData.service?onGoingAppointmentData.service.service_name:''}}
                                     </p>
                                     <p>Duration: {{onGoingAppointmentData.service?onGoingAppointmentData.service.service_time:'-'}} Min
                                     </p>
-                                    <label class="font-weight-bold mt-2">Amount</label>
+                                    <label class="custom-font-weight mt-2">Amount</label>
                                     <!-- <p>$ {{onGoingAppointmentData.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ onGoingAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p *ngIf="currencySymbolPosition=='right'">{{ onGoingAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </p>
-                                    <label class="font-weight-bold mt-2">Customer</label>
+                                    <label class="custom-font-weight mt-2">Customer</label>
                                     <p class="text-capitalize">
                                         {{onGoingAppointmentData.customer?onGoingAppointmentData.customer.fullname:''}}
                                     </p>
@@ -126,7 +126,7 @@
                                     </p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <label class="font-weight-bold mt-2">Current Status</label>
+                                    <label class="custom-font-weight mt-2">Current Status</label>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'P'">
                                         Waiting For Confirmation</p>
                                     <p class="text-capitalize" *ngIf="onGoingAppointmentData.order_status == 'AC'">
@@ -173,28 +173,28 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6 col-lg-6 col-sm-3 col-md-6 mb-2">
-                                    <label class="d-block font-weight-bold">Date & Time</label>
+                                    <label class="d-block custom-font-weight">Date & Time</label>
                                     <p>{{completedAppointmentData.booking_dateForLabel}}</p>
                                     <p>{{completedAppointmentData.booking_timeForLabel}}</p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <label class="font-weight-bold">Status</label>
+                                    <label class="custom-font-weight">Status</label>
                                     <p>Completed</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-8">
-                                    <label class="font-weight-bold">Service</label>
+                                    <label class="custom-font-weight">Service</label>
                                     <p>{{completedAppointmentData.service?completedAppointmentData.service.service_name:'-'}}
                                     </p>
                                     <p>Duration: {{completedAppointmentData.service?completedAppointmentData.service.service_time:'-'}} Min
                                     </p>
-                                    <label class="font-weight-bold mt-2">Amount</label>
+                                    <label class="custom-font-weight mt-2">Amount</label>
                                     <!-- <p>$ {{completedAppointmentData.service.service_cost}}</p> -->
                                     <p *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ completedAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p *ngIf="currencySymbolPosition=='right'">{{ completedAppointmentData.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
                                     </p>
-                                    <label class="font-weight-bold mt-2">Customer</label>
+                                    <label class="custom-font-weight mt-2">Customer</label>
                                     <p class="text-capitalize">
                                         {{completedAppointmentData.customer?completedAppointmentData.customer.fullname:''}}
                                     </p>
