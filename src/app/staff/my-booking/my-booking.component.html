@@ -49,8 +49,11 @@
                 </div>
             </div>
 
-            <div class="bookings-details-main" *ngIf="newAppointmentData == ''">
-                <h2 class="text-center my-3">No Data Found</h2>
+            <div class="no-booking-data 1" *ngIf="newAppointmentData ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
 
@@ -156,8 +159,11 @@
                 </div>
 
             </div>
-            <div class="bookings-details-main" *ngIf="onGoingAppointmentData == ''">
-                <h2 class="text-center my-3">No Data Found</h2>
+            <div class="no-booking-data 2" *ngIf="onGoingAppointmentData ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="Completed" class="appointmentlabel">
@@ -205,8 +211,11 @@
                 </div>
 
             </div>
-            <div class="bookings-details-main" *ngIf="completedAppointmentData == ''">
-                <h2 class="text-center my-3">No Data Found</h2>
+            <div class="no-booking-data 3" *ngIf="completedAppointmentData ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
 

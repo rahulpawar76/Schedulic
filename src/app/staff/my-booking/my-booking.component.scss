@@ -443,3 +443,9 @@
 .payment-confirm-btns {
     justify-content: space-around;
 }
+.no-booking-data{
+    height: calc(100vh - 119px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

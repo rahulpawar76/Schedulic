@@ -12,8 +12,11 @@
                         </mat-card>
                     </div>
                 </div>
-                <div *ngIf="serviceData == ''" class="single-booking">
-                    <h2 class="text-center my-3">No Service Found</h2>
+                <div class="no-service-data" *ngIf="serviceData ==''">
+                    <div class="no-data-badge">
+                        <img src="/assets/images/nodata.svg" />
+                        <label>No Data Found.</label>
+                    </div>
                 </div>
             </div>
         </mat-tab>
@@ -38,8 +41,11 @@
                     </mat-card>
                 </div>
             </div>
-            <div *ngIf="postalCodeData == ''" class="staff-work-profile">
-                <h2 class="text-center my-2">No Postal Code Found</h2>
+            <div class="no-service-data" *ngIf="postalCodeData ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="Working Hours">
@@ -71,8 +77,11 @@
                     </mat-card>
                 </div>
             </div>
-            <div *ngIf="workingHours == ''" class="staff-work-profile work-prfile-w-hours">
-                <h2 class="text-center my-3">No Working Hours Found</h2>
+            <div class="no-service-data" *ngIf="workingHours ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
 
@@ -105,8 +114,11 @@
                     </mat-card>
                 </div>
             </div>
-            <div *ngIf="breakHours == ''">
-                <h2 class="my-2">Record Not Found.</h2>
+            <div class="no-service-data" *ngIf="breakHours ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
             <!-- <div *ngIf="offDays != ''" class="staff-work-profile work-prfile-breaks">
 		<div *ngFor="let offDays of offDays; let i = index" class="col-lg-3 col-sm-12 col-md-6 profile-single-slot float-left">
@@ -150,8 +162,11 @@
                     </mat-card>
                 </div>
             </div>
-            <div *ngIf="holidayData == ''" class="staff-work-profile work-profile-time-off">
-                <h2 class="text-center my-2">No Holiday Found</h2>
+            <div class="no-service-data" *ngIf="holidayData ==''">
+                <div class="no-data-badge">
+                    <img src="/assets/images/nodata.svg" />
+                    <label>No Data Found.</label>
+                </div>
             </div>
         </mat-tab>
         
