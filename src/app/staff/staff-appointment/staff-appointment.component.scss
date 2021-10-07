@@ -136,7 +136,7 @@
 ::ng-deep .modal-info {
     .modal-bcolor-red {
         background-color: $btnlightred;
-        padding-bottom: 0px;
+        // padding-bottom: 0px;
         .header-margins {
             padding: 0;
         }
@@ -354,6 +354,7 @@
     }
     .address-fontsize {
         font-size: 13px;
+        margin-bottom: 0px;
         .bluephone {
             color: #1172f4;
         }
