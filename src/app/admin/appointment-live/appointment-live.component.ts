@@ -146,6 +146,9 @@ export class AppointmentLiveComponent implements OnInit {
   public lat = 40.094882;
   public lng = 20.214329;
   public ShowMap:boolean = false;
+  private geoCoder;
+  address: string;
+  deliveryBoyAddress:string;
   taxArr:any= [];
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
@@ -1368,10 +1371,44 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+  getAddress(latitude, longitude) {
+    this.geoCoder = new google.maps.Geocoder();
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
+  getLocation(address) {
+    this.geoCoder = new google.maps.Geocoder();
+    this.geoCoder.geocode({ 'address': address }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          let destinationLat = results[0].geometry.location.lat();
+          let desiationLong = results[0].geometry.location.lng();
+          this.destination = { lat: destinationLat, lng: desiationLong };
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
   OutDootMap(index=0){
     
     var data = this.outdoorOrdersArr[index];
-    console.log(data.service.service_sub_type);
+    var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
     
     if(data.service.service_sub_type=='at_home'){
       this.ShowMap  = true;
@@ -1379,7 +1416,7 @@ export class AppointmentLiveComponent implements OnInit {
       return;
     }
     
-    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/95');
     itemsRef.valueChanges().subscribe(
       x=>{
           this.trackOrderList =  x;
@@ -1389,6 +1426,8 @@ export class AppointmentLiveComponent implements OnInit {
           this.lng = parseFloat(this.trackOrderList[1]);
           this.origin = { lat: this.lat, lng: this.lng };
           this.destination = { lat: this.lat, lng: this.lng };
+          this.getAddress(this.lat, this.lng);
+          this.getLocation(address);
         }
     );
 
