@@ -38,13 +38,6 @@
             <p>Postal Codes</p>
         </div>
         <h6 class="pt-3">Account</h6>
-        <!-- <div (click)="MySettingsProfileNav()" class="d-flex setting-menu-item">
-                <div class="menu-icon">
-                    <img class="normal" src="../../../../assets/images/admin/settings-menu/my-profile.png" />
-                    <img class="colored" src="../../../../assets/images/admin/settings-menu/my-profile-color.png" />
-                </div>
-                <p>My Profile</p>
-            </div> -->
         <div routerLink="/admin/settings-account/company-details" class="d-flex setting-menu-item">
             <div class="menu-icon">
                 <img class="normal" src="../../../../assets/images/admin/settings-menu/business-detail.svg" />
@@ -115,19 +108,27 @@
                                         src="/assets/images/icons/image-placeholder.svg">
                                     <img class="mx-auto service-profile-image uploaded"
                                         *ngIf="!editStaffId && staffImageUrl" src="{{staffImageUrl}}">
-                                    <img class="add-staff mx-auto" *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'"
+                                    <img class="add-staff mx-auto"
+                                        *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'"
                                         src="{{singleStaffDetail.staff[0].image}}">
                                     <img class="add-staff mx-auto uploaded" *ngIf="editStaffId && staffImageUrl"
                                         src="{{staffImageUrl}}">
-                                    <img class="mx-auto default-img" *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png'" src="/assets/images/icons/image-placeholder.svg">
+                                    <img class="mx-auto default-img"
+                                        *ngIf="editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png'"
+                                        src="/assets/images/icons/image-placeholder.svg">
                                 </div>
                                 <div class="img-upload-btns">
-                                    <button *ngIf="(!editStaffId && !staffImageUrl) || (editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png')" class="sc-yellow-btn mb-2"
-                                        (click)="staffImage()" mat-button>Add Image</button>
-                                    <button *ngIf="editStaffId && (staffImageUrl || (singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'))" class="sc-yellow-btn mb-2"
-                                        (click)="staffImage()" mat-button>Change Image</button>
-                                    <button *ngIf="editStaffId && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'" class="sc-yellow-btn mb-2"
-                                        (click)="staffRemoveImage()" mat-button>Remove Image</button>
+                                    <button
+                                        *ngIf="(!editStaffId && !staffImageUrl) || (editStaffId && !staffImageUrl && singleStaffDetail.staff[0].image == 'https://api.schedulic.com/staff-images/default.png')"
+                                        class="sc-yellow-btn mb-2" (click)="staffImage()" mat-button>Add Image</button>
+                                    <button
+                                        *ngIf="editStaffId && (staffImageUrl || (singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'))"
+                                        class="sc-yellow-btn mb-2" (click)="staffImage()" mat-button>Change
+                                        Image</button>
+                                    <button
+                                        *ngIf="editStaffId && singleStaffDetail.staff[0].image && singleStaffDetail.staff[0].image != 'https://api.schedulic.com/staff-images/default.png'"
+                                        class="sc-yellow-btn mb-2" (click)="staffRemoveImage()" mat-button>Remove
+                                        Image</button>
                                 </div>
                             </div>
                             <div class="staff-form row">
@@ -292,7 +293,6 @@
                                     <div class="upload-document-top-margin">
                                         <div class="d-flex mb-2">
                                             <h6>Upload Documents</h6>
-                                            <!-- <i class="fa fa-question-circle uploaddocument-icon" #tooltip="matTooltip" matTooltip="Info about the Document" matTooltipPosition="above" matTooltipHideDelay="100" aria-hidden="true"></i> -->
                                         </div>
                                         <div class="container pointer" appDnd (fileDropped)="onFileDropped($event)">
                                             <input class="pointer" type="file" #fileDropRef id="fileDropRef" multiple
@@ -348,32 +348,17 @@
                         <div class="col-lg-3 col-md-3 col-12 select-service">
                             <div class="h-100">
                                 <h6 style="font-weight: 400; font-size: 16px;">Select Service for the Staff</h6>
-                                <!-- <mat-form-field class="pb-3 bottom-border-field">
-                                    <input matInput placeholder="Category, Sub Category, Service" (keyup)="searchService($event);">
-                                    <mat-icon matPrefix>search</mat-icon>
-                                </mat-form-field> -->
-                                <!-- <div class="searchbox mr-2">
-                                    <form class="search_input-staff">
-                                        <div class="form-group has-search">
-                                            <mat-icon class="form-control-feedback">search</mat-icon>
-                                            <input name="searchStaff" (keyup)="searchService($event)" type="text"
-                                                class="form-control searchbox_staff " placeholder="Search">
-                                        </div>
-                                    </form>
-                                </div> -->
+
                                 <div class="searchbox mr-2">
                                     <form class="search_input-staff">
                                         <div class="has-search">
                                             <mat-icon class="form-control-feedback">search</mat-icon>
-                                            
-                                                <input name="searchStaff" (keyup)="searchService($event)" type="text"
+
+                                            <input name="searchStaff" (keyup)="searchService($event)" type="text"
                                                 class="form-control searchbox_appointment " placeholder="Search">
                                         </div>
                                     </form>
                                 </div>
-
-
-
                                 <mat-accordion class="select-service-accordian">
                                     <mat-expansion-panel
                                         *ngFor="let categoryServiceListval of categoryServiceListTemp; let i=index">
@@ -507,67 +492,73 @@
                                                 <img src="{{allStaffList.image}}">
                                             </div>
                                             <div class="staff-data">
-                                                <h5 class="ellipsis">{{allStaffList.firstname}} {{allStaffList.lastname}}
+                                                <h5 class="ellipsis">{{allStaffList.firstname}}
+                                                    {{allStaffList.lastname}}
                                                 </h5>
                                                 <div class="d-flex statick-rating w-100">
                                                     <div class="star-rating"
                                                         *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length == 0">
-                                                        <input type="radio" id="5-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="5" />
+                                                        <input type="radio" id="5-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="5" />
                                                         <label for="5-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
-                                                        <input type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="4" />
+                                                        <input type="radio" id="4-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="4" />
                                                         <label for="4-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
-                                                        <input type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="3" />
+                                                        <input type="radio" id="3-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="3" />
                                                         <label for="3-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
-                                                        <input type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="2" />
+                                                        <input type="radio" id="2-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="2" />
                                                         <label for="2-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
-                                                        <input type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
-                                                            value="1" />
-                                                        <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                        <input type="radio" id="1-star_{{allStaffList.id}}"
+                                                            name="rating_2" value="1" />
+                                                        <label for="1-star_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
                                                     </div>
                                                     <div class="star-rating"
                                                         *ngIf="allStaffList.avg_ratings && allStaffList.avg_ratings.length != 0">
                                                         <input type="radio"
                                                             [checked]="allStaffList.avg_ratings[0].aggregate == '5'"
-                                                            id="5-stars_{{allStaffList.id}}" name="rating_2" value="5" />
+                                                            id="5-stars_{{allStaffList.id}}" name="rating_2"
+                                                            value="5" />
                                                         <label for="5-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
                                                         <input [checked]="allStaffList.avg_ratings[0].aggregate == '4'"
-                                                            type="radio" id="4-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="4" />
+                                                            type="radio" id="4-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="4" />
                                                         <label for="4-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
                                                         <input [checked]="allStaffList.avg_ratings[0].aggregate == '3'"
-                                                            type="radio" id="3-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="3" />
+                                                            type="radio" id="3-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="3" />
                                                         <label for="3-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
                                                         <input [checked]="allStaffList.avg_ratings[0].aggregate == '2'"
-                                                            type="radio" id="2-stars_{{allStaffList.id}}" name="rating_2"
-                                                            value="2" />
+                                                            type="radio" id="2-stars_{{allStaffList.id}}"
+                                                            name="rating_2" value="2" />
                                                         <label for="2-stars_{{allStaffList.id}}"
                                                             class="star">&#9733;</label>
                                                         <input [checked]="allStaffList.avg_ratings[0].aggregate == '1'"
                                                             type="radio" id="1-star_{{allStaffList.id}}" name="rating_2"
                                                             value="1" />
-                                                        <label for="1-star_{{allStaffList.id}}" class="star">&#9733;</label>
+                                                        <label for="1-star_{{allStaffList.id}}"
+                                                            class="star">&#9733;</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="text-left break-word" fxFlex="25">{{allStaffList.email}}</div>
                                     <div class="text-left " fxFlex="15">{{allStaffList.phone}}</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'"> Private</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'"> Public</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff == 'Y'">
+                                        Private</div>
+                                    <div class="text-left" fxFlex="10" *ngIf="allStaffList.internal_staff  == 'N'">
+                                        Public</div>
                                     <div class="text-left" fxFlex="10">
                                         <mat-slide-toggle [checked]="allStaffList.status  == 'E'"
                                             (change)="fnChangeStaffStatus($event.checked,allStaffList.id)">
@@ -575,9 +566,10 @@
                                     </div>
                                     <div class="text-left" fxFlex="5">
                                         <div class="table-action-btns">
-                                         <button class="sc-table-action-btn" (click)="fnViewSingleStaff(allStaffList.id,i)">
-                                            <mat-icon>visibility</mat-icon>
-                                        </button> 
+                                            <button class="sc-table-action-btn"
+                                                (click)="fnViewSingleStaff(allStaffList.id,i)">
+                                                <mat-icon>visibility</mat-icon>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -599,12 +591,14 @@
                                         (click)="navigateTo(first_page_url)"><a class="page-link"><i
                                                 class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a>
                                     </li>
-                                    <li class="page-item nextprev {{current_page==1?'pointernone':''}}" (click)="navigateTo(prev_page_url)"><a class="page-link"><i
+                                    <li class="page-item nextprev {{current_page==1?'pointernone':''}}"
+                                        (click)="navigateTo(prev_page_url)"><a class="page-link"><i
                                                 class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item" [ngClass]="{'active':current_page == i+1}"
                                         *ngFor="let pagenumber of arrayOne(last_page); let i = index;"
                                         (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
-                                    <li class="page-item nextprev {{arrayOne(last_page).length==current_page?'pointernone':''}}" (click)="navigateTo(next_page_url)"><a class="page-link"><i
+                                    <li class="page-item nextprev {{arrayOne(last_page).length==current_page?'pointernone':''}}"
+                                        (click)="navigateTo(next_page_url)"><a class="page-link"><i
                                                 class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item nextprev {{arrayOne(last_page).length==current_page?'pointernone':''}} "
                                         (click)="navigateTo(last_page_url)"><a class="page-link"><i
@@ -613,14 +607,12 @@
                                 </ul>
                             </nav>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="singleStaffView" class="h-100vh">
             <div class="d-flex align-items-center flex-wrap single-staff-header">
-
                 <div class="w-100 mt-4">
                     <a (click)="fnBackStaff()" class="staff-back-btn text-center pl-0"><span
                             class="material-icons-outlined">chevron_left</span>Back</a>
@@ -669,10 +661,12 @@
                 </div>
                 <div class="staff-btn">
                     <div class="mx-2">
-                        <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill" class="staff-edit-btn  text-center pl-0">Edit Details</button>
+                        <button (click)="fnEditStaff(singleStaffDetail.staff[0].id)" mat-button appearance="fill"
+                            class="staff-edit-btn  text-center pl-0">Edit Details</button>
                     </div>
                     <div class="mx-2">
-                        <button mat-button (click)="fnDeleteStaff(singleStaffDetail.staff[0].id)" appearance="fill" class="staff-delete-btn" mat-raised-button color="warn">Delete</button>
+                        <button mat-button (click)="fnDeleteStaff(singleStaffDetail.staff[0].id)" appearance="fill"
+                            class="staff-delete-btn" mat-raised-button color="warn">Delete</button>
                     </div>
                 </div>
             </div>
@@ -724,7 +718,7 @@
                     <div class="bottom-border d-flex">
                         <div class="custom-text-style-wrap">
                             <h6>Email Verification</h6>
-                            <div class="d-flex">
+                            <div class="d-flex align-items-center">
                                 <p class="mb-0 pr-2 detail-color">{{singleStaffDetail.staff[0].email}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'"
@@ -732,8 +726,6 @@
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].email_verification_status == 'Y'"
                                         selected class="btn-green">Verified</mat-chip>
                                 </mat-chip-list>
-                                <!-- <button mat-button class="verified-button">Not Verified</button>
-                            <button mat-button class="verified-button">Not Verified</button> -->
                             </div>
                         </div>
                         <div *ngIf="singleStaffDetail.staff[0].email_verification_status == 'N'" class="ml-auto">
@@ -747,7 +739,7 @@
                     <div class="bottom-border d-flex">
                         <div class="custom-text-style-wrap">
                             <h6>Phone Number Verification</h6>
-                            <div class="d-flex">
+                            <div class="d-flex align-items-center">
                                 <p class="mb-0 pr-2 detail-color">{{singleStaffDetail.staff[0].phone}}</p>
                                 <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
                                     <mat-chip *ngIf="singleStaffDetail.staff[0].phone_verification_status == 'N'"
@@ -769,16 +761,12 @@
                         <h6>Documents</h6>
                         <div *ngIf="singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             <div *ngFor="let staffDocument of singleStaffDetail.staff[0].getdocument"
-                                class="pan-card file-border d-flex mr-2">
+                                class="file-document d-flex mr-2">
                                 <a href="{{staffDocument.documents}}" download class="d-flex" target="_blank">
-                                    <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                                    <p class="pr-1 mb-0">{{staffDocument.filename}}</p>
+                                    <mat-icon aria-hidden="false" class="pr-1">visibility</mat-icon>
+                                    {{staffDocument.filename}}
                                 </a>
                             </div>
-                            <!-- <div class="adhar-card file-border d-flex">
-                            <mat-icon aria-hidden="false" class="pr-1">insert_drive_file</mat-icon>
-                            <p class="pr-1 mb-0">Adhar card.jpg</p>
-                        </div> -->
                         </div>
                         <div *ngIf="!singleStaffDetail.staff[0].getdocument" class="d-flex mt-3">
                             No Document Available
@@ -790,9 +778,11 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
-                                    <div class="content" class="example-list" *ngIf="singleStaffDetail.services.length > 0">
+                                    <div class="content" class="example-list"
+                                        *ngIf="singleStaffDetail.services.length > 0">
                                         <div *ngFor="let staffService of singleStaffDetail.services; let i=index"
-                                            class="example-box custom-service-box"[ngClass]="{'checked' : selectedServiceNewStaff.indexOf(staffService.id) >-1 }" >
+                                            class="example-box custom-service-box"
+                                            [ngClass]="{'checked' : selectedServiceNewStaff.indexOf(staffService.id) >-1 }">
                                             <div class="custom_check_main" fxFlex="5">
                                                 <mat-checkbox
                                                     (change)="fnAssignServiceToStaff($event.checked, staffService.id)"
@@ -834,7 +824,8 @@
                 <mat-tab label="Postal Codes">
                     <div class="postal-heading-wrap">
                         <div>
-                            <h6 class="mb-0 mt-3">Postal codes are defined geographical boundaries within a location.<br>
+                            <h6 class="mb-0 mt-3">Postal codes are defined geographical boundaries within a
+                                location.<br>
                                 Staff can be these area code.</h6>
                             <p>Customers will only be show staff members in the area code they select.</p>
                         </div>
@@ -919,80 +910,147 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="mondayOn" formControlName="mondayToggle"
+                                                        <mat-slide-toggle [checked]="mondayOn"
+                                                            formControlName="mondayToggle"
                                                             (change)="fnChangeToggle($event,'Monday')">
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Monday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="mondayOn" (click)="fnShowAddWorkHourForm('Monday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="mondayOn"
+                                                            (click)="fnShowAddWorkHourForm('Monday')">Add Hours</button>
+                                                    </div>
                                                     <div class="" fxFlex="60" *ngIf="mondayOn">
-                                                        <div class="workHour-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="workHour-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '1'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap"[(value)]="workHour.day_end_time" [disabled]="true">
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="mondayWorkingHourStartTimeIndex >= i">
                                                                         {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showMondayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeMonday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Monday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" >{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeMonday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Monday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeMonday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Monday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeMonday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Monday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="mondayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Monday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Monday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="" *ngIf="!mondayOn">Closed for Business</div>
                                                 </div>
                                                 <div class="blue-font pl-3" fxFlex="10">
-                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0"> Apply to all </p>
+                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0"> Apply to
+                                                        all </p>
                                                 </div>
                                                 <div class="" fxFlex="15">
-                                                    <button mat-button class="staff-reset-btn mr-1" (click)="fnWorkingHoursResetToDefault()">Reset to Default</button>
+                                                    <button mat-button class="staff-reset-btn mr-1"
+                                                        (click)="fnWorkingHoursResetToDefault()">Reset to
+                                                        Default</button>
                                                 </div>
                                             </div>
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="tuesdayOn" formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
+                                                        <mat-slide-toggle [checked]="tuesdayOn"
+                                                            formControlName="tuesdayToggle"
+                                                            (change)="fnChangeToggle($event,'Tuesday')">
+                                                        </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Tuesday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="tuesdayOn" (click)="fnShowAddWorkHourForm('Tuesday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="tuesdayOn"
+                                                            (click)="fnShowAddWorkHourForm('Tuesday')">Add
+                                                            Hours</button></div>
                                                     <div class="" fxFlex="60" *ngIf="tuesdayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '2'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap"[(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap"[(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showTuesdayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeTuesday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Tuesday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" >{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeTuesday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Tuesday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeTuesday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Tuesday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeTuesday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Tuesday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="tuesdayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Tuesday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Tuesday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1004,33 +1062,67 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="wednesdayOn" formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
+                                                        <mat-slide-toggle [checked]="wednesdayOn"
+                                                            formControlName="wednesdayToggle"
+                                                            (change)="fnChangeToggle($event,'Wednesday')">
+                                                        </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Wednesday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="wednesdayOn" (click)="fnShowAddWorkHourForm('Wednesday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="wednesdayOn"
+                                                            (click)="fnShowAddWorkHourForm('Wednesday')">Add
+                                                            Hours</button></div>
                                                     <div class="" fxFlex="50" *ngIf="wednesdayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '3'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap"[(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap"[(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showWednesdayAddForm">
-                                                            <div class="d-flex" >
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeWednesday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Wednesday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <div class="d-flex">
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeWednesday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Wednesday')">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeWednesday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Wednesday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeWednesday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Wednesday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="wednesdayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Wednesday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Wednesday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1043,37 +1135,68 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="thursdayOn" formControlName="thursdayToggle"
+                                                        <mat-slide-toggle [checked]="thursdayOn"
+                                                            formControlName="thursdayToggle"
                                                             (change)="fnChangeToggle($event,'Thursday')">
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Thursday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="thursdayOn" (click)="fnShowAddWorkHourForm('Thursday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="thursdayOn"
+                                                            (click)="fnShowAddWorkHourForm('Thursday')">Add
+                                                            Hours</button></div>
                                                     <div class="" fxFlex="50" *ngIf="thursdayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '4'">
                                                                 <mat-select
-                                                                    class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
                                                                 <mat-select
-                                                                    class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showThursdayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeThursday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Thursday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" >{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeThursday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Thursday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeThursday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Thursday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeThursday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Thursday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="thursdayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Thursday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Thursday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1086,34 +1209,67 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="fridayOn" formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')">
+                                                        <mat-slide-toggle [checked]="fridayOn"
+                                                            formControlName="fridayToggle"
+                                                            (change)="fnChangeToggle($event,'Friday')">
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Friday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="fridayOn" (click)="fnShowAddWorkHourForm('Friday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="fridayOn"
+                                                            (click)="fnShowAddWorkHourForm('Friday')">Add Hours</button>
+                                                    </div>
                                                     <div class="" fxFlex="50" *ngIf="fridayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '5'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showFridayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeFriday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Friday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeFriday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Friday')">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeFriday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Friday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeFriday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Friday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="fridayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Friday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Friday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1126,35 +1282,68 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="saturdayOn" formControlName="saturdayToggle"
+                                                        <mat-slide-toggle [checked]="saturdayOn"
+                                                            formControlName="saturdayToggle"
                                                             (change)="fnChangeToggle($event,'Saturday')">
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Saturday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="saturdayOn" (click)="fnShowAddWorkHourForm('Saturday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="saturdayOn"
+                                                            (click)="fnShowAddWorkHourForm('Saturday')">Add
+                                                            Hours</button></div>
                                                     <div class="" fxFlex="50" *ngIf="saturdayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '6'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showSaturdayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeSaturday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Saturday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" >{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeSaturday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Saturday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeSaturday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Saturday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeSaturday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Saturday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="saturdayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save save-box" (click)="fnAddWorkHour('Saturday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save save-box"
+                                                                        (click)="fnAddWorkHour('Saturday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1167,36 +1356,70 @@
                                             <div class="example-box">
                                                 <div class="working-hour-box">
                                                     <div class="" fxFlex="10">
-                                                        <mat-slide-toggle [checked]="sundayOn" formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')">
+                                                        <mat-slide-toggle [checked]="sundayOn"
+                                                            formControlName="sundayToggle"
+                                                            (change)="fnChangeToggle($event,'Sunday')">
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Sunday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="sundayOn" (click)="fnShowAddWorkHourForm('Sunday')">Add Hours</button></div>
+                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                            class="sc-pink-btn min-width-auto mx-2" *ngIf="sundayOn"
+                                                            (click)="fnShowAddWorkHourForm('Sunday')">Add Hours</button>
+                                                    </div>
                                                     <div class="" fxFlex="50" *ngIf="sundayOn">
-                                                        <div class="breaktime-slot-main" *ngFor="let workHour of workingHoursList">
+                                                        <div class="breaktime-slot-main"
+                                                            *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '0'">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_start_time"
+                                                                    [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <!-- </mat-form-field> -->
                                                                 <div class="to-center">to</div>
                                                                 <!-- <mat-form-field class="bottom-border-field workinghour-dropdown"> -->
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="workHour.day_end_time" [disabled]="true">
+                                                                    <mat-option *ngFor="let timeSlot of timeSlotList"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-trash-o delete-box" (click)="fnDeleteWorkHour(workHour.id)" matTooltip="Delete Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showSundayAddForm">
                                                             <div class="d-flex">
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourStartTimeSunday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Sunday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" >{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourStartTimeSunday"
+                                                                    (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Sunday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
-                                                                <mat-select class="form-control form-control-transparent custom-mat-select-wrap" [(value)]="selectedWorkHourEndTimeSunday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Sunday')">
-                                                                    <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-select
+                                                                    class="form-control form-control-transparent custom-mat-select-wrap"
+                                                                    [(value)]="selectedWorkHourEndTimeSunday"
+                                                                    (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Sunday')">
+                                                                    <mat-option
+                                                                        *ngFor="let timeSlot of timeSlotList; let i=index;"
+                                                                        value="{{timeSlot.long}}"
+                                                                        [disabled]="sundayWorkingHourStartTimeIndex >= i">
+                                                                        {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
-                                                                <div class="pointer d-flex align-items-center ml-3"><i class="fa fa-save delete-box" (click)="fnAddWorkHour('Sunday')" matTooltip="Save Hours"></i></div>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                        class="fa fa-save delete-box"
+                                                                        (click)="fnAddWorkHour('Sunday')"
+                                                                        matTooltip="Save Hours"></i></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1259,7 +1482,9 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3">
-                                                                <i class="fa fa-trash-o delete-box" (click)="fnDeleteBreak(breakTime.id)"></i></div>
+                                                                <i class="fa fa-trash-o delete-box"
+                                                                    (click)="fnDeleteBreak(breakTime.id)"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div *ngIf="showMondayAddForm">
@@ -1844,38 +2069,54 @@
                     <div *ngIf="singleStaffDetail.staff[0].review != ''" class="sc-table-view">
                         <table class="table sc-table">
                             <thead class="sc-table-head">
-                                <tr >
-                                        <th scope="col">Create On</th>
-                                        <th scope="col">Title</th>
+                                <tr>
+                                    <th scope="col">Create On</th>
+                                    <th scope="col">Title</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Rating</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody class="sc-table-content">
-                                <tr *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"  class="final-list">
-                                    <td>{{customerReviews.created_at}}</td> 
+                                <tr *ngFor="let customerReviews of singleStaffDetail.staff[0].review; let i=index"
+                                    class="final-list">
+                                    <td>{{customerReviews.created_at}}</td>
                                     <td>{{customerReviews.rating_title}}</td>
                                     <td> {{customerReviews.review}} </td>
-                                    <td> <div class="d-flex main-review-wrap statick-rating w-100" *ngIf="customerReviews.rating != null">
-                                        <div class="star-rating">
-                                            <input type="radio" [checked]="customerReviews.rating == 5" id="5-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="5" />
-                                            <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                            <input type="radio" [checked]="customerReviews.rating == 4" id="4-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="4" />
-                                            <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                            <input type="radio" [checked]="customerReviews.rating == 3" id="3-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="3" />
-                                            <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                            <input type="radio" [checked]="customerReviews.rating == 2" id="2-stars_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="2" />
-                                            <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
-                                            <input type="radio" [checked]="customerReviews.rating == 1" id="1-star_{{customerReviews.id}}" name="rating_{{customerReviews.id}}" value="1" />
-                                            <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                    <td>
+                                        <div class="d-flex main-review-wrap statick-rating w-100"
+                                            *ngIf="customerReviews.rating != null">
+                                            <div class="star-rating">
+                                                <input type="radio" [checked]="customerReviews.rating == 5"
+                                                    id="5-stars_{{customerReviews.id}}"
+                                                    name="rating_{{customerReviews.id}}" value="5" />
+                                                <label for="5-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                <input type="radio" [checked]="customerReviews.rating == 4"
+                                                    id="4-stars_{{customerReviews.id}}"
+                                                    name="rating_{{customerReviews.id}}" value="4" />
+                                                <label for="4-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                <input type="radio" [checked]="customerReviews.rating == 3"
+                                                    id="3-stars_{{customerReviews.id}}"
+                                                    name="rating_{{customerReviews.id}}" value="3" />
+                                                <label for="3-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                <input type="radio" [checked]="customerReviews.rating == 2"
+                                                    id="2-stars_{{customerReviews.id}}"
+                                                    name="rating_{{customerReviews.id}}" value="2" />
+                                                <label for="2-stars_{{customerReviews.id}}" class="star">&#9733;</label>
+                                                <input type="radio" [checked]="customerReviews.rating == 1"
+                                                    id="1-star_{{customerReviews.id}}"
+                                                    name="rating_{{customerReviews.id}}" value="1" />
+                                                <label for="1-star_{{customerReviews.id}}" class="star">&#9733;</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                    <td class="table-action-btns">
-                                        <button appearance="fill" class="sc-table-action-btn" (click)="viewStaffReviewDetail(i,customerReviews.order_id)"><mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon></button>
                                     </td>
-                                    
+                                    <td class="table-action-btns">
+                                        <button appearance="fill" class="sc-table-action-btn"
+                                            (click)="viewStaffReviewDetail(i,customerReviews.order_id)">
+                                            <mat-icon aria-hidden="false" class="material-icons">visibility</mat-icon>
+                                        </button>
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>

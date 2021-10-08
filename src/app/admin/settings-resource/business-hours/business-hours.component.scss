@@ -236,13 +236,14 @@
         margin: 0;
         right: 0;
         box-shadow: 0 3px 17px rgb(0 168 155 / 25%), 0 4px 5px 0 rgb(0 168 155 / 25%) !important;
+        transition: all 0.4s;
         .company-action-btn {
             justify-content: flex-end;
         }
     }
     &.short-content-area {
         .footer-save-container {
-            width: calc(100% - 160px);
+            width: calc(100% - 150px);
         }
     }
 }
