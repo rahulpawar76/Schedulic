@@ -64,8 +64,8 @@
                     </div>
                 </mat-card>
                 <div class="p-1-5 bottom-border">
-                    <h6>Activity Log</h6>
-                    <div *ngFor="let log of activityLog" class="mb-4">
+                    <h6 class="font-weight-bold">Activity Log</h6>
+                    <div *ngFor="let log of activityLog" class="mb-2">
                         {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
                         && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
                         Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
