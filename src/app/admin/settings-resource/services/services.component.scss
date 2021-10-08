@@ -159,15 +159,27 @@
     &.for_category {
         .drageble-list {
             height: calc(100vh - 302px);
+            .final-list {
+                display: flex;
+            }
         }
     }
     &.for_subcategory {
         .drageble-list {
             height: calc(100vh - 307px);
+            .final-list {
+                display: flex;
+            }
         }
     }
 }
-
+.for_subcategory {
+    .drageble-list {
+        .final-list {
+            display: flex;
+        }
+    }
+}
 ::ng-deep .category-list .mat-expansion-panel-body {
     margin-left: 25px;
     padding-bottom: 0px;
@@ -447,6 +459,7 @@ textarea {
                 margin: 0;
                 box-shadow: 0 3px 17px rgb(0 168 155 / 25%), 0 4px 5px 0 rgb(0 168 155 / 25%) !important;
                 right: 0;
+                transition: all 0.4s;
                 .service-action-btn {
                     display: flex;
                     justify-content: flex-end;
