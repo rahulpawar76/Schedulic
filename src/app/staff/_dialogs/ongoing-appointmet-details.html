@@ -27,7 +27,7 @@
                 <div class="modal-body modal-bcolor">
                     <p class="mb-0 font-weight-bold"> {{appoDetail.booking_dateForLabel}}</p>
                     <p>Booked On: {{appoDetail.created_atForLabel}}</p>
-                    <p class="mb-0">Service</p>
+                    <p class="mb-0 mt-2">Service</p>
                     <!-- <p class="font-weight-bold">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p> -->
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{appoDetail.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
                     <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{appoDetail.service.service_name}}({{ appoDetail.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
@@ -54,7 +54,7 @@
                     <h6 class="text-left mb-3">Booking Details</h6>
                     <div class="row align-items-center">
                         <p class="customer-profile-img">SP</p>
-                        <div class="customer-name pr-3">
+                        <div class="customer-name pl-1">
                             <p class="font-weight-bold mb-0">{{appoDetail.customer.fullname}}</p>
                             <p class="address-fontsize mb-0">{{appoDetail.customer.email}}</p>
                         </div>
