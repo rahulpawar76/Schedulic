@@ -1,7 +1,7 @@
 @import "variables";
 .profile-main {
     margin-top: 65px;
-    height: 89vh;
+    height: 90vh;
     .title {
         font-size: $fs-16;
     }
@@ -250,7 +250,6 @@ i {
     margin: 0 !important;
     .modal-bcolor-primary {
         background-color: #d9f0fe;
-        padding-bottom: 0px;
         .header-margins {
             padding: 0;
         }
