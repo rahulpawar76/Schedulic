@@ -448,6 +448,18 @@
                 </div>
 
                 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="35" *ngIf="ShowMap">
+                    <agm-marker
+                        [latitude]="lat"
+                        [longitude]="lng"
+                        [iconUrl]="'assets/img/scooter-front-view.svg'"       
+                        >
+                    </agm-marker>
+                        <agm-marker
+                        [latitude]="dlat"
+                        [longitude]="dlng"
+                        [iconUrl]="'assets/img/customer-map-marker.svg'"       
+                        >
+                    </agm-marker>
                     <agm-direction [origin]="origin" [destination]="destination" [renderOptions]="renderOptions">
                     </agm-direction>
                 </agm-map>

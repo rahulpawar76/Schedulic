@@ -145,6 +145,8 @@ export class AppointmentLiveComponent implements OnInit {
 
   public lat = 40.094882;
   public lng = 20.214329;
+  public dlat = 40.094882;
+  public dlng = 20.214329;
   public ShowMap:boolean = false;
   private geoCoder;
   address: string;
@@ -153,11 +155,7 @@ export class AppointmentLiveComponent implements OnInit {
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
   renderOptions = {
-    polylineOptions: {
-      strokeColor: '#28a745',
-      strokeOpacity: 0.8,
-      strokeWeight: 10,
-    }
+    suppressMarkers: true
   }
   inStoreSelectedCat = 'all';
   staff_filter = "all";
@@ -191,7 +189,7 @@ export class AppointmentLiveComponent implements OnInit {
     });
     this.fnWatinglist();
     // this.fnPendingBilling();
-    // this.fnOutdoorOrders();
+    this.fnOutdoorOrders();
 
   }
 
@@ -1350,9 +1348,6 @@ export class AppointmentLiveComponent implements OnInit {
       "search_by" : search_by
     };
 
-    console.log("*******");
-    console.log(requestObject);
-
     this.adminService.outdoorOrders(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.outdoorOrdersArr = response.response;
@@ -1393,8 +1388,8 @@ export class AppointmentLiveComponent implements OnInit {
     this.geoCoder.geocode({ 'address': address }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          let destinationLat = results[0].geometry.location.lat();
-          let desiationLong = results[0].geometry.location.lng();
+          let destinationLat = this.dlat = results[0].geometry.location.lat();
+          let desiationLong = this.dlng = results[0].geometry.location.lng();
           this.destination = { lat: destinationLat, lng: desiationLong };
         } else {
           window.alert('No results found');
@@ -1410,12 +1405,6 @@ export class AppointmentLiveComponent implements OnInit {
     var data = this.outdoorOrdersArr[index];
     var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
     
-    if(data.service.service_sub_type=='at_home'){
-      this.ShowMap  = true;
-    }else{
-      return;
-    }
-    
     const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/95');
     itemsRef.valueChanges().subscribe(
       x=>{
@@ -1428,6 +1417,12 @@ export class AppointmentLiveComponent implements OnInit {
           this.destination = { lat: this.lat, lng: this.lng };
           this.getAddress(this.lat, this.lng);
           this.getLocation(address);
+
+          if(data.service.service_sub_type=='at_home'){
+            this.ShowMap  = true;
+          }else{
+            return;
+          }
         }
     );
 
