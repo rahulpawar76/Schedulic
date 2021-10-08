@@ -419,9 +419,9 @@
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
             <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('My Profile')" class="matlist pointer">
-                <img class="customer-profile-img ml-2 mr-2 mb-2" src="{{currentUser.image}}">
+                <img class="customer-profile-img ml-2 mt-3 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
-                    <p class="font-weight-bold p-1 mb-0">{{currentUser.full_name}}</p>
+                    <p class="font-weight-bold p-1 pt-2 mb-0">{{currentUser.full_name}}</p>
                     <div *ngIf="currentUser.avgRatings.length != 0" class="d-flex statick-rating staff-dash w-100">
                         <!-- <div class="star-rating" *ngIf="currentUser.avgRatings">
                             <input type="radio" [checked]="currentUser.avgRatings[0].aggregate == '5'" id="5-stars_{{currentUser.id}}" name="rating_2" value="5" />
@@ -438,7 +438,7 @@
                     </div>
                 </div>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="WorkSpace('My Workspace')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem mt-2" role="listitem" (click)="WorkSpace('My Workspace')" (click)="drawer.toggle()">
                 <button  mat-menu-item class="menuitem">
              <!-- <i mat-list-icon class="fa fa-briefcase mr-3"></i> -->
                 My Work Space</button>

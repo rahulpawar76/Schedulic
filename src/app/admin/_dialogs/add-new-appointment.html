@@ -325,13 +325,13 @@
                 </div>
                 
                 <div class="row mx-0 " *ngIf="!data.appointmentData">
-                    <div class="col-6 common-input">
+                    <div class="col-7 common-input">
                         <div class=" form-group">
                             <input class="form-control" formControlName="customerCouponCode" placeholder="Coupon Code">
                         </div>
                     </div>
-                    <div class="col-6 d-flex justify-content-end mb-3">
-                        <button mat-button class="sc-pink-btn ml-3" (click)="applyCoupon()">Apply Coupon</button>
+                    <div class="col-5 d-flex justify-content-end mb-3">
+                        <button mat-button class="sc-light-green-btn ml-3" (click)="applyCoupon()">Apply Coupon</button>
                     </div>
                     <div class="col-4" *ngIf="appointmentSubTotal > 0">
                         <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal |

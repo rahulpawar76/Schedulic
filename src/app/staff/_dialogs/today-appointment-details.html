@@ -11,7 +11,7 @@
         </button>
                 </div>
 
-                <div class="modal-body modal-bcolor">
+                <div class="modal-body">
 
                     <p class="mb-0 font-weight-bold"> {{appoDetail.booking_date}}</p>
                     <p>Booked On: {{appoDetail.created_at}}</p>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <mat-card class="card-body-marginn booking-detail-main mb-0">
+                <mat-card class="card-body-marginn custom-box-shadow booking-detail-main mb-0">
                     <h6 class="text-left mb-3">Booking Details</h6>
                     <div class="row align-items-center">
                         <p class="customer-profile-img">SP</p>
@@ -52,10 +52,10 @@
                             <p class="address-fontsize mb-0">{{appoDetail.customer.email}}</p>
                         </div>
                     </div>
-                    <p class=" address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{appoDetail.customer.phone}}</p>
+                    <p class=" address-fontsize"><i class="fa fa-phone pl-1 pr-1 bluephone"></i>{{appoDetail.customer.phone}}</p>
 
                     <p class="mb-0 address-fontsize">
-                        <i class="fa fa-map-marker bluemap pr-3"></i> {{appoDetail.orders_info ? appoDetail.orders_info.booking_address : ''}}
+                        <i class="fa fa-map-marker bluemap pl-1 pr-1"></i> {{appoDetail.orders_info ? appoDetail.orders_info.booking_address : ''}}
                     </p>
 
                     <p class="pl-4 address-fontsize">

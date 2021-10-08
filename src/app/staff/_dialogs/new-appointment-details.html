@@ -5,23 +5,24 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Appointment Details</h5>
                     <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                       <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="d-flex m-2" *ngIf="dialogType=='new'">
+                <div class="d-flex justify-content-around m-2" *ngIf="dialogType=='new'">
                     <button class="d-block btn btn-danger rejectbtn " (click)="changeBookingStatus(detailData.id, 'R')">Reject</button>
                     <button class="d-block btn btn-primary acceptbtn " (click)="changeBookingStatus(detailData.id, 'AC')">Accept</button>
                 </div>
+               
                 <div class="d-flex m-2" *ngIf="dialogType=='ongoing'">
                     <div class="row ongoingdetails w-100 mx-0">
                         <div class="col-6 col-lg-6 col-sm-3 col-md-6 d-flex">
-                            <button mat-button class="d-block reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime && detailData.booking_date_time && minReschedulingTime.getTime() < detailData.booking_date_time.getTime()">Reschedule</button>
+                            <button mat-button class="d-block btn reschedulebtn" (click)="rescheduleAppointment(i)" *ngIf="minReschedulingTime && detailData.booking_date_time && minReschedulingTime.getTime() < detailData.booking_date_time.getTime()">Reschedule</button>
                         </div>
-                        <div class="col-6 col-sm-3 col-md-6 col-lg-6 common-input text-right">
+                        <div class="col-6 col-sm-3 col-md-6 col-lg-6 mb-0 common-input text-right">
                             <form class="form-group">
                                 <!-- <mat-form-field class="bottom-border-field"> -->
                                     <!-- <mat-label>Change Status</mat-label> -->
-                                    <mat-select class="form-control" [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
+                                    <mat-select class="form-control text-left" placeholder="Change status" [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
                                         <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
                                         <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                     </mat-select>
@@ -30,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-
+                <hr class="my-0 mx-3 border-color-wrap">
                 <!-- <div class="modal-body modal-bcolor">
 
                     <p class="mb-0 font-weight-bold"> {{detailData.booking_dateForLabel}}</p>
@@ -58,50 +59,50 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="modal-body modal-bcolor p-3">
+                <div class="modal-body  p-3">
                     <div class="row">
                         <div class="col-12">
-                            <span class="mb-0 font-weight-bold pr-1">{{detailData.booking_date}}</span><span>(Order Id: {{detailData.id}})</span>
+                            <span class="mb-0 custom-font-weight pr-1">{{detailData.booking_date}}</span><span>(Order Id: {{detailData.id}})</span>
                             <p>Booked On: {{detailData.created_at}}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <p class="mb-0 title">Time</p>
-                            <span class="font-weight-bold pr-1">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} </span><br /><span>({{detailData.service_time}} Min)</span>
+                            <span class="custom-font-weight pr-1">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} </span><br /><span>({{detailData.service_time}} Min)</span>
                             <!-- <p class="font-weight-bold">{{detailData.booking_time}}</p> -->
                         </div>
 
                         <div class="col-4">
                             <p class="mb-0 title text-right">Order From</p>
-                            <p class="text-capitalize font-weight-bold text-right">{{detailData.order_from}}</p>
+                            <p class="text-capitalize custom-font-weight text-right">{{detailData.order_from}}</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-8">
                             <p class="mb-0 title">Service</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}} = ({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
+                            <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
+                            <p class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}} = ({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
                         </div>
                         <div class="col-4" *ngIf="detailData.service.service_type=='online'">
                             <p class="mb-0 title">ID</p>
-                            <p class="font-weight-bold" >{{detailData.service.service_sub_type}} - {{detailData.service.service_sub_type_value}}</p>
+                            <p class="custom-font-weight" >{{detailData.service.service_sub_type}} - {{detailData.service.service_sub_type_value}}</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6">
                             <p class="mb-0 title">SubTotal</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                            <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">{{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                         </div>
 
                         <div *ngIf="taxTotal" class="col-6">
                             <p class="mb-0 title text-right">Tax</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='left' && detailData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold text-right" *ngIf="currencySymbolPosition=='right' && detailData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
-                            <p class="font-weight-bold text-right" *ngIf="detailData.tax == null">--</p>
+                            <p class="custom-font-weight text-right" *ngIf="currencySymbolPosition=='left' && detailData.tax != null">{{currencySymbol| currencySymbol:'wide'}} {{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="custom-font-weight text-right" *ngIf="currencySymbolPosition=='right' && detailData.tax != null">{{ taxTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                            <p class="custom-font-weight text-right" *ngIf="detailData.tax == null">--</p>
                             <!-- <p class="text-capitalize font-weight-bold text-right" >$.20</p> -->
                         </div>
                     </div>
@@ -109,79 +110,81 @@
                     <div class="row">
                         <div class="col-6">
                             <p class="mb-0 title">Total Amount</p>
-                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                            <p class="font-weight-bold text-left" *ngIf="currencySymbolPosition=='right'">{{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                            <p class="custom-font-weight text-left" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                            <p class="custom-font-weight text-left" *ngIf="currencySymbolPosition=='right'">{{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                         </div>
 
                         <div class="col-6">
                             <p class="mb-0 title text-right">Payment Status</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.payment">{{detailData.payment.payment_status}} ({{detailData.payment.payment_mode}})</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.payment == null || !detailData.payment">--</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.payment">{{detailData.payment.payment_status}} ({{detailData.payment.payment_mode}})</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.payment == null || !detailData.payment">--</p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-4">
                             <p class="mb-0 title">Order By</p>
-                            <p class="font-weight-bold">{{detailData.order_by}}</p>
+                            <p class="custom-font-weight">{{detailData.order_by}}</p>
                         </div>
 
                         <div class="col-8">
                             <p class="mb-0 title text-right">Status</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'P'">Waiting For Confirmation</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CNF'">Confirm</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'AC'">Accepted</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSA'">Rescheduled By You</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSS'">Rescheduled By Staff</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'RSC'">Rescheduled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'R'">Rejected</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'C'">Cancelled</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CC'">Cancelled By Customer</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'OW'">On The Way</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'WS'">Work Started</p>
-                            <p class="text-capitalize font-weight-bold text-right" *ngIf="detailData.order_status == 'CO'">Completed</p>
-                            <p class="text-capitalize font-weight-bold text-right mb-0" *ngIf="detailData.order_status == 'GL'">Getting Late </p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'P'">Waiting For Confirmation</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'CNF'">Confirm</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'AC'">Accepted</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'RSA'">Rescheduled By You</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'RSS'">Rescheduled By Staff</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'RSC'">Rescheduled By Customer</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'R'">Rejected</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'C'">Cancelled</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'CC'">Cancelled By Customer</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'OW'">On The Way</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'WS'">Work Started</p>
+                            <p class="text-capitalize custom-font-weight text-right" *ngIf="detailData.order_status == 'CO'">Completed</p>
+                            <p class="text-capitalize custom-font-weight text-right mb-0" *ngIf="detailData.order_status == 'GL'">Getting Late </p>
                             <p class="title text-right" *ngIf="detailData.gl_time && detailData.gl_time != '' && detailData.order_status == 'GL'">Late Time : {{detailData.gl_time}} Min</p>
                         </div>
                     </div>
-
-
                 </div>
-                <mat-card class="card-body-marginn booking-detail-main mb-0">
-                    <h6 class="text-left mb-3">Customer Details</h6>
+                <hr class="my-0 mx-3 border-color-wrap">
+                <mat-card class="card-body-marginn custom-box-shadow booking-detail-main mb-0">
+                    <h6 class="text-left mb-0">Customer Details</h6>
                     <div class="row align-items-center">
                         <p class="customer-profile-img">{{customerShortName}}</p>
                         <div class="customer-name pr-3">
-                            <p class="font-weight-bold mb-0">{{detailData.customer.fullname}}</p>
+                            <p class="custom-font-weight mb-0">{{detailData.customer.fullname}}</p>
                             <p class="address-fontsize mb-0">{{detailData.customer.email}}</p>
                         </div>
                     </div>
-                    <p class="address-fontsize"><i class="fa fa-phone pr-3 bluephone"></i>{{detailData.customer.phone}}</p>
+                    <p class="address-fontsize"><i class="fa fa-phone pl-1 pr-1 bluephone"></i>{{detailData.customer.phone}}</p>
 
                     <!-- <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i>{{detailData.customer.address}}</p>
                     <p class="pl-4 address-fontsize">{{detailData.customer.city}}, {{detailData.customer.state}}, {{detailData.customer.zip}}</p> -->
 
-                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pr-3"></i> {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}</p>
+                    <p class="mb-0 address-fontsize"><i class="fa fa-map-marker bluemap pl-1 pr-1"></i> {{detailData.orders_info ? detailData.orders_info.booking_address : ''}}</p>
                     <p class="pl-4 address-fontsize">
                         {{detailData.orders_info ? detailData.orders_info.booking_city : ''}}, {{detailData.orders_info ? detailData.orders_info.booking_state : ''}}, {{detailData.orders_info ? detailData.orders_info.booking_zipcode : ''}}
                     </p>
-
+                    <hr class="my-2 mx-0 border-color-wrap">
                     <!-- <p>Appointment Notes</p>
                     <p *ngIf="detailData.booking_notes != null">{{detailData.booking_notes}}</p>
                     <p *ngIf="detailData.booking_notes == null">--</p> -->
-                    <div class="pt-3 pb-3 bottom-border">
+                    <div class="pt-3 pb-3 common-input bottom-border">
                         <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
-                        <mat-form-field class="bottom-border-field mb-2" *ngIf="formSettingPage">
-                            <mat-label>Notes</mat-label>
-                            <textarea rows="5" matInput [(ngModel)]="singlenote" placeholder="Type Note Description Here"></textarea>
-                        </mat-form-field>
-                        <button mat-button type="button" class="Reschedulebtn mt-2 common-blue-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailData.id)">Save</button>
+                        <div class="mb-2 form-group" *ngIf="formSettingPage">
+                             <!-- <mat-form-field class="bottom-border-field " > -->
+                            <!-- <mat-label>Notes</mat-label> -->
+                            <textarea class="form-control" rows="5" matInput [(ngModel)]="singlenote" placeholder="Type Note Description Here"></textarea>
+                             <!-- </mat-form-field> -->
+                        </div>
+                        <button mat-button type="button" class="Reschedulebtn mt-2 sc-pink-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailData.id)">Save</button>
                         <p class="mb-1 pb-1 border-bottom" *ngFor="let note of singleBookingNotes; let i=index">
                             {{note.notes}}, <br>
                             Added by <br>
                             {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
-                    </div>
+                    </div>  
                 </mat-card>
+                <hr class="my-2 mx-3 border-color-wrap">
                 <div class="p-1-5 bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="mb-4">

@@ -2,12 +2,15 @@
     <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="modal-content ">
         <div class="modal-header modal-bcolor-primary">
-            <p class="heading lead mb-0  work-content">{{dialogTitle}}</p>
+            <p class="heading lead mb-0  work-content">
+                <span class="note-icon-wrap"><img
+                    src="/assets/images/icons/Group 56.svg" /></span>
+                {{dialogTitle}}</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
                 <span aria-hidden="true" class="white-text">&times;</span>
             </button>
         </div>
-        <div class="modal-body" *ngIf="!secondStep">
+        <div class="modal-body p-4" *ngIf="!secondStep">
             <form [formGroup]="formAddNewAppointmentStaffStep1" class="row">
 
                 <div class="common-input col-12">
@@ -85,7 +88,7 @@
                 </div>
 
                 <div class="form-group row mt-0 mb-0 mx-0">
-                    <div class="col-4">
+                    <div class="col-4 pr-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field> -->
                                 <!-- <mat-label>State</mat-label> -->
@@ -97,7 +100,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 pl-2 pr-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field> -->
                                 <!-- <mat-label>City</mat-label> -->
@@ -110,7 +113,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4 ">
+                    <div class="col-4 pl-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field>
                                 <mat-label>Zip Code</mat-label> -->
@@ -152,7 +155,7 @@
                     </span>
                 </div>
                 <div class="form-group row mt-0 mb-0 mx-0  bottom-border-field">
-                    <div class="col-4">
+                    <div class="col-4 pr-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field> -->
                                 <!-- <mat-label>State</mat-label> -->
@@ -164,7 +167,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 pl-2 pr-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field> -->
                                 <!-- <mat-label>City</mat-label> -->
@@ -176,7 +179,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4 ">
+                    <div class="col-4 pl-2">
                         <div class="input-group form-group">
                             <!-- <mat-form-field>
                                 <mat-label>Postal Code</mat-label> -->
@@ -198,12 +201,12 @@
         </div>
 
 
-        <div class="modal-body" *ngIf="secondStep">
+        <div class="modal-body common-input p-4" *ngIf="secondStep">
             <form [formGroup]="formAddNewAppointmentStaffStep2">
-                <div class="row">
-                    <div class="col-6 common-input">
-                        <label class="mb-0">Category</label>
-                        <mat-select [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol custom-bg-control" formControlName="customerCategory">
+                <div class="row ">
+                    <div class="col-6 pr-2 form-group">
+                        <label class="mb-2">Category</label>
+                        <mat-select placeholder="Select Category" [(value)]="selectedCatId" (selectionChange)="fnSelectCat($event.value)" class="form-control formcontrol" formControlName="customerCategory">
                             <mat-option *ngFor="let cat of catdata" value="{{cat.id}}">{{cat.category_title}}</mat-option>
                             <mat-option *ngIf="catdata && catdata.length==0" disabled>No Category Available</mat-option>
                         </mat-select>
@@ -212,9 +215,9 @@
           </span>
 
                     </div>
-                    <div class="col-6 mb-3 common-input" *ngIf="showSubCatDropDown">
-                        <label class="mb-0">Sub Category</label>
-                        <mat-select class="form-control formcontrol custom-bg-control" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory">
+                    <div class="col-6 pl-2 mb-3 form-group" *ngIf="showSubCatDropDown">
+                        <label class="mb-2">Sub Category</label>
+                        <mat-select placeholder="Select Sub Category" class="form-control formcontrol" [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)" formControlName="customerSubCategory">
                             <mat-option *ngFor="let subcat of subcatdata" value="{{subcat.id}}">{{subcat.sub_category_name}}</mat-option>
                             <mat-option *ngIf="subcatdata.length==0" disabled>No Sub-Category Available</mat-option>
                         </mat-select>
@@ -223,9 +226,9 @@
             </span>
                     </div>
 
-                    <div [ngClass]="showSubCatDropDown?'col-12 common-input mb-3':'col-6 mb-3'">
-                        <label class="mb-0 ">Service</label>
-                        <mat-select class="form-control formcontrol custom-bg-control" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService">
+                    <div [ngClass]="showSubCatDropDown?'col-12 form-group mb-3':'col-6 mb-3'">
+                        <label class="mb-2">Service</label>
+                        <mat-select placeholder="Select Service" class="form-control formcontrol" [(value)]="selectedServiceId" (selectionChange)="fnSelectService($event.value)" formControlName="customerService">
                             <mat-option *ngFor="let service of serviceData" value="{{service.id}}">{{service.service_name}}</mat-option>
                             <mat-option *ngIf="serviceData.length==0" disabled>No Service Available</mat-option>
                         </mat-select>
@@ -236,7 +239,7 @@
                     </div>
                 </div>
                 <div class="common-input col-6 px-0 float-left">
-                    <label class="mb-0">Select Date</label>
+                    <label class="mb-2">Select Date</label>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg"/></span>
@@ -259,12 +262,12 @@
                 </div>
 
                 <div class="common-input pr-0 col-6 float-left">
-                    <label class="mb-0">Select Time</label>
+                    <label class="mb-2">Select Time</label>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/clock.svg"/></span>
                         </div>
-                        <mat-select class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
+                        <mat-select placeholder="Select Time" class="form-control formcontrol" [disabled]="" formControlName="customerTime" (selectionChange)="fnSelectTime($event.value)">
                             <!-- <mat-option>None</mat-option> -->
                             <mat-option *ngFor="let slot of timeSlotArr; let i=index;" value="{{slot}}">{{timeSlotArrForLabel[i]}}</mat-option>
                             <mat-option *ngIf="timeSlotArr.length==0" disabled>No Time Slot Available</mat-option>
@@ -281,12 +284,12 @@
                        <small *ngIf="formAddNewAppointmentStaffStep2.get('customerTime').hasError('required')" class="error">Time is required.</small>
                     </span>
                 </div>
-                <div class="row">
-                    <div class="col-6">
+                <div class="row common-input">
+                    <div class="col-8 form-group">
                         <input class="form-control formcontrol"  formControlName="customerCouponCode" placeholder="Coupon Code">
                     </div>
-                    <div class="col-6">
-                        <button class="btn btn-primary" (click)="applyCoupon()">Apply Coupon</button>
+                    <div class="col-4 pl-0">
+                        <button class="sc-light-green-btn mat-button" (click)="applyCoupon()">Apply Coupon</button>
                     </div>
                     <div class="col-4" *ngIf="appointmentSubTotal > 0">
                         <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>

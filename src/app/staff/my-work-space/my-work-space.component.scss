@@ -2,7 +2,7 @@
 #my-work-space {
     position: relative;
     .bg-image {
-        background-image: url("../../../assets/images/backgrounds/my_work_space_bg.jpg");
+        background-image: url("/assets/images/backgrounds/my_work_space_bg.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -12,6 +12,15 @@
         width: 100%;
         left: 0;
         top: 0;
+        &:after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
     }
     .dash-ng-image-upload {
         position: fixed;
@@ -195,13 +204,13 @@
     }
     .customer-profile-img {
         border-radius: 100%;
-        height: 60px;
-        width: 60px;
-        background-color: #1172f4;
+        height: 50px;
+        width: 50px;
+        background-color: #f04589;
         color: white;
         text-align: center;
         padding: 14px;
-        line-height: 2;
+        line-height: 1.5;
         display: block;
         margin: 10px;
     }
@@ -350,7 +359,7 @@
     margin: 0 !important;
     .modal-bcolor-primary {
         background-color: #d9f0fe;
-        padding-bottom: 0px;
+        // padding-bottom: 0px;
         .header-margins {
             padding: 0;
         }

@@ -101,31 +101,24 @@ export class MyBookingComponent implements OnInit {
     this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.settingsArr=response.response;
-
         this.currencySymbol = this.settingsArr.currency;
-        
-        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-        
+        this.currencySymbolPosition = this.settingsArr.currency_symbol_position;        
         this.currencySymbolFormat = this.settingsArr.currency_format;
-
         let cancellation_buffer_time=JSON.parse(this.settingsArr.cancellation_buffer_time);
         let min_rescheduling_time=JSON.parse(this.settingsArr.min_reseduling_time);
-       
         this.cancellationBufferTime = new Date();
         this.cancellationBufferTime.setMinutes( this.cancellationBufferTime.getMinutes() + cancellation_buffer_time);
-
         this.minReschedulingTime = new Date();
         this.minReschedulingTime.setMinutes( this.minReschedulingTime.getMinutes() + min_rescheduling_time);
       }
       else if(response.data == false){
         
       }
-    })
     this.isLoader=false;
+    })
   }
 
   getNewAppointment(){
-    
     let requestObject = {
       'business_id': this.bussinessId,
     };
@@ -150,8 +143,8 @@ export class MyBookingComponent implements OnInit {
       else if(response.data == false) {
         this.newAppointmentData = '';
       }
-    })
     this.isLoader=false;
+    })
   }
   getCompletedAppointment(){
     let requestObject = {
@@ -182,8 +175,8 @@ export class MyBookingComponent implements OnInit {
       else if(response.data == false) {
         this.completedAppointmentData = '';
       }
-    })
     this.isLoader=false;
+    })
   }
   getOnGoingAppointment(){
     let requestObject = {
@@ -214,8 +207,8 @@ export class MyBookingComponent implements OnInit {
       else if(response.data == false) {
         this.onGoingAppointmentData = '';
       }
-    })
     this.isLoader=false;
+    })
   }
    someMethod(booking_id, status): void {
     if(status == 'OW'){
@@ -296,9 +289,9 @@ export class MyBookingComponent implements OnInit {
             panelClass :['red-snackbar']
           }); 
         }
+    this.isLoader=false;
       })
     }
-    this.isLoader=false;
   }
 
 
@@ -362,15 +355,6 @@ export class MyBookingComponent implements OnInit {
           this.getOnGoingAppointment();
         }
         });
-    // const dialogRef = this.dialog.open(InterruptedReschedule, {
-    //   height: '700px',
-    //   data : {fulldata: this.onGoingAppointmentData[index]}
-    // });
-    //   console.log(this.onGoingAppointmentData[index]);
-    // dialogRef.afterClosed().subscribe(result => {
-    
-    // this.getOnGoingAppointment();
-    // });
 
   }
   

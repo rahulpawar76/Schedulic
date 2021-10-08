@@ -1499,6 +1499,9 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
             }
         }
     }
+    .border-color-wrap{
+        border-color: #d9f0fe;
+    }
 }
 
 .blue-card {
@@ -1566,6 +1569,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         }
     }
     .booking-detail-main {
+        box-shadow: unset!important;
         .common-details-customer {
             border-bottom: solid 1px rgba(0, 168, 155, 0.23);
             margin: 10px 15px;
@@ -1688,7 +1692,13 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
         padding-left: 0px !important;
     }
 }
-
+.custom-font-weight{
+    font-weight: 700;
+    font-size: 14px;
+}
+.custom-box-shadow{
+    box-shadow: unset!important;
+}
 // .setting-menu .setting-menu-item{
 //     background-color: red;
 // }

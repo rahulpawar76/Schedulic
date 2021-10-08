@@ -1,8 +1,15 @@
 @import "variables";
 .profile-main {
-    margin-top: 80px;
+    margin-top: 65px;
+    height: 89vh;
     .title {
         font-size: $fs-16;
+    }
+    .img-upload-btns{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 40px;
     }
 }
 
@@ -57,26 +64,61 @@
         }
     }
 }
-
+.change-password-container{
+    background-color: #FFF1C0;
+    padding-top: 45px;
+    .main-heading{
+       
+        font-size: 16px;
+        padding: 0px 16px;
+    }
+    .form-group{
+        .form-control{
+            background-color: #fff;
+            border-radius: 5px;
+            border: 0;
+            padding: 15px 10px;
+            font-size: 14px;
+            line-height: 1;
+            height: 40px;
+            
+        }
+        
+    }
+    .mat-icon-button{
+        color: #565657;
+        /* font-size: 27px; */
+        position: absolute;
+        right: 15px;
+        background-color: #fff;
+        border-radius: 0px;
+        height: 36px;
+        z-index: 99999;
+        .material-icons{
+            font-size: 18px;
+            /* position: absolute; */
+        }
+    }
+}
 .d-block {
     margin-top: 10px;
-    border-radius: 25px;
+    // border-radius: 25px;
     // width: 130px;
     float: right;
 }
 
-.common-input {
-    display: block;
-    width: 100%;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #e4e3e3;
-    font-size: $fs-16;
-    transition: all 0.3s;
-    &:focus {
-        box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
-    }
-}
+// .common-input {
+//     display: block;
+//     width: 100%;
+//     padding: 5px 10px;
+//     border-radius: 5px;
+//     border: 1px solid #e4e3e3;
+//     font-size: $fs-16;
+//     transition: all 0.3s;
+//     &:focus {
+//         box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.1), 0px 4px 12px 0px rgba(0, 0, 0, 0.1) !important;
+//     }
+// }
 
 .user-btn {
     float: right;
@@ -157,7 +199,7 @@ i {
         margin: 15px auto;
         display: table;
         padding: 8px 16px;
-        border-radius: 50px;
+        border-radius: 3px;
     }
 }
 
