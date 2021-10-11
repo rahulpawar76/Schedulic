@@ -22,7 +22,7 @@ export class AuthenticationService {
     }
     public getIPAddress()  
     {  
-      return this.http.get("http://api.ipify.org/?format=json");  
+      return this.http.get(`${environment.apiUrl}/get-ip`);  
     }  
 
     public get currentUserValue(): User {       
