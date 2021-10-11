@@ -149,7 +149,13 @@ export class MyWorkSpaceComponent implements OnInit {
           element.booking_time=this.datePipe.transform(new Date(element.booking_time),"hh:mm a")
           element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
           element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+
+          let initials = element.customer.fullname.split(" ",2);
+          element.customer.customerShortName = '';
+          initials.forEach( (element2) => {
+            element.customer.customerShortName = element.customer.customerShortName+element2.charAt(0);
+          });
         });
         this.activeBooking = 0;
       }

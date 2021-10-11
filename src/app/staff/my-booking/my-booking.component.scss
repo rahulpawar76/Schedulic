@@ -166,11 +166,12 @@
     .payment-details {
         .service {
             width: 70%;
-            font-size: $fs-18;
+            font-size: $fs-16;
         }
         .amount {
             width: 30%;
-            font-size: $fs-18;
+            font-size: $fs-16;
+            font-weight: 500;
         }
         .payment-service {
             width: 84%;
@@ -200,7 +201,6 @@
      ::ng-deep .modal-info {
         .modal-bcolor-primary {
             background-color: #d9f0fe;
-            padding-bottom: 0px;
             .header-margins {
                 padding: 0;
             }
@@ -276,14 +276,33 @@
     }
 }
 
-
-/* after click next btn dialog open*/
-
-//  ::ng-deep .input-group-text {
-//     background-color: white;
-//     padding: 10px;
-// }
-
+::ng-deep .note-add-details {
+    font-size: 15px !important;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #d9f0fe;
+    padding-bottom: 16px;
+    color: #565657;
+    &:last-child{
+        border-bottom: none;
+        margin: 0px;
+        padding: 0px;
+    }
+}
+::ng-deep .activelog-details-main {
+    padding: 14px 18px;
+    .activelog-details {
+        color: #565657;
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+::ng-deep .common-details-main{
+    .title{
+        color: #565657;
+        font-size: 15px; 
+    }
+}
 ::ng-deep .formcontrol {
     padding-bottom: 5px;
     padding-top: 5px;

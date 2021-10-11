@@ -3,7 +3,7 @@
         <div class="modal-dialog mt-0 mb-0" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Appointment Details</h5>
+                    <p class="modal-title">Appointment Details</p>
                     <button type="button" (click)="onNoClick()" class="close" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                     </button>
@@ -32,33 +32,6 @@
                     </div>
                 </div>
                 <hr class="my-0 mx-3 border-color-wrap">
-                <!-- <div class="modal-body modal-bcolor">
-
-                    <p class="mb-0 font-weight-bold"> {{detailData.booking_dateForLabel}}</p>
-                    <p>Booked On: {{detailData.created_atForLabel}}</p>
-
-                    <p class="mb-0">Service</p>
-                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}}({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
-                    <p class="font-weight-bold" *ngIf="currencySymbolPosition=='right'">{{detailData.service.service_name}}({{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}})</p>
-                    <p class="mb-0">Time</p>
-                    <p class="font-weight-bold">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} ({{detailData.service_time}})</p>
-
-                    <div class="d-flex">
-                        <div class="pl-0">
-                            <p class="mb-0">Order By</p>
-                            <p class="font-weight-bold text-capitalize">{{detailData.order_by}}</p>
-                        </div>
-                        <div class="pl-5">
-                            <p class="mb-0">Status</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'P'">Waiting For Confirmation</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'AC'">Confirm</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'RSA'">Rescheduled By Admin</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'RSS'">Rescheduled</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'RSC'">Rescheduled By Customer</p>
-                            <p class="text-capitalize" *ngIf="detailData.order_status == 'R'">Rejected</p>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="modal-body  p-3">
                     <div class="row">
                         <div class="col-12">
@@ -66,7 +39,7 @@
                             <p>Booked On: {{detailData.created_at}}</p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row common-details-main">
                         <div class="col-8">
                             <p class="mb-0 title">Time</p>
                             <span class="custom-font-weight pr-1">{{detailData.booking_timeForLabel}} - {{detailData.booking_time_to}} </span><br /><span>({{detailData.service_time}} Min)</span>
@@ -79,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row common-details-main">
                         <div class="col-8 mt-2">
                             <p class="mb-0 title">Service</p>
                             <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{detailData.service.service_name}} = ({{currencySymbol| currencySymbol:'wide'}} {{ detailData.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</p>
@@ -91,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row common-details-main">
                         <div class="col-6">
                             <p class="mb-0 title">SubTotal</p>
                             <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
@@ -107,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row common-details-main">
                         <div class="col-6">
                             <p class="mb-0 title">Total Amount</p>
                             <p class="custom-font-weight text-left" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
@@ -121,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row common-details-main">
                         <div class="col-4">
                             <p class="mb-0 title">Order By</p>
                             <p class="custom-font-weight">{{detailData.order_by}}</p>
@@ -169,7 +142,7 @@
                     <!-- <p>Appointment Notes</p>
                     <p *ngIf="detailData.booking_notes != null">{{detailData.booking_notes}}</p>
                     <p *ngIf="detailData.booking_notes == null">--</p> -->
-                    <div class="pt-3 pb-3 common-input bottom-border">
+                    <div class="pt-3 common-input bottom-border">
                         <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                         <div class="mb-2 form-group" *ngIf="formSettingPage">
                              <!-- <mat-form-field class="bottom-border-field " > -->
@@ -178,16 +151,16 @@
                              <!-- </mat-form-field> -->
                         </div>
                         <button mat-button type="button" class="Reschedulebtn mt-2 sc-pink-btn accept-btn d-block mt-2" *ngIf="formSettingPage" (click)="fnSaveBookingNotes(detailData.id)">Save</button>
-                        <p class="mb-1 pb-1 border-bottom" *ngFor="let note of singleBookingNotes; let i=index">
+                        <p class="note-add-details" *ngFor="let note of singleBookingNotes; let i=index">
                             {{note.notes}}, <br>
                             Added by <br>
                             {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
                     </div>  
                 </mat-card>
                 <hr class="my-2 mx-3 border-color-wrap">
-                <div class="p-1-5 bottom-border">
+                <div class="activelog-details-main bottom-border">
                     <h6>Activity Log</h6>
-                    <div *ngFor="let log of activityLog" class="mb-2">
+                    <div *ngFor="let log of activityLog" class="activelog-details">
                         {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S'
                         && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log.user_type=='S' && log.status=='AC' ? 'By
                         Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
