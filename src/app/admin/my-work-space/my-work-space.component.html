@@ -109,8 +109,38 @@
                             </li>
                         </ul>
                         <ul *ngIf="categories.length == 0">
-                            <li class="bottom-border plr-25">
+                            <li class="bottom-border plr-25 pl-1">
                                 <p class="title-heading-main">Categories</p>
+                            </li>
+                            <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                <p class="title-heading-main"></p>
+                                <i class="material-icons-outlined">
+                                    chevron_right
+                                </i>
+                            </li>
+                            <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                <p class="title-heading-main-1"></p>
+                                <i class="material-icons-outlined">
+                                    chevron_right
+                                </i>
+                            </li>
+                            <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                <p class="title-heading-main-2"></p>
+                                <i class="material-icons-outlined">
+                                    chevron_right
+                                </i>
+                            </li>
+                            <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                <p class="title-heading-main-3"></p>
+                                <i class="material-icons-outlined">
+                                    chevron_right
+                                </i>
+                            </li>
+                            <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                <p class="title-heading-main-4"></p>
+                                <i class="material-icons-outlined">
+                                    chevron_right
+                                </i>
                             </li>
                         </ul>
                     </div>
@@ -302,9 +332,9 @@
                                         <div class="line ml-1 mr-1 ml-5"></div>
                                     </div>
                                     <div class="no-appointment-data" *ngIf="appointments.length==0">
-                                        <div class="no-data-badge">
+                                        <div class="no-data-badge custom-no-data">
                                             <img src="/assets/images/nodata.svg" />
-                                            <label>No Data Found.</label>
+                                            <label>No Booking Request to Show</label>
                                         </div>
                                     </div>
                                 </div>
@@ -491,7 +521,37 @@
                         <div class="bottom-border">
                             <p class="title-heading-main">Appointment Details</p>
                         </div>
-                    balck appointment detail
+                        <div class="bottom-border appon-second-sec">
+                            <div class="first-common-wrap">
+                                <span></span>
+                            </div>
+                            <div class="cancel-wrap">
+                                <img src="../../../assets/images/icons/icon-close.svg">
+                                <span></span>
+                            </div>
+                            <div class="retun-wrap-sec">
+                                <img src="../../../assets/images/icons/Icon metro-undo.svg">
+                                <span></span>
+                            </div>
+                        </div>
+                        <ul>
+                            <li class=" appoinment-custom-wrap  plr-25 pl-1 pr-1">
+                                <p class="first-line-wrap"></p>
+                                <p class="second-trans-wrap"></p>
+                            </li>
+                            <li class=" appoinment-custom-wrap  plr-25 pl-1 pr-1">
+                                <p class="first-line-wrap"></p>
+                                <p class="second-trans-wrap"></p>
+                            </li>
+                            <li class=" appoinment-custom-wrap  plr-25 pl-1 pr-1">
+                                <p class="first-line-wrap"></p>
+                                <p class="second-trans-wrap"></p>
+                            </li>
+                            <li class=" appoinment-custom-wrap  plr-25 pl-1 pr-1">
+                                <p class="first-line-wrap"></p>
+                                <p class="second-trans-wrap"></p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
