@@ -11,19 +11,13 @@ import { MaterialModule } from '@app/_helpers/material.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-//import { DialogReAuthentication } from './_services'
-
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
-
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { MyBusinessComponent } from './my-business/my-business.component';
 import { myCreateNewBusinessDialog } from './my-business';
 import { MyWorkSpaceComponent } from './my-work-space/my-work-space.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { DialogAddNewAppointment } from './appointment/appointment.component';
-// import { DialogNewAppointment } from './appointment/appointment.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DialogInvoiceDialog } from './customers/customers.component';
 import { DialogNewCustomerAppointment } from './customers/customers.component';
@@ -49,9 +43,6 @@ import { CustomerAppointmentDetailsDialog } from './customers/customers.componen
 import { SupportComponent } from './support/support.component';
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { AgmDirectionModule } from 'agm-direction';   // agm-direction
-
-// import { AngularFireModule } from 'angularfire2';
-// import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '@environments/environment';
 
 
@@ -62,7 +53,6 @@ import { environment } from '@environments/environment';
     MyWorkSpaceComponent,
     AppointmentComponent,
     DialogAddNewAppointment,
-    // DialogNewAppointment,
     CustomersComponent,
     DialogInvoiceDialog,
     DialogNewCustomerAppointment,
@@ -97,7 +87,7 @@ import { environment } from '@environments/environment';
     ],
   imports: [
     AgmCoreModule.forRoot({ // @agm/core
-      apiKey: 'AIzaSyA8RwRCpG7ajbR-pl0D58oUGzi83c6RCYk',
+      apiKey: environment.googleMapAPIKey,
     }),
     AgmDirectionModule,    
     CommonModule,
