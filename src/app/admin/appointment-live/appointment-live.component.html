@@ -77,11 +77,40 @@
 
                                 </ul>
                                 
-                                <ul *ngIf="CategoryList.length == 0">
-                                    <li class="bottom-border plr-25">
-                                        <p class="category-lable">Categories</p>
+                                <ul class="px-2" *ngIf="CategoryList.length == 0">
+                                    <li class="bottom-border plr-25 pl-1">
+                                        <p class="title-heading-main">Categories</p>
                                     </li>
-                                    set design here
+                                    <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                        <p class="title-heading-main"></p>
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </li>
+                                    <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                        <p class="title-heading-main-1"></p>
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </li>
+                                    <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                        <p class="title-heading-main-2"></p>
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </li>
+                                    <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                        <p class="title-heading-main-3"></p>
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </li>
+                                    <li class="bottom-border custom-li-wrap plr-25 pl-1 pr-1">
+                                        <p class="title-heading-main-4"></p>
+                                        <i class="material-icons-outlined">
+                                            chevron_right
+                                        </i>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="service-list-main col-6 py-3">
@@ -128,10 +157,45 @@
                                                 (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
-                                    <div class="no-service-data d-flex h-100 justify-content-center align-items-center" *ngIf="StaffList.length == 0">
-                                        <div class="no-data-badge">
-                                            <img src="/assets/images/nodata.svg" />
-                                            <label>No Data Found.</label>
+                                    <div class="no-service-data" *ngIf="StaffList.length == 0">
+                                        <div class="staff-no-data-wrap">
+                                            <!-- <img src="/assets/images/nodata.svg" />
+                                            <label>No Data Found.</label> -->
+                                            <div class="head">
+                                                <h3 class="pl-0 pr-3">Staff</h3>
+                                                <mat-select placeholder="Filter" class="form-control form-control-transparent"
+                                                    (selectionChange)="fnFilterStaff($event.value)">
+                                                    <mat-option value="all">All</mat-option>
+                                                    <mat-option value="ideal">Ideal</mat-option>
+                                                    <mat-option value="working">Working</mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <ul class="custom-staff-wrap">
+                                                <li>
+                                                    <p class="title-heading-main"></p>
+                                                    <p class="title-heading-main-1"></p>
+                                                    <p class="title-heading-main-2"></p>
+                                                    <div class="first-common-wrap">
+                                                        <span></span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <p class="title-heading-main"></p>
+                                                    <p class="title-heading-main-1"></p>
+                                                    <p class="title-heading-main-2"></p>
+                                                    <div class="first-common-wrap">
+                                                        <span></span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <p class="title-heading-main"></p>
+                                                    <p class="title-heading-main-1"></p>
+                                                    <p class="title-heading-main-2"></p>
+                                                    <div class="first-common-wrap">
+                                                        <span></span>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -542,10 +606,59 @@
                             </div>
                         </div>
                     </div>
-                    <div class="no-out-door-data w-100" *ngIf="outdoorOrdersArr.length == 0">
-                        <div class="no-data-badge">
-                            <img src="/assets/images/nodata.svg" />
-                            <label>No Data Found.</label>
+                    <div class="w-100" *ngIf="outdoorOrdersArr.length == 0">
+                        <div class="out-door-no-data">
+                            <!-- <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label> -->
+                            <div class="custom-outdoor-wrap p-3">
+                                <p class="title-heading-main"></p>
+                                <div class="pickup-point">
+                                    <img src="/assets/images/admin/Path 83.png">
+                                    <p class="title-heading-main-1"></p>
+                                </div>
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p class="title-heading-main-2"></p>
+                                </div>
+                                <div class="d-flex appon-second-sec">
+                                    <div class="first-common-wrap">
+                                        <span></span>
+                                    </div>
+                                    <div class="second-common-wrap">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-outdoor-wrap p-3">
+                                <p class="title-heading-main"></p>
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p class="title-heading-main-2"></p>
+                                </div>
+                                <div class="d-flex appon-second-sec">
+                                    <div class="first-common-wrap">
+                                        <span></span>
+                                    </div>
+                                    <div class="second-common-wrap">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="custom-outdoor-wrap p-3">
+                                <p class="title-heading-main"></p>
+                                <div class="drop-point">
+                                    <mat-icon>location_on</mat-icon>
+                                    <p class="title-heading-main-2"></p>
+                                </div>
+                                <div class="d-flex appon-second-sec">
+                                    <div class="first-common-wrap">
+                                        <span></span>
+                                    </div>
+                                    <div class="second-common-wrap">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
