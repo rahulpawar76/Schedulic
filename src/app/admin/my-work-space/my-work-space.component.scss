@@ -190,6 +190,111 @@
     }
 }
 
+.custom-no-data{
+    img{
+        width: 185px;
+    }
+    label{
+        font-weight: 800;
+        font-size: 15px;
+        margin-top: 25px;
+    }
+}
+.custom-li-wrap {
+    display: flex;
+    align-items: center;
+    p{
+        max-width: 190px;
+        background-color: #00A89B;
+        margin-bottom: 0px;
+        border-radius: 25px;
+        padding: 9px;
+        padding-top: 0px!important;
+        margin: 22px 0px 22px 0px;
+    }
+    .title-heading-main-1{
+        max-width: 150px;
+        background-color: #BAE1DE; 
+    }
+    .title-heading-main-2{
+        max-width: 195px;
+        background-color: #BAE1DE; 
+    }
+    .title-heading-main-3{
+        max-width: 170px;
+        background-color: #BAE1DE; 
+    }
+    .title-heading-main-4{
+        max-width: 190px;
+        background-color: #BAE1DE; 
+    }
+}
+.appoinment-custom-wrap{
+    p{
+        margin-bottom: 0px;
+        border-radius: 25px;
+        padding: 9px;
+        padding-top: 0px!important;
+    }
+    .first-line-wrap{
+        max-width: 150px;
+        background-color: #00A89B;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .second-trans-wrap{
+        max-width: 310px;
+        background-color: #BAE1DE;
+        margin-top: 15px;
+        margin-bottom: 35px;
+    }
+}
+.appon-second-sec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px;
+    .first-common-wrap{
+        background-color: #F04589;
+        padding: 15px 20px;
+        border-radius: 4px;
+        span{
+            background-color: #fff;
+            height: 5px;
+            width: 70px;
+            display: flex;
+            border-radius: 20px;
+        }
+    }
+    .cancel-wrap{
+        display: flex;
+        align-items: center;
+        img{
+         margin-right: 7px;
+        }
+        span{
+            background-color: #F04589;
+            height: 5px;
+            width: 50px;
+            display: flex;
+            border-radius: 20px;
+        }
+    }
+    .retun-wrap-sec{
+        display: flex;
+        align-items: center;
+        img{
+            margin-right: 7px;
+        }
+        span{
+            background-color: #A1A1A1;
+            height: 5px;
+            width: 50px;
+            display: flex;
+            border-radius: 20px;
+        }
+    }
+}
 /*_____________[3]Appointment____________________ */
 
 .appointment-listing-card {
