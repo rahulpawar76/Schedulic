@@ -41,7 +41,7 @@
                     <div class="left-side-booking">
                         <div class="row mx-0 h-100">
                             <div id="all-category-list" class="col-3 p-0">
-                                <ul>
+                                <ul *ngIf="CategoryList.length > 0">
                                     <li class="bottom-border plr-25">
                                         <p class="category-lable">Categories</p>
                                     </li>
@@ -75,6 +75,13 @@
                                         </p>
                                     </li>
 
+                                </ul>
+                                
+                                <ul *ngIf="CategoryList.length == 0">
+                                    <li class="bottom-border plr-25">
+                                        <p class="category-lable">Categories</p>
+                                    </li>
+                                    set design here
                                 </ul>
                             </div>
                             <div class="service-list-main col-6 py-3">
