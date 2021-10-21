@@ -22,7 +22,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
                             </div>
-                            <input type="text" formControlName="business_name" class="form-control" placeholder="Business Name">
+                            <input type="text" formControlName="business_name" class="form-control" placeholder="Business Name*">
                         </div>
                         <span class="error-wrap" *ngIf="createBusiness.get('business_name').dirty || createBusiness.get('business_name').touched">
                             <small *ngIf="createBusiness.get('business_name').hasError('required')" class="error">Business name is required.</small>
@@ -45,7 +45,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
                             </div>
-                            <mat-select formControlName="business_size" class="form-control" placeholder="Business size">
+                            <mat-select formControlName="business_size" class="form-control" placeholder="Business size*">
                                 <mat-option value="0-99">0 to 99</mat-option>
                                 <mat-option value="100-499">100 to 499</mat-option>
                                 <mat-option value="500-999">500 to 999</mat-option>
@@ -61,7 +61,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/website.svg" /></span>
                             </div>
-                            <input type="text" formControlName="business_website" class="form-control" placeholder="Website URL">
+                            <input type="text" formControlName="business_website" class="form-control" placeholder="Website URL*">
                         </div>
                         <span class="error-wrap" *ngIf="createBusiness.get('business_website').dirty || createBusiness.get('business_website').touched">
                             <small *ngIf="createBusiness.get('business_website').hasError('required')" class="error">Website URL is required.</small>
@@ -72,7 +72,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><img src="/assets/images/icons/location.svg" /></span>
                             </div>
-                            <input type="text" formControlName="business_address" class="form-control" placeholder="Your business address">
+                            <input type="text" formControlName="business_address" class="form-control" placeholder="Your business address*">
                         </div>
                         <span class="error-wrap" *ngIf="createBusiness.get('business_address').dirty || createBusiness.get('business_address').touched">
                             <small *ngIf="createBusiness.get('business_address').hasError('required')" class="error">Business address is required.</small>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-4 common-input">
                         <div class="form-group">
-                            <mat-select formControlName="business_country" class="form-control" placeholder="Country" (selectionChange)="selectCountry($event.value)">
+                            <mat-select formControlName="business_country" class="form-control" placeholder="Country*" (selectionChange)="selectCountry($event.value)">
                                 <mat-option>
                                     <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="countryFilterCtrl"></ngx-mat-select-search>
                                 </mat-option>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="col-4 common-input">
                         <div class="form-group">
-                            <mat-select formControlName="business_state" class="form-control" placeholder="State" (selectionChange)="selectStates($event.value)">
+                            <mat-select formControlName="business_state" class="form-control" placeholder="State*" (selectionChange)="selectStates($event.value)">
                                 <mat-option>
                                     <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="StateFilterCtrl"></ngx-mat-select-search>
                                 </mat-option>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="col-4 common-input">
                         <div class="form-group">
-                            <mat-select formControlName="business_city" class="form-control" placeholder="City">
+                            <mat-select formControlName="business_city" class="form-control" placeholder="City*">
                                 <mat-option>
                                     <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="CityFilterCtrl"></ngx-mat-select-search>
                                 </mat-option>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="col-8 common-input">
                         <div class="form-group">
-                            <mat-select formControlName="business_timezone" class="form-control" placeholder="Time zone" #singleSelect>
+                            <mat-select formControlName="business_timezone" class="form-control" placeholder="Time zone*" #singleSelect>
                                 <mat-option>
                                     <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No record found" [formControl]="timeZoneFilterCtrl"></ngx-mat-select-search>
                                 </mat-option>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="col-4 common-input">
                         <div class="form-group">
-                            <input type="text" formControlName="business_zip" class="form-control" placeholder="Postal Code">
+                            <input type="text" formControlName="business_zip" class="form-control" placeholder="Postal Code*">
                         </div>
                         <span class="error-wrap" *ngIf="createBusiness.get('business_zip').dirty || createBusiness.get('business_zip').touched">
                             <small *ngIf="createBusiness.get('business_zip').hasError('required')" class="error">Postal Code is required.</small>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-12 bottom-check">
                         <mat-checkbox (change)="onChangePresence($event)" class="my-2 d-flex">
-                            <label class="mb-0">Present my phone number & address to my clients</label>
+                          Present my phone number & address to my clients
                         </mat-checkbox>
                     </div>
                 </div>

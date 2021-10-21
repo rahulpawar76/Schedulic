@@ -422,6 +422,7 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
+    console.log(this.createNewCustomer)
     if(this.createNewCustomer.get('customer_id').value != null){
       this.existingUserId = this.createNewCustomer.get('customer_id').value;
       if(this.createNewCustomer.valid){
@@ -1842,6 +1843,34 @@ constructor(
       }
     })
   }
+
+  
+  fnWorkStarting(){
+
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.detailsData.id),
+     "status":"WS"
+    };
+
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Started.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    });
+
+  }
+
   fnGetStaff(booking_date,booking_time,serviceId,postal_code){
     let requestObject = {
       "postal_code":postal_code,

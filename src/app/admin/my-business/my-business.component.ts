@@ -490,7 +490,7 @@ export class myCreateNewBusinessDialog {
         "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
-        "site_url" : this.createBusiness.get('business_website').value,
+        "website" : this.createBusiness.get('business_website').value,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
       this.createNewBusiness(this.newBusinessData);

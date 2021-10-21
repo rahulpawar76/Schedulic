@@ -79,6 +79,16 @@
                             currencySymbol:'wide'}}</h6>
                         <p class="mb-0">Total Estimated</p>
                     </div>
+                    <div class="side-help-budge">
+                        <div class="left-image">
+                            <img src="../../../assets/images/icons/help-budge.svg">
+                         </div>
+                         <div class="right-details">
+                            <h3> Current Plan </h3>
+                            <p> 14 days Free trail - <a (click)="onupgrade()"> Upgrade </a></p>
+                         </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>
@@ -313,7 +323,7 @@
 
                                                     <mat-select class="form-control form-control-transparent"
                                                         [(value)]="selectedStaff"
-                                                        (selectionChange)="fnOnClickStaff($event)">
+                                                        (selectionChange)="fnOnClickStaff($event)" placeholder="select staff">
                                                         <mat-option *ngFor="let staff of availableStaff"
                                                             value="{{staff.id}}">{{staff.name}}</mat-option>
                                                         <mat-option *ngIf="availableStaff.length === 0">No Staff
@@ -375,7 +385,7 @@
                                     *ngIf="appointmentDetails.order_status == 'CNF' && (appointmentDetails.staffId == '' || appointmentDetails.staffId == null)">
                                     <mat-label>AssignTo</mat-label>
                                     <mat-select class="form-control form-control-transparent" (value)]="selectedStaff"
-                                        (selectionChange)="fnOnClickStaff($event)">
+                                        (selectionChange)="fnOnClickStaff($event)" placeholder="select staff">
                                         <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">
                                             {{staff.name}}</mat-option>
                                     </mat-select>
