@@ -409,6 +409,15 @@ copyEmbedCode(val: string){
      });
   }
 
+  
+  fnShare(type) {
+    if(type=='facebook'){
+      window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(this.frontBookingUrl), "_blank", "width=600,height=600");
+    }else if(type=='twitter'){
+      window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(this.frontBookingUrl), "_blank", "width=600,height=600");
+    }
+  }
+
 }
 
 

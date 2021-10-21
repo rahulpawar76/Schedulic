@@ -1,5 +1,5 @@
 <div class="container-fluid sub-container" id="customers">
-    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
+    <div class="loader-main bg-white" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="row h-100">
         <div id="sub-header-top" class="sc-table-view">
             <div class="col-12 d-flex inner sc-table-top-bar">
@@ -21,7 +21,7 @@
             <div *ngIf="!noCustomer || newCustomer" [ngClass]="{ 'short-menu': customerSideMenuToggle === true }"
                 id="Customer-list" class="customer-menu customer-left-menu">
                 <div class="leftarrow-icon d-flex align-items-center">
-                    <mat-select placeholder="Action" class="form-control form-select-main mr-3" [ngModel]="actionValue"
+                    <mat-select [disabled]="selectedCustomerId.length == 0" placeholder="Action" class="form-control form-select-main mr-3" [ngModel]="actionValue"
                         (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <mat-option value="delete">Delete</mat-option>
                     </mat-select>
@@ -39,7 +39,7 @@
                                 <mat-icon class="form-control-feedback">search</mat-icon>
                                 <input name="searchKeyword" [(ngModel)]="search.keyword"
                                     (keyup)="customerSearch($event)" type="text"
-                                    class="form-control searchbox_appointment " placeholder="Name, Tag, Mobile No.">
+                                    class="form-control searchbox_appointment " placeholder="Name, Email, Tag, Mobile No.">
                             </div>
                         </form>
                     </div>
@@ -361,9 +361,9 @@
                                         src="/assets/images/icons/mail-open-pink.svg" />
                                     <a class="mail-link detail-color" target="_blank"
                                         href="mailto:customerPersonalDetails.email">{{customerPersonalDetails.email}}</a></span>
-                                <div (click)="newCustomerAppointment()" class="add-booking-main">
-                                    <span class="mat-icon material-icons-outlined"> add_circle </span>
-                                    <p> Add Booking</p>
+                                <div class="add-booking-main">
+                                    <span (click)="newCustomerAppointment()" class="mat-icon material-icons-outlined"> add_circle </span>
+                                    <p (click)="newCustomerAppointment()"> Add Booking</p>
                                 </div>
                             </div>
                             <div class="customer-btn">

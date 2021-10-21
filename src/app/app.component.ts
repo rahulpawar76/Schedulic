@@ -292,7 +292,9 @@ export class AppComponent implements AfterViewInit {
     if(this.currentUser && this.currentUser.user_type === Role.Admin && !this.isBusiness() && !this.isPOS()){
       this.sharedService.updateSideMenuState(true);
     }
-    return this.currentUser && this.currentUser.user_type === Role.Admin;
+    if(this.currentUser && this.currentUser.user_type === Role.Admin){
+      return this.currentUser && this.currentUser.user_type === Role.Admin;
+    }
   }
   isSuperAdmin() {
     return this.currentUser && this.currentUser.user_type === Role.SuperAdmin;

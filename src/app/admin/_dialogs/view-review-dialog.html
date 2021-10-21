@@ -25,7 +25,9 @@
                                 <p>Service</p>
                                 <h3>
                                     {{orderDataFull.service.service_name}}
-                                    ($.{{orderDataFull.service.service_cost}})
+                                    <span *ngIf="currencySymbolPosition=='left'">({{currencySymbol| currencySymbol:'wide'}} {{ orderDataFull.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</span>
+                                    <span *ngIf="currencySymbolPosition=='right'">({{currencySymbol| currencySymbol:'wide'}} {{ orderDataFull.service.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }})</span>
+                                    
                                 </h3>
                             </div>
                         </div>

@@ -103,21 +103,6 @@
             </div>
         </div>
         <div class="payment-rules">
-<!--             
-            <div class="row mb-3 mt-4">
-                <div class="col-8">
-                    <div class="d-flex mb-1">
-                        <h5 class="page-title">Payment Rules</h5>
-                    </div>
-                    <p class="w-100 d-flex page-des mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <p class="w-100 d-flex page-des">Lorem Ipsum has been the industry's standard dummy.</p>
-                </div>
-                <div class="col-4">
-                    <div class="d-flex float-right mt-2 flex-wrap justify-content-end">
-                        <button mat-button (click)="addTax()" class="sc-pink-btn ml-2 mr-2 long-width-btn">Add Tax</button>
-                    </div>
-                </div>
-            </div> -->
             <div class="blue-card">
                 <div class="row">
                     <div class="col-4 common-input">
@@ -149,7 +134,7 @@
                 </div>
             </div>
             <div class="row mt-3 payment-common-details">
-                <div class="col-6" *ngFor="let tax of taxesData; let i=index">
+                <div class="col-6 pb-2 mb-2" [ngClass]="{'pr-2' : 0 == i % 2, 'pl-2' : 0 != i % 2}" *ngFor="let tax of taxesData; let i=index">
                     <div class="blue-card" fxLayout="row">
                         <div class="" fxFlex="45">
                             <label>Tax Name</label>
@@ -166,33 +151,6 @@
                             
                         </div>
                     </div>
-                    <!-- <div class="Customer-appointment-table">
-                        <div class="main-table-content main-cust-table-content">
-                            <div class="">
-                                <div class="heads main-heading-content example-box header-background tax-background" fxLayout="row">
-                                    <div class="" fxFlex="40">Tax Name</div>
-                                    <div class="" fxFlex="30">Percentage</div>
-                                    <div class="" fxFlex="30">Action</div>
-                                </div>
-                                <div *ngIf="taxesData != '' || taxesData != null" class="content" class="example-list">
-                                    <div *ngFor="let taxesData of taxesData; let i=index" class="example-box p-3 my-1">
-                                        <div class="" fxFlex="40">
-                                            <div class="d-flex align-items-center">
-                                                <p class="text-capitalize mb-0">{{taxesData.name}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="" fxFlex="30">{{taxesData.value}}%</div>
-                                        <div class="d-flex" fxFlex="30">
-                                            <button mat-button appearance="fill" class="payment-delete-btn" (click)="deleteTax(taxesData.id)">
-                                            <mat-icon aria-hidden="false">delete_outline</mat-icon>
-                                            Delete
-                                        </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
 
             </div>

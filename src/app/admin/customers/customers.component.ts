@@ -147,7 +147,7 @@ export class CustomersComponent implements OnInit {
   allcustomerIds :any=[];
   tagName:any;
   tabIndex:number=0;
-  noCustomer:boolean=true;
+  noCustomer:boolean=false;
 
   allCountry: any;
   allStates: any;
@@ -333,12 +333,16 @@ export class CustomersComponent implements OnInit {
         this.fnSelectCustomer(this.allCustomers[0].id,action);
         this.customerDetailId = this.allCustomers[0].id
         this.noCustomer = false;
-        this.isLoaderAdmin = false;
+        // this.isLoaderAdmin = false;
+        setTimeout(() => {
+            this.isLoaderAdmin = false;
+        },2000)
       }
       else if(response.response == 'Customer not created.'){
         this.allCustomers = [];
         this.noCustomer = true;
         this.isLoaderAdmin = false;
+        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -1030,7 +1034,7 @@ customerUpdate(existingCustomerData){
 
          const dialogRef = this.dialog.open(DialogViewReview, {
           width: '500px',
-          data :{fulldata : this.customerReviews[index], orderData : this.reviewOrderData}
+          data :{fulldata : this.customerReviews[index], orderData : this.reviewOrderData, setting: this.settingsArr}
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -1137,7 +1141,7 @@ customerUpdate(existingCustomerData){
             });
             this.selectedCustomerId.length = 0;
             this.getAllCustomers();
-            this.actionValue = null;
+            this.actionValue = undefined;
             this.isLoaderAdmin = false;
           }
           else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1150,7 +1154,7 @@ customerUpdate(existingCustomerData){
             this.actionValue = null;
             this.isLoaderAdmin = false;
           }
-          this.actionValue = null;
+          this.actionValue = undefined;
         });
         
       }
@@ -3396,6 +3400,10 @@ detailsData: any;
 orderDataFull:any;
 initials:any;
 customerShortName:any;
+settingsArr:any=[];
+currencySymbol:any;
+currencySymbolPosition:any;
+currencySymbolFormat:any;
 constructor(
   public dialogRef: MatDialogRef<DialogViewReview>,
   private adminService: AdminService,
@@ -3403,6 +3411,10 @@ constructor(
 
      this.detailsData =  this.data.fulldata;
      this.orderDataFull =  this.data.orderData[0];
+     this.settingsArr = this.data.setting;
+     this.currencySymbol = this.settingsArr.currency;
+     this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+     this.currencySymbolFormat = this.settingsArr.currency_format;
     this.initials = this.orderDataFull.staff.fullname.split(" ",2);
       this.customerShortName = '';
       this.initials.forEach( (element2) => {

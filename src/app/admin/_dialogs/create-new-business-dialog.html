@@ -192,7 +192,7 @@
                     <h4>Examples :</h4>
                     <ul class="re-list" *ngIf="businessCategories.length > 0">
                         <li *ngFor="let category of businessCategories; let i=index;">
-                            <mat-checkbox (change)="onCateChange($event, category.id)">{{category.name}}</mat-checkbox>
+                            <mat-checkbox [checked]="selectedCategoryList.indexOf(category.id) > -1" (change)="onCateChange($event, category.id)">{{category.name}}</mat-checkbox>
                         </li>
                     </ul>
                     <p class="text-left w-100 my-3" *ngIf="businessCategories.length == 0">No record found.</p>
