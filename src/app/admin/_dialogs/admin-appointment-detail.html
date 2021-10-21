@@ -34,14 +34,12 @@
 
                     <div *ngIf="detailsData.order_status == 'CNF' && detailsData.staff_id == null"
                         class="form-group w-100px">
-                        <mat-select class="form-control-transparent form-control" [(value)]="selectedStaff" (selectionChange)="fnOnClickStaff($event)" placeholder="select staff">
+                        <mat-select class="form-control-transparent form-control" (selectionChange)="fnOnClickStaff($event)" placeholder="select staff">
                             <mat-option *ngFor="let staff of availableStaff" value="{{staff.id}}">{{staff.name}}
                             </mat-option>
                         </mat-select>
                     </div>
-
                 </div>
-
                 <div class="modal-body ml-2 p-3">
                     <div class="appointment-details-wrap">
                         <div class="common-appointment-details">

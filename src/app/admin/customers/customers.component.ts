@@ -3467,7 +3467,9 @@ onNoClick(): void {
       service_discount:'',
       service_netCost:'', 
       invoiceNumber:'', 
-      order_item_id:''
+      order_item_id:'',
+      phone:'',
+      payment_notes:'',
     }
     serviceTaxArr:[];
     settingsArr:any=[];
@@ -3507,6 +3509,7 @@ onNoClick(): void {
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_email=this.paymentData.get_customer.email;
         this.paymentInfo.customer_address=this.paymentData.get_customer.address;
+        this.paymentInfo.phone=this.paymentData.get_customer.phone;
         this.paymentInfo.customer_city=this.paymentData.get_customer.city;
         this.paymentInfo.customer_state=this.paymentData.get_customer.state;
         this.paymentInfo.customer_zip=this.paymentData.get_customer.zip;
@@ -3517,6 +3520,7 @@ onNoClick(): void {
         this.paymentInfo.service_discount=this.paymentData.orders.discount;
         this.paymentInfo.service_netCost=this.paymentData.orders.total_cost;
         this.paymentInfo.order_item_id=this.paymentData.order_item_id;
+        this.paymentInfo.payment_notes=this.paymentData.payment_notes;
 
         this.serviceTaxArr=JSON.parse(this.paymentData.orders.tax);
       
@@ -3529,6 +3533,7 @@ onNoClick(): void {
       let requestObject = {
         "business_id":this.bussinessId
       };
+     
       this.adminService.getBusinessDetail(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.businessData=response.response;
@@ -3538,6 +3543,7 @@ onNoClick(): void {
             verticalPosition:'top',
             panelClass :['red-snackbar']
           });
+        
         }
       })
     }

@@ -43,8 +43,10 @@
                                 {{paymentInfo.customer_address}},
                             </p>
                             <p class="mb-0">
-                                {{paymentInfo.customer_city}} {{paymentInfo.customer_state}} {{paymentInfo.customer_zip}}
+                                {{paymentInfo.customer_city}} {{paymentInfo.customer_state}} {{paymentInfo.customer_zip}}<br />
+                                {{paymentInfo.phone}} 
                             </p>
+                            
                         </div>
                         <div class=" col-6 col-md-6 col-sm-6 col-lg-6 text-right pr-4">
                             <p class="mb-0 fontfamily">Invoice No.</p>
@@ -52,6 +54,11 @@
                             <p class="mb-4"></p>
                             <p class="mb-0">Invoice Date:</p>
                             <p class="mb-1">{{paymentInfo.invoice_date}}</p>
+                        </div>
+                        <div class="col-12 mt-3" *ngIf="paymentInfo.payment_notes != ''">
+                            <h6 class="font-weight-bold mb-1 subcolor-title">Invoice Note:</h6>
+                            <p>{{paymentInfo.payment_notes}} </p>
+
                         </div>
                     </div>
                     <div class="row p-4">
