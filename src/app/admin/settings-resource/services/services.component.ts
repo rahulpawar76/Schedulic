@@ -76,7 +76,7 @@ export class ServicesComponent implements OnInit {
     singleServiceStatus: any;
     selectedCategoryIndex: any;
     selectedSubCategoryIndex: any;
-    newSubcategoryStatus: any = 'D';
+    newSubcategoryStatus: any = 'E';
     newSubcategoryPrivate: any = 'N';
     editSubcategoryStatus: any = 'D';
     editSubcategoryPrivate: any = 'N';
@@ -257,7 +257,7 @@ export class ServicesComponent implements OnInit {
         this.createNewCategoryPage = false;
         this.servicesList = true;
         this.createCategory.reset(); 
-        this.editCategoryId = '';
+        this.editCategoryId = null;
         this.categoryImageUrl = '';
 
     }
@@ -549,6 +549,10 @@ export class ServicesComponent implements OnInit {
         this.categoryImageUrl = '';
         this.subCategoryImageUrl = '';
         this.serviceImageUrl = '';
+        this.createSubCategory.reset();
+        this.createCategory.reset();
+        this.editCategoryId=null;
+        this.editSubCategoryId=null;
         // this.createNewCategoryPage = false;
         // this.createNewSubCategoryPage = false;
     }
@@ -741,7 +745,7 @@ export class ServicesComponent implements OnInit {
                     panelClass: ['green-snackbar']
                 });
                 this.allowed=true;
-                this.newSubcategoryStatus = 'D';
+                this.newSubcategoryStatus = 'E';
                 this.newSubcategoryPrivate = 'N';
                 this.fnAllCategory();
                 setTimeout(() => {
@@ -1190,6 +1194,8 @@ export class ServicesComponent implements OnInit {
        this.categoryImageUrl = '';
        this.subCategoryImageUrl = '';
        this.serviceImageUrl = '';
+       this.createCategory.reset();
+       this.editSubCategoryId=null;
     }
 
     fnSelectSubCategory(subCategoryId, index) {
@@ -1333,6 +1339,7 @@ export class ServicesComponent implements OnInit {
         }else{
             this.selectCategoryPage="services";
         }
+        this.editSubCategoryId = null;
         this.createNewSubCategoryPage = false;
         this.servicesList = false;
         this.createNewServicePage = false;

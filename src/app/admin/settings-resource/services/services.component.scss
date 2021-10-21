@@ -414,7 +414,9 @@
         border-radius: 50px;
     }
 }
-
+.justify-contents-space-between{
+    justify-content: space-between;
+}
 ::ng-deep .upload-preview-img {
     max-width: 200px;
     margin: 0 auto;
@@ -736,4 +738,9 @@ mat-drawer-content {
         border: 1px solid rgba(86, 86, 87, 0.5);
         border-radius: 4px;
     }
+}
+
+::ng-deep .category-img-button.mat-button[disabled][disabled]{
+    opacity: 0.6;
+    color: #fff;
 }

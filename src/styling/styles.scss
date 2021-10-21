@@ -1203,6 +1203,9 @@ body .md-drppicker .btn {
     box-shadow: none;
     border-radius: 5px;
 }
+.w-100px{
+    width: 100px;
+}
 // .mat-select-placeholder{
 //     color: #0E0E0E;
 // }
@@ -1268,6 +1271,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
                 align-items: center;
                 border-radius: 3px;
                 margin-left: 12px;
+                cursor: pointer;
                 .material-icons {
                     font-size: 20px;
                     color: #565657;
