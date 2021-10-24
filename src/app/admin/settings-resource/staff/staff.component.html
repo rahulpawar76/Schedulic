@@ -1023,6 +1023,10 @@
                                                                         value="{{timeSlot.long}}">{{timeSlot.short}}
                                                                     </mat-option>
                                                                 </mat-select>
+                                                                <div class="pointer d-flex align-items-center ml-3"><i
+                                                                    class="fa fa-trash-o delete-box"
+                                                                    (click)="fnDeleteWorkHour(workHour.id)"
+                                                                    matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showTuesdayAddForm">
