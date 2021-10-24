@@ -22,7 +22,7 @@ export class AuthenticationService {
     }
     public getIPAddress()  
     {  
-      return this.http.get("http://api.ipify.org/?format=json");  
+      return this.http.get(`${environment.apiUrl}/get-ip`);  
     }  
 
     public get currentUserValue(): User {       
@@ -61,30 +61,10 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        //return this.http.post<any>(`${environment.authApiUrl}/users/authenticate`, { email, password })
         return this.http.post<any>(`${environment.apiUrl}/user-login`, { email, password })
         .pipe(map(user => {
-            // login successful if there's a jwt token in the response
             if (user && user.data== true && user.response.token) {
                 localStorage.setItem('currentUser', JSON.stringify(user.response));
-               // localStorage.setItem('isFront', "false");
-               var logoutTime = new Date();
-               logoutTime.setHours( logoutTime.getHours() + 6 );
-               localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-
-                this.currentUserSubject.next(user.response);
-            }
-            return user;
-        }));
-    }
-    customerLogin(requestObject) {
-        //return this.http.post<any>(`${environment.authApiUrl}/users/authenticate`, { email, password })
-        return this.http.post<any>(`${environment.apiUrl}/customer-login`,  requestObject )
-        .pipe(map(user => {
-            // login successful if there's a jwt token in the response
-            if (user && user.data== true && user.response.token) {
-                localStorage.setItem('currentUser', JSON.stringify(user.response));
-               // localStorage.setItem('isFront', "false");
                var logoutTime = new Date();
                logoutTime.setHours( logoutTime.getHours() + 6 );
                localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
@@ -96,14 +76,6 @@ export class AuthenticationService {
     }
 
     loginWithGoogleFacebook(authId,email,provider) {
-        // if(email == ''){
-        //     this._snackBar.open('Please add email id in your facebook account.', "X", {
-        //         duration: 2000,
-        //         verticalPosition:'top',
-        //         panelClass :['red-snackbar']
-        //     });
-        //     return false;
-        // }
         let requestObject={
             "auth_id":authId,
             "email_id":email,

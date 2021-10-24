@@ -2513,6 +2513,33 @@ constructor(
       })
   }
 
+  
+  fnWorkStarting(){
+
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.detailsData.id),
+     "status":"WS"
+    };
+
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Started.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    });
+
+  }
+
 
   fnCancelAppointment(){
 

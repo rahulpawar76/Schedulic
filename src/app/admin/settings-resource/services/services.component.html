@@ -160,9 +160,9 @@
                                 <div class="" fxFlex="10" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div>
                             </div>
                         </div>
-                        <div class="drageble-box row mx-0" *ngIf="allServicesList.length == 0">
+                        <!-- <div class="drageble-box row mx-0" *ngIf="allServicesList.length == 0">
                             <p class="mx-auto">Record not found.</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="table_pagination" *ngIf="allServicesList.length > 0">
@@ -263,7 +263,7 @@
                     <form [formGroup]="createSubCategory">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h6 *ngIf="!editSubCategoryId">Create New Sub Category</h6>
+                                <h6 *ngIf="!editSubCategoryId">Add Sub Category</h6>
                                 <h6 *ngIf="editSubCategoryId">Update Sub Category</h6>
                             </div>
                         </div>
@@ -300,8 +300,8 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="service-statustoggle row mx-0" *ngIf="!editSubCategoryId">
-                                                    <mat-slide-toggle class="single-toggle" (change)="newSubCategoryStatus($event.checked)">Status </mat-slide-toggle>
-                                                    <mat-slide-toggle class="single-toggle" (change)="newSubCategoryPrivate($event.checked)">Private </mat-slide-toggle>
+                                                    <mat-slide-toggle [checked]="newSubcategoryStatus == 'E'" class="single-toggle" (change)="newSubCategoryStatus($event.checked)">Status </mat-slide-toggle>
+                                                    <mat-slide-toggle [checked]="newSubcategoryPrivate == 'Y'" class="single-toggle" (change)="newSubCategoryPrivate($event.checked)">Private </mat-slide-toggle>
                                             </div>
                                             <div class="service-statustoggle row mx-0" *ngIf="editSubCategoryId">
                                                     <mat-slide-toggle class="single-toggle" [checked]="editSubcategoryStatus == 'E'" (change)="fnEditSubCategoryStatus($event.checked)">Status</mat-slide-toggle>
@@ -367,8 +367,12 @@
                     </div>
                 </div>
                 <div class="row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services'">
-                    <div class="w-100 d-flex sc-table-top-bar">
-                        <div class="ml-auto d-flex">
+                    <div class="w-100 d-flex sc-table-top-bar  justify-contents-space-between">
+                        <div class="d-flex">
+                            <button mat-button class="sc-grey-btn mr-2" >Import</button>
+                            <button mat-button class="sc-grey-btn" >Export</button>
+                        </div>
+                        <div class="d-flex">
                             <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                     <mat-option value="all">All</mat-option>
@@ -506,8 +510,12 @@
                     </div>
                 </div>
                 <div *ngIf="singleSubCategoryPage == 'services'" class="row mx-0 sc-table-view">
-                    <div class="w-100 d-flex sc-table-top-bar">
-                        <div class="ml-auto d-flex">
+                    <div class="w-100 d-flex sc-table-top-bar justify-contents-space-between">
+                        <div class="d-flex">
+                            <button mat-button class="sc-grey-btn mr-2" >Import</button>
+                            <button mat-button class="sc-grey-btn" >Export</button>
+                        </div>
+                        <div class="d-flex">
                             <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
                                     <mat-option value="all">All</mat-option>

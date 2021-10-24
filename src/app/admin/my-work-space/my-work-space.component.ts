@@ -535,6 +535,9 @@ export class MyWorkSpaceComponent implements OnInit {
   goToSupport() {
     this.router.navigate(['/admin/support/']);
   }
+  onupgrade(){
+    this.router.navigate(['/admin/settings-payment/billing/']);
+  }
 
   fnGetTodayRevenue() {
 

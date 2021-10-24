@@ -163,19 +163,20 @@
         align-items: center;
         display: flex;
         margin-top: 10px;
-        cursor: pointer;
         .mat-icon {
             color: #00a89b;
             width: 22px;
             height: 22px;
             font-size: 22px;
             margin-right: 8px;
+            cursor: pointer;
         }
         p{
             font-size: 15px;
             text-decoration: underline;
             color: #00a89b;
             margin-bottom: 0px;
+            cursor: pointer;
         }
     }
     .customer-btn {

@@ -63,6 +63,11 @@ export class MyBusinessComponent implements OnInit {
     private authenticationService:AuthenticationService,
     private _snackBar: MatSnackBar,
     private sharedService: SharedService) {
+      
+      this.isLoaderAdmin = true;
+      setTimeout(() => {
+        this.isLoaderAdmin = false;
+    },2000)
     localStorage.setItem('isBusiness', 'true');
     this.router.events.subscribe(event => {
       if (event instanceof RouterEvent) this.handleRoute(event);
@@ -87,8 +92,9 @@ export class MyBusinessComponent implements OnInit {
 
   fnGetIpAddress(){
     this.authenticationService.getIPAddress().subscribe((res:any)=>{
-      this.getIpAddress=res.ip;
-      // this.getGeoLocation(this.getIpAddress);
+      if(res.data == true){
+        this.getIpAddress = res.response
+      }
     });
   }
 
@@ -489,7 +495,7 @@ export class myCreateNewBusinessDialog {
         "state" : this.createBusiness.get('business_state').value,
         "city" : this.createBusiness.get('business_city').value,
         "time_zone" : this.createBusiness.get('business_timezone').value,
-        "site_url" : this.createBusiness.get('business_website').value,
+        "website" : this.createBusiness.get('business_website').value,
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
       this.createNewBusiness(this.newBusinessData);
@@ -537,6 +543,9 @@ export class myCreateNewBusinessDialog {
   }
 
   onBackStep(step){
+    // if(step == 1){
+    //   this.selectedCategoryList = [];
+    // }
     this.currentStep= step;
   }
   

@@ -80,8 +80,6 @@ export class LoginComponent implements OnInit {
                 }else if(data.response.user_type == "SM"){
                     localStorage.setItem('internal_staff','N');
                     this.router.navigate(["staff"]);
-                }else{
-                    this.router.navigate(["user"]);
                 }
             }else if(data.data == false){
                 this._snackBar.open(data.response, "X", {
@@ -93,7 +91,7 @@ export class LoginComponent implements OnInit {
             }else{
                 this.error = "Database Connection Error."; 
             }
-            this.dataLoaded = false;
+            
         },
         error => {  
             this.error = "Database Connection Error."; 

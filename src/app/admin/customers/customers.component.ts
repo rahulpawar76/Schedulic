@@ -147,7 +147,7 @@ export class CustomersComponent implements OnInit {
   allcustomerIds :any=[];
   tagName:any;
   tabIndex:number=0;
-  noCustomer:boolean=true;
+  noCustomer:boolean=false;
 
   allCountry: any;
   allStates: any;
@@ -333,12 +333,16 @@ export class CustomersComponent implements OnInit {
         this.fnSelectCustomer(this.allCustomers[0].id,action);
         this.customerDetailId = this.allCustomers[0].id
         this.noCustomer = false;
-        this.isLoaderAdmin = false;
+        // this.isLoaderAdmin = false;
+        setTimeout(() => {
+            this.isLoaderAdmin = false;
+        },2000)
       }
       else if(response.response == 'Customer not created.'){
         this.allCustomers = [];
         this.noCustomer = true;
         this.isLoaderAdmin = false;
+        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -422,6 +426,7 @@ export class CustomersComponent implements OnInit {
   }
 
   fnCreateCustomerSubmit(){
+    console.log(this.createNewCustomer)
     if(this.createNewCustomer.get('customer_id').value != null){
       this.existingUserId = this.createNewCustomer.get('customer_id').value;
       if(this.createNewCustomer.valid){
@@ -1030,7 +1035,7 @@ customerUpdate(existingCustomerData){
 
          const dialogRef = this.dialog.open(DialogViewReview, {
           width: '500px',
-          data :{fulldata : this.customerReviews[index], orderData : this.reviewOrderData}
+          data :{fulldata : this.customerReviews[index], orderData : this.reviewOrderData, setting: this.settingsArr}
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -1137,7 +1142,7 @@ customerUpdate(existingCustomerData){
             });
             this.selectedCustomerId.length = 0;
             this.getAllCustomers();
-            this.actionValue = null;
+            this.actionValue = undefined;
             this.isLoaderAdmin = false;
           }
           else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1150,7 +1155,7 @@ customerUpdate(existingCustomerData){
             this.actionValue = null;
             this.isLoaderAdmin = false;
           }
-          this.actionValue = null;
+          this.actionValue = undefined;
         });
         
       }
@@ -1842,6 +1847,34 @@ constructor(
       }
     })
   }
+
+  
+  fnWorkStarting(){
+
+    let requestObject = {
+     "order_item_id":JSON.stringify(this.detailsData.id),
+     "status":"WS"
+    };
+
+    this.adminService.updateAppointmentStatus(requestObject).subscribe((response:any) =>{
+      if(response.data == true){
+        this._snackBar.open("Appointment Started.", "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        this.dialogRef.close();
+      }else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+    });
+
+  }
+
   fnGetStaff(booking_date,booking_time,serviceId,postal_code){
     let requestObject = {
       "postal_code":postal_code,
@@ -3396,6 +3429,10 @@ detailsData: any;
 orderDataFull:any;
 initials:any;
 customerShortName:any;
+settingsArr:any=[];
+currencySymbol:any;
+currencySymbolPosition:any;
+currencySymbolFormat:any;
 constructor(
   public dialogRef: MatDialogRef<DialogViewReview>,
   private adminService: AdminService,
@@ -3403,6 +3440,10 @@ constructor(
 
      this.detailsData =  this.data.fulldata;
      this.orderDataFull =  this.data.orderData[0];
+     this.settingsArr = this.data.setting;
+     this.currencySymbol = this.settingsArr.currency;
+     this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
+     this.currencySymbolFormat = this.settingsArr.currency_format;
     this.initials = this.orderDataFull.staff.fullname.split(" ",2);
       this.customerShortName = '';
       this.initials.forEach( (element2) => {
@@ -3438,7 +3479,9 @@ onNoClick(): void {
       service_discount:'',
       service_netCost:'', 
       invoiceNumber:'', 
-      order_item_id:''
+      order_item_id:'',
+      phone:'',
+      payment_notes:'',
     }
     serviceTaxArr:[];
     settingsArr:any=[];
@@ -3478,6 +3521,7 @@ onNoClick(): void {
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;
         this.paymentInfo.customer_email=this.paymentData.get_customer.email;
         this.paymentInfo.customer_address=this.paymentData.get_customer.address;
+        this.paymentInfo.phone=this.paymentData.get_customer.phone;
         this.paymentInfo.customer_city=this.paymentData.get_customer.city;
         this.paymentInfo.customer_state=this.paymentData.get_customer.state;
         this.paymentInfo.customer_zip=this.paymentData.get_customer.zip;
@@ -3488,6 +3532,7 @@ onNoClick(): void {
         this.paymentInfo.service_discount=this.paymentData.orders.discount;
         this.paymentInfo.service_netCost=this.paymentData.orders.total_cost;
         this.paymentInfo.order_item_id=this.paymentData.order_item_id;
+        this.paymentInfo.payment_notes=this.paymentData.payment_notes;
 
         this.serviceTaxArr=JSON.parse(this.paymentData.orders.tax);
       
@@ -3500,6 +3545,7 @@ onNoClick(): void {
       let requestObject = {
         "business_id":this.bussinessId
       };
+     
       this.adminService.getBusinessDetail(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.businessData=response.response;
@@ -3509,6 +3555,7 @@ onNoClick(): void {
             verticalPosition:'top',
             panelClass :['red-snackbar']
           });
+        
         }
       })
     }

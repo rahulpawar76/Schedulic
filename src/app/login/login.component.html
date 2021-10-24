@@ -36,11 +36,14 @@
                                 </span>
                                 <span class="error-wrap" *ngIf="loginForm.get('password').dirty || loginForm.get('password').touched"><small *ngIf="loginForm.get('password').hasError('required')" class="error text-left">Password is required.</small></span>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <div class="form-check p-0">
+                                <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Keep me Logged in
-                                </label>
+                                </label> -->
+                                <mat-checkbox class="">
+                                     Keep me Logged in
+                                </mat-checkbox>
                                 <p><a (click)="forgotPassword()">Forgot Password</a></p>
                             </div>
                             <div class="sign-btn">
@@ -54,7 +57,7 @@
                         <a class="btn social-login google_plus" (click)="signInWithGoogle()"><i class="fa fa-google-plus"></i></a>
                     </div>
                     <div class="copyright-text">
-                        <p>copyright 2021 Schedulic</p>
+                        <p>© Copyright 2021 Schedulic. A Product of Weberr Technologies Inc.</p>
                     </div>
                 </div>
             </div>
