@@ -327,7 +327,7 @@ export class StaffComponent implements OnInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-    this.fnGetWorkingHours();
+    
     this.fnGetTimeSlotsList("00:00","23:30","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
@@ -606,85 +606,114 @@ export class StaffComponent implements OnInit {
       if(response.data == true){
         this.bussinessWorkingHoursList=response.response;
         console.log(this.bussinessWorkingHoursList);
+        console.log(this.selectedStaffId);
         this.bussinessWorkingHoursList.forEach(element => {
-          if(element.week_day_id == 0){
+          if(element.week_day_id == 0 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Sunday";
             if(element.off_day=="N"){
               this.bussinessSundayOn=true;
+              this.saturdayOn = true;
+              this.formSetWorkingHours.controls['sundayToggle'].setValue(true);
             }else{
               this.bussinessSundayOn=false;
+              this.sundayOn = false;
+              this.formSetWorkingHours.controls['sundayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
               element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 1){
+          if(element.week_day_id == 1 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Monday";            
             if(element.off_day=="N"){
               this.bussinessMondayOn=true;
+              this.mondayOn = true;
+              this.formSetWorkingHours.controls['mondayToggle'].setValue(true);
             }else{
               this.bussinessMondayOn=false;
+              this.mondayOn = false;
+              this.formSetWorkingHours.controls['mondayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
               element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 2){
+          if(element.week_day_id == 2 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Tuesday";         
             if(element.off_day=="N"){
               this.bussinessTuesdayOn=true;
+              this.tuesdayOn = true;
+              this.formSetWorkingHours.controls['tuesdayToggle'].setValue(true);
             }else{
               this.bussinessTuesdayOn=false;
+              this.tuesdayOn=false;
+              this.formSetWorkingHours.controls['tuesdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
               element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 3){
+          if(element.week_day_id == 3 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Wednesday";        
             if(element.off_day=="N"){
               this.bussinessWednesdayOn=true;
+              this.wednesdayOn = true;
+              this.formSetWorkingHours.controls['wednesdayToggle'].setValue(true);
             }else{
               this.bussinessWednesdayOn=false;
+              this.wednesdayOn = false;
+              this.formSetWorkingHours.controls['wednesdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 4){
+          if(element.week_day_id == 4 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Thursday";       
             if(element.off_day=="N"){
               this.bussinessThursdayOn=true;
+              this.thursdayOn = true;
+              this.formSetWorkingHours.controls['thursdayToggle'].setValue(true);
             }else{
               this.bussinessThursdayOn=false;
+              this.thursdayOn = false;
+              this.formSetWorkingHours.controls['thursdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 5){
+          if(element.week_day_id == 5 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Friday";     
             if(element.off_day=="N"){
               this.bussinessFridayOn=true;
+              this.fridayOn = true;
+              this.formSetWorkingHours.controls['fridayToggle'].setValue(true);
             }else{
               this.bussinessFridayOn=false;
+              this.fridayOn = false;
+              this.formSetWorkingHours.controls['fridayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
             element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
             }
           }
-          if(element.week_day_id == 6){
+          if(element.week_day_id == 6 && element.staff_id == this.selectedStaffId){
             element.week_day_name="Saturday";    
             if(element.off_day=="N"){
               this.bussinessSaturdayOn=true;
+              this.saturdayOn = true;
+              this.formSetWorkingHours.controls['saturdayToggle'].setValue(true);
             }else{
               this.bussinessSaturdayOn=false;
+              this.saturdayOn = false;
+              this.formSetWorkingHours.controls['saturdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
             element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -948,6 +977,7 @@ export class StaffComponent implements OnInit {
   fnAddWorkHour(day){
     let requestObject={
       "business_id":'',
+      "staff_id": this.selectedStaffId,
       "start_time":'',
       "end_time":'',
       "dayNumber":''
@@ -973,6 +1003,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeMonday,
         "end_time":this.selectedWorkHourEndTimeMonday,
         "dayNumber":"1"
@@ -999,6 +1030,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeTuesday,
         "end_time":this.selectedWorkHourEndTimeTuesday,
         "dayNumber":"2"
@@ -1025,6 +1057,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeWednesday,
         "end_time":this.selectedWorkHourEndTimeWednesday,
         "dayNumber":"3"
@@ -1051,6 +1084,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeThursday,
         "end_time":this.selectedWorkHourEndTimeThursday,
         "dayNumber":"4"
@@ -1077,6 +1111,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeFriday,
         "end_time":this.selectedWorkHourEndTimeFriday,
         "dayNumber":"5"
@@ -1103,6 +1138,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeSaturday,
         "end_time":this.selectedWorkHourEndTimeSaturday,
         "dayNumber":"6"
@@ -1129,6 +1165,7 @@ export class StaffComponent implements OnInit {
       }
       requestObject={
         "business_id":this.businessId,
+        "staff_id": this.selectedStaffId,
         "start_time":this.selectedWorkHourStartTimeSunday,
         "end_time":this.selectedWorkHourEndTimeSunday,
         "dayNumber":"0"
@@ -1145,7 +1182,7 @@ export class StaffComponent implements OnInit {
         this.showFridayWorkHourAddForm=false;
         this.showSaturdayWorkHourAddForm=false;
         this.showSundayWorkHourAddForm=false;
-        this._snackBar.open("Break Added.", "X", {
+        this._snackBar.open("Working Hours Added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
@@ -1223,6 +1260,7 @@ export class StaffComponent implements OnInit {
     this.singleStaffIndex = index;
     this.isLoaderAdmin = true;
     this.selectedStaffId= staffId;
+    //this.fnGetWorkingHours();
     this.singleStaffDataRating = this.allStaffList[index]
 
     let requestObject = {
@@ -1249,8 +1287,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Sunday";
               if(element.off_day=="N"){
                 this.sundayOn=true;
+                this.formSetWorkingHours.controls['sundayToggle'].setValue(true);
               }else{
                 this.sundayOn=false;
+                this.formSetWorkingHours.controls['sundayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
                 element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1261,8 +1301,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Monday";            
               if(element.off_day=="N"){
                 this.mondayOn=true;
+                this.formSetWorkingHours.controls['mondayToggle'].setValue(true);
               }else{
                 this.mondayOn=false;
+                this.formSetWorkingHours.controls['mondayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
                 element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1273,8 +1315,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Tuesday";         
               if(element.off_day=="N"){
                 this.tuesdayOn=true;
+                this.formSetWorkingHours.controls['tuesdayToggle'].setValue(true);
               }else{
                 this.tuesdayOn=false;
+                this.formSetWorkingHours.controls['tuesdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
                 element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1285,8 +1329,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Wednesday";        
               if(element.off_day=="N"){
                 this.wednesdayOn=true;
+                this.formSetWorkingHours.controls['wednesdayToggle'].setValue(true);
               }else{
                 this.wednesdayOn=false;
+                this.formSetWorkingHours.controls['wednesdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1297,8 +1343,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Thursday";       
               if(element.off_day=="N"){
                 this.thursdayOn=true;
+                this.formSetWorkingHours.controls['thursdayToggle'].setValue(true);
               }else{
                 this.thursdayOn=false;
+                this.formSetWorkingHours.controls['thursdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1309,8 +1357,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Friday";     
               if(element.off_day=="N"){
                 this.fridayOn=true;
+                this.formSetWorkingHours.controls['fridayToggle'].setValue(true);
               }else{
                 this.fridayOn=false;
+                this.formSetWorkingHours.controls['fridayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -1321,8 +1371,10 @@ export class StaffComponent implements OnInit {
               element.week_day_name="Saturday";    
               if(element.off_day=="N"){
                 this.saturdayOn=true;
+                this.formSetWorkingHours.controls['saturdayToggle'].setValue(true);
               }else{
                 this.saturdayOn=false;
+                this.formSetWorkingHours.controls['saturdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
               element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
@@ -2472,48 +2524,64 @@ export class StaffComponent implements OnInit {
     let workingHoursArray:any=[];
     let workingHoursTempArray={
       dayNumber:"",
-      offday:""
+      offday:"",
+      start_time:"",
+      end_time:""
     };
 
     workingHoursTempArray={
       dayNumber:"1",
-      offday:this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("mondayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeMonday,
+      end_time:this.selectedWorkHourEndTimeMonday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"2",
-      offday:this.formSetWorkingHours.get("tuesdayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("tuesdayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeTuesday,
+      end_time:this.selectedWorkHourEndTimeTuesday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"3",
-      offday:this.formSetWorkingHours.get("wednesdayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("wednesdayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeWednesday,
+      end_time:this.selectedWorkHourEndTimeWednesday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"4",
-      offday:this.formSetWorkingHours.get("thursdayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("thursdayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeThursday,
+      end_time:this.selectedWorkHourEndTimeThursday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"5",
-      offday:this.formSetWorkingHours.get("fridayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("fridayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeFriday,
+      end_time:this.selectedWorkHourEndTimeFriday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"6",
-      offday:this.formSetWorkingHours.get("saturdayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("saturdayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeSaturday,
+      end_time:this.selectedWorkHourEndTimeSaturday,
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"0",
-      offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y"
+      offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y",
+      start_time:this.selectedWorkHourStartTimeSunday,
+      end_time:this.selectedWorkHourEndTimeSunday,
     };
     workingHoursArray.push(workingHoursTempArray);
    // console.log(JSON.stringify(workingHoursArray));

@@ -1780,7 +1780,7 @@ export class BusinessHoursComponent implements OnInit {
         this.showFridayWorkHourAddForm=false;
         this.showSaturdayWorkHourAddForm=false;
         this.showSundayWorkHourAddForm=false;
-        this.snackBar.open("Break Added.", "X", {
+        this.snackBar.open("Working Hour Added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']
