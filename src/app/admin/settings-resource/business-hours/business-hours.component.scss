@@ -303,6 +303,9 @@
             font-weight: 500;
             margin-bottom: 10px;
             border-radius: 5px;
+            .day-name{
+                font-size: 14px;
+            }
         
         }
     }
@@ -314,6 +317,7 @@
     text-decoration: underline;
     color: #00A89B;
     font-weight: 500;
+    font-size: 14px;
 }
 
 .hrs-drpdwn{
@@ -360,11 +364,16 @@
             .breaktime-slot-main{
                 margin-bottom: 10px;
             }
+            .day-name{
+                font-size: 14px;
+            }
         }
 
      }
  }
-
+ .close-text{
+     font-size: 14px;
+ }
  ::ng-deep .holiday-table{
     margin: 30px;
     .time-of-box{
@@ -381,6 +390,9 @@
         }
         .delete-box{
             margin: 0 20px;
+        }
+        .td-date{
+            font-size: 14px;
         }
     }
     .holiday-list{

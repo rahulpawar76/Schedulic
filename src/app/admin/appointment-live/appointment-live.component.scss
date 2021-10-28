@@ -349,6 +349,8 @@ table {
                 list-style: none;
                 padding: 0px 25px;
                 font-size: 14px;
+                display: flex;
+                align-items: center;
                 p {
                     padding-top: 16px;
                     display: flex;
@@ -356,12 +358,14 @@ table {
                     font-size: 16px;
                     font-weight: 500;
                     align-items: center;
-                    svg {
-                        margin-left: auto;
-                        width: 8px;
-                        path {
-                            fill: #0e0e0e;
-                        }
+                    width: 170px;
+                    
+                }
+                svg {
+                    margin-left: auto;
+                    width: 8px;
+                    path {
+                        fill: #0e0e0e;
                     }
                 }
                 &.active {
@@ -418,7 +422,8 @@ table {
             cursor: pointer;
             img {
                 width: 100%;
-                max-height: 135px;
+                height: 120px;
+                object-fit: cover;
             }
             &.selected {
                 border: 2px solid #52a99c;

@@ -1765,6 +1765,7 @@ constructor(
           panelClass :['green-snackbar']
         });
         this.formSettingPage = false;
+        this.singlenote = null;
         this.fnGetBookingNotes(this.detailsData.id);
       } else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -3243,6 +3244,7 @@ export class DialogAddNewNote {
     
   }
   fnSubmit(){
+    this.isLoaderAdmin = true;
     if(this.noteData != undefined){
       if(this.createNewNote.valid){
         this.editNoteData ={
@@ -3256,8 +3258,10 @@ export class DialogAddNewNote {
           this.createNewNote.get('note_description').markAsTouched();
       }
       this.fnEditNote(this.editNoteData);
+      this.isLoaderAdmin = false;
     }
     else{
+      this.isLoaderAdmin = true;
       if(this.createNewNote.valid){
         this.createNewNoteData ={
           "business_id" : this.businessId,
@@ -3270,6 +3274,7 @@ export class DialogAddNewNote {
           this.createNewNote.get('note_description').markAsTouched();
       }
       this.fncreateNewNote(this.createNewNoteData);
+      this.isLoaderAdmin = false;
     }
   }
   fncreateNewNote(createNewNoteData){

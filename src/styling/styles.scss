@@ -1111,6 +1111,7 @@ textarea {
                 line-height: 0.8;
             }
         }
+        
         &.input-group {
             .input-group-prepend {
                 .input-group-text {
@@ -1136,6 +1137,9 @@ textarea {
         font-weight: 500;
         font-size: 14px;
     }
+}
+textarea{
+    line-height: normal !important;
 }
 .searchbox {
     .search_input-staff {
