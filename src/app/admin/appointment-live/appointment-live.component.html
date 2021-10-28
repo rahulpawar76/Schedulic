@@ -49,14 +49,15 @@
                                         [ngClass]="{'active':inStoreSelectedCat === 'all'}">
                                         <p class="title-main" (click)="fngetService('')">
                                             All Services
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
+                                            
+                                        </p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
                                                 viewBox="0 0 11.497 20.11">
                                                 <path id="Icon_ionic-ios-arrow-back"
                                                     data-name="Icon ionic-ios-arrow-back"
                                                     d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
                                                     transform="translate(-11.251 -6.194)" fill="#00a89b" />
                                             </svg>
-                                        </p>
                                     </li>
 
                                     <li (click)="fngetService(val.id)"
@@ -65,14 +66,15 @@
                                         *ngFor="let val of CategoryList; let i=index">
                                         <p class="title-main">
                                             {{val.category_title}}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
-                                                viewBox="0 0 11.497 20.11">
-                                                <path id="Icon_ionic-ios-arrow-back"
-                                                    data-name="Icon ionic-ios-arrow-back"
-                                                    d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
-                                                    transform="translate(-11.251 -6.194)" fill="#00a89b" />
-                                            </svg>
+                                           
                                         </p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
+                                        viewBox="0 0 11.497 20.11">
+                                        <path id="Icon_ionic-ios-arrow-back"
+                                            data-name="Icon ionic-ios-arrow-back"
+                                            d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
+                                            transform="translate(-11.251 -6.194)" fill="#00a89b" />
+                                    </svg>
                                     </li>
 
                                 </ul>
@@ -137,7 +139,7 @@
                                 <div class="select-staff-container">
                                     <div class="head" *ngIf="StaffList.length > 0">
                                         <h3>Staff</h3>
-                                        <mat-select placeholder="Filter" class="form-control form-control-transparent"
+                                        <mat-select placeholder="Staff Status" class="form-control form-control-transparent"
                                             (selectionChange)="fnFilterStaff($event.value)">
                                             <mat-option value="all">All</mat-option>
                                             <mat-option value="ideal">Ideal</mat-option>
@@ -163,7 +165,7 @@
                                             <label>No Data Found.</label> -->
                                             <div class="head">
                                                 <h3 class="pl-0 pr-3">Staff</h3>
-                                                <mat-select placeholder="Filter" class="form-control form-control-transparent"
+                                                <mat-select placeholder="Staff Status" class="form-control form-control-transparent"
                                                     (selectionChange)="fnFilterStaff($event.value)">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option value="ideal">Ideal</mat-option>
@@ -877,7 +879,7 @@
                                             <button
                                                 class="btn select-btn  {{val.is_selected==false?'btn-primary':'btn-secondary'}} "
                                                 (click)="fnSelect(i,val.customer_id,val.order_item_id);">
-                                                {{val.is_selected==false?'Seleted':'Unselect'}}
+                                                {{val.is_selected==false?'Selected':'Unselect'}}
                                             </button>
                                         </div>
                                     </div>
@@ -911,8 +913,8 @@
                         </div>
 
                         <div class="order-items">
-                            <div *ngFor="let val of pendingBillingData;let i=index">
-                                <div class="px-0 mt-3" *ngIf="val.is_selected==true">
+                            <div>
+                                <div class="px-0 mt-3">
                                     <div class="px-3 mt-3 py-2 service-details-title">
                                         <div class="row  ">
                                             <div class="col-6">
@@ -926,16 +928,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row col-12">
-                                        <div class="col-7">
+                                    <div *ngFor="let val of pendingBillingData;let i=index" class="row col-12">
+                                        <div *ngIf="val.is_selected==true" class="col-7">
                                             <span>{{val.service.service_name}}</span>
                                             <p>Staff : {{val.orders.staff ? val.orders.staff.firstname:''}}
                                                 {{val.orders.staff ? val.orders.staff.lastname:''}}</p>
                                         </div>
-                                        <div class="col-3">
+                                        <div *ngIf="val.is_selected==true" class="col-3">
                                             <span>{{val.orders ? val.orders.service_qty: '-'}}</span>
                                         </div>
-                                        <div class="col-2">
+                                        <div *ngIf="val.is_selected==true" class="col-2">
                                             <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
                                                 currencySymbol:'wide'}} {{ val.orders.service_cost |
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>

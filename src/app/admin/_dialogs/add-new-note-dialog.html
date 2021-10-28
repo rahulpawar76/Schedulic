@@ -1,7 +1,9 @@
 <div class="modal-dialog modal-notify modal-info" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin">
+        <img src="../../../assets/sc-loader.svg" />
+    </div>
     <div class="modal-content">
         <div class="modal-header modal-bcolor-primary">
-
             <p class="modal-title"><span class="note-icon-wrap"><img
                         src="/assets/images/icons/Group 56.svg" /></span>{{noteData ? 'Update Note' : 'New Note'}}</p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">

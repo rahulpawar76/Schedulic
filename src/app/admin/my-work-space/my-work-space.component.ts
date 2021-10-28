@@ -237,6 +237,7 @@ export class MyWorkSpaceComponent implements OnInit {
         });
         this.singlenote = "";
         this.formSettingPage = false;
+        this.singlenote = null;
         this.fnGetAllAppointmentsByCategoryAndStatus();
       }
       else if (response.data == false && response.response !== 'api token or userid invaild') {

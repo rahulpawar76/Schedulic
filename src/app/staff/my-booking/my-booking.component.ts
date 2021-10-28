@@ -2154,6 +2154,7 @@ export class MyBookingComponent implements OnInit {
             panelClass :['green-snackbar']
           });
           this.formSettingPage = false;
+          this.singlenote = null;
           this.fnGetBookingNotes(this.detailData.id);
         } else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {
@@ -2309,6 +2310,7 @@ export class MyBookingComponent implements OnInit {
               panelClass :['green-snackbar']
             });
             this.formSettingPage = false;
+            this.singlenote = null;
             this.fnGetBookingNotes(this.detailData.id);
           } else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
@@ -2510,6 +2512,7 @@ export class MyBookingComponent implements OnInit {
               panelClass :['green-snackbar']
             });
             this.formSettingPage = false;
+            this.singlenote = null;
             this.fnGetBookingNotes(this.detailData.id);
           } else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {

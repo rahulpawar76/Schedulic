@@ -1145,7 +1145,7 @@ export class StaffComponent implements OnInit {
         this.showFridayWorkHourAddForm=false;
         this.showSaturdayWorkHourAddForm=false;
         this.showSundayWorkHourAddForm=false;
-        this._snackBar.open("Break Added.", "X", {
+        this._snackBar.open("Working hours Added.", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass : ['green-snackbar']

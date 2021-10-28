@@ -16,6 +16,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DatePipe } from "@angular/common";
 import { AppComponent } from "@app/app.component";
 import { environment } from "@environments/environment";
+import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 
 export interface DialogData {
   animal: string;
@@ -711,6 +712,12 @@ export class DiscountCouponComponent implements OnInit {
   }
 
   public fnCouponDelete(couponId) {
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: "Are you sure you want to delete?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
     let requestObject = {
       'coupon_id': couponId
     }
@@ -737,6 +744,7 @@ export class DiscountCouponComponent implements OnInit {
         this.isLoaderAdmin = false;
       }
     );
+  });
   }
 
   fnCouponDetails(index, CouponId) {
