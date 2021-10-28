@@ -418,6 +418,7 @@ table {
             cursor: pointer;
             img {
                 width: 100%;
+                max-height: 135px;
             }
             &.selected {
                 border: 2px solid #52a99c;
