@@ -322,6 +322,10 @@ height: calc(100vh - 190px);
         .top-status-wrap {
             border-bottom: 1px solid rgba(0, 168, 155, 0.23);
             padding: 16px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
             .Completed-status {
                 color: #01a79a;
                 font-weight: 500;
@@ -609,7 +613,7 @@ height: calc(100vh - 190px);
     box-shadow: 0px 3px 30px rgb(1 200 185 / 50%);
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     cursor: pointer;
     transition: all 0.5s;
     .left-image{

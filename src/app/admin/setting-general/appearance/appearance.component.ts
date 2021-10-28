@@ -94,7 +94,7 @@ export class AppearanceComponent implements OnInit {
     ) {  
       if (localStorage.getItem('business_id')) {
         this.businessId = localStorage.getItem('business_id');
-        this.frontBookingUrl = environment.bookpageLink+"/booking/Mg=="
+        this.frontBookingUrl = environment.bookpageLink+"/booking/"+window.btoa(this.businessId)
         this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookpageLink+"/booking/"+window.btoa(this.businessId)+"' frameborder='0'></iframe>";
         
       }
