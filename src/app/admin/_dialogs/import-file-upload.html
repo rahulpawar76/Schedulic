@@ -21,7 +21,7 @@
                             <p *ngIf="fileToUpload">{{fileToUpload.name}} </p>
                         </div>
                     </div>
-                    <button mat-button class="sc-pink-btn mt-4 mx-auto d-flex justify-content-center" (click)="fileupload()">Upload</button>
+                    <button [disabled]="!fileToUpload" mat-button class="sc-pink-btn mt-4 mx-auto d-flex justify-content-center" (click)="fileupload()">Upload</button>
                 </div>
             </div>
         </div>

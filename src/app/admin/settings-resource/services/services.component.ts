@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject,ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit,Inject,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 //import { SettingsComponent } from '../settings.component';
@@ -30,6 +30,8 @@ export interface DialogData {
     styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
+    ftfTypeEle: ElementRef;
+    // @ViewChild('ftf_type_id') ftfTypeEle: ElementRef;
     categoryImageUrl:any = '';
     subCategoryImageUrl:any = '';
     serviceImageUrl:any = '';
@@ -135,6 +137,7 @@ export class ServicesComponent implements OnInit {
     NewisLoaderAdmin:boolean =true;
     serviceType:any;
     ftfOPT:any;
+    scrollContainer: any;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -143,6 +146,7 @@ export class ServicesComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private _formBuilder: FormBuilder,
+        private el: ElementRef,
         private _snackBar: MatSnackBar,
         @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     ) {
@@ -206,6 +210,14 @@ export class ServicesComponent implements OnInit {
     fnSettingMenuToggleLarge(){
         this.settingSideMenuToggle = false;
     }
+
+    private scrollToFirstInvalidControl() {
+        const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+          "form .ng-invalid"
+        );
+    
+        firstInvalidControl.focus(); //without smooth behavior
+      }
 
     conversion(mins) { 
         
@@ -1309,7 +1321,6 @@ export class ServicesComponent implements OnInit {
   
       
     fnCreateNewServicePage(categoryId, type,btntype) {
-        
         this.fnstaffList();
         this.createService.controls['service_name'].setValue(null);
         this.createService.controls['service_description'].setValue(null);
@@ -1400,7 +1411,6 @@ export class ServicesComponent implements OnInit {
     fnCreateServiceSubmit() {
         if (this.createService.get('service_id').value != null && this.createService.get('service_id').value != '') {
             if (this.createService.valid) {
-                console.log('valid')
                 if(this.serviceImageUrl != ''){
                     if(this.serviceType == 'face_to_face'){
                         this.updateServiceData = {
@@ -1536,7 +1546,6 @@ export class ServicesComponent implements OnInit {
                 }             
                 this.updateService(this.updateServiceData);
             }else{
-                console.log('invalid')
                 this.createService.get('service_name').markAsTouched();
                 this.createService.get('service_description').markAsTouched();
                 this.createService.get('service_cost').markAsTouched();
@@ -1552,6 +1561,7 @@ export class ServicesComponent implements OnInit {
                 }else if(this.createService.get('serviceType').value == 'phone'){
                     this.createService.get('phoneNo').markAsTouched();
                 }
+                this.scrollToFirstInvalidControl();
 
             }
 
@@ -1872,7 +1882,6 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['serviceType'].setValue(this.categoryServicesList[index].service_type);
             this.serviceType = this.categoryServicesList[index].service_type;
             this.ftfOPT = this.categoryServicesList[index].service_sub_type;
-            console.log('this.serviceType'+this.serviceType+'---this.ftfOPT'+this.ftfOPT)
             if(this.ftfOPT == 'at_home' && this.serviceType == 'face_to_face'){
                 this.createService.controls["travelingTime"].setValidators(Validators.required);
                 this.createService.controls["travelingTime"].updateValueAndValidity();
@@ -1905,7 +1914,6 @@ export class ServicesComponent implements OnInit {
                      });
                 }
             }
-            console.log(this.subCategoryServicesList[index])
             this.createService.controls['service_id'].setValue(this.editServiceId);
             this.createService.controls['service_name'].setValue(this.subCategoryServicesList[index].service_name);
             this.createService.controls['service_description'].setValue(this.subCategoryServicesList[index].service_description);
@@ -1915,7 +1923,6 @@ export class ServicesComponent implements OnInit {
             this.createService.controls['serviceType'].setValue(this.subCategoryServicesList[index].service_type);
             this.serviceType = this.subCategoryServicesList[index].service_type;
             this.ftfOPT = this.subCategoryServicesList[index].service_sub_type;
-            console.log('this.serviceType'+this.serviceType+'---this.ftfOPT'+this.ftfOPT)
             if(this.ftfOPT == 'at_home' && this.serviceType == 'face_to_face'){
                 this.createService.controls["travelingTime"].setValidators(Validators.required);
                 this.createService.controls["travelingTime"].updateValueAndValidity();
@@ -2106,7 +2113,6 @@ export class ServicesComponent implements OnInit {
     }
     fnChangeFTFType(event){
         this.ftfOPT = event.value;
-        console.log(this.createService)
         if(this.ftfOPT == 'at_home'){
             this.createService.controls["travelingTime"].setValidators(Validators.required);
             this.createService.controls["travelingTime"].updateValueAndValidity();
@@ -2116,6 +2122,9 @@ export class ServicesComponent implements OnInit {
         }
     }
     fnChangeServiceType(event){
+        var elmnt = document.getElementById("create_new_service_form");
+        alert(elmnt.offsetHeight)
+        window.scrollTo(0,elmnt.offsetHeight);
         this.serviceType= event.value
         if(this.serviceType == 'face_to_face'){
             if(this.ftfOPT == 'at_home'){
@@ -2133,6 +2142,8 @@ export class ServicesComponent implements OnInit {
                     travelingTime: [null, [Validators.required]],
                     service_id: [this.editServiceId],
                 });
+                this.scrollContainer = this.ftfTypeEle.nativeElement;
+                this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
             }else{
                 this.createService = this._formBuilder.group({
                     service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2149,7 +2160,12 @@ export class ServicesComponent implements OnInit {
                     service_id: [this.editServiceId],
                 }); 
             }
-            
+            this.createService.get('service_name').markAsTouched();
+            this.createService.get('service_description').markAsTouched();
+            this.createService.get('service_cost').markAsTouched();
+            this.createService.get('service_duration').markAsTouched();
+            this.createService.get('service_unit').markAsTouched();
+            this.createService.get('serviceType').markAsTouched();
         }else if(this.serviceType == 'online'){
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2165,6 +2181,12 @@ export class ServicesComponent implements OnInit {
                 travelingTime: [null],
                 service_id: [this.editServiceId],
             });
+            this.createService.get('service_name').markAsTouched();
+            this.createService.get('service_description').markAsTouched();
+            this.createService.get('service_cost').markAsTouched();
+            this.createService.get('service_duration').markAsTouched();
+            this.createService.get('service_unit').markAsTouched();
+            this.createService.get('serviceType').markAsTouched();
         }else if(this.serviceType == 'phone'){
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2180,6 +2202,12 @@ export class ServicesComponent implements OnInit {
                 travelingTime: [null],
                 service_id: [this.editServiceId],
             });
+            this.createService.get('service_name').markAsTouched();
+            this.createService.get('service_description').markAsTouched();
+            this.createService.get('service_cost').markAsTouched();
+            this.createService.get('service_duration').markAsTouched();
+            this.createService.get('service_unit').markAsTouched();
+            this.createService.get('serviceType').markAsTouched();
         }
     }
 
@@ -2258,7 +2286,6 @@ export class ServicesComponent implements OnInit {
     }
   
     handleFileInput(files): void {
-      console.log(files)
       this.fileToUpload = files.item(0);
   
       if(this.fileToUpload.type != "application/vnd.ms-excel"){

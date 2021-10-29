@@ -123,7 +123,7 @@
                         <div class="">
                             <div class="heads main-heading-content postalcode-box header-background " fxLayout="row">
                                 <div class="" fxFlex="33">
-                                    <mat-checkbox class=""></mat-checkbox> <span>Zipcode </span>
+                                    <mat-checkbox [checked]="selectAll" (change)="checkAll($event)" class=""></mat-checkbox> <span>Zipcode </span>
                                 </div>
                                 <!-- <div class="" fxFlex="20"></div> -->
                                 <div class="" fxFlex="33">Area</div>
@@ -133,7 +133,7 @@
 
                                         <mat-select placeholder="Select an option" class="text-left form-control form-control-transparent" [(ngModel)]="selectedValue"
                                             (selectionChange)="fnSelectedPostalCodeStatus($event)"
-                                            [disabled]="arr.length==0">
+                                            [disabled]="postalCodeIdArr.length==0">
                                             <!-- <mat-option value="">Select an option</mat-option> -->
                                             <mat-option value="active">Set Active</mat-option>
                                             <mat-option value="inactive">Set Inactive</mat-option>
@@ -146,7 +146,7 @@
                             <div class="content" class="postalcode-list">
                                 <div class="postalcode-box" *ngFor="let postalCode of postalCodeList">
                                     <div class="" fxFlex="33">
-                                        <mat-checkbox (change)="fnAddPostalCodeId($event.checked,postalCode.id)">
+                                        <mat-checkbox [checked]="postalCode.is_selected" (change)="fnAddPostalCodeId($event.checked,postalCode.id)">
                                         </mat-checkbox>
                                         {{postalCode.postal_code}}
                                     </div>

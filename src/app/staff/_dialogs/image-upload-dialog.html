@@ -18,7 +18,7 @@
                         </div>
                         <img [src]="imageSrc" *ngIf="imageSrc" class="upload-preview-img">
                     </div>
-                    <button type="submit" (click)="uploadImage()" class="btn sc-pink-btn text-light imgbtn">Upload</button>
+                    <button type="submit" [disabled]="!imageSrc" (click)="uploadImage()" class="btn sc-pink-btn text-light imgbtn">Upload</button>
                 </form>
             </div>
         </div>

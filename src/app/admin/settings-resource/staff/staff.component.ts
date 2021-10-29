@@ -2176,7 +2176,21 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin =true;
     this.adminSettingsService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.singleStaffDetail.staff[0].id, this.singleStaffIndex);
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        let requestObject = {
+          'business_id': this.businessId,
+          'staff_id': this.singleStaffDetail.staff[0].id,
+        };
+        this.adminSettingsService.fnViewSingleStaff(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this.singleStaffDetail = response.response
+            this.fnEditStaff(this.singleStaffDetail.staff[0].id)
+          }
+        });
       }else{
         this._snackBar.open(response.response, "X", {
           duration: 2000,
