@@ -437,15 +437,18 @@ export class DiscountCouponComponent implements OnInit {
                 // categoryServiceList
                 const index = this.categoryServiceCheckServiceId.indexOf(serviceselement.id, 0);
                 if (index > -1) {
+                  console.log(serviceselement.id)
                   this.categoryServiceCheckServiceId.push(serviceselement.id);
                   serviceselement.is_selected = true;
                   selectedServiceCount++;
                 }
+                console.log(subelement.id+'---'+selectedServiceCount)
               });
                 if(selectedServiceCount == serviceLength){
                   subelement.is_selected = true;
                   selectedSubCategoryCount++;
                 }
+                console.log(element.id+'---'+selectedSubCategoryCount)
             });
               if(selectedSubCategoryCount == subCategoryLength){
                 element.is_selected = true;
@@ -665,6 +668,7 @@ export class DiscountCouponComponent implements OnInit {
   fnNewCouponCode() {
     this.couponCodeListing = false;
     this.addNewCouponCode = true;
+    console.log(this.categoryServiceCheckServiceId)
     this.getCateServiceList();
   }
 

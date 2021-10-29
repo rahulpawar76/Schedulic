@@ -138,6 +138,8 @@ export class ServicesComponent implements OnInit {
     serviceType:any;
     ftfOPT:any;
     scrollContainer: any;
+    noCategoryService:boolean =false;
+    noSubCategoryService:boolean =false;
     constructor(
         // private userService: UserService,
         public Change:ChangeDetectorRef,
@@ -612,11 +614,18 @@ export class ServicesComponent implements OnInit {
                     this.servicesList = false;
                     this.selectCategoryPage = 'services';
                     this.selectedCategoryDetails = this.allCetegoryList[index];
+                    this.noCategoryService= false;
                 } else if (this.categoryServicesList == 'service not found.') {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
                     this.selectCategoryPage = 'notservices';
+                    if(this.service_filter != 'all'){
+                        this.noCategoryService= false;
+                    }else{
+                        this.noCategoryService= true;
+                    }
                 }
+                
                 this.singleSubCategoryPage = '';
                 this.isLoaderAdmin = false;
             }
@@ -626,9 +635,15 @@ export class ServicesComponent implements OnInit {
                     this.servicesList = false;
                     this.selectedCategoryDetails = this.allCetegoryList[index]
                     this.selectCategoryPage = 'notservices';
+                    if(this.service_filter != 'all'){
+                        this.noCategoryService= false;
+                    }else{
+                        this.noCategoryService= true;
+                    }
                 }
                 this.isLoaderAdmin = false;
             }
+            this.service_filter = 'all';
         })
     }
 
@@ -1249,11 +1264,17 @@ export class ServicesComponent implements OnInit {
                     this.singleSubCategoryPage = 'services';
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex];
 
+                    this.noSubCategoryService = false;
                 } else if (this.subCategoryServicesList == 'service not found.') {
                     this.servicesList = false;
                     this.selectedSubCategoryDetails = this.allCetegoryList[this.selectedCategoryIndex].subcategory[this.selectedSubCategoryIndex]
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
+                    if(this.subcategory_service_filter != 'all'){
+                        this.noSubCategoryService = false;
+                    }else{
+                        this.noSubCategoryService = true;
+                    }
                 }
                 this.selectCategoryPage = '';
                 this.createNewServicePage = false;
@@ -1268,11 +1289,17 @@ export class ServicesComponent implements OnInit {
                     }
                     this.selectCategoryPage = '';
                     this.singleSubCategoryPage = 'notservices';
+                    if(this.subcategory_service_filter != 'all'){
+                        this.noSubCategoryService = false;
+                    }else{
+                        this.noSubCategoryService = true;
+                    }
                 }
                 this.categoryServicesList = [];
                 this.createNewServicePage = false;
                 this.isLoaderAdmin = false;
             }
+            this.subcategory_service_filter = 'all';
         })
     }
     
@@ -1561,7 +1588,6 @@ export class ServicesComponent implements OnInit {
                 }else if(this.createService.get('serviceType').value == 'phone'){
                     this.createService.get('phoneNo').markAsTouched();
                 }
-                this.scrollToFirstInvalidControl();
 
             }
 
@@ -1722,6 +1748,7 @@ export class ServicesComponent implements OnInit {
                 this.createService.get('onlineId').markAsTouched();
                 this.createService.get('phoneNo').markAsTouched();
                 this.createService.get('travelingTime').markAsTouched();
+                this.scrollToFirstInvalidControl();
             }
         }
     }
@@ -2123,7 +2150,6 @@ export class ServicesComponent implements OnInit {
     }
     fnChangeServiceType(event){
         var elmnt = document.getElementById("create_new_service_form");
-        alert(elmnt.offsetHeight)
         window.scrollTo(0,elmnt.offsetHeight);
         this.serviceType= event.value
         if(this.serviceType == 'face_to_face'){

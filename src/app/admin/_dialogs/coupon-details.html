@@ -54,7 +54,7 @@
                             <div *ngIf="couponCodeDetail && couponCodeDetail.services" class="coupon-details">
                                 <p>Applies to</p>
                                 <h3> <span *ngFor="let serviceList of couponCodeDetail.services; let i=index;">
-                                        {{serviceList.service_name}} </span> </h3>
+                                        {{serviceList.service_name}}{{i < couponCodeDetail.services.length-1?',':''}} </span> </h3>
                             </div>
                         </div>
                         <div class="common-coupon-details">

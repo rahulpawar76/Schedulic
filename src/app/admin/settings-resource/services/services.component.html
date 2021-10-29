@@ -359,7 +359,7 @@
                         
                     </div>
                 </div>
-                <div class="service-listing row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services'">
+                <div class="service-listing row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services' || !noCategoryService">
                     <div class="w-100 d-flex sc-table-top-bar  justify-contents-space-between">
                         <div class="d-flex">
                             <button mat-button class="sc-grey-btn mr-2" >Import</button>
@@ -384,7 +384,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sc-table w-100 for_category">
+                    <div class="sc-table w-100 for_category" *ngIf="selectCategoryPage == 'services' && !noCategoryService">
                         <div *ngIf="categoryServicesList != ''" class="">
                             <div class="sc-table-head drageble " fxLayout="row">
                                 <div class="" fxFlex="5">
@@ -448,8 +448,14 @@
                             </nav>
                         </div>
                     </div>
+                    <div class="no-cat-service-data" *ngIf="selectCategoryPage == 'notservices' && !noCategoryService">
+                        <div class="no-data-badge">
+                            <img src="/assets/images/nodata.svg" />
+                            <label>No Data Found.</label>
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="selectCategoryPage == 'notservices'" class="main-subcategory-content">
+                <div *ngIf="selectCategoryPage == 'notservices' && noCategoryService" class="main-subcategory-content">
                     <div class="add-subcategory-card">
                         <div class="left-img-box">
                             <img src="/assets/images/icons/sqr-menu.svg" />
@@ -502,7 +508,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="singleSubCategoryPage == 'services'" class="row mx-0 sc-table-view">
+                <div *ngIf="singleSubCategoryPage == 'services' || !noSubCategoryService" class="row mx-0 sc-table-view">
                     <div class="w-100 d-flex sc-table-top-bar justify-contents-space-between">
                         <div class="d-flex">
                             <button mat-button class="sc-grey-btn mr-2" >Import</button>
@@ -527,7 +533,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sc-table w-100 for_subcategory">
+                    <div class="sc-table w-100 for_subcategory" *ngIf="singleSubCategoryPage == 'services' && !noSubCategoryService">
                             <div *ngIf="subCategoryServicesList != ''" class="">
                                 <div class="sc-table-head drageble" fxLayout="row">
                                     <div class="" fxFlex="5">
@@ -595,7 +601,13 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="singleSubCategoryPage == 'notservices'" class="main-subcategory-content">
+                <div class="no-cat-service-data" *ngIf="singleSubCategoryPage == 'notservices' && !noSubCategoryService">
+                    <div class="no-data-badge">
+                        <img src="/assets/images/nodata.svg" />
+                        <label>No Data Found.</label>
+                    </div>
+                </div>
+                <div *ngIf="singleSubCategoryPage == 'notservices' && noSubCategoryService" class="main-subcategory-content">
 
                     <div class="add-subcategory-card">
                         <div class="left-img-box">
@@ -616,8 +628,8 @@
                 <div class="m-0 h-100">
                     <form [formGroup]="createService">
                         
-                        <div class="row mx-0">
-                            <div id="create_new_service_form" class="col-xl-8 col-lg-8 col-12 col-md-12 d-flex pt-3 px-2 pb-2 flex-wrap align-item-start">
+                        <div id="create_new_service_form" class="row mx-0">
+                            <div class="col-xl-8 col-lg-8 col-12 col-md-12 d-flex pt-3 px-2 pb-2 flex-wrap align-item-start">
                                 <div class="row w-100">
                                     <div class="col-lg-6">
                                         <h6 class="text-left" *ngIf="!editServiceId">Add New Service</h6>

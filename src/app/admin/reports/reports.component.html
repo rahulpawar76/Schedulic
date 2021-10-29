@@ -380,14 +380,18 @@
                                 <td class="text-center" *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
                                     currencySymbol:'wide'}} {{ sales.amount |
                                     currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                    <p class="mb-0">Discount:USD.60.00,</p>
-                                    <p>Tax:USD.50.00</p>
+                                    <p *ngIf="sales.orders.discount" class="mb-0">Discount:{{currencySymbol| currencySymbol:'wide'}}{{ sales.orders.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</p>
+                                    <p *ngIf="sales.orders.totalTax">Tax: {{currencySymbol| currencySymbol:'wide'}}{{ sales.orders.totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                 </td>
                                 <td class="text-center" *ngIf="currencySymbolPosition=='right'">{{ sales.amount |
                                     currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                     currencySymbol:'wide'}}
-                                    <p class="mb-0">Discount:USD.60.00,</p>
-                                    <p>Tax:USD.50.00</p>
+                                    <p *ngIf="sales.orders.discount" class="mb-0">Discount:{{ sales.orders.discount |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}},</p>
+                                    <p *ngIf="sales.orders.totalTax">Tax:{{ sales.orders.totalTax |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</p>
                                 </td>
                                 <td *ngIf="sales.payment_status=='paid'" class="text-center">
                                     Paid
