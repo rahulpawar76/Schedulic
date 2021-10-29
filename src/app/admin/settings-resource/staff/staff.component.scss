@@ -240,14 +240,12 @@
             width: 100%;
             .working-hour-box{
                 background-color: #EAF7F6;
-                padding: 10px;
-                align-items: center;
+                padding: 14px 20px;
                 font-size: 16px;
                 color: #565657 !important;
                 font-weight: 500;
                 border-radius: 5px;
                 width: 100%;
-                padding-left: 20px;
             }
         }
     }
@@ -262,7 +260,7 @@
                color: #565657 !important;
                font-weight: 500;
                border-radius: 5px;
-               width: 65%;
+               width: 80%;
                padding-left: 20px;
                .add-braek-btn {
                    width: 100px;
@@ -289,7 +287,6 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
         box-sizing: border-box;
         background: #eaf7f6;
         font-size: 14px;
@@ -354,9 +351,7 @@
         padding-top: 0px!important;
     }
     .staff-reset-btn {
-        width: 170px;
-        height: 37px;
-        border-radius: 3px;
+        border-radius: 4px;
         background-color: #f04589;
         color: #fff;
     }
@@ -459,8 +454,16 @@
     font-size: 20px;
     color: #00A89B;
 }
-
-
+.breaktime-slot-main,
+.workHour-slot-main{
+    margin-bottom: 8px;
+   
+}
+.break-custom-wrap{
+    .ml-3{
+        margin-left: 14px;
+    }
+}
 
 /*Image Upload*/
 

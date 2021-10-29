@@ -915,11 +915,11 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Monday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"> <button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="mondayOn"
                                                             (click)="fnShowAddWorkHourForm('Monday')">Add Hours</button>
                                                     </div>
-                                                    <div class="" fxFlex="60" *ngIf="mondayOn">
+                                                    <div class="" fxFlex="50" *ngIf="mondayOn">
                                                         <div class="workHour-slot-main"
                                                             *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '1'">
@@ -998,11 +998,11 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Tuesday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="tuesdayOn"
                                                             (click)="fnShowAddWorkHourForm('Tuesday')">Add
                                                             Hours</button></div>
-                                                    <div class="" fxFlex="60" *ngIf="tuesdayOn">
+                                                    <div class="" fxFlex="50" *ngIf="tuesdayOn">
                                                         <div class="breaktime-slot-main"
                                                             *ngFor="let workHour of workingHoursList">
                                                             <div class="d-flex" *ngIf="workHour.week_day_id == '2'">
@@ -1023,9 +1023,9 @@
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-trash-o delete-box"
-                                                                    (click)="fnDeleteWorkHour(workHour.id)"
-                                                                    matTooltip="Delete Hours"></i></div>
+                                                                        class="fa fa-trash-o delete-box"
+                                                                        (click)="fnDeleteWorkHour(workHour.id)"
+                                                                        matTooltip="Delete Hours"></i></div>
                                                             </div>
                                                         </div>
                                                         <div *ngIf="showTuesdayAddForm">
@@ -1071,7 +1071,7 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Wednesday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="wednesdayOn"
                                                             (click)="fnShowAddWorkHourForm('Wednesday')">Add
                                                             Hours</button></div>
@@ -1144,7 +1144,7 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Thursday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="thursdayOn"
                                                             (click)="fnShowAddWorkHourForm('Thursday')">Add
                                                             Hours</button></div>
@@ -1218,7 +1218,7 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Friday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="fridayOn"
                                                             (click)="fnShowAddWorkHourForm('Friday')">Add Hours</button>
                                                     </div>
@@ -1291,7 +1291,7 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Saturday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="saturdayOn"
                                                             (click)="fnShowAddWorkHourForm('Saturday')">Add
                                                             Hours</button></div>
@@ -1365,7 +1365,7 @@
                                                         </mat-slide-toggle>
                                                     </div>
                                                     <div class="" fxFlex="15">Sunday</div>
-                                                    <div class="" fxFlex="15"><button mat-button appearance="fill"
+                                                    <div class="" fxFlex="25"><button mat-button appearance="fill"
                                                             class="sc-pink-btn min-width-auto mx-2" *ngIf="sundayOn"
                                                             (click)="fnShowAddWorkHourForm('Sunday')">Add Hours</button>
                                                     </div>
@@ -1525,8 +1525,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!mondayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
+                                            <div *ngIf="!mondayOn" class="ml-3">Day Off</div>
+                                            <div class="">
                                                 <button mat-button class="staff-reset-btn"
                                                     (click)="fnResetToDefaultBreak()">Reset to
                                                     Default</button>
@@ -1608,9 +1608,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!tuesdayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
-                                            </div>
+                                            <div *ngIf="!tuesdayOn" class="ml-3">Day Off</div>
+
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
@@ -1688,9 +1687,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!wednesdayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
-                                            </div>
+                                            <div class="ml-3" *ngIf="!wednesdayOn"> Day Off </div>
+
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
@@ -1768,9 +1766,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!thursdayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
-                                            </div>
+                                            <div *ngIf="!thursdayOn" class="ml-3">Day Off</div>
+
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
@@ -1847,9 +1844,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!fridayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
-                                            </div>
+                                            <div *ngIf="!fridayOn" class="ml-3">Day Off</div>
+
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
@@ -1929,14 +1925,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="!saturdayOn" fxFlex="35">Day Off</div>
-                                            <div class="" fxFlex="19">
-                                            </div>
+                                            <div *ngIf="!saturdayOn" class="ml-3">Day Off</div>
+
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
-                                                <div class="" fxFlex="35"> Sunday </div>
-                                                <div class="" fxFlex="35">
+                                                <div class="" fxFlex="22"> Sunday </div>
+                                                <div class="" fxFlex="24">
                                                     <button mat-button class="staff-addbreak-btn" *ngIf="sundayOn"
                                                         (click)="fnShowAddBreakForm('Sunday')">Add Break</button><button
                                                         mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
@@ -2007,9 +2002,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="!sundayOn" fxFlex="11">Day Off</div>
-                                                <div class="" fxFlex="20">
-                                                </div>
+                                                <div *ngIf="!sundayOn" class="ml-3">Day Off</div>
+
                                             </div>
                                         </div>
                                     </div>

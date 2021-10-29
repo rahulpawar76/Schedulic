@@ -3,22 +3,24 @@
     position: relative;
     background-color: #fff;
 }
-
-::ng-deep .mat-tab-label-container {
-    .mat-tab-list {
-        .mat-tab-labels {
-            // background-color: $tab-colors !important;
-            height: 63px;
-            align-items: center;
-            font-weight: bold;
-            font-size: 18px;
-            .mat-tab-label-active {
-                background-color: #fff !important;
+::ng-deep #live_appointments{
+    .mat-tab-label-container {
+        .mat-tab-list {
+            .mat-tab-labels {
+                // background-color: $tab-colors !important;
                 height: 63px;
+                align-items: center;
+                font-weight: bold;
+                font-size: 18px;
+                .mat-tab-label-active {
+                    background-color: #fff !important;
+                    height: 63px;
+                }
             }
         }
     }
 }
+
 .notification-svg {
     width: 22px;
 }

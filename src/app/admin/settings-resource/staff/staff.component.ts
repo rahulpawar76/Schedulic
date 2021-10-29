@@ -1881,16 +1881,6 @@ export class StaffComponent implements OnInit {
 
   }
 
-
-  // fnCheckService(event,serviceId){
-  //   if(event == true){
-  //     this.selectedServiceNewStaff.push(serviceId) 
-  //   }else if(event == false){
-  //     const index = this.selectedServiceNewStaff.indexOf(serviceId);
-  //     this.selectedServiceNewStaff.splice(index, 1);
-  //   }
-  // }
-
   checkCategoryServie(event,Category_index){
     this.categoryServiceList[Category_index].getservices.forEach(element => {
       if(event == true){
