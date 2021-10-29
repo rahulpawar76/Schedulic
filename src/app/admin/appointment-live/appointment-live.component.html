@@ -49,15 +49,14 @@
                                         [ngClass]="{'active':inStoreSelectedCat === 'all'}">
                                         <p class="title-main" (click)="fngetService('')">
                                             All Services
-                                            
+
                                         </p>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
-                                                viewBox="0 0 11.497 20.11">
-                                                <path id="Icon_ionic-ios-arrow-back"
-                                                    data-name="Icon ionic-ios-arrow-back"
-                                                    d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
-                                                    transform="translate(-11.251 -6.194)" fill="#00a89b" />
-                                            </svg>
+                                            viewBox="0 0 11.497 20.11">
+                                            <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back"
+                                                d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
+                                                transform="translate(-11.251 -6.194)" fill="#00a89b" />
+                                        </svg>
                                     </li>
 
                                     <li (click)="fngetService(val.id)"
@@ -66,19 +65,18 @@
                                         *ngFor="let val of CategoryList; let i=index">
                                         <p class="title-main">
                                             {{val.category_title}}
-                                           
+
                                         </p>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="11.497" height="20.11"
-                                        viewBox="0 0 11.497 20.11">
-                                        <path id="Icon_ionic-ios-arrow-back"
-                                            data-name="Icon ionic-ios-arrow-back"
-                                            d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
-                                            transform="translate(-11.251 -6.194)" fill="#00a89b" />
-                                    </svg>
+                                            viewBox="0 0 11.497 20.11">
+                                            <path id="Icon_ionic-ios-arrow-back" data-name="Icon ionic-ios-arrow-back"
+                                                d="M19.282,16.246l-7.609-7.6a1.437,1.437,0,0,1,2.035-2.03l8.621,8.615a1.434,1.434,0,0,1,.042,1.982l-8.657,8.675a1.437,1.437,0,0,1-2.035-2.03Z"
+                                                transform="translate(-11.251 -6.194)" fill="#00a89b" />
+                                        </svg>
                                     </li>
 
                                 </ul>
-                                
+
                                 <ul class="px-2" *ngIf="CategoryList.length == 0">
                                     <li class="bottom-border plr-25 pl-1">
                                         <p class="title-heading-main">Categories</p>
@@ -128,7 +126,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="no-service-data d-flex h-100 justify-content-center align-items-center" *ngIf="ServiceList.length == 0">
+                                <div class="no-service-data d-flex h-100 justify-content-center align-items-center"
+                                    *ngIf="ServiceList.length == 0">
                                     <div class="no-data-badge">
                                         <img src="/assets/images/nodata.svg" />
                                         <label>No Data Found.</label>
@@ -139,7 +138,8 @@
                                 <div class="select-staff-container">
                                     <div class="head" *ngIf="StaffList.length > 0">
                                         <h3>Staff</h3>
-                                        <mat-select placeholder="Staff Status" class="form-control form-control-transparent"
+                                        <mat-select placeholder="Staff Status"
+                                            class="form-control form-control-transparent"
                                             (selectionChange)="fnFilterStaff($event.value)">
                                             <mat-option value="all">All</mat-option>
                                             <mat-option value="ideal">Ideal</mat-option>
@@ -165,7 +165,8 @@
                                             <label>No Data Found.</label> -->
                                             <div class="head">
                                                 <h3 class="pl-0 pr-3">Staff</h3>
-                                                <mat-select placeholder="Staff Status" class="form-control form-control-transparent"
+                                                <mat-select placeholder="Staff Status"
+                                                    class="form-control form-control-transparent"
                                                     (selectionChange)="fnFilterStaff($event.value)">
                                                     <mat-option value="all">All</mat-option>
                                                     <mat-option value="ideal">Ideal</mat-option>
@@ -478,8 +479,7 @@
                                 <div class="" fxFlex="10">Time</div>
                             </div>
                             <div class="content" class="appointment-live-list" *ngIf="pendingAppointments.length > 0">
-                                <div (click)="fnOpenDetails(i)"
-                                    *ngFor="let element of pendingAppointments; let i=index"
+                                <div (click)="fnOpenDetails(i)" *ngFor="let element of pendingAppointments; let i=index"
                                     class="appointment-live-list-details">
                                     <div class="" fxFlex="20">
                                         <p class="mb-0 custom-font-weight">Order Id: {{element.id}}</p>
@@ -487,25 +487,38 @@
                                         <p class="mb-0">{{element.service?element.service.service_name:''}}</p>
                                     </div>
                                     <div class=" " fxFlex="25">
-                                        <p class="mb-0 custom-font-weight">{{element.customer?element.customer.fullname:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.customer?element.customer.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer?element.customer.email:''}}</p>
+                                        <p class="mb-0 custom-font-weight">
+                                            {{element.customer?element.customer.fullname:''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{element.customer?element.customer.phone:''}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer?element.customer.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="element.staff != null" class="" fxFlex="25">
-                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname+' '+element.staff.lastname :''}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.staff?element.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff?element.staff.email:''}}</p>
+                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname+'
+                                            '+element.staff.lastname :''}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{element.staff?element.staff.phone:''}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff?element.staff.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="element.order_status == 'P'" class="" fxFlex="25">
                                         <p class="mb-0">Pending</p>
                                     </div>
-                                    <div *ngIf="element.order_status == 'CNF' && element.staff == null"
-                                        class="" fxFlex="25">
+                                    <div *ngIf="element.order_status == 'CNF' && element.staff == null" class=""
+                                        fxFlex="25">
                                         <p class="mb-0">--</p>
                                     </div>
-                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        {{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                     </div>
-                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='right'">{{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}
+                                    <div class="custom-font-weight" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                        {{ element.total_cost |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
                                         {{element.booking_date}}
@@ -558,7 +571,8 @@
                 <img src="/assets/images/icons/outdoor-live.svg" /> Out Door
             </ng-template>
             <div class="common-header">
-                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out Door</label>
+                <label class="tab-label"><span><img src="/assets/images/icons/out-door-loc-icon.svg" /></span> Out
+                    Door</label>
                 <div class="today-time-function">
                     <label class="live-time">{{liveTime}}</label>
                     <label class="live-date">{{liveDate}}</label>
@@ -715,7 +729,8 @@
                                 <div class="" fxFlex="10">Date</div>
                                 <div class="" fxFlex="10">Time</div>
                             </div>
-                            <div class="content" class="appointment-live-list" *ngIf="workStartedAppointments.length > 0">
+                            <div class="content" class="appointment-live-list"
+                                *ngIf="workStartedAppointments.length > 0">
                                 <div (click)="fnOpenWorkStartedDetails(i)"
                                     *ngFor="let element of workStartedAppointments; let i=index"
                                     class="appointment-live-list-details">
@@ -728,20 +743,32 @@
                                     </div>
                                     <div class="" *ngIf="element.customer" fxFlex="20">
                                         <p class="mb-0 custom-font-weight">{{element.customer.fullname}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.customer.phone}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer.email}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{element.customer.phone}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.customer.email}}
+                                        </p>
                                     </div>
                                     <div *ngIf="element.staff != null" class="" fxFlex="20">
-                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname:'-'}} {{element.staff?element.staff.lastname:'-'}}</p>
-                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone No:{{element.staff.phone?element.staff.phone:''}}</p>
-                                        <p class="mb-0"><i class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff.email?element.staff.email:''}}</p>
+                                        <p class="mb-0 custom-font-weight">{{element.staff?element.staff.firstname:'-'}}
+                                            {{element.staff?element.staff.lastname:'-'}}</p>
+                                        <p class="mb-0"><i class="fa fa-phone mr-2 bluephone"></i>Phone
+                                            No:{{element.staff.phone?element.staff.phone:''}}</p>
+                                        <p class="mb-0"><i
+                                                class="fa fa-envelope-o mr-2 bluephone"></i>Email:{{element.staff.email?element.staff.email:''}}
+                                        </p>
                                     </div>
                                     <div *ngIf="element.staff == null" class="" fxFlex="20">
                                         <p class="mb-0">Not Assigned</p>
                                     </div>
                                     <div class="" fxFlex="10">
-                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
-                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='right'">{{ element.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='left'">
+                                            {{currencySymbol| currencySymbol:'wide'}} {{ element.total_cost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                        <p class="custom-font-weight mb-0" *ngIf="currencySymbolPosition=='right'">{{
+                                            element.total_cost |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</p>
                                     </div>
                                     <div class="custom-font-weight" fxFlex="10">
                                         {{element.booking_date}}
@@ -816,7 +843,8 @@
                     <div class="col-8 col-lg-8 px-4 py-3 col-xl-9 left-order-listing">
                         <div class="row">
                             <div class="col-4 p-2" *ngFor="let val of pendingBillingData;let i=index">
-                                <div class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
+                                <div
+                                    class="p-3 rounded single-booking   {{val.is_selected==false?'select-bill':'unselect-bill'}} ">
                                     <div class="row ">
                                         <div class="col-6">
                                             <label>Order Id</label><br>
@@ -945,7 +973,7 @@
                                                 currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                                 {{currencySymbol| currencySymbol:'wide'}}</span>
                                         </div>
-                                        
+
                                     </div>
                                     <hr class="my-2 border-color-wrap">
                                 </div>
@@ -955,8 +983,14 @@
                             <div class="px-3 mt-2">
                                 <div class="row ">
                                     <div class="col-8">
-                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='left'"> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='right'"> Subtotal : {{ pendingBillingOrdeTotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">
+                                            Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{
+                                            pendingBillingOrdeTotal |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">
+                                            Subtotal : {{ pendingBillingOrdeTotal |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-4 ">
                                         <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
@@ -1011,7 +1045,7 @@
                 <img src="/assets/images/icons/notification-bell.svg" class="notification-svg">
                 <span *ngIf="notificationData" class="count">{{notificationCount}}</span>
             </button>
-            
+
         </span>
     </div>
 </div>
