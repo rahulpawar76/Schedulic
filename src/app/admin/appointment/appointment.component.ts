@@ -2634,6 +2634,7 @@ constructor(
             panelClass :['green-snackbar']
           });
           this.formSettingPage = false;
+          this.singlenote = null;
           this.fnGetBookingNotes(this.detailsData.id);
         } else if(response.data == false && response.response !== 'api token or userid invaild'){
           this._snackBar.open(response.response, "X", {

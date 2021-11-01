@@ -339,6 +339,16 @@ export class ReportsComponent implements OnInit {
             element.payment_date=this.datePipe.transform(new Date(element.payment_date),"EEE, dd MMM yyyy");
             element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"EEE, dd MMM yyyy");
             element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"hh:mm a");
+            if(element.orders.tax){
+              element.orders.tax = JSON.parse(element.orders.tax)
+              if(element.orders.tax.length > 0){
+                element.orders.totalTax = 0;
+                element.orders.tax.forEach(element1 => {
+                  element.orders.totalTax = parseInt(element.orders.totalTax)+parseInt(element1.amount)
+                });
+              }
+            }
+            console.log(element.orders)
           }else if(this.reportFilter=="date"){
             element.dates=this.datePipe.transform(new Date(element.dates),"dd MMM yyyy");
           }else{

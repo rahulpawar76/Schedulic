@@ -14,11 +14,11 @@
         <div class="modal-body p-4">
             <form [formGroup]="formAddNewAppointmentStaffStep2">
                 <div class="col-12 mt-2 p-0">
-                    <h6>Appointment Address</h6>
+                    <h6> Appointment Address </h6>
                 </div>
                 <div class="col-12 mb-2 p-0 ">
-                    <mat-checkbox class="example-margin" (change)="sameAddress($event)"><label class="mb-0">
-                            &nbsp;&nbsp; Same as billing address</label></mat-checkbox>
+                    <mat-checkbox class="example-margin" (change)="sameAddress($event)">
+                            Same as billing address </mat-checkbox>
                 </div>
                 <div class="row">
                     <div class="col-12 common-input">
@@ -109,8 +109,6 @@
 
                     <div class="col-6 pl-2 common-input" *ngIf="showSubCatDropDown">
                         <div class="form-group">
-
-
                             <mat-select class="form-control" placeholder="Select Sub Category"
                                 [(value)]="selectedSubCatId" (selectionChange)="fnSelectSubCat($event.value)"
                                 formControlName="customerSubCategory" [disabled]="disableSubCategory">
@@ -147,7 +145,6 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-6 pr-2">
                         <div class="input-group common-input mb-3">
                             <div class="input-group form-group">
@@ -168,7 +165,6 @@
                             </span>
                         </div>
                     </div>
-
                     <div class="col-6 pl-2">
                         <div class="input-group common-input mb-3">
                             <div class="input-group form-group">

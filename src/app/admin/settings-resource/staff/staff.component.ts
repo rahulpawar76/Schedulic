@@ -1881,16 +1881,6 @@ export class StaffComponent implements OnInit {
 
   }
 
-
-  // fnCheckService(event,serviceId){
-  //   if(event == true){
-  //     this.selectedServiceNewStaff.push(serviceId) 
-  //   }else if(event == false){
-  //     const index = this.selectedServiceNewStaff.indexOf(serviceId);
-  //     this.selectedServiceNewStaff.splice(index, 1);
-  //   }
-  // }
-
   checkCategoryServie(event,Category_index){
     this.categoryServiceList[Category_index].getservices.forEach(element => {
       if(event == true){
@@ -2186,7 +2176,21 @@ export class StaffComponent implements OnInit {
     this.isLoaderAdmin =true;
     this.adminSettingsService.removeImage(requestObject).subscribe((response:any) => {
       if(response.data == true){
-        this.fnViewSingleStaff(this.singleStaffDetail.staff[0].id, this.singleStaffIndex);
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['green-snackbar']
+        });
+        let requestObject = {
+          'business_id': this.businessId,
+          'staff_id': this.singleStaffDetail.staff[0].id,
+        };
+        this.adminSettingsService.fnViewSingleStaff(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this.singleStaffDetail = response.response
+            this.fnEditStaff(this.singleStaffDetail.staff[0].id)
+          }
+        });
       }else{
         this._snackBar.open(response.response, "X", {
           duration: 2000,

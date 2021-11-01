@@ -1,11 +1,7 @@
 <div class="reports-container">
     <div id="Customer-list" class="left-side-menu setting-menu"
         [ngClass]="{ 'short-menu': reportSideMenuToggle === true }">
-        <!-- <div class="leftarrow-icon d-flex align-items-cente">
-            <h6 class="mb-0">Report Management</h6>
-            <mat-icon (click)="fnReportToggleSmall()" *ngIf="!reportSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_circle_left</mat-icon>
-            <mat-icon (click)="fnReportToggleLarge()" *ngIf="reportSideMenuToggle" class="customer-drawer-leftarrow ml-auto pointer">arrow_circle_right</mat-icon>
-        </div> -->
+       
         <div class="leftarrow-icon d-flex align-items-center">
             <h6 class="mb-0">Report Management</h6>
             <span (click)="fnReportToggleSmall()" *ngIf="!reportSideMenuToggle"
@@ -13,7 +9,7 @@
             <span (click)="fnReportToggleLarge()" *ngIf="reportSideMenuToggle"
                 class="customer-drawer-leftarrow ml-auto pointer material-icons-outlined">arrow_circle_right</span>
         </div>
-        <div class="pointer menuitem ">
+        <div class="pointer menuitem">
             <div class="d-flex setting-menu-item {{isAppointmentReport?'setting-menu-active':''}}"
                 (click)="fnappointmentReport()">
                 <div class="menu-icon">
@@ -380,14 +376,18 @@
                                 <td class="text-center" *ngIf="currencySymbolPosition=='left'">{{currencySymbol|
                                     currencySymbol:'wide'}} {{ sales.amount |
                                     currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
-                                    <p class="mb-0">Discount:USD.60.00,</p>
-                                    <p>Tax:USD.50.00</p>
+                                    <p *ngIf="sales.orders.discount" class="mb-0">Discount:{{currencySymbol| currencySymbol:'wide'}}{{ sales.orders.discount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }},</p>
+                                    <p *ngIf="sales.orders.totalTax">Tax: {{currencySymbol| currencySymbol:'wide'}}{{ sales.orders.totalTax | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                 </td>
                                 <td class="text-center" *ngIf="currencySymbolPosition=='right'">{{ sales.amount |
                                     currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                     currencySymbol:'wide'}}
-                                    <p class="mb-0">Discount:USD.60.00,</p>
-                                    <p>Tax:USD.50.00</p>
+                                    <p *ngIf="sales.orders.discount" class="mb-0">Discount:{{ sales.orders.discount |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}},</p>
+                                    <p *ngIf="sales.orders.totalTax">Tax:{{ sales.orders.totalTax |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</p>
                                 </td>
                                 <td *ngIf="sales.payment_status=='paid'" class="text-center">
                                     Paid

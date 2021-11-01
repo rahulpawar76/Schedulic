@@ -318,6 +318,7 @@
     z-index: 1;
     .search-input-container {
         position: relative;
+        width: 220px;
         .before-search {
             position: absolute;
             line-height: 1.9;
@@ -334,6 +335,7 @@
             border-right: 0px;
             border-left: 0px;
             background-color: transparent;
+            width: 100%;
             &::placeholder{
                 color: #000;
             }

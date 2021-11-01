@@ -108,7 +108,7 @@
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="mondayOn" formControlName="mondayToggle" (change)="fnChangeToggle($event,'Monday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Monday</div>
+                                        <div class="day-name" fxFlex="15">Monday</div>
                                         <div class="" fxFlex="15"><button mat-button class="sc-pink-btn min-width-auto mx-2" *ngIf="mondayOn" (click)="fnShowAddWorkHourForm('Monday')">Add Hours</button></div>
                                         <div class="hrs-drpdwn" fxFlex="55" *ngIf="mondayOn">
                                             
@@ -153,13 +153,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!mondayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!mondayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="tuesdayOn" formControlName="tuesdayToggle" (change)="fnChangeToggle($event,'Tuesday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Tuesday</div>
+                                        <div class="day-name" fxFlex="15">Tuesday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="tuesdayOn" (click)="fnShowAddWorkHourForm('Tuesday')">Add Hours</button>
                                         </div>
@@ -205,13 +205,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!tuesdayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!tuesdayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="wednesdayOn" formControlName="wednesdayToggle" (change)="fnChangeToggle($event,'Wednesday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Wednesday</div>
+                                        <div class="day-name" fxFlex="15">Wednesday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="wednesdayOn" (click)="fnShowAddWorkHourForm('Wednesday')">Add Hours</button>
                                         </div>
@@ -257,13 +257,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!wednesdayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!wednesdayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="thursdayOn" formControlName="thursdayToggle" (change)="fnChangeToggle($event,'Thursday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Thursday</div>
+                                        <div class="day-name" fxFlex="15">Thursday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="thursdayOn" (click)="fnShowAddWorkHourForm('Thursday')">Add Hours</button>
                                         </div>
@@ -309,13 +309,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!thursdayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!thursdayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="fridayOn" formControlName="fridayToggle" (change)="fnChangeToggle($event,'Friday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Friday</div>
+                                        <div class="day-name" fxFlex="15">Friday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="fridayOn" (click)="fnShowAddWorkHourForm('Friday')">Add Hours</button>
                                         </div>
@@ -361,13 +361,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!fridayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!fridayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="saturdayOn" formControlName="saturdayToggle" (change)="fnChangeToggle($event,'Saturday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Saturday</div>
+                                        <div class="day-name" fxFlex="15">Saturday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="saturdayOn" (click)="fnShowAddWorkHourForm('Saturday')">Add Hours</button>
                                         </div>
@@ -413,13 +413,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!saturdayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!saturdayOn">Closed for Business</div>
                                     </div>
                                     <div class="working-hour-box">
                                         <div class="" fxFlex="15">
                                             <mat-slide-toggle [checked]="sundayOn" formControlName="sundayToggle" (change)="fnChangeToggle($event,'Sunday')"></mat-slide-toggle>
                                         </div>
-                                        <div class="" fxFlex="15">Sunday</div>
+                                        <div class="day-name" fxFlex="15">Sunday</div>
                                         <div class="" fxFlex="15">
                                             <button mat-button appearance="fill" class="sc-pink-btn min-width-auto mx-2" *ngIf="sundayOn" (click)="fnShowAddWorkHourForm('Sunday')">Add Hours</button>
                                         </div>
@@ -465,7 +465,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="" *ngIf="!sundayOn">Closed for Business</div>
+                                        <div class="close-text" *ngIf="!sundayOn">Closed for Business</div>
                                     </div>
                                     
                                 </form>
@@ -491,7 +491,7 @@
                         <div class="d-flex">
                             <div class="breaks-list">
                                 <div class="break-box">
-                                    <div class="" fxFlex="20">Monday</div>
+                                    <div class="day-name" fxFlex="20">Monday</div>
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="mondayOn" (click)="fnShowAddBreakForm('Monday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
@@ -543,7 +543,7 @@
                                     <div *ngIf="!mondayOn" fxFlex="60">Day Off</div>
                                 </div>
                                 <div class="break-box">
-                                    <div class="" fxFlex="20">Tuesday</div>
+                                    <div class="day-name" fxFlex="20">Tuesday</div>
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!tuesdayOn">Closed</button></div>
@@ -592,7 +592,7 @@
                                     <div *ngIf="!tuesdayOn" fxFlex="60">Day Off</div>
                                 </div>
                                 <div class="break-box">
-                                    <div class="" fxFlex="20">Wednesday</div>
+                                    <div class="day-name" fxFlex="20">Wednesday</div>
                                     <div class="" fxFlex="20"><button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!wednesdayOn">Closed</button></div>
                                     <div fxFlex="60" *ngIf="wednesdayOn">
@@ -641,7 +641,7 @@
                                 </div>
                                 <div class="break-box">
                                     
-                                    <div class="" fxFlex="20">Thursday</div>
+                                    <div class="day-name" fxFlex="20">Thursday</div>
                                     <div class="" fxFlex="20"><button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!thursdayOn">Closed</button></div>
                                     <div fxFlex="60" *ngIf="thursdayOn">
@@ -690,7 +690,7 @@
                                 </div>
                                 <div class="break-box">
                                     
-                                    <div class="" fxFlex="20">Friday</div>
+                                    <div class="day-name" fxFlex="20">Friday</div>
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!fridayOn">Closed</button>
@@ -741,7 +741,7 @@
                                 </div>
                                 <div class="break-box">
                                     
-                                    <div class="" fxFlex="20">Saturday</div>
+                                    <div class="day-name" fxFlex="20">Saturday</div>
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!saturdayOn">Closed</button>
@@ -792,7 +792,7 @@
                                 </div>
                                 <div class="break-box">
                                     
-                                    <div class="" fxFlex="20">Sunday</div>
+                                    <div class="day-name" fxFlex="20">Sunday</div>
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!sundayOn">Closed</button>
@@ -854,22 +854,22 @@
                     <div class="main-table-content main-time-off-table-content">
                         <div class="">
                             <div *ngIf="timeOffList.length >0 " class="heads main-heading-content time-of-box " fxLayout="row">
-                                <div class="" fxFlex="25">Description</div>
-                                <div class="" fxFlex="20">Start Date</div>
-                                <div class="" fxFlex="20">End Date</div>
+                                <div class="td-date" fxFlex="25">Description</div>
+                                <div class="td-date" fxFlex="20">Start Date</div>
+                                <div class="td-date" fxFlex="20">End Date</div>
                                 <div class="d-flex justify-content-end" fxFlex="35">
                                     <button mat-button appearance="fill" (click)="addTimeOff()" *ngIf="timeOffList.length >0" class="time-off-btn sc-pink-btn ml-2 mr-2">Add Holiday</button>
                                 </div>
                             </div>
                             <div *ngIf="timeOffList.length >0" class="content" class="holiday-list">
                                 <div class="time-of-box" fxLayout="row" *ngFor="let timeOff of timeOffList">
-                                    <div class="" fxFlex="25">
+                                    <div class="td-date" fxFlex="25">
                                         <p class="mb-0">{{timeOff.description}}</p>
                                     </div>
-                                    <div class="" fxFlex="20">
+                                    <div class="td-date" fxFlex="20">
                                         <p class="mb-0">{{timeOff.start_date}}</p>
                                     </div>
-                                    <div class="" fxFlex="20">
+                                    <div class="td-date" fxFlex="20">
                                         <p class="mb-0">{{timeOff.end_date}}</p>
                                     </div>
                                     <div fxFlex="35" class="pointer d-flex justify-content-end">
