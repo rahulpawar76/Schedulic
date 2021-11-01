@@ -141,7 +141,7 @@
                         <div class="text-left" fxFlex="10">Status</div>
                         <div class="text-left" fxFlex="10">Action</div>
                     </div>
-                    <div class="drageble-list sc-table-content" cdkDropList (cdkDropListDropped)="drop($event)">
+                    <div class="drageble-list sc-table-content" cdkDropList [cdkDropListData]="allServicesList" (cdkDropListDropped)="drop($event)">
                         <div *ngIf="allServicesList.length > 0">
                             <div class="final-list drageble-box mx-0" *ngFor="let element of allServicesList; let i=index" cdkDrag fxLayout="row">
                                 <div class="text-left" fxFlex="30">{{element.service_name}}</div>

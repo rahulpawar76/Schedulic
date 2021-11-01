@@ -115,6 +115,24 @@ export class AdminSettingsService {
         catchError(this.handleError));
     }
 
+    fnUpdateServiceOrder(id, order){
+        this.checkAuthentication();
+        let requestObject = {
+            'service_id': id,
+            'order': order
+        };
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        return this.http.post(`${environment.apiUrl}/update-service-order`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
+
     fnImportService(requestObject) {
       this.checkAuthentication();
       let headers = new HttpHeaders({

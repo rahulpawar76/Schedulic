@@ -539,6 +539,14 @@ export class ServicesComponent implements OnInit {
         moveItemInArray(this.subCategoryServicesList, event.previousIndex, event.currentIndex);
     }
     drop(event: CdkDragDrop<string[]>) {
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.fnUpdateServiceOrder(event.container.data[event.currentIndex]['id'], event.container.data[event.previousIndex]['order']).subscribe((response: any) => {
+            this.isLoaderAdmin = false;
+        });
+        this.isLoaderAdmin = true;
+        this.adminSettingsService.fnUpdateServiceOrder(event.container.data[event.previousIndex]['id'], event.container.data[event.currentIndex]['order']).subscribe((response: any) => {
+            this.isLoaderAdmin = false;
+        });
         moveItemInArray(this.allServicesList, event.previousIndex, event.currentIndex);
     }
 
