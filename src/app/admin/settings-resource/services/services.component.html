@@ -398,7 +398,7 @@
                                 <div class="text-left" fxFlex="10">Status</div>
                                 <div class="text-left" fxFlex="10"></div>
                             </div>
-                            <div class="sc-table-content drageble-list" cdkDropList (cdkDropListDropped)="dropCategory($event)">
+                            <div class="sc-table-content drageble-list" cdkDropList [cdkDropListData]="categoryServicesList" (cdkDropListDropped)="dropCategory($event)">
                                 <div class="final-list drageble-box mx-0" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
                                     <div class="text-left" fxFlex="5">
                                         <mat-checkbox [checked]="categoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,categoryServicesList.id,i); ">
@@ -547,7 +547,7 @@
                                 <div class="text-left" fxFlex="10">Status</div>
                                 <div class="text-left" fxFlex="10"></div>
                                 </div>
-                                <div class="sc-table-content drageble-list" cdkDropList (cdkDropListDropped)="dropSubCategory($event)">
+                                <div class="sc-table-content drageble-list" cdkDropList [cdkDropListData]="subCategoryServicesList" (cdkDropListDropped)="dropSubCategory($event)">
                                     <div class="final-list drageble-box mx-0" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
                                         <div class="text-left" fxFlex="5">
                                             <mat-checkbox [checked]="subCategoryServicesList.is_selected" (change)="fnActionServiceId($event.checked,subCategoryServicesList.id,i)">
