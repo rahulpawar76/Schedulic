@@ -340,8 +340,8 @@
                                 <mat-slide-toggle class="ml-auto" (change)="changeCategoryStatus($event.checked,selectedCategoryDetails.id)" [checked]="selectedCategoryDetails && selectedCategoryDetails.status == 'E'"></mat-slide-toggle>
                             </div>
                             <div class="bottom-btns">
-                                <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].subcategory != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="sc-light-green-btn mr-2">Add Sub Category</button>
-                                <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].subcategory == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="sc-light-green-btn mr-2">Add Service</button>
+                                <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null" (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'upper')" class="sc-light-green-btn mr-2">Add Sub Category</button>
+                                <button mat-button *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id == null" (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','upper')" class="sc-light-green-btn mr-2">Add Service</button>
                                 <button mat-button (click)="editCategory(selectedCategoryDetails.id)" class="sc-yellow-btn mr-2">Edit Details</button>
                                 <button mat-button class="sc-red-btn mr-2" (click)="deleteCategory(selectedCategoryDetails.id)">Delete</button>
                             </div>
@@ -671,7 +671,9 @@
                                         <div class="col-12 common-input">
                                             <div class="input-group form-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">{{currencySymbol}}</span>
+                                                    <span class="input-group-text">
+                                                        <span class="currency-symbol">{{currencySymbol}}</span>
+                                                    </span>
                                                 </div>
                                                 <input formControlName="service_cost" class="form-control" placeholder="Enter Sevice Cost">
                                             </div>
@@ -736,7 +738,7 @@
                                                 <!-- <div class="input-group-prepend">
                                                     <span class="input-group-text"><img src="/assets/images/icons/cubes.svg" /></span>
                                                 </div> -->
-                                                <mat-select class="form-control"  placeholder="Select type of Face to Face service" (selectionChange)="fnChangeFTFType($event)" formControlName="ftfType">
+                                                <mat-select id="ftf_type_control" class="form-control"  placeholder="Select type of Face to Face service" (selectionChange)="fnChangeFTFType($event)" formControlName="ftfType">
                                                     <mat-option value="in_store">
                                                         <i class="fa fa-archive" aria-hidden="true"></i> In Store Service
                                                     </mat-option>
@@ -786,7 +788,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><img src="/assets/images/icons/man.svg" /></span>
                                                     </div>
-                                                    <input class="form-control" formControlName="onlineId" placeholder="Enter Id">
+                                                    <input id="online_id_control" class="form-control" formControlName="onlineId" placeholder="Enter Id">
                                                 </div>
                                                 <span class="error-wrap d-flex flex-wrap" *ngIf="createService.get('onlineId').touched || createService.get('onlineId').dirty">
                                                     <small *ngIf="createService.get('onlineId').hasError('required')" class="error w-100">Id is required.</small>
@@ -800,7 +802,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><img src="/assets/images/icons/calling.svg" /></span>
                                                     </div>
-                                                    <input class="form-control" formControlName="phoneNo" placeholder="Enter Phone No.">
+                                                    <input id="phone_control" class="form-control" formControlName="phoneNo" placeholder="Enter Phone No.">
                                                 </div>
                                                 <span class="error-wrap d-flex flex-wrap" *ngIf="createService.get('phoneNo').touched || createService.get('phoneNo').dirty">
                                                     <small *ngIf="createService.get('phoneNo').hasError('required') || (createService.get('phoneNo').hasError('required') && (createService.get('phoneNo').hasError('minlength') || createService.get('phoneNo').hasError('maxlength')))" class="error w-100">Phone Number is required.</small>

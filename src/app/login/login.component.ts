@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     hide = true;
     dataLoaded: boolean = false;
     isIE: boolean = false;
+    loginPageDisplay: boolean = true;
 
     currentUser: User;
 
@@ -75,8 +76,10 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .pipe(first()).subscribe(data => {
             if(data.data == true){
+                this.loginPageDisplay = false;
                 if(data.response.user_type == "A"){
                     this.router.navigate(["admin"]);
+                    this.dataLoaded = false;  
                 }else if(data.response.user_type == "SM"){
                     localStorage.setItem('internal_staff','N');
                     this.router.navigate(["staff"]);
@@ -91,6 +94,7 @@ export class LoginComponent implements OnInit {
             }else{
                 this.error = "Database Connection Error."; 
             }
+            this.dataLoaded = false;  
             
         },
         error => {  

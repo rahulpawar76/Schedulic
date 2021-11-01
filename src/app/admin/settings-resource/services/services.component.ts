@@ -219,7 +219,7 @@ export class ServicesComponent implements OnInit {
         );
     
         firstInvalidControl.focus(); //without smooth behavior
-      }
+    }
 
     conversion(mins) { 
         

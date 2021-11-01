@@ -5,7 +5,7 @@
 </style>
 <mat-drawer-container class="main-container">
     <mat-drawer-content class="">
-        <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
+        <div class="loader-main bg-white" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
         <main fxLayout="column" fxLayoutGap="0">
             <mat-toolbar [ngClass]="{'admin_top_bar': (isAdminUser() && !isBusiness()) || isSuperAdmin()}" color="primary" class="toolbar menu-comman" *ngIf="isLogin() && !isPOS()">
                 <mat-toolbar-row *ngIf="isStaffUser()">

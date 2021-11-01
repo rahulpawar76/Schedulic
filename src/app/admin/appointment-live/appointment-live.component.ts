@@ -45,7 +45,7 @@ export class AppointmentLiveComponent implements OnInit {
   CategoryList :any = [];
   ServiceList :any = [];
   StaffList:any = [];
-
+  staffListDisplay:boolean=false;
   existingCustomerId:any;
   booking_date:any;
   settingsArr:any=[];
@@ -731,7 +731,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   fngetStaff(service_id,index){
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       "service_id" : service_id, 
       "action" : this.staff_filter, 
@@ -744,8 +744,13 @@ export class AppointmentLiveComponent implements OnInit {
     this.adminService.getStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.StaffList = response.response;
+        this.staffListDisplay = true;
       }else{
-
+        if(this.staff_filter == 'all'){
+          this.staffListDisplay = false;
+        }else{
+          this.staffListDisplay = true;
+        }
         this._snackBar.open(response.response, "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -754,6 +759,7 @@ export class AppointmentLiveComponent implements OnInit {
 
         this.StaffList = [];
       }
+      this.isLoaderAdmin = false;
     });
   }
 

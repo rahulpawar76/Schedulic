@@ -135,9 +135,9 @@
                             </div>
                             <div class="col-12 col-md-3 col-lg-3 px-0 h-100">
                                 <div class="select-staff-container">
-                                    <div class="head" *ngIf="StaffList.length > 0">
+                                    <div class="head">
                                         <h3>Staff</h3>
-                                        <mat-select placeholder="Staff Status"
+                                        <mat-select *ngIf="staffListDisplay" placeholder="Staff Status"
                                             class="form-control form-control-transparent"
                                             (selectionChange)="fnFilterStaff($event.value)">
                                             <mat-option value="all">All</mat-option>
@@ -145,6 +145,8 @@
                                             <mat-option value="working">Working</mat-option>
                                         </mat-select>
                                     </div>
+                                    <div *ngIf="StaffList.length > 0">
+
                                     <div class="single-staff" *ngFor="let val of StaffList; let i=index">
                                         <div class="left-side">
                                             <label>{{val.name}}</label>
@@ -158,20 +160,9 @@
                                                 (click)="fnAssignStaff(val.id,i)">Assign</button>
                                         </div>
                                     </div>
-                                    <div class="no-service-data" *ngIf="StaffList.length == 0">
+                                    </div>
+                                    <div class="no-service-data" *ngIf="!staffListDisplay && StaffList.length == 0">
                                         <div class="staff-no-data-wrap">
-                                            <!-- <img src="/assets/images/nodata.svg" />
-                                            <label>No Data Found.</label> -->
-                                            <div class="head">
-                                                <h3 class="pl-0 pr-3">Staff</h3>
-                                                <mat-select placeholder="Staff Status"
-                                                    class="form-control form-control-transparent"
-                                                    (selectionChange)="fnFilterStaff($event.value)">
-                                                    <mat-option value="all">All</mat-option>
-                                                    <mat-option value="ideal">Ideal</mat-option>
-                                                    <mat-option value="working">Working</mat-option>
-                                                </mat-select>
-                                            </div>
                                             <ul class="custom-staff-wrap">
                                                 <li>
                                                     <p class="title-heading-main"></p>
@@ -198,6 +189,12 @@
                                                     </div>
                                                 </li>
                                             </ul>
+                                        </div>
+                                    </div>
+                                    <div class="no-staff-data" *ngIf="staffListDisplay && StaffList.length == 0">
+                                        <div class="no-data-badge">
+                                            <img src="/assets/images/nodata.svg" />
+                                            <label>No Data Found.</label>
                                         </div>
                                     </div>
                                 </div>

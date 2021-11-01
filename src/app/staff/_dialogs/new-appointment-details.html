@@ -22,9 +22,10 @@
                             <form class="form-group">
                                 <!-- <mat-form-field class="bottom-border-field"> -->
                                     <!-- <mat-label>Change Status</mat-label> -->
-                                    <mat-select class="form-control text-left" placeholder="Change status" [disabled]="timeToServiceDecimal < 0 || timeToServiceDecimal > 60" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
-                                        <mat-option *ngIf="timeToServiceDecimal < 60" value="OW">On The Way</mat-option>
-                                        <mat-option *ngIf="timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
+                                    <mat-select class="form-control text-left" placeholder="Change status" name="status" [(value)]="detailData.order_status" (selectionChange)="someMethod(detailData.id, $event.value)">
+                                        <mat-option [disabled]="timeToServiceDecimal > 60" value="OW">On The Way</mat-option>
+                                        <mat-option [disabled]="timeToServiceDecimal > 30" value="WS">Work Started</mat-option>
+                                        <mat-option value="GL">Getting Late</mat-option>
                                     </mat-select>
                                 <!-- </mat-form-field> -->
                             </form>
