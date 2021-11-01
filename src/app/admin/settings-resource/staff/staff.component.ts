@@ -1712,12 +1712,12 @@ export class StaffComponent implements OnInit {
                 selectedServiceCount++;
               }
             });
-            if(selectedServiceCount == serviceLength){
+            if(selectedServiceCount!= 0 && selectedServiceCount == serviceLength){
               subelement.is_selected = true;
               selectedSubCategoryCount++;
             }
           });
-          if(selectedSubCategoryCount == subCategoryLength){
+          if(selectedSubCategoryCount!= 0 && selectedSubCategoryCount == subCategoryLength){
             element.is_selected = true;
           }
 

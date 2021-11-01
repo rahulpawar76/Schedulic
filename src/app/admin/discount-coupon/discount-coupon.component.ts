@@ -281,7 +281,6 @@ export class DiscountCouponComponent implements OnInit {
       if (this.categoryServiceCheckServiceId != "") {
         if (this.singleCouponDetail) {
           this.createdCouponCodeData["coupon_id"] = this.singleCouponDetail.id;
-          console.log(this.discountCoupon);
           this.updateCouponCode(this.createdCouponCodeData);
         } else {
           this.createNewCouponCode(this.createdCouponCodeData);
@@ -437,20 +436,17 @@ export class DiscountCouponComponent implements OnInit {
                 // categoryServiceList
                 const index = this.categoryServiceCheckServiceId.indexOf(serviceselement.id, 0);
                 if (index > -1) {
-                  console.log(serviceselement.id)
                   this.categoryServiceCheckServiceId.push(serviceselement.id);
                   serviceselement.is_selected = true;
                   selectedServiceCount++;
                 }
-                console.log(subelement.id+'---'+selectedServiceCount)
               });
-                if(selectedServiceCount == serviceLength){
+                if(selectedServiceCount != 0 && selectedServiceCount == serviceLength){
                   subelement.is_selected = true;
                   selectedSubCategoryCount++;
                 }
-                console.log(element.id+'---'+selectedSubCategoryCount)
             });
-              if(selectedSubCategoryCount == subCategoryLength){
+              if(selectedSubCategoryCount != 0 && selectedSubCategoryCount == subCategoryLength){
                 element.is_selected = true;
               }
 
@@ -668,7 +664,6 @@ export class DiscountCouponComponent implements OnInit {
   fnNewCouponCode() {
     this.couponCodeListing = false;
     this.addNewCouponCode = true;
-    console.log(this.categoryServiceCheckServiceId)
     this.getCateServiceList();
   }
 

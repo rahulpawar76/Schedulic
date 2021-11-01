@@ -1464,6 +1464,12 @@ agm-map {
     align-items: center;
     justify-content: center;
 }
+.no-staff-data {
+    height: calc(100vh - 195px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .no-out-door-data {
     display: flex;

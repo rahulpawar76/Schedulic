@@ -2,7 +2,7 @@
 <div fxLayout="row wrap" fxLayoutGap="2%" *ngIf="dataLoaded" fxLayoutAlign="center center" class="loader-full-height">
     <img src="/assets/sc-loader.svg" />
 </div>
-<div id="Main">
+<div id="Main" *ngIf="loginPageDisplay">
     <div class="container-fluid pl-0 custom-padding-wrap">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pr-0 left-img-wrap">

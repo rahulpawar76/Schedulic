@@ -751,3 +751,9 @@ mat-drawer-content {
     justify-content: center;
     width: 100%;
 }
+.input-group-text{
+    .currency-symbol{
+        padding-right: 12px;
+        font-size: 14px;
+    }
+}

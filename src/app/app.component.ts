@@ -289,11 +289,15 @@ export class AppComponent implements AfterViewInit {
   }
 
   isAdminUser() {
+    this.isLoaderAdmin= true;
     if(this.currentUser && this.currentUser.user_type === Role.Admin && !this.isBusiness() && !this.isPOS()){
       this.sharedService.updateSideMenuState(true);
     }
     if(this.currentUser && this.currentUser.user_type === Role.Admin){
+      this.isLoaderAdmin= false;
       return this.currentUser && this.currentUser.user_type === Role.Admin;
+    }else{
+      this.isLoaderAdmin= false;
     }
   }
   isSuperAdmin() {
