@@ -64,18 +64,8 @@ export class ReportsComponent implements OnInit {
     applyLabel: 'Apply', // detault is 'Apply'
     clearLabel: 'Clear', // detault is 'Clear'
     customRangeLabel: 'Custom range',
-    //daysOfWeek: moment.weekdaysMin(),
-   // monthNames: moment.monthsShort(),
     firstDay: 1 // first day is monday
   };
-  // ranges: any = {
-  //   'Today': [moment(), moment()],
-  //   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-  //   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-  //   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-  //   'This Month': [moment().startOf('month'), moment().endOf('month')],
-  //   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-  // };
   settingsArr:any=[];
   currencySymbol:any;
   currencySymbolPosition:any;
@@ -368,11 +358,6 @@ export class ReportsComponent implements OnInit {
 
           }
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-        // this._snackBar.open(response.response, "X", {
-        //   duration: 2000,
-        //   verticalPosition:'top',
-        //   panelClass :['red-snackbar']
-        // });
         this.salesReport = [];
       }
     });
@@ -422,12 +407,6 @@ export class ReportsComponent implements OnInit {
             element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy");
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
-
-        // this._snackBar.open(response.response, "X", {
-        //   duration: 2000,
-        //   verticalPosition:'top',
-        //   panelClass :['red-snackbar']
-        // });
         this.customerReport = [];
       }
     });
@@ -483,14 +462,9 @@ export class ReportsComponent implements OnInit {
       WindowPrt.focus();
       WindowPrt.print();
     }
-    
-    // WindowPrt.close();
   }
 
   fnDownloadPDF(){
-    // this.appointmentReportApiUrl=environment.apiUrl+"/appointment-reports";
-    // this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
-    // this.customerReportApiUrl=environment.apiUrl+"/customer-reports";
 
     if(this.isAppointmentReport){
       
@@ -533,80 +507,6 @@ export class ReportsComponent implements OnInit {
       window.open(environment.apiUrl+'/customer-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
       
     }
-
-    
-    // if(this.isAppointmentReport){
-
-    //   let HTML_Width = document.getElementById('appointment_listing').offsetWidth;
-    //   let HTML_Height = document.getElementById('appointment_listing').clientHeight;
-    //   let top_left_margin = 35;
-    //   let PDF_Width = HTML_Width + (top_left_margin * 2);
-    //   let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    //   let canvas_image_width = HTML_Width;
-    //   let canvas_image_height = HTML_Height;
-
-    //   let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-    //   let today = Date.now();
-
-    //   domtoimage.toPng(document.getElementById('appointment_listing')).then(function (blob) {
-    //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-    //       pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-    //       for (let i = 1; i <= totalPDFPages; i++) {
-    //         pdf.addPage(PDF_Width, PDF_Height);
-    //         pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-    //       }
-    //        pdf.save("appointment_report" + today + ".pdf");
-    //   });
-
-    // }else if(this.isSalesReport){
-
-      
-    //   let HTML_Width = document.getElementById('sales_report').offsetWidth;
-    //   let HTML_Height = document.getElementById('sales_report').clientHeight;
-    //   let top_left_margin = 35;
-    //   let PDF_Width = HTML_Width + (top_left_margin * 2);
-    //   let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    //   let canvas_image_width = HTML_Width;
-    //   let canvas_image_height = HTML_Height;
-
-    //   let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-    //   let today = Date.now();
-
-    //   domtoimage.toPng(document.getElementById('sales_report')).then(function (blob) {
-    //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-    //       pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-    //       for (let i = 1; i <= totalPDFPages; i++) {
-    //         pdf.addPage(PDF_Width, PDF_Height);
-    //         pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-    //       }
-    //        pdf.save("sales_report" + today + ".pdf");
-    //   });
-
-    // }else if(this.isCustomerReport){
-    //   const printContent = document.getElementById("customer_report");
-
-    //   let HTML_Width = document.getElementById('customer_report').offsetWidth;
-    //   let HTML_Height = document.getElementById('customer_report').clientHeight;
-    //   let top_left_margin = 35;
-    //   let PDF_Width = HTML_Width + (top_left_margin * 2);
-    //   let PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    //   let canvas_image_width = HTML_Width;
-    //   let canvas_image_height = HTML_Height;
-
-    //   let totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-    //   let today = Date.now();
-
-    //   domtoimage.toPng(document.getElementById('customer_report')).then(function (blob) {
-    //     var pdf = new jspdf('p', 'pt', [PDF_Width, PDF_Height]);
-    //       pdf.addImage(blob, 'PNG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-    //       for (let i = 1; i <= totalPDFPages; i++) {
-    //         pdf.addPage(PDF_Width, PDF_Height);
-    //         pdf.addImage(blob, 'PNG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-    //       }
-    //        pdf.save("customer_report" + today + ".pdf");
-    //   });
-
-    // }
     
   }
 
@@ -655,97 +555,6 @@ export class ReportsComponent implements OnInit {
       window.open(environment.apiUrl+'/customer-reports-pdf?param='+JSON.stringify(requestObject), '_blank');
       
     }
-
-    // const options = { 
-    //   fieldSeparator: ',',
-    //   quoteStrings: '"',
-    //   decimalSeparator: '.',
-    //   showLabels: true, 
-    //   showTitle: true,
-    //   title: 'Reports',
-    //   useTextFile: false,
-    //   useBom: true,
-    //   useKeysAsHeaders: true,
-    //   // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
-    // };
-    // const csvExporter = new ExportToCsv(options);
-    // if(this.isAppointmentReport && this.appointmentReport != ''){
-    //   var newappointmentReport = [];
-    //   this.appointmentReport.forEach(element => {
-    //     newappointmentReport.push({
-    //       'booking_date' : element.booking_date,
-    //       'booking_notes' : element.booking_notes,
-    //       'booking_time' : element.booking_time,
-    //       'cancel_notes' : element.cancel_notes,
-    //       'customer' : element.customer?element.customer.fullname:'',
-    //       'customer_email' : element.customer.email,
-    //       'customer_phone' : element.customer.phone,
-    //       'discount' : element.discount,
-    //       'order_by' : element.order_by,
-    //       'order_status' : element.order_status,
-    //       'postal_code' : element.postal_code,
-    //       'service_cost' : element.service_cost,
-    //       'service_qty' : element.service_qty,
-    //       'service_time' : element.service_time,
-    //       'staff_name' : (element.staff?element.staff.firstname:'')+' '+(element.staff?element.staff.lastname:''),
-    //       'status_notes' : element.status_notes,
-    //       'subtotal' : element.subtotal,
-    //       'total_cost' : element.total_cost,
-    //     });
-    //   });
-    
-    //   csvExporter.generateCsv(newappointmentReport);
-
-    // }else if(this.isSalesReport && this.salesReport != ''){
-
-    //   var newsalesReport = [];
-
-    //   this.salesReport.forEach(element => {
-    //     newsalesReport.push({
-    //       'order_id' : element.order_id,
-    //       'booking_date' : element.booking_date,
-    //       'booking_notes' : element.booking_notes,
-    //       'booking_time' : element.booking_time,
-    //       'cancel_notes' : element.cancel_notes,
-    //       'customer' : element.customer?element.customer.fullname:'',
-    //       'customer_email' : element.customer.email,
-    //       'customer_phone' : element.customer.phone,
-    //       'postal_code'   : element.postal_code,
-    //       'discount' : element.discount,
-    //       'order_by' : element.order_by,
-    //       'order_status' : element.order_status,
-    //       'service_cost' : element.service_cost,
-    //       'service_qty' : element.service_qty,
-    //       'service_time' : element.service_time,
-    //       'staff_name' : (element.staff?element.staff.firstname:'')+' '+(element.staff?element.staff.lastname:''),
-    //       'status_notes' : element.status_notes,
-    //       'subtotal' : element.subtotal,
-    //       'total_cost' : element.total_cost,
-    //     });
-    //   });
-     
-    //   csvExporter.generateCsv(newsalesReport);
-
-    // }else if(this.isCustomerReport && this.customerReport != ''){
-
-    //   var newscustomerReport = [];
-    //   this.customerReport.forEach(element => {
-    //     newscustomerReport.push({
-    //       'customer_fullname' : element.fullname,
-    //       'phone' : element.phone,
-    //       'city' : element.city,
-    //       'created_at' : element.created_at,
-    //       'created_by' : element.created_by,
-    //       'email' : element.email,
-    //       'phone_home' : element.phone_home?element.phone_home:'',
-    //       'state'   : element.state,
-    //       'zip' : element.zip,
-    //       'status' : element.status,
-    //     });
-    //   });
-
-    //   csvExporter.generateCsv(newscustomerReport);
-    // }
 
   }
 

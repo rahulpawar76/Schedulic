@@ -203,12 +203,41 @@
                                     <p>{{appRep.staff.lastname}} </p>
 
                                 </td>
-                                <td *ngIf="appRep.staff === null" scope="col" class="text-center">
-                                    <p class="mb-0">Not Assigned</p>
+                                <td *ngIf="appRep.staff == null" scope="col" class="text-center">
+                                   Not Assigned
+
                                 </td>
-                                <td *ngIf="appRep.staff !== null" class="text-center">
-                                    Approved,
-                                    <p>Not Paid</p>
+                                <td class="text-center">
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'P'">
+                                        Waiting For Confirmation</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'CNF'">
+                                        Confirm</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'AC'">
+                                        Accepted</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'RSA'">
+                                        Rescheduled By Admin</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'RSS'">
+                                        Rescheduled By Staff</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'RSC'">
+                                        Rescheduled By Customer</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'R'">
+                                        Rejected</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'OW'">On
+                                        The Way</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'WS'">Work
+                                        Started</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'ITR'">
+                                        Interrupted</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'CO'">
+                                        Completed</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'CC'">
+                                        Cancelled By Customer</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'C'">
+                                        Cancelled</p>
+                                    <p class="text-capitalize" *ngIf="appRep.order_status == 'GL'">
+                                        Getting Late</p>
+                                    <p *ngIf="appRep.payment">Paid</p>
+                                    <p *ngIf="!appRep.payment">Not Paid</p>
                                 </td>
                             </tr>
                         </tbody>
