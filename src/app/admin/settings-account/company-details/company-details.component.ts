@@ -378,9 +378,7 @@ export class CompanyDetailsComponent implements OnInit {
     });
   }
   fnCancelBusiness(){
-    this.isLoaderAdmin = true;
     this.getCompanyDetails();
-    this.isLoaderAdmin = false;
   }
 
   companyDetailsImage() {
