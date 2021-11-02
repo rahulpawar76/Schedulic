@@ -352,7 +352,7 @@
                         <p class="title-heading-main">Appointment Details</p>
                     </div>
                     <div class="top-status-wrap">
-                        <div class="d-flex center-buttons-appointment"
+                        <div class="d-flex w-100 justify-content-between center-buttons-appointment"
                             *ngIf="appointmentDetails.order_status != 'CO' && appointmentDetails.order_status != 'C' && appointmentDetails.order_status != 'CC'">
                             <button mat-button type="button" class="sc-pink-btn confirm-pink-btn"
                                 (click)="fnConfirmAppointment()" *ngIf="appointmentDetails.order_status == 'P'">

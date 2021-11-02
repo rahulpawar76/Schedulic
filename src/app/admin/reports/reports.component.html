@@ -145,8 +145,8 @@
             <div class="common-heading-details">
                 <p class="date-display">{{selectedStartDateLabel}} - {{selectedEndDateLabel}}</p>
 
-                <p class="customer-report" *ngIf="dateFilter=='booking_date'">Appointment Report (Appointment Date
-                    Wise)</p>
+                <p class="customer-report" *ngIf="dateFilter=='booking_date'">Appointment Report</p>
+                <p class="customer-report" *ngIf="dateFilter=='order_date'">Booking Report</p>
                 <div class="records-details">
                     <p class="total-records">Total Records :<span
                             class="pl-1">{{appointmentReportTotalRecords}},</span></p>

@@ -167,6 +167,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   gelAllCountry(){
+    this.isLoaderAdmin = true;
     this.adminSettingsService.gelAllCountry().subscribe((response:any) => {
       if(response.data == true){
         this.countryArry = response.response
@@ -185,6 +186,7 @@ export class CompanyDetailsComponent implements OnInit {
           panelClass :['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -202,6 +204,7 @@ export class CompanyDetailsComponent implements OnInit {
     if(country_id == null || country_id == ''){
       return;
     }
+    this.isLoaderAdmin = true;
 
     this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
       if(response.data == true){
@@ -221,6 +224,7 @@ export class CompanyDetailsComponent implements OnInit {
           panelClass :['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -232,6 +236,7 @@ export class CompanyDetailsComponent implements OnInit {
       console.log("=====");
       return;
     }
+    this.isLoaderAdmin = true;
     this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
       if(response.data == true && response.response!="no city found"){
         this.CityArry = response.response
@@ -250,6 +255,7 @@ export class CompanyDetailsComponent implements OnInit {
           panelClass :['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 

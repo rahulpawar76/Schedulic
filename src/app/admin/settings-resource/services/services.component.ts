@@ -591,6 +591,7 @@ export class ServicesComponent implements OnInit {
         this.createCategory.reset();
         this.editCategoryId=null;
         this.editSubCategoryId=null;
+        this.selectedSubCategoryID=null;
         // this.createNewCategoryPage = false;
         // this.createNewSubCategoryPage = false;
     }

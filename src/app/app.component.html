@@ -117,7 +117,7 @@
                                                 <h4 class="mb-1">Update your business info</h4>
                                                 <p>Takes 2 minutes</p>
                                                 <label>Tell us about your business so we can serve you better</label>
-                                                <button mat-button class="sc-pink-btn">Complete business info</button>
+                                                <button (click)="gotToDestinationPage('/admin/settings-account/company-details')" mat-button class="sc-pink-btn">Complete business info</button>
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                                 <h4 class="mb-1">Import client data</h4>
                                                 <p>Takes 4 minutes</p>
                                                 <label>Manage all your client data in one location</label>
-                                                <button mat-button class="sc-pink-btn">Start Import</button>
+                                                <button (click)="gotToDestinationPage('/admin/my-customer')" mat-button class="sc-pink-btn">Start Import</button>
                                                 <span class="skip-btn"> Skip</span>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                                 <h4 class="mb-1">Set up your Business Categories & Services</h4>
                                                 <p>Takes 5 minutes</p>
                                                 <label>Set your hours, reminders & booking options. Go about your day without missing a thing!</label>
-                                                <button mat-button class="sc-pink-btn">Set up now</button>
+                                                <button mat-button class="sc-pink-btn" (click)="gotToDestinationPage('/admin/settings-resource')">Set up now</button>
                                                 <span class="skip-btn"> Skip</span>
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
                                                         <h4 class="mb-1 text-left">Add website widget</h4>
                                                         <p class="w-100">Takes 8 minutes</p>
                                                         <label class="text-left">Open up your website to instant bookings, payments, messaging & more!</label>
-                                                        <button mat-button class="sc-pink-btn">Add Widgets</button>
+                                                        <button mat-button class="sc-pink-btn" (click)="gotToDestinationPage('/admin/settings-general/appearance')">Add Widgets</button>
                                                         <span class="skip-btn-side"> Skip</span>
                                                     </div>
                                                 </div>
@@ -212,7 +212,7 @@
                                                         <h4 class="mb-1 text-left">No website?</h4>
                                                         <p class="w-100">Takes 5-15 minutes</p>
                                                         <label class="text-left">No Website, No Problem! Schedulic offers  a unique sub-domain for every account with which you can form your own booking page.</label>
-                                                        <button mat-button class="sc-pink-btn">Set Your Page</button>
+                                                        <button mat-button class="sc-pink-btn" (click)="gotToDestinationPage('/admin/settings-general/appearance')">Set Your Page</button>
                                                         <span class="skip-btn-side"> Skip</span>
                                                     </div>
                                                 </div>
@@ -254,7 +254,7 @@
                                                         <h4 class="mb-1 text-left">Invite team members</h4>
                                                         <p class="w-100">Takes 2 minutes</p>
                                                         <label class="text-left">Get your team members on board and start working together!</label>
-                                                        <button mat-button class="sc-pink-btn">Add Team</button>
+                                                        <button mat-button class="sc-pink-btn" (click)="gotToDestinationPage('/admin/settings-resource/staff?staff=new')">Add Team</button>
                                                         <span class="skip-btn-side"> Skip</span>
                                                     </div>
                                                 </div>

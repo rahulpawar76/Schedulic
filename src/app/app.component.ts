@@ -960,6 +960,11 @@ export class AppComponent implements AfterViewInit {
       this.animal = result;
     });
   }
+  gotToDestinationPage(link){
+    this.gettingStartedWindowOpen = false;
+    this.router.navigate([link]);
+  }
+
   // reAuthenticateUser() {
   //   const dialogRef = this.dialog.open(DialogReAuthentication, {
   //     width: '500px',

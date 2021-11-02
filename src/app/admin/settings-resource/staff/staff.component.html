@@ -777,6 +777,15 @@
                         <div class="Customer-appointment-table">
                             <div class="main-table-content main-cust-table-content">
                                 <div class="">
+                                    <div class="example-box custom-service-box">
+                                        <div class="custom_check_main" fxFlex="5">
+                                        </div>
+                                        <div class="" fxFlex="40">
+                                            <p class="mb-0">Service Name</p>
+                                        </div>
+                                        <div class="" fxFlex="30">Service Time</div>
+                                        <div class="" fxFlex="20" > Cost</div>
+                                    </div>
                                     <div class="content" class="example-list"
                                         *ngIf="singleStaffDetail.services.length > 0">
                                         <div *ngFor="let staffService of singleStaffDetail.services; let i=index"
