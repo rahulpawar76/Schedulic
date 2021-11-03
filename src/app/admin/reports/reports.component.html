@@ -348,7 +348,7 @@
 
                     <p  class="total-records" *ngIf="reportFilter=='date' || reportFilter=='month'">Total Records :
                         <span *ngIf="reportFilter=='date' || reportFilter=='month'"
-                            class="pl-1">0,</span>
+                            class="pl-1">{{salesReportTotalRecord}},</span>
                     </p>
 
                     <p class="total-records" *ngIf="reportFilter=='date' || reportFilter=='month'">Appointments :
