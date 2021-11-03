@@ -12,7 +12,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AuthenticationService } from '@app/_services';
 import { CommonService } from '../../_services'
 import { AppComponent } from '../../app.component';
-// import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
+import { AngularFireDatabase,AngularFireList }  from 'angularfire2/database';
 import { SharedService } from '@app/_services/shared.service';
 import { throwError } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
@@ -123,6 +123,7 @@ export class AppointmentLiveComponent implements OnInit {
   paymentData:any;
   Watinglist:any = [];
   trackOrderList:any[];
+  fireDB:AngularFireDatabase;
   // fireDB:AngularFireDatabase;
   selectedtab:any = 1;
   pendingBillTab: boolean = false
@@ -143,19 +144,19 @@ export class AppointmentLiveComponent implements OnInit {
   textPercentage = 0;
   totalTax = 0;
   pageSlug:any;
-
+  private geoCoder;
+  address: string;
+  deliveryBoyAddress:string;
   public lat = 40.094882;
   public lng = 20.214329;
+  public dlat = 40.094882;
+  public dlng = 20.214329;
   public ShowMap:boolean = false;
   taxArr:any= [];
   origin = { lat: 40.094882, lng: 20.214329 };
   destination = { lat: 40.095867, lng: 20.223556 };
   renderOptions = {
-    polylineOptions: {
-      strokeColor: '#28a745',
-      strokeOpacity: 0.8,
-      strokeWeight: 10,
-    }
+    suppressMarkers: true
   }
   inStoreSelectedCat = 'all';
   staff_filter = "all";
@@ -175,9 +176,9 @@ export class AppointmentLiveComponent implements OnInit {
     public router: Router,
     private sharedService: SharedService,
     private _snackBar: MatSnackBar,
-    // private fireDb:AngularFireDatabase
+    private fireDb:AngularFireDatabase
   ) { 
-    // this.fireDB = fireDb;
+    this.fireDB = fireDb;
     localStorage.setItem('isBusiness', 'true');    
     localStorage.setItem('isPOS', 'true');
       this.sharedService.updateSideMenuState(false);
@@ -194,6 +195,7 @@ export class AppointmentLiveComponent implements OnInit {
       cus_mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.fnWatinglist();
+    this.fnOutdoorOrders(null, null);
     this.clockHandle = setInterval(()=>{
       this.clock = new Date().toLocaleString();
       this.liveDate = this.datePipe.transform(this.clock,'EEE, MMM d');
@@ -1375,28 +1377,71 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
+  getAddress(latitude, longitude) {
+    this.geoCoder = new google.maps.Geocoder();
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
+  getLocation(address) {
+    this.geoCoder = new google.maps.Geocoder();
+    this.geoCoder.geocode({ 'address': address }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          let destinationLat = results[0].geometry.location.lat();
+          let desiationLong = results[0].geometry.location.lng();
+          this.destination = { lat: destinationLat, lng: desiationLong };
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
   OutDootMap(index=0){
     
     var data = this.outdoorOrdersArr[index];
+    var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
     if(data.service.service_sub_type=='at_home'){
       this.ShowMap  = true;
     }else{
       return;
     }
 
-    // const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
-    // itemsRef.valueChanges().subscribe(
-    //   x=>{
-    //       this.trackOrderList =  x;
-    //       this.ShowMap = true;
-    //       this.lat = this.trackOrderList[0];
-    //       this.lng = this.trackOrderList[1];
-    //       this.origin.lat = this.trackOrderList[0];
-    //       this.origin.lng = this.trackOrderList[1];
-    //       this.destination.lat = this.trackOrderList[0];
-    //       this.destination.lng = this.trackOrderList[1];
-    //     }
-    // );
+    //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
+    itemsRef.valueChanges().subscribe(
+      x=>{
+          this.trackOrderList =  x;
+          console.log(this.trackOrderList);
+          this.ShowMap = true;
+          this.lat = parseFloat(this.trackOrderList[0]);
+          this.lng = parseFloat(this.trackOrderList[1]);
+          this.origin = { lat: this.lat, lng: this.lng };
+          this.destination = { lat: this.lat, lng: this.lng };
+          this.getAddress(this.lat, this.lng);
+          this.getLocation(address);
+
+          if(data.service.service_sub_type=='at_home'){
+            this.ShowMap  = true;
+          }else{
+            return;
+          }
+        }
+    );
 
     // var customer_address =  data.orders_info.booking_address+'+'+data.orders_info.booking_city+'+'+data.orders_info.booking_state+'+'+data.orders_info.booking_zipcode;
     // var staff_address =  data.staff.address+'+'+data.staff.city+'+'+data.staff.state+'+'+data.staff.zip;
