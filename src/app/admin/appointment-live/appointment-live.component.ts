@@ -1421,8 +1421,8 @@ export class AppointmentLiveComponent implements OnInit {
       return;
     }
 
-    //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
-    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
     itemsRef.valueChanges().subscribe(
       x=>{
           this.trackOrderList =  x;
