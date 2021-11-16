@@ -162,7 +162,7 @@
                             <div class="appointment-details">
                                 <p>Order By</p>
                                 <h3>
-                                    {{detailsData.order_by}}
+                                    {{detailsData.order_by == 'self' ?'Customer':detailsData.order_by}}
                                 </h3>
                             </div>
                             <div class="appointment-details text-end">
@@ -277,6 +277,7 @@
                             {{log.user_type=='A' && log.status=='GL'
                             ? 'By Admin' : log.user_type=='S' && log.status=='GL' ? 'By Staff': log.user_type=='C' &&
                             log.status=='GL' ? 'By User' : ''}}
+                            
 
                             <p *ngIf="log.notes">
                                 <b>Note: </b> {{log.notes}}

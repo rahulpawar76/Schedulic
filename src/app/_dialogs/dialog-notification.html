@@ -32,7 +32,7 @@
                             </div>
                             <hr class="mb-0">
                         </div>
-                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'"
+                        <div (click)="fnViewNotification(i,notifications.id);" [ngClass]="{'unread': notifications.notification_status == 'UR' }" *ngIf="notifications.order_status == 'OW' || notifications.order_status == 'WS'  || notifications.order_status == 'CNF' || notifications.order_status == 'AC'  || notifications.order_status == 'R'  || notifications.order_status == 'GL'"
                             class="single-notification pointer">
                             <div class="row mx-0">
                                 <div class="col-12 d-flex align-items-center justify-content-between">
@@ -48,6 +48,7 @@
                                     <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'CNF'">Confirm</label>
                                     <label class="mb-0 fontsize-md greenfont" *ngIf="notifications.order_status == 'AC'">Accepted</label>
                                     <label class="mb-0 fontsize-md fontred" *ngIf="notifications.order_status == 'R'">Regected</label>
+                                    <label class="mb-0 fontsize-md fontred" *ngIf="notifications.order_status == 'GL'">Getting Late</label>
                                     <p class="mb-0 x-small">{{notifications.service.service_name}}</p>
                                 </div>
                                 <div class="col-6 ">

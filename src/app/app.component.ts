@@ -976,6 +976,12 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { goto: param } });
   }
 
+  skipFrom(from){
+    if(from == 'business'){
+      this.gettingStartedWindowOpen = false;
+      this.router.navigate(['/admin/my-workspace']);
+    }
+  }
   // reAuthenticateUser() {
   //   const dialogRef = this.dialog.open(DialogReAuthentication, {
   //     width: '500px',

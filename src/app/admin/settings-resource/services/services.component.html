@@ -114,16 +114,30 @@
         </mat-drawer>
 
         <mat-drawer-content>
-            <div *ngIf="allCategoryCount == 0 && !servicesList && !createNewCategoryPage && !createNewSubCategoryPage && !createNewServicePage" class="no-category-page">
-                <div class="first-banner">
-                    <img src="../../../../assets/images/n-category-banner.svg">
-                    <p>In publishing and graphic design, Lorem ipsum is a placeholder text <br />
-                        commonly used to demonstrate the visual form.</p>
-                    <button mat-button (click)="fnCreateNewCategory()" class="sc-yellow-btn">Add Category</button>
+            <div *ngIf="allCategoryCount == 0 && !servicesList && !createNewCategoryPage && !createNewSubCategoryPage && !createNewServicePage" class="h-100">
+                <div class="d-flex imp-expo-container my-3 pr-3 w-100">
+                    <div class="d-flex ml-auto">
+                        <button mat-button class="sc-grey-btn mr-2" (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'category')">Import</button>
+                        <button mat-button class="sc-grey-btn" (click)="fnExportService(selectedSubCategoryDetails.id, 'category')">Export</button>
+                    </div>
+                </div>
+                <div class="no-category-page">
+                    <div class="first-banner">
+                        <img src="../../../../assets/images/n-category-banner.svg">
+                        <p>In publishing and graphic design, Lorem ipsum is a placeholder text <br />
+                            commonly used to demonstrate the visual form.</p>
+                        <button mat-button (click)="fnCreateNewCategory()" class="sc-yellow-btn">Add Category</button>
+                    </div>
                 </div>
             </div>
             <!-- all service list -->
             <div class="" *ngIf="servicesList" class="service-listing sc-table-view">
+                <div class="d-flex imp-expo-container my-2 pr-3 w-100">
+                    <div class="d-flex ml-auto">
+                        <button mat-button class="sc-grey-btn mr-2" (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'category')">Import</button>
+                        <button mat-button class="sc-grey-btn" (click)="fnExportService(selectedSubCategoryDetails.id, 'category')">Export</button>
+                    </div>
+                </div>
                 <div class="sc-table">
                     <div class="heads sc-table-head main-heading-content drageble " fxLayout="row">
                         <div class="text-left" fxFlex="30">Service</div>
@@ -360,12 +374,12 @@
                     </div>
                 </div>
                 <div class="service-listing row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services' || !noCategoryService">
-                    <div class="w-100 d-flex sc-table-top-bar  justify-contents-space-between">
-                        <div class="d-flex">
+                    <div class="w-100 d-flex sc-table-top-bar ">
+                        <!-- <div class="d-flex">
                             <button mat-button class="sc-grey-btn mr-2" >Import</button>
                             <button mat-button class="sc-grey-btn" >Export</button>
-                        </div>
-                        <div class="d-flex">
+                        </div> -->
+                        <div class="d-flex ml-auto">
                             <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
                                     <mat-option value="all">All</mat-option>
@@ -509,12 +523,12 @@
                     </div>
                 </div>
                 <div *ngIf="singleSubCategoryPage == 'services' || !noSubCategoryService" class="row mx-0 sc-table-view">
-                    <div class="w-100 d-flex sc-table-top-bar justify-contents-space-between">
-                        <div class="d-flex">
+                    <div class="w-100 d-flex sc-table-top-bar">
+                        <!-- <div class="d-flex">
                             <button mat-button class="sc-grey-btn mr-2" >Import</button>
                             <button mat-button class="sc-grey-btn" >Export</button>
-                        </div>
-                        <div class="d-flex">
+                        </div> -->
+                        <div class="d-flex ml-auto">
                             <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedSubCategoryDetails.id,$event.value,'subcategory')">
                                     <mat-option value="all">All</mat-option>

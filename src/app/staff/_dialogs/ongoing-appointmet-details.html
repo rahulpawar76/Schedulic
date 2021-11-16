@@ -46,7 +46,8 @@
                     <div class="d-flex">
                         <div class="pl-0">
                             <p class="mb-0">Order By</p>
-                            <p class="custom-font-weight text-capitalize">{{appoDetail.order_by}}</p>
+                            <p class="custom-font-weight text-capitalize">
+                                {{appoDetail.order_by == 'self' ?'Customer':appoDetail.order_by}}</p>
                         </div>
                         <div class="pl-5">
                             <p class="mb-0">Status</p>

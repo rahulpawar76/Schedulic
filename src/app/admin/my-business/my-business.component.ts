@@ -499,6 +499,17 @@ export class myCreateNewBusinessDialog {
         "zipcode" : this.createBusiness.get('business_zip').value,
       }
       this.createNewBusiness(this.newBusinessData);
+    }else{
+      this.createBusiness.get('business_name').markAsTouched();
+      this.createBusiness.get('business_address').markAsTouched();
+      this.createBusiness.get('business_country').markAsTouched();
+      this.createBusiness.get('business_state').markAsTouched();
+      this.createBusiness.get('business_city').markAsTouched();
+      this.createBusiness.get('business_timezone').markAsTouched();
+      this.createBusiness.get('business_zip').markAsTouched();
+      this.createBusiness.get('business_size').markAsTouched();
+      this.createBusiness.get('business_phone').markAsTouched();
+      this.createBusiness.get('business_website').markAsTouched();
     }
   }
   createNewBusiness(newBusinessData){

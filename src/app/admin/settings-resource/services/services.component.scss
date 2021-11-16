@@ -576,7 +576,7 @@ mat-drawer-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: calc(100% - 68px);
     .first-banner {
         display: flex;
         justify-content: center;
