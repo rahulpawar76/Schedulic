@@ -960,9 +960,20 @@ export class AppComponent implements AfterViewInit {
       this.animal = result;
     });
   }
+  
   gotToDestinationPage(link){
     this.gettingStartedWindowOpen = false;
     this.router.navigate([link]);
+  }
+
+  gotToDestinationPageAppearance(param){
+    this.gettingStartedWindowOpen = false;
+    this.router.navigate(['/admin/settings-general/appearance'], { queryParams: { goto: param } });
+  }
+
+  gotToDestinationPageStaff(param){
+    this.gettingStartedWindowOpen = false;
+    this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { goto: param } });
   }
 
   // reAuthenticateUser() {

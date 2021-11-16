@@ -102,6 +102,7 @@ export class CustomersComponent implements OnInit {
   currencySymbolFormat:any;
 
   formPayment: FormGroup;
+  actionForm: FormGroup;
   showPaymentTable:boolean=true;
   showPaymentForm:boolean=false;
 
@@ -264,12 +265,9 @@ export class CustomersComponent implements OnInit {
       cus_zip : ['',[Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       customer_id : ['']
     });
-    // this.formPayment = this._formBuilder.group({
-    //   paymentAmount : [null, [Validators.required,Validators.pattern(this.onlynumeric),Validators.min(this.serviceMainArr.subtotal)]],
-    //   paymentDiscount : [null, [Validators.required,Validators.pattern(this.onlynumeric)]],
-    //   paymentMode : ['Cash', [Validators.required]],
-    //   paymentNote : ['', [Validators.required]],
-    // });
+    this.actionForm = this._formBuilder.group({
+      action : [''],
+    });
     
     let addNewAction = window.location.search.split("?customer")
     if(addNewAction.length > 1){
@@ -1142,7 +1140,6 @@ customerUpdate(existingCustomerData){
             });
             this.selectedCustomerId.length = 0;
             this.getAllCustomers();
-            this.actionValue = undefined;
             this.isLoaderAdmin = false;
           }
           else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1152,14 +1149,12 @@ customerUpdate(existingCustomerData){
               panelClass :['green-snackbar']
               
             });
-            this.actionValue = null;
             this.isLoaderAdmin = false;
           }
-          this.actionValue = undefined;
         });
         
       }
-      this.actionValue = null;
+      this.actionForm.reset();
     })
 
    

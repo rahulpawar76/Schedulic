@@ -1352,9 +1352,9 @@ mat-radio-group {
 }
 
 .admin-header {
-    width: 280px;
+    max-width: 280px;
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 0;
     z-index: 9;
     display: flex;

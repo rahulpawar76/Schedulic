@@ -713,8 +713,8 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="service-statustoggle row mx-0" *ngIf="!editServiceId">
-                                                    <mat-slide-toggle class="single-toggle" (change)="fnNewServiceStatus($event.checked)">Status </mat-slide-toggle>
-                                                    <mat-slide-toggle class="single-toggle" (change)="fnNewServicePrivate($event.checked)">Private </mat-slide-toggle>
+                                                    <mat-slide-toggle class="single-toggle" [checked]="newServiceStatus == 'E'" (change)="fnNewServiceStatus($event.checked)">Status </mat-slide-toggle>
+                                                    <mat-slide-toggle class="single-toggle" [checked]="newServicePrivate == 'Y'" (change)="fnNewServicePrivate($event.checked)">Private </mat-slide-toggle>
                                             </div>
                                             <div class="service-statustoggle row mx-0" *ngIf="editServiceId">
                                                     <mat-slide-toggle class="single-toggle" [checked]="editServiceStatus == 'E'" (change)="fnEditServiceStatus($event.checked)">Status</mat-slide-toggle>

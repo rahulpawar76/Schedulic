@@ -440,13 +440,23 @@ export class DiscountCouponComponent implements OnInit {
                   serviceselement.is_selected = true;
                   selectedServiceCount++;
                 }
+                if (!this.singleCouponDetail) {
+                  serviceselement.is_selected = true;
+                  this.categoryServiceCheckServiceId.push(serviceselement.id);
+                }
               });
                 if(selectedServiceCount != 0 && selectedServiceCount == serviceLength){
                   subelement.is_selected = true;
                   selectedSubCategoryCount++;
                 }
+                if (!this.singleCouponDetail) {
+                  subelement.is_selected = true;
+                }
             });
               if(selectedSubCategoryCount != 0 && selectedSubCategoryCount == subCategoryLength){
+                element.is_selected = true;
+              }
+              if (!this.singleCouponDetail) {
                 element.is_selected = true;
               }
 
@@ -460,6 +470,10 @@ export class DiscountCouponComponent implements OnInit {
                     this.categoryServiceCheckServiceId.push(serviceselement.id);
                     serviceselement.is_selected = true;
                     dselectedServiceCount++;
+                  }
+                  if (!this.singleCouponDetail) {
+                    serviceselement.is_selected = true;
+                    this.categoryServiceCheckServiceId.push(serviceselement.id);
                   }
                 });
                 if(dserviceLength == dselectedServiceCount){
@@ -679,6 +693,7 @@ export class DiscountCouponComponent implements OnInit {
     this.couponCodeListing = false;
     this.singleCouponDetail = this.allCouponCode[i];
     this.addNewCouponCode = true;
+    console.log(this.singleCouponDetail)
 
     this.getCateServiceList();
     this.discountCoupon.controls["coupan_name"].setValue(
@@ -717,33 +732,34 @@ export class DiscountCouponComponent implements OnInit {
       data: "Are you sure you want to delete?"
     });
     dialogRef.afterClosed().subscribe(result => {
-    let requestObject = {
-      'coupon_id': couponId
-    }
-    this.isLoaderAdmin = true;
-    this.AdminService.deleteCoupon(requestObject).subscribe(
-      (response: any) => {
-        if (response.data == true) {
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition: "top",
-            panelClass: ["green-snackbar"],
-          });
-          this.getAllCouponCode();
-        } else if (
-          response.data == false &&
-          response.response !== "api token or userid invaild"
-        ) {
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition: "top",
-            panelClass: ["red-snackbar"],
-          });
+      if(result){
+        let requestObject = {
+          'coupon_id': couponId
         }
-        this.isLoaderAdmin = false;
+        this.isLoaderAdmin = true;
+        this.AdminService.deleteCoupon(requestObject).subscribe(
+        (response: any) => {
+          if (response.data == true) {
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: "top",
+              panelClass: ["green-snackbar"],
+            });
+            this.getAllCouponCode();
+          } else if (
+            response.data == false &&
+            response.response !== "api token or userid invaild"
+          ) {
+            this._snackBar.open(response.response, "X", {
+              duration: 2000,
+              verticalPosition: "top",
+              panelClass: ["red-snackbar"],
+            });
+          }
+          this.isLoaderAdmin = false;
+        });
       }
-    );
-  });
+    });
   }
 
   fnCouponDetails(index, CouponId) {

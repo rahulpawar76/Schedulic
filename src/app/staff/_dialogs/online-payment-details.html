@@ -18,7 +18,7 @@
                 <label *ngIf="currencySymbolPosition=='right'" class="amount text-right">{{ appointDetailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
             </div>
             <div *ngIf="orderDiscount" class=" d-flex payment-details">
-                <label class="service">Discount Ammount</label>
+                <label class="service">Discount Amount</label>
                 <label *ngIf="currencySymbolPosition=='left'" class="amount text-right">{{currencySymbol| currencySymbol:'wide'}} {{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
                 <label *ngIf="currencySymbolPosition=='right'" class="amount text-right">{{ orderDiscount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
             </div>

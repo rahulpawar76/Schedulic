@@ -8,12 +8,19 @@
          position: fixed;
        }
     }
+    .right-content-col{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+    }
     .right-col-wrap{
         height: 100%;
-        padding: 38px 8% 0% 7%;
+        padding: 50px 8% 0% 7%;
         .logo-wrap{
             display: flex;
-            height: 20px;
+            // height: 20px;
             align-items: flex-end;
            img{
               width: 115px;

@@ -1,18 +1,28 @@
 @import "variables";
 #Main{
     background-color: #fff;
+    .main-login-row{
+        height: 100vh;
+    }
     .left-col-image-wrap{
        img{
          max-width: 50%;
          position: fixed;
        }
     }
-    .right-col-wrap{
+    .right-content-col{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
         height: 100%;
-        padding: 38px 8% 0% 7%;
+        width: 100%;
+    }
+    .right-col-wrap{
+        width: 100%;
+        padding: 50px 8% 0% 7%;
         .logo-wrap{
             display: flex;
-            height: 80px;
+            // height: 80px;
             align-items: flex-end;
            img{
               width: 115px;

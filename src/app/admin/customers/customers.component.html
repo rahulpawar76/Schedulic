@@ -20,16 +20,15 @@
         <div class="w-100 customer-bottom-area">
             <div *ngIf="!noCustomer || newCustomer" [ngClass]="{ 'short-menu': customerSideMenuToggle === true }"
                 id="Customer-list" class="customer-menu customer-left-menu">
-                <div class="leftarrow-icon d-flex align-items-center">
-                    <mat-select [disabled]="selectedCustomerId.length == 0" placeholder="Action" class="form-control form-select-main mr-3" [ngModel]="actionValue"
-                        (selectionChange)="fnMultiDeleteCustomer($event.value)">
+                <form [formGroup]="actionForm" class="leftarrow-icon d-flex align-items-center">
+                    <mat-select formControlName="action" [disabled]="selectedCustomerId.length == 0" placeholder="Action" class="form-control form-select-main mr-3" (selectionChange)="fnMultiDeleteCustomer($event.value)">
                         <mat-option value="delete">Delete</mat-option>
                     </mat-select>
                     <span (click)="fnCustomerToggleSmall()" *ngIf="!customerSideMenuToggle"
                         class="customer-drawer-leftarrow pointer material-icons-outlined">arrow_circle_left</span>
                     <span (click)="fnCustomerToggleLarge()" *ngIf="customerSideMenuToggle"
                         class="customer-drawer-leftarrow pointer material-icons-outlined">arrow_circle_right</span>
-                </div>
+                </form>
                 <div class="searchbox mt-2 mb-3">
                     <div class="searchbox mr-2">
                         <form class="search_input-staff">

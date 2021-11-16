@@ -281,7 +281,6 @@ export class AlertsettingsComponent implements OnInit {
         }
         if(response.response.customize_email_alert){
           this.customizeEmailAlertData = JSON.parse(response.response.customize_email_alert)
-          console.log(this.customizeEmailAlertData);
           if(this.customizeEmailAlertData){
             this.customizeAlert.controls['senderName'].setValue(this.customizeEmailAlertData.sender_name);
             this.customizeAlert.controls['emailSignature'].setValue(this.customizeEmailAlertData.email_signature);
@@ -293,7 +292,6 @@ export class AlertsettingsComponent implements OnInit {
         
         if(response.response.sms_sending_settings){
           this.smsAlertsSetting = JSON.parse(response.response.sms_sending_settings)
-          console.log(this.smsAlertsSetting);
           if(this.smsAlertsSetting.time){
             this.fnConvertMins(this.smsAlertsSetting.time);
             this.smsAlertDays=this.Days;
@@ -313,18 +311,23 @@ export class AlertsettingsComponent implements OnInit {
             this.twilio.controls['twilioSender'].setValue(this.twilioSettingValue.twilo_sender_number);
             this.twilio.controls['adminNumber'].setValue(this.twilioSettingValue.admin_phone_number);
             this.twilliStatus = this.twilioSettingValue.status;
-            this.selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCodeTwo);
+            console.log(this.twilioSettingValue)
+            if(this.twilioSettingValue.countryCodeTwo){
+              this.selectedCountryISO = this.fnCheckCountry(this.twilioSettingValue.countryCodeTwo);
+            }
             
           }
           if(response.response.nexmo_setting){
 
             this.nexmoSettingValue = JSON.parse(response.response.nexmo_setting);
-            console.log()
             this.nexmo.controls['api_key'].setValue(this.nexmoSettingValue.api_key);
             this.nexmo.controls['api_secret'].setValue(this.nexmoSettingValue.api_secret);
             this.nexmo.controls['adminNumber'].setValue(this.nexmoSettingValue.admin_number);
             this.nexmoStatus = this.nexmoSettingValue.status;
-            this.selectedCountryISO = this.fnCheckCountry(this.nexmoSettingValue .countryCodeTwo);
+            console.log(this.nexmoSettingValue)
+            if(this.nexmoSettingValue.countryCodeTwo){
+              this.selectedCountryISO = this.fnCheckCountry(this.nexmoSettingValue.countryCodeTwo);
+            }
             
           }
           if(response.response.textlocal_setting){
@@ -332,7 +335,9 @@ export class AlertsettingsComponent implements OnInit {
             this.textLocal.controls['apiKey'].setValue(this.textLocalSettingValue.api_key);
             this.textLocal.controls['adminNumber'].setValue(this.textLocalSettingValue.admin_number);
             this.textLocalStatus = this.textLocalSettingValue.status;
-            this.selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCodeTwo);
+            if(this.textLocalSettingValue.countryCodeTwo){
+              this.selectedCountryISO1 = this.fnCheckCountry(this.textLocalSettingValue.countryCodeTwo);
+            }
 
           }
 
@@ -364,7 +369,6 @@ export class AlertsettingsComponent implements OnInit {
         "status":this.appointmentsReminder,
         "email_alert_settings_customer" : customerAlertSetting
       }
-      console.log(requestObject);
       this.fnUpdateCusEmailAlert(requestObject);
       
   }
@@ -385,7 +389,6 @@ fnAppointmentsReminderStaff(event){
       "status":this.appointmentsReminderStaff,
       "email_alert_settings_staff" : staffAlertSetting
     }
-    console.log(requestObject);
     this.fnUpdateStaffEmailAlert(requestObject);
   }
   fnAppointmentsReminderAdmin(event){
@@ -405,7 +408,6 @@ fnAppointmentsReminderStaff(event){
       "status":this.appointmentsReminderAdmin,
       "email_alert_settings_admin" : adminAlertSetting
     }
-    console.log(requestObject);
     this.fnUpdateAdminEmailAlert(requestObject);
   }
 
@@ -426,7 +428,6 @@ fnAppointmentsReminderSMS(event){
       "reminder_status":this.appointmentsReminderSMS,
       "sms_sending_settings" : smsAlertSetting
     }
-    console.log(requestObject);
     this.fnUpdateSmsAlert(requestObject);
   }
 
@@ -436,7 +437,6 @@ fnAppointmentsReminderSMS(event){
     }else{
       this.emailCustomerAppointment[value].status=0;
     }
-    console.log(this.emailCustomerAppointment);
   }
   fnStaffEmailAppoint(event, value){
     if(event == true){
@@ -444,7 +444,6 @@ fnAppointmentsReminderSMS(event){
     }else{
       this.emailStaffAppointment[value].status=0;
     }
-    console.log(this.emailStaffAppointment);
   }
   fnAdminEmailAppoint(event, value){
     if(event == true){
@@ -452,7 +451,6 @@ fnAppointmentsReminderSMS(event){
     }else{
       this.emailAdminAppointment[value].status=0;
     }
-    console.log(this.emailAdminAppointment);
   }
 
   fnSetCustomerEmailReminderTime(event){
@@ -469,7 +467,6 @@ fnAppointmentsReminderSMS(event){
      email_alert_customer_minutes =  parseInt(this.emailAlertCustomerMinutes);
     }
     this.totalTimeCustomerEmail=email_alert_customer_days+email_alert_customer_hours+email_alert_customer_minutes;
-    console.log(this.totalTimeCustomerEmail);
 
   }
   fnSubmitCusEmailAlert(){
@@ -483,7 +480,6 @@ fnAppointmentsReminderSMS(event){
       "status":this.appointmentsReminder,
       "email_alert_settings_customer" : customerAlertSetting
     }
-    console.log(requestObject);
     this.fnUpdateCusEmailAlert(requestObject);
   }
   fnUpdateCusEmailAlert(requestObject){
@@ -522,7 +518,6 @@ fnAppointmentsReminderSMS(event){
      email_alert_staff_minutes =  parseInt(this.emailAlertStaffMinutes);
     }
     this.totalTimeStaffEmail=email_alert_staff_days+email_alert_staff_hours+email_alert_staff_minutes;
-    console.log(this.totalTimeStaffEmail);
   }
   fnSubmitStaffEmailAlert(){
     let staffAlertSetting = {
@@ -535,7 +530,6 @@ fnAppointmentsReminderSMS(event){
       "status":this.appointmentsReminderStaff,
       "email_alert_settings_staff" : staffAlertSetting
     }
-    console.log(requestObject);
     this.fnUpdateStaffEmailAlert(requestObject);
   }
 
@@ -575,7 +569,6 @@ fnAppointmentsReminderSMS(event){
      email_alert_admin_minutes =  parseInt(this.emailAlertAdminMinutes);
     }
     this.totalTimeAdminEmail=email_alert_admin_days+email_alert_admin_hours+email_alert_admin_minutes;
-    console.log(this.totalTimeAdminEmail);
 
   }
   fnSubmitAdminEmailAlert(){
@@ -591,7 +584,6 @@ fnAppointmentsReminderSMS(event){
         "status":this.appointmentsReminderAdmin,
         "email_alert_settings_admin" : adminAlertSetting
       }
-      console.log(requestObject);
       this.fnUpdateAdminEmailAlert(requestObject);
     }
     // else{
@@ -667,7 +659,6 @@ fnAppointmentsReminderSMS(event){
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
   
@@ -678,7 +669,6 @@ fnAppointmentsReminderSMS(event){
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
   previewStaffEmailTemp(index) {
@@ -688,7 +678,6 @@ fnAppointmentsReminderSMS(event){
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -708,7 +697,6 @@ fnAppointmentsReminderSMS(event){
       sms_alert_minutes =  parseInt(this.smsAlertMinutes);
     }
     this.totalTimeSms=sms_alert_days+sms_alert_hours+sms_alert_minutes;
-    console.log(this.totalTimeSms);
 
   }
 
@@ -719,7 +707,6 @@ fnAppointmentsReminderSMS(event){
     }else{
       this.smsAppointment[value].status=0;
     }
-    console.log(this.smsAppointment);
   }
   fnSmsWho(event, value){
     if(event == true){
@@ -727,7 +714,6 @@ fnAppointmentsReminderSMS(event){
     }else{
       this.smsAlertWho[value].status=0;
     }
-    console.log(this.smsAppointment);
   }
 
   fnSubmitSmsAlert(){
@@ -742,7 +728,6 @@ fnAppointmentsReminderSMS(event){
         "reminder_status":this.appointmentsReminderSMS,
         "sms_sending_settings" : smsAlertSetting
       }
-      console.log(requestObject);
       this.fnUpdateSmsAlert(requestObject);
   }
 
@@ -871,7 +856,6 @@ fnAppointmentsReminderSMS(event){
 
   
   fnSubmitTwillioSettings(){
-    console.log(this.twilio.get("adminNumber").value)
     if(this.twilio.get('adminNumber').value === null){
       this.phoneNumberInvalidTwilio = "required";
     }else if(this.twilio.get('adminNumber').value !== '' || this.twilio.get('adminNumber').value !== null){
@@ -897,7 +881,6 @@ fnAppointmentsReminderSMS(event){
           "status":this.twilliStatus,
           "twilo_setting" : twilioSetting
         }
-        console.log(requestObject)
         this.updateTwillioSettings(requestObject);
       }
 
@@ -918,13 +901,11 @@ fnAppointmentsReminderSMS(event){
         "status":this.twilliStatus,
         "twilo_setting" : twilioSetting
       }
-      console.log(requestObject)
       this.updateTwillioSettings(requestObject);
     }
   }
 
   fnSubmitNexmoSettings(){
-    console.log(this.nexmo.get("adminNumber").value)
     if(this.nexmo.get('adminNumber').value === null){
       this.phoneNumberInvalidTwilio = "required";
     }else if(this.nexmo.get('adminNumber').value !== '' || this.nexmo.get('adminNumber').value !== null){
@@ -938,7 +919,7 @@ fnAppointmentsReminderSMS(event){
           "admin_number":this.nexmo.get("adminNumber").value.number.replace(/\s/g, ""),
           "countryCode":this.nexmo.get("adminNumber").value.dialCode,
           "countryCodeTwo":this.nexmo.get("adminNumber").value.countryCode,
-          "status": this.nexmoStatus,
+          "status": this.nexmoSettingValue?this.nexmoStatus:true,
         }
   
         let requestObject = {
@@ -946,7 +927,6 @@ fnAppointmentsReminderSMS(event){
           "status":this.nexmoStatus,
           "nexmo_setting" : nexmoSetting
         }
-        console.log(requestObject)
         this.updateNexmoSettings(requestObject);
       }
 
@@ -966,7 +946,6 @@ fnAppointmentsReminderSMS(event){
         "status":this.nexmoStatus,
         "nexmo_setting" : nexmoSetting
       }
-      console.log(requestObject)
       this.updateNexmoSettings(requestObject);
     }
   }

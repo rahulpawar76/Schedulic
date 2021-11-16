@@ -192,3 +192,15 @@
         }
     }
 }
+.right-business-col{
+    margin-top: 15px;
+}
+.business-description{
+    textarea{
+        height: 13.7em;
+    }
+}
+::ng-deep .business-img.mat-button[disabled][disabled]{
+    opacity: 0.6;
+    color: #fff;
+}

@@ -139,19 +139,6 @@
                 text-align: center;
                 text-decoration: none;
             }
-            .badge-red {
-                position: absolute;
-                width: 20px;
-                height: 20px;
-                background-color: #e74033;
-                border-radius: 100%;
-                color: #fff;
-                font-size: 10px;
-                text-align: center;
-                line-height: 2.3;
-                right: -2px;
-                top: -6px;
-            }
         }
         .right-side-wrap {
             display: flex;
@@ -1273,4 +1260,28 @@ body .left-time-main .hourse-font {
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+::ng-deep .workspace-appo-list{
+    .common-tab-group{
+        width: calc(100% - 100px);
+        .mat-tab-header{
+            background-color: transparent;
+            .badge-red {
+                width: 20px;
+                height: 20px;
+                background-color: #e74033;
+                border-radius: 100%;
+                color: #fff;
+                font-size: 10px;
+                text-align: center;
+                line-height: 2.1;
+                margin-left: 10px;
+            }
+        }
+        .mat-tab-labels{
+            .mat-tab-label{
+                width: unset !important;
+            }
+        }
+    } 
 }

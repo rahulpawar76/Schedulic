@@ -87,7 +87,7 @@ export class ServicesComponent implements OnInit {
     editcategoryStatus: any = 'D';
     editcategoryPrivate: any = 'N';
     newServicePrivate: any = 'N';
-    newServiceStatus: any = 'D';
+    newServiceStatus: any = 'E';
     editServicePrivate: any = 'N';
     editServiceStatus: any = 'D';
     newSubCategoryData: any;

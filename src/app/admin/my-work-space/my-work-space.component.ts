@@ -341,11 +341,7 @@ export class MyWorkSpaceComponent implements OnInit {
           this.fnGetStaff(this.appointmentDetails.booking_date, this.appointmentDetails.customer_id, this.appointmentDetails.booking_time, this.appointmentDetails.serviceId, this.appointmentDetails.postalCode);
         }
       } else if (response.data == false && response.response !== 'api token or userid invaild') {
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['red-snackbar']
-        });
+        
         this.appointments = [];
       }
 
@@ -370,11 +366,7 @@ export class MyWorkSpaceComponent implements OnInit {
       if (response.data == true) {
         this.pendingBookingCount = response.response.length;
       } else if (response.data == false && response.response !== 'api token or userid invaild') {
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition: 'top',
-          panelClass: ['red-snackbar']
-        });
+       
       }
     this.isLoaderAdmin = false;
     },
@@ -797,6 +789,16 @@ export class MyWorkSpaceComponent implements OnInit {
       this.dateTypeFilterView = this.selectedStartDate+' To '+this.selectedEndDate
     }
     this.fnGetAllAppointmentsByCategoryAndStatus();
+  }
+
+  
+  onTabChanged(event){
+    let clickedIndex = event.index;
+    if(clickedIndex == 0){
+      this.fnChangeBookingStatus('P');
+    }else if(clickedIndex == 1){
+      this.fnChangeBookingStatus('all');
+    }
   }
 
 }

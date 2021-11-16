@@ -88,7 +88,7 @@
         </div>
     </div>
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
-        <mat-tab-group class="common-tab-group">
+        <mat-tab-group [(selectedIndex)]="selectedtab" class="common-tab-group">
             <!-- --------------------------------- Themes ---------------------------------- -->
             <mat-tab label="Theme">
                 <div class="container">
@@ -485,7 +485,7 @@
                                 <p>You can use these anywhere where HTML code is permitted. such as your own web site and blog.</p>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 html-sample-btns">
                                 <div class="row html-btn-title">
                                     <div class="col-4 py-3 pl-5">
                                         Sample
@@ -497,7 +497,7 @@
 
                                 <div class="row pt-2">
                                     <div class="col-4 pt-4 pb-1 pl-5">
-                                        <a href="#" class="btn-color-dummy">Book Now</a>
+                                        <a class="btn-color-dummy cursor-default">Book Now</a>
                                     </div>
                                     <div class="col-8 pt-0 pb-1 pr-5">
                                         
@@ -507,111 +507,111 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-one">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-one cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                       <input value="<a style='background-color: #003cff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                       <textarea value="<a style='background-color: #003cff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="{{frontBookingUrl}}" readonly></textarea>
                                     
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-two">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-two cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input value="<a style='background-color: #008aff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #008aff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                       
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-three">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-three cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input value="<a style='background-color: #009315;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #009315;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                        
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-four">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-four cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input value="<a style='background-color: #ffa800;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #ffa800;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                        
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-five">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-five cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input value="<a style='background-color: #ff008a;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #ff008a;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                         
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-six">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-six cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                         
-                                        <input value="<a style='background-color: #8a00ff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #8a00ff;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                       
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-seven">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-seven cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input value="<a style='background-color: #ff0000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #ff0000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                        
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-eight">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-eight cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input value="<a style='background-color: #000000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #000000;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                        
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-nine">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-nine cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input value="<a style='background-color: #666666;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #666666;color: #fff;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                       
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-4 pt-1 pl-5">
-                                        <button class="btn btn-color-ten">BOOK NOW</button>
+                                    <div class="col-4 pt-1 pl-5 d-flex align-items-center">
+                                        <button class="btn btn-color-ten cursor-default">BOOK NOW</button>
                                     </div>
                                     <div class="col-8 pt-0 pr-5">
                                        
-                                        <input value="<a style='background-color: #fdfdfd;border: 1px solid #b5b5b5;color: #000;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly>
+                                        <textarea value="<a style='background-color: #fdfdfd;border: 1px solid #b5b5b5;color: #000;display: inline-block;padding: 10px 15px;text-decoration: none;border-radius: 5px;' href='{{frontBookingUrl}}'>BOOK NOW</a>" class="form-control form-control-transparent border pl-2" matInput placeholder="https://app.schedulic.com/book/service" readonly></textarea>
                                        
                                     </div>
                                 </div>

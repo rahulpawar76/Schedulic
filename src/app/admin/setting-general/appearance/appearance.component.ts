@@ -81,6 +81,7 @@ export class AppearanceComponent implements OnInit {
   navigation = 'arrows';
   widgetBGImage: any;
   frontBookingUrl:any;
+  selectedtab:any=0;
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
@@ -96,9 +97,15 @@ export class AppearanceComponent implements OnInit {
         this.businessId = localStorage.getItem('business_id');
         this.frontBookingUrl = environment.bookpageLink+"/booking/"+window.btoa(this.businessId)
         this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookpageLink+"/booking/"+window.btoa(this.businessId)+"' frameborder='0'></iframe>";
-        
       }
-      
+
+      let newWidgetAction = window.location.search.split("?goto=")
+      if(newWidgetAction.length > 1 && newWidgetAction[1] == 'link'){
+          this.selectedtab = 4;
+      }
+      if(newWidgetAction.length > 1 && newWidgetAction[1] == 'widgets'){
+          this.selectedtab = 1;
+      }
     }
 
   ngOnInit() {

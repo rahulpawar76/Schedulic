@@ -155,20 +155,33 @@
             </div>
             <div class="col-lg-5 col-12 col-md-6 border-8 appointment-listing-card">
                 <div>
-                    <div class="d-flex bottom-border align-items-center main-top-filter">
-                        <div class="appointment pl-2 pr-2">
-                            <!-- <p class="title-main mb-0">Appointments</p> -->
+                    <div class="d-flex bottom-border align-items-center main-top-filter workspace-appo-list">
+                        <mat-tab-group (selectedTabChange)="onTabChanged($event)" mat-align-tabs="start" class="main-tab-grp common-tab-group">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    Show new booking request
+                                    <span *ngIf="pendingBookingCount > 0" class="badge-red"> {{pendingBookingCount}} </span>
+                                </ng-template>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    Show all bookings
+                                </ng-template>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <!-- <div class="appointment pl-2 pr-2">
                             <div *ngIf="bookingTypeView == 'all'" (click)="fnChangeBookingStatus('P')">
-                                <a class="heading-booking">Show new booking request </a>
+                                <a class="heading-booking">New booking request </a>
                                 <span *ngIf="pendingBookingCount > 0" class="badge-red"> {{pendingBookingCount}} </span>
                             </div>
                             <div *ngIf="bookingTypeView == 'P'" (click)="fnChangeBookingStatus('all')">
                                 <a class="heading-booking">Show all bookings </a>
-                                <!-- <span class="badge-red"> 5 </span> -->
                             </div>
-                        </div>
+                        </div> -->
+                        
+                        <!-- <mat-icon class="form-control-feedback">search</mat-icon> -->
                         <div class="right-side-wrap">
-                            <div class="searchbox mr-2">
+                            <!-- <div class="searchbox mr-2">
                                 <form class="search_input-staff">
                                     <div class="has-search">
                                         <mat-icon class="form-control-feedback">search</mat-icon>
@@ -177,7 +190,7 @@
                                             class="form-control searchbox_appointment" placeholder="Serach">
                                     </div>
                                 </form>
-                            </div>
+                            </div> -->
                             <div class="filter-btn-appoint">
                                 <a [ngbPopover]="popContent" placement="bottom" aria-hidden="false"
                                     aria-label="Example home icon" class="filter-btn"><i
@@ -504,29 +517,7 @@
                         <h6>Activity Log</h6>
                         <div *ngFor="let log of activityLog" class="activelog-details ">
                             <p>
-                                {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} -
-                                {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}}
-                                {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By
-                                Admin' : log.user_type=='S' && log.status=='CNF' ? 'By Staff': log.user_type=='C' &&
-                                log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}}
-                                {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log. user_type=='S' &&
-                                log.status=='AC' ? 'By Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}}
-                                {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}}
-                                {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname :
-                                log.status=='RSA' ? 'Rescheduled By Admin' :''}} {{log.status=='RSS' && log.customer ?
-                                'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff'
-                                :''}} {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname :
-                                log.status=='RSC' ? 'Rescheduled By Client' :''}}
-                                {{log.status=='ITR'?'Intrupted':''}}
-                                {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname :
-                                log.status=='C' ? 'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By
-                                '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}}
-                                {{log.status=='R'?'Rejected':''}}
-                                {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' &&
-                                log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}}
-                                {{log.status=='CO'?'Completed':''}}
-                                {{log.user_type=='A' && log.status=='CO' ? 'By Admin' : log.user_type=='S' &&
-                                log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
+                                {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} {{log.status=='CNF'?'Confirm':''}} {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S' && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} {{log.status=='AC'?'Accepted':''}} {{log.user_type=='A' && log.status=='AC' ? 'By Admin' : log. user_type=='S' && log.status=='AC' ? 'By Staff': log.user_type=='C' && log.status=='AC' ? 'By User' : ''}} {{log.status=='OW'?'On The Way':''}} {{log.status=='WS'?'Work Started':''}} {{log.status=='RSA' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSA' ? 'Rescheduled By Admin' :''}} {{log.status=='RSS' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSS' ? 'Rescheduled By Staff' :''}} {{log.status=='RSC' && log.customer ? 'Rescheduled By '+ log.customer.fullname : log.status=='RSC' ? 'Rescheduled By Client' :''}} {{log.status=='ITR'?'Intrupted':''}} {{log.status=='C' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='C' ? 'Cancelled' :''}} {{log.status=='CC' && log.customer ? 'Cancelled By '+ log.customer.fullname : log.status=='CC' ? 'Cancelled By Client' :''}} {{log.status=='R'?'Rejected':''}} {{log.user_type=='A' && log.status=='R' ? 'By Admin' : log.user_type=='S' && log.status=='R' ? 'By Staff': log.user_type=='C' && log.status=='R' ? 'By User' : ''}} {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO' ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' && log.status=='CO' ? 'By User' : ''}}
                             </p>
                             <p *ngIf="log.notes">
                                 <b>Note: </b> {{log.notes}}

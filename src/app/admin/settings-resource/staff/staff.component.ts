@@ -327,7 +327,6 @@ export class StaffComponent implements OnInit {
     if (localStorage.getItem('business_id')) {
       this.businessId = localStorage.getItem('business_id');
     }
-    
     this.fnGetTimeSlotsList("00:00","23:30","30");
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [false],
@@ -374,11 +373,12 @@ export class StaffComponent implements OnInit {
       zip : ['',Validators.required],
       staff_id : [null],
     });
-    let addNewAction = window.location.search.split("?staff")
-      if(addNewAction.length > 1){
-        // this.addNewEvents = false; 
-        this.fnAddNewStaff();
-      }
+    
+    let newStaffAction = window.location.search.split("?goto=")
+    console.log(newStaffAction)
+    if(newStaffAction.length > 1 && newStaffAction[1] == 'newstaff'){
+      this.fnAddNewStaff();
+    }
   }
 
   // private handleError(error: HttpErrorResponse) {
