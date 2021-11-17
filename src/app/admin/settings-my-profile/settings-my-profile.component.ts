@@ -168,10 +168,7 @@ export class MyProfileComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
-          // this.changePwd.reset();
-          this.changePwd.controls['oldPassword'].setValue(null);
-          this.changePwd.controls['newPassword'].setValue(null);
-          this.changePwd.controls['ReNewPassword'].setValue(null);
+          this.changePwd.reset();
         }
         else if(response.data == false){
           this._snackBar.open(response.response, "X", {

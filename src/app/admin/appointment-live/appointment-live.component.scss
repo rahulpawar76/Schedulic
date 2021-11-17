@@ -1495,3 +1495,10 @@ agm-map {
     align-items: center;
     justify-content: center;
 }
+.in-store-tabs{
+    .sub-header{
+        .searchbox .search_input-staff{
+            width: 240px;
+        }
+    }
+}

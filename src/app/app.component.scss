@@ -88,6 +88,11 @@ mat-drawer-content {
         background-color: #ffda53;
     }
 }
+.menuitem{
+    &.active{
+        background-color: #ffda53;
+    }
+}
 .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content{
     padding: 0px!important;
 }

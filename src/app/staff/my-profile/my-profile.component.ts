@@ -9,6 +9,7 @@ import { StaffService } from '../_services/staff.service'
 import { AuthenticationService } from '@app/_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { AppComponent } from '@app/app.component';
 
 export interface DialogData {
   animal: string;
@@ -42,6 +43,7 @@ export class MyProfileComponent implements OnInit {
     public dialog: MatDialog, private http: HttpClient,
     private StaffService: StaffService,
     private _formBuilder: FormBuilder,
+    private appComponent : AppComponent,
     private authenticationService:AuthenticationService,
     private _snackBar: MatSnackBar,
     private titleService: Title
@@ -61,7 +63,7 @@ export class MyProfileComponent implements OnInit {
       user_FirstName : ['', Validators.required],
       user_LastName : ['', Validators.required],
       user_Email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isEmailUniqueForEdit.bind(this)],
-      user_Mobile : ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern(this.onlynumeric)]],
+      user_Mobile : ['', [Validators.required,Validators.minLength(6),Validators.maxLength(15),Validators.pattern(this.onlynumeric)]],
     });
     this.titleService.setTitle('My Profile');
 
@@ -108,7 +110,7 @@ export class MyProfileComponent implements OnInit {
       }
     )
   }
-  onSubmit(event){
+  onSubmit(){
     if(this.myProfile.valid){
       this.isLoader=true;
       this.updatedprofiledata ={
@@ -121,6 +123,11 @@ export class MyProfileComponent implements OnInit {
       }
       
     this.fnprofilesubmit(this.updatedprofiledata)
+    }else{
+      this.myProfile.get("user_FirstName").markAsTouched();
+      this.myProfile.get("user_LastName").markAsTouched();
+      this.myProfile.get("user_Email").markAsTouched();
+      this.myProfile.get("user_Mobile").markAsTouched();
     }
   }
   fnprofilesubmit(updatedprofiledata){
@@ -131,6 +138,8 @@ export class MyProfileComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
+          localStorage.setItem('currentUser', JSON.stringify(response.response));
+          this.appComponent.loadLocalStorage();
          window.location.reload();
          this.getProfiledata();
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -165,10 +174,8 @@ export class MyProfileComponent implements OnInit {
             verticalPosition:'top',
             panelClass :['green-snackbar']
           });
-          // this.changePwd.reset();
-          this.changePwd.controls['oldPassword'].setValue(null);
-          this.changePwd.controls['newPassword'].setValue(null);
-          this.changePwd.controls['ReNewPassword'].setValue(null);
+          window.location.reload();
+          this.changePwd.reset();
         }
         else if(response.data == false){
           this._snackBar.open(response.response, "X", {
@@ -184,6 +191,27 @@ export class MyProfileComponent implements OnInit {
       this.changePwd.get("oldPassword").markAsTouched();
       this.changePwd.get("newPassword").markAsTouched();
     }
+  }
+
+  
+  onRemoveProfile(){
+    let requestObject = {
+      'user_type': 'SM',
+      'user_id': this.staffId
+    }
+    this.isLoader =true;
+    this.StaffService.removeImage(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.getProfiledata();
+      }else{
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition:'top',
+          panelClass :['red-snackbar']
+        });
+      }
+      this.isLoader =false;
+    })
   }
 
   isEmailUniqueForEdit(control: FormControl) {

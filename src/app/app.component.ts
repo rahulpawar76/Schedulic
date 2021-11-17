@@ -46,6 +46,7 @@ export interface DialogData {
 
 export class AppComponent implements AfterViewInit {
 
+  @ViewChild('carousel', {static: false}) carousel: any;
   showSuccess: any;
   animal: any;
   selectedBusinessName: any;
@@ -971,27 +972,22 @@ export class AppComponent implements AfterViewInit {
     this.router.navigate(['/admin/settings-general/appearance'], { queryParams: { goto: param } });
   }
 
+  openGettingStartedDialog(){
+    this.gettingStartedWindowOpen = true;
+  }
+
   gotToDestinationPageStaff(param){
     this.gettingStartedWindowOpen = false;
     this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { goto: param } });
   }
 
-  skipFrom(from){
-    if(from == 'business'){
+  skipFrom(){
       this.gettingStartedWindowOpen = false;
       this.router.navigate(['/admin/my-workspace']);
-    }
   }
-  // reAuthenticateUser() {
-  //   const dialogRef = this.dialog.open(DialogReAuthentication, {
-  //     width: '500px',
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.animal = result;
-  //   });
-  // }
+  goToNextSlide(){
+    this.carousel.nextSlide();
+  }
 
 }
 

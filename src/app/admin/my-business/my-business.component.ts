@@ -197,6 +197,9 @@ export class MyBusinessComponent implements OnInit {
         this.router.navigate(['/admin/my-workspace']);
         this.appComponent.getNotificationCount(result.id);
         this.appComponent.getBusinessSetup(result.id);
+        if(this.firstBusiness){
+          this.appComponent.openGettingStartedDialog();
+        }
       }else{
         this.getAllBusiness();
       }

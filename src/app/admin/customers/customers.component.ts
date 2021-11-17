@@ -649,6 +649,9 @@ customerUpdate(existingCustomerData){
   fnAddNewCustomer(){
     this.newCustomer = true;
     this.fullDetailsOfCustomer = false;
+    this.customersDetails=null;
+    this.customerPersonalDetails=null;
+    this.existingUserId=null;
     this.createNewCustomer = this._formBuilder.group({
       cus_fullname : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)],this.isCustomerEmailUnique.bind(this)],
@@ -678,6 +681,7 @@ customerUpdate(existingCustomerData){
     this.fullDetailsOfCustomer = true;
     this.customerImageUrl = '';
     this.createNewCustomer.reset();
+    this.fnSelectCustomer(this.allCustomers[0].id,'not-new');
   }
 
   
@@ -806,23 +810,18 @@ customerUpdate(existingCustomerData){
     this.showPaymentTable=true;
   }
 
-  fnDeleteNote(noteId){
-
+  fnDeleteNote(noteId,index){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
       data: "are you sure to delete this notes?"
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if(result){
-      
         this.isLoaderAdmin = true;
-        
         let requestObject = {
           "note_id" : noteId
         }
-      
         this.adminService.fnDeleteNote(requestObject).subscribe((response:any) => {
           if(response.data == true){
             this._snackBar.open("Note Deleted.", "X", {
@@ -830,16 +829,15 @@ customerUpdate(existingCustomerData){
               verticalPosition:'top',
               panelClass :['green-snackbar']
             });
-            this.getAllCustomers();
-            this.isLoaderAdmin = false;
+            this.customerNotes.splice(index, 1);
           } else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {
               duration: 2000,
               verticalPosition:'top',
               panelClass :['green-snackbar']
             });
-          this.isLoaderAdmin = false;
           }
+          this.isLoaderAdmin = false;
         });
       }
     });
@@ -3209,6 +3207,7 @@ export class DialogAddNewNote {
   noteData : any;
   businessId : any;
   isLoaderAdmin : boolean = false;
+  saveDisabled:boolean=false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddNewNote>,
@@ -3239,6 +3238,7 @@ export class DialogAddNewNote {
     
   }
   fnSubmit(){
+    this.saveDisabled = true;
     this.isLoaderAdmin = true;
     if(this.noteData != undefined){
       if(this.createNewNote.valid){
@@ -3281,6 +3281,9 @@ export class DialogAddNewNote {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
         this.dialogRef.close();
         this.isLoaderAdmin = false;
         
@@ -3291,6 +3294,9 @@ export class DialogAddNewNote {
           verticalPosition:'top',
           panelClass :['red-snackbar']
         });
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
       this.isLoaderAdmin = false;
       }
     })
@@ -3304,6 +3310,9 @@ export class DialogAddNewNote {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
         this.dialogRef.close();
         this.isLoaderAdmin = false;
       }
@@ -3313,6 +3322,9 @@ export class DialogAddNewNote {
           verticalPosition: 'top',
           panelClass : ['red-snackbar']
         });
+        setTimeout(() => {
+          this.saveDisabled = false
+        }, 4000);
         // this.allCustomers = ''
       this.isLoaderAdmin = false;
       }

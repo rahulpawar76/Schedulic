@@ -94,7 +94,7 @@
                     </span>
                     <div *ngIf="!isBusiness() && businessSetup && !businessSetup.status && pageHeading == 'My Workspace'" class="getting-started-window-wrap">
                         <div class="window-screen" [ngClass]="{'opened' : gettingStartedWindowOpen}">
-                            <mdb-carousel class="setup-step-slider" [isControls]="true" [animation]="'slide'" [interval]="'0'">
+                            <mdb-carousel #carousel class="setup-step-slider" [isControls]="true" [animation]="'slide'" [interval]="'0'">
                                 <mdb-carousel-item class="signle-item">
                                     <div class="row w-100 ml-0">
                                         <div class="col-6 left-side">
@@ -118,7 +118,7 @@
                                                 <p>Takes 2 minutes</p>
                                                 <label>Tell us about your business so we can serve you better</label>
                                                 <button (click)="gotToDestinationPage('/admin/settings-account/company-details')" mat-button class="sc-pink-btn">Complete business info</button>
-                                                <span (click)="skipFrom('business')" class="skip-btn"> Skip</span>
+                                                <span (click)="skipFrom()" class="skip-btn"> Skip</span>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +146,7 @@
                                                 <p>Takes 4 minutes</p>
                                                 <label>Manage all your client data in one location</label>
                                                 <button (click)="gotToDestinationPage('/admin/my-customer')" mat-button class="sc-pink-btn">Start Import</button>
-                                                <span class="skip-btn"> Skip</span>
+                                                <span class="skip-btn" (click)="skipFrom()"> Skip</span>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                                 <p>Takes 5 minutes</p>
                                                 <label>Set your hours, reminders & booking options. Go about your day without missing a thing!</label>
                                                 <button mat-button class="sc-pink-btn" (click)="gotToDestinationPage('/admin/settings-resource')">Set up now</button>
-                                                <span class="skip-btn"> Skip</span>
+                                                <span class="skip-btn" (click)="skipFrom()"> Skip</span>
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@
                                                         <p class="w-100">Takes 8 minutes</p>
                                                         <label class="text-left">Open up your website to instant bookings, payments, messaging & more!</label>
                                                         <button mat-button class="sc-pink-btn" (click)="gotToDestinationPageAppearance('widgets')">Add Widgets</button>
-                                                        <span class="skip-btn-side"> Skip</span>
+                                                        <span class="skip-btn-side" (click)="skipFrom()"> Skip</span>
                                                     </div>
                                                 </div>
                                                 <div class="ver-sec">
@@ -214,7 +214,7 @@
                                                         <p class="w-100">Takes 5-15 minutes</p>
                                                         <label class="text-left">No Website, No Problem! Schedulic offers  a unique sub-domain for every account with which you can form your own booking page.</label>
                                                         <button mat-button class="sc-pink-btn" (click)="gotToDestinationPageAppearance('link')">Set Your Page</button>
-                                                        <span class="skip-btn-side"> Skip</span>
+                                                        <span class="skip-btn-side" (click)="skipFrom()"> Skip</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,7 +246,7 @@
                                                         <p class="w-100">Takes 1 minutes</p>
                                                         <label class="text-left">The freedom to run your business on-the-go, no matter where you are!</label>
                                                         <button mat-button class="sc-pink-btn">Get App</button>
-                                                        <span class="skip-btn-side"> Skip</span>
+                                                        <span class="skip-btn-side" (click)="skipFrom()"> Skip</span>
                                                     </div>
                                                 </div>
                                                 <div class="ver-sec">
@@ -256,7 +256,7 @@
                                                         <p class="w-100">Takes 2 minutes</p>
                                                         <label class="text-left">Get your team members on board and start working together!</label>
                                                         <button mat-button class="sc-pink-btn" (click)="gotToDestinationPageStaff('newstaff')">Add Team</button>
-                                                        <span class="skip-btn-side"> Skip</span>
+                                                        <span class="skip-btn-side" (click)="skipFrom()"> Skip</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -307,7 +307,7 @@
                     <mat-drawer [disableClose]="true" class="main_admin_menu" [opened]="sharedService.sideMenuState | async" mode="side">
                         <div class="top_admin_menu">
                             <mat-list-item role="listitem" class="matlist pointer logo">
-                                <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/icons/menu-icons/left-menu-logo.svg"></div>
+                                <div (click)="fnClickLogo('admin')" class="logo"><img src="assets/images/sc-shot-logo.png"></div>
                             </mat-list-item>
                             <mat-list-item role="listitem" class="add" [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="click">
                                 <div>
@@ -425,7 +425,7 @@
     <mat-drawer #drawer position="end">
         <mat-list role="list" *ngIf="isStaffUser()">
             <mat-menu></mat-menu>
-            <mat-list-item role="listitem" (click)="drawer.toggle()" (click)=" StaffProfile('My Profile')" class="matlist pointer">
+            <mat-list-item role="listitem" class="matlist">
                 <img class="customer-profile-img ml-2 mt-3 mr-2 mb-2" src="{{currentUser.image}}">
                 <div>
                     <p class="font-weight-bold p-1 pt-2 mb-0">{{currentUser.full_name}}</p>
@@ -445,20 +445,25 @@
                     </div>
                 </div>
             </mat-list-item>
-            <mat-list-item class="menuitem mt-2" role="listitem" (click)="WorkSpace('My Workspace')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem mt-2" [ngClass]="{'active': pageHeading == 'My Workspace' }" role="listitem" (click)="WorkSpace('My Workspace')" (click)="drawer.toggle()">
                 <button  mat-menu-item class="menuitem">
              <!-- <i mat-list-icon class="fa fa-briefcase mr-3"></i> -->
                 My Work Space</button>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="StaffAppointment('My Booking')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" [ngClass]="{'active': pageHeading == 'My Booking' }" role="listitem" (click)="StaffAppointment('My Booking')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">
                     <!-- <i mat-list-icon   class="fa fa-calendar mr-3"></i> -->
                   My Bookings</button>
             </mat-list-item>
-            <mat-list-item class="menuitem" role="listitem" (click)="WorkProfile('My Work Profile')" (click)="drawer.toggle()">
+            <mat-list-item class="menuitem" [ngClass]="{'active': pageHeading == 'My Work Profile' }" role="listitem" (click)="WorkProfile('My Work Profile')" (click)="drawer.toggle()">
                 <button mat-menu-item class="menuitem">
                     <!-- <i mat-list-icon class="material-icons mr-3">people_alt</i> -->
                     Work Profile</button>
+            </mat-list-item>
+            <mat-list-item class="menuitem" [ngClass]="{'active': pageHeading == 'My Profile' }" role="listitem"  (click)=" StaffProfile('My Profile')" (click)="drawer.toggle()">
+                <button mat-menu-item class="menuitem">
+                    <!-- <i mat-list-icon class="material-icons mr-3">people_alt</i> -->
+                    My Profile</button>
             </mat-list-item>
             <mat-list-item class="menuitem" role="listitem">
                 <button mat-menu-item (click)="logout(); drawer.toggle();" class="menuitem" matTooltip="Logout" aria-label="clcik on Logout">

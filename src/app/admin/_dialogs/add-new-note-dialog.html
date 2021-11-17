@@ -30,8 +30,13 @@
                 </div>
                 <div class="modal-bottom-action-btn">
                     <button type="button" class="cancel-btn" data-dismiss="modal" (click)="onNoClick()">Cancel</button>
-                    <button type="button" class="save-btn" data-dismiss="modal" (click)="fnSubmit()">{{noteData ?
-                        'Update' : 'Save'}}</button>
+                    <button [disabled]="saveDisabled" type="button" class="save-btn" data-dismiss="modal" (click)="fnSubmit()">
+                        <span *ngIf="!saveDisabled">{{noteData ? 'Update' : 'Save'}}</span>
+                        <div *ngIf="saveDisabled" class="button-spinner">
+                            <div class="double-bounce1"></div>
+                            <div class="double-bounce2"></div>
+                        </div>   
+                    </button>
                 </div>
 
             </div>

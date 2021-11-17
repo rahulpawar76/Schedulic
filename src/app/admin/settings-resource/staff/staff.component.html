@@ -450,7 +450,7 @@
                             <div class="form-group has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
                                 <input name="searchStaff" [(ngModel)]="search.staff" (keyup)="staffSearch()" type="text"
-                                    class="form-control searchbox_appointment " placeholder="Search for items">
+                                    class="form-control searchbox_appointment " placeholder="Search Name">
                             </div>
                         </form>
                     </div>
@@ -624,27 +624,48 @@
                         <h6 class="pr-2 name-text-wrap text-capitalize">{{singleStaffDetail.staff[0].firstname}}
                             {{singleStaffDetail.staff[0].lastname}}
                         </h6>
-                        <div *ngIf="singleStaffDetail.staff[0].review != ''" class="d-flex statick-rating w-100">
+                        <div *ngIf="allStaffList[singleStaffIndex].avg_ratings && allStaffList[singleStaffIndex].avg_ratings.length != 0" class="d-flex statick-rating w-100">
                             <div class="star-rating" *ngIf="singleStaffDataRating.avg_ratings.length != 0">
-                                <input type="radio" [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '5'"
-                                    id="5-stars_{{singleStaffDataRating.id}}" name="rating_2" value="5" />
+                                <input type="radio" [checked]="allStaffList[singleStaffIndex].avg_ratings[0].aggregate == '5'"
+                                    id="5-stars_{{singleStaffDataRating.id}}" name="avg_rating_2" value="5" />
                                 <label for="5-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
-                                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '4'" type="radio"
-                                    id="4-stars_{{singleStaffDataRating.id}}" name="rating_2" value="4" />
+                                <input [checked]="allStaffList[singleStaffIndex].avg_ratings[0].aggregate == '4'" type="radio"
+                                    id="4-stars_{{singleStaffDataRating.id}}" name="avg_rating_2" value="4" />
                                 <label for="4-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
-                                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '3'" type="radio"
-                                    id="3-stars_{{singleStaffDataRating.id}}" name="rating_2" value="3" />
+                                <input [checked]="allStaffList[singleStaffIndex].avg_ratings[0].aggregate == '3'" type="radio"
+                                    id="3-stars_{{singleStaffDataRating.id}}" name="avg_rating_2" value="3" />
                                 <label for="3-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
-                                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '2'" type="radio"
-                                    id="2-stars_{{singleStaffDataRating.id}}" name="rating_2" value="2" />
+                                <input [checked]="allStaffList[singleStaffIndex].avg_ratings[0].aggregate == '2'" type="radio"
+                                    id="2-stars_{{singleStaffDataRating.id}}" name="avg_rating_2" value="2" />
                                 <label for="2-stars_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
-                                <input [checked]="singleStaffDataRating.avg_ratings[0].aggregate == '1'" type="radio"
-                                    id="1-star_{{singleStaffDataRating.id}}" name="rating_2" value="1" />
+                                <input [checked]="allStaffList[singleStaffIndex].avg_ratings[0].aggregate == '1'" type="radio"
+                                    id="1-star_{{singleStaffDataRating.id}}" name="avg_rating_2" value="1" />
                                 <label for="1-star_{{singleStaffDataRating.id}}" class="star">&#9733;</label>
                             </div>
                         </div>
-                        <div class="w-100" *ngIf="singleStaffDetail.staff[0].review == ''">
-                            No Review Available
+                        <div class="w-100 statick-rating" *ngIf="allStaffList[singleStaffIndex].avg_ratings && allStaffList[singleStaffIndex].avg_ratings.length == 0">
+                            <div class="star-rating">
+                            <input type="radio" id="5-stars_{{singleStaffDataRating.id}}"
+                                name="avg_rating_2" value="5" />
+                            <label for="5-stars_{{singleStaffDataRating.id}}"
+                                class="star">&#9733;</label>
+                            <input type="radio" id="4-stars_{{singleStaffDataRating.id}}"
+                                name="avg_rating_2" value="4" />
+                            <label for="4-stars_{{singleStaffDataRating.id}}"
+                                class="star">&#9733;</label>
+                            <input type="radio" id="3-stars_{{singleStaffDataRating.id}}"
+                                name="avg_rating_2" value="3" />
+                            <label for="3-stars_{{singleStaffDataRating.id}}"
+                                class="star">&#9733;</label>
+                            <input type="radio" id="2-stars_{{singleStaffDataRating.id}}"
+                                name="avg_rating_2" value="2" />
+                            <label for="2-stars_{{singleStaffDataRating.id}}"
+                                class="star">&#9733;</label>
+                            <input type="radio" id="1-star_{{singleStaffDataRating.id}}"
+                                name="avg_rating_2" value="1" />
+                            <label for="1-star_{{singleStaffDataRating.id}}"
+                                class="star">&#9733;</label>
+                        </div>
                         </div>
                     </div>
                     <div class="    ">
@@ -1429,7 +1450,7 @@
                                                                         {{timeSlot.short}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
-                                                                        class="fa fa-save delete-box"
+                                                                        class="fa fa-save save-box"
                                                                         (click)="fnAddWorkHour('Sunday')"
                                                                         matTooltip="Save Hours"></i></div>
                                                             </div>
@@ -1527,7 +1548,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Monday')"></i>
                                                             </div>
                                                         </div>
@@ -1610,7 +1631,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Tuesday')"></i>
                                                             </div>
                                                         </div>
@@ -1689,7 +1710,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Wednesday')"></i>
                                                             </div>
                                                         </div>
@@ -1768,7 +1789,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Thursday')"></i>
                                                             </div>
                                                         </div>
@@ -1846,7 +1867,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Friday')"></i>
                                                             </div>
                                                         </div>
@@ -1927,7 +1948,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Saturday')"></i>
                                                             </div>
                                                         </div>
@@ -2005,7 +2026,7 @@
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
-                                                                    class="fa fa-save delete-box"
+                                                                    class="fa fa-save save-box"
                                                                     (click)="fnAddBreak('Sunday')"></i>
                                                             </div>
                                                         </div>

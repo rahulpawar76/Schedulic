@@ -143,7 +143,7 @@ export class MyWorkSpaceComponent implements OnInit {
           var todayDateTime = new Date();
           element.booking_time=element.booking_date+" "+element.booking_time;
           var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_time),"dd MMM yyyy hh:mm a"));
-          dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
+          dateTemp.setMinutes( dateTemp.getMinutes());
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
           element.booking_time=this.datePipe.transform(new Date(element.booking_time),"hh:mm a")

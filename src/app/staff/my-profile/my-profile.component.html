@@ -7,17 +7,19 @@
         <form [formGroup]="myProfile">
             <div class="card-body row px-2">
                 <div class="col-lg-12 col-sm-12 col-md-3 col-12 d-flex">
-                    <div class="profile-img-wrap" (click)="ImgUpload()">
-                        <img mat-card-avatar *ngIf="profiledata.image != '' && profileImage" class="customer-profile-img" src="{{profileImage}}">
-                        <img mat-card-avatar *ngIf="profiledata.image != '' && !profileImage" class="customer-profile-img" src="{{profiledata.image}}">
-                        <img mat-card-avatar *ngIf="profiledata.image == '' && profileImage" class="customer-profile-img" src="{{profileImage}}">
-                        <img mat-card-avatar *ngIf="profiledata.image == '' && !profileImage" class="customer-profile-img" src="/src/assets/images/default.png">
-                        <div class="camera-alt"><i class="material-icons"> camera_alt</i></div>
+                    <div class="user-image-upload">
+                        <div class="d-flex profile-img-wrap">
+                            <img class="mx-auto default-img" *ngIf="profiledata && !profileImage && (!profiledata.image || profiledata.image == 'https://api.schedulic.com/staff-images/default.png')" src="/assets/images/icons/image-placeholder.svg">
+                            <img class="mx-auto service-profile-image uploaded" *ngIf="profiledata && profiledata.image && !profileImage && profiledata.image != 'https://api.schedulic.com/staff-images/default.png'" src="{{profiledata.image}}">
+                            <img class="add-staff mx-auto" *ngIf="profileImage" src="{{profileImage}}">
+                        </div>
+                        <div class="img-upload-btns">
+                            <button *ngIf="profiledata && (!profiledata.image || profiledata.image == 'https://api.schedulic.com/staff-images/default.png')" class="sc-yellow-btn mb-2" (click)="ImgUpload()" mat-button>Upload Image</button>
+                            <button *ngIf="profiledata && profiledata.image && !profileImage && profiledata.image != 'https://api.schedulic.com/staff-images/default.png'" class="sc-yellow-btn mb-2" (click)="ImgUpload()" mat-button>Change Image</button>
+                            <button *ngIf="profiledata && profiledata.image && !profileImage" class="sc-yellow-btn mb-2" (click)="onRemoveProfile()" mat-button>Remove Image</button>
+                        </div>
                     </div>
-                    <div class="img-upload-btns">
-                        <button class="sc-yellow-btn mb-2" mat-button>Upload Logo</button>
-                        <button class="sc-grey-btn mb-2" mat-button>Remove Logo</button>
-                    </div>
+                    
                 </div>
                 <div class="col-lg-12 col-sm-12 col-md-9 col-12 mt-4">
                     <div class="form-group row mb-0">
@@ -91,7 +93,7 @@
                             </div>
                             <span class="error-wrap" *ngIf="myProfile.get('user_Mobile').touched || myProfile.get('user_Mobile').dirty">
 								<small *ngIf="myProfile.get('user_Mobile').hasError('required')" class="error">Mobile number is required</small>
-								<small *ngIf="myProfile.get('user_Mobile').hasError('minLength') || myProfile.get('user_Mobile').hasError('maxLength')" class="error">Mobile number shoud be 10 digit</small>
+								<small *ngIf="myProfile.get('user_Mobile').hasError('minlength') || myProfile.get('user_Mobile').hasError('maxlength')" class="error">Mobile number shoud be 6 to 15 digit</small>
 								<small *ngIf="myProfile.get('user_Mobile').hasError('onlynumeric')" class="error">Mobile number should be Number only</small>
 							</span>
                         </div>

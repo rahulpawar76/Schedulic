@@ -27,7 +27,7 @@
                                 <div class="has-search">
                                     <mat-icon class="form-control-feedback">search</mat-icon>
                                     <input name="searchKeyword" (keyup)="fnSearch($event.target.value)" type="text"
-                                        class="form-control searchbox_appointment" placeholder="Search for items">
+                                        class="form-control searchbox_appointment" [placeholder]="inStoreTabName == 'service' ? 'Search for service': 'Search for service, order id'">
                                 </div>
                             </form>
                         </div>
@@ -218,20 +218,15 @@
                                         <p>Please Enter Customer Details</p>
                                         <form [formGroup]="newCustomer">
                                             <div class="row mb-3">
-                                                <div class="common-input col-lg-12 col-12 col-md-12">
+                                                <div class="common-input col-lg-6 col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" formControlName="cus_email"
-                                                            class="form-control" placeholder="Enter email address">
+                                                        <input type="text" formControlName="cus_name"
+                                                            class="form-control" placeholder="Enter name">
                                                     </div>
                                                     <span class="error-wrap"
-                                                        *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
-                                                        <small *ngIf="newCustomer.get('cus_email').hasError('required')"
-                                                            class="error">Email is required.</small>
-                                                        <small *ngIf="newCustomer.get('cus_email').hasError('pattern')"
-                                                            class="error">Enter valid email address.</small>
-                                                        <small
-                                                            *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')"
-                                                            class="error">Email already in use.</small>
+                                                        *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched">
+                                                        <small *ngIf="newCustomer.get('cus_name').hasError('required')"
+                                                            class="error">Fullname is required.</small>
                                                     </span>
                                                 </div>
                                                 <div class="common-input col-lg-6 col-12 col-md-6">
@@ -256,15 +251,20 @@
                                                             class="error">Phone No is already in use.</small>
                                                     </span>
                                                 </div>
-                                                <div class="common-input col-lg-6 col-12 col-md-6">
+                                                <div class="common-input col-lg-12 col-12 col-md-12">
                                                     <div class="form-group">
-                                                        <input type="text" formControlName="cus_name"
-                                                            class="form-control" placeholder="Enter name">
+                                                        <input type="text" formControlName="cus_email"
+                                                            class="form-control" placeholder="Enter email address">
                                                     </div>
                                                     <span class="error-wrap"
-                                                        *ngIf="newCustomer.get('cus_name').dirty || newCustomer.get('cus_name').touched">
-                                                        <small *ngIf="newCustomer.get('cus_name').hasError('required')"
-                                                            class="error">Fullname is required.</small>
+                                                        *ngIf="newCustomer.get('cus_email').dirty || newCustomer.get('cus_email').touched">
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('required')"
+                                                            class="error">Email is required.</small>
+                                                        <small *ngIf="newCustomer.get('cus_email').hasError('pattern')"
+                                                            class="error">Enter valid email address.</small>
+                                                        <small
+                                                            *ngIf="newCustomer.get('cus_email').hasError('isEmailUnique')"
+                                                            class="error">Email already in use.</small>
                                                     </span>
                                                 </div>
                                             </div>
@@ -452,7 +452,7 @@
                                 <mat-icon class="form-control-feedback">search</mat-icon>
                                 <input [(ngModel)]="search.pendingKeyword" (keyup)="pendingAppointSearch($event)"
                                     type="text" class="form-control searchbox_appointment"
-                                    placeholder="Search for items">
+                                    placeholder="Search for service, order id">
                             </div>
                         </div>
                     </div>
@@ -835,7 +835,7 @@
                             <div class="has-search">
                                 <mat-icon class="form-control-feedback">search</mat-icon>
                                 <input (keyup)="fnPendingBilling($event.target.value)" type="text"
-                                    class="form-control searchbox_appointment" placeholder="Search for items">
+                                    class="form-control searchbox_appointment" placeholder="Search for service, order id">
                             </div>
                         </form>
                     </div>

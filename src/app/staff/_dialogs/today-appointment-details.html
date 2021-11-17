@@ -13,7 +13,9 @@
 
                 <div class="modal-body">
 
-                    <p class="mb-0 font-weight-bold"> {{appoDetail.booking_date}}</p>
+                    <p class="mb-0 font-weight-bold"> {{appoDetail.booking_date}}
+                        <span class="order-id">(Order Id: {{appoDetail.id}})</span>
+                    </p>
                     <p>Booked On: {{appoDetail.created_at}}</p>
 
                     <p class="mb-0">Service</p>

@@ -1,5 +1,5 @@
 <div class="container-fluid sub-container" id="customers">
-    <div class="loader-main bg-white" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
     <div class="row h-100">
         <div id="sub-header-top" class="sc-table-view">
             <div class="col-12 d-flex inner sc-table-top-bar">
@@ -101,11 +101,11 @@
                                     </div>
                                     <div class="mt-3">
                                         <button mat-button type="file" (click)="fnUploadImage()" appearance="fill"
-                                            class="profile-uploadbtn">Upload Logo</button>
+                                            class="profile-uploadbtn">Upload Image</button>
                                     </div>
-                                    <div class="mt-2">
+                                    <div class="mt-2" *ngIf="existingUserId && customerPersonalDetails.image && customerPersonalDetails.image != 'https://api.schedulic.com/customer-images/default.png'">
                                         <button mat-button appearance="fill" (click)="fnRemoveImage()"
-                                            class="profile-removebtn mb-2">Remove Logo</button>
+                                            class="profile-removebtn mb-2">Remove Image</button>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-12 col-md-8">
@@ -569,7 +569,7 @@
                                                             <mat-icon class="material-icons">edit</mat-icon>
                                                         </button>
 
-                                                        <button (click)="fnDeleteNote(customerNotes.id)"
+                                                        <button (click)="fnDeleteNote(customerNotes.id,i)"
                                                             aria-hidden="false" matTooltip="Delete Note"
                                                             class="sc-table-action-btn">
                                                             <mat-icon class="material-icons">delete</mat-icon>
