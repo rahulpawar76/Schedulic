@@ -202,43 +202,43 @@ export class BusinessHoursComponent implements OnInit {
 
     workingHoursTempArray={
       dayNumber:"1",
-      offday:this.formSetWorkingHours.get("mondayToggle").value?"N":"Y"
+      offday:this.mondayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"2",
-      offday:this.formSetWorkingHours.get("tuesdayToggle").value?"N":"Y"
+      offday:this.tuesdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"3",
-      offday:this.formSetWorkingHours.get("wednesdayToggle").value?"N":"Y"
+      offday:this.wednesdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"4",
-      offday:this.formSetWorkingHours.get("thursdayToggle").value?"N":"Y"
+      offday:this.thursdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"5",
-      offday:this.formSetWorkingHours.get("fridayToggle").value?"N":"Y"
+      offday:this.fridayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"6",
-      offday:this.formSetWorkingHours.get("saturdayToggle").value?"N":"Y"
+      offday:this.saturdayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
 
     workingHoursTempArray={
       dayNumber:"0",
-      offday:this.formSetWorkingHours.get("sundayToggle").value?"N":"Y"
+      offday:this.sundayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
     console.log(JSON.stringify(workingHoursArray));
