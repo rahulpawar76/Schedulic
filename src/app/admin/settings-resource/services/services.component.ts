@@ -2104,7 +2104,7 @@ export class ServicesComponent implements OnInit {
         
     }
 
-    fnExportService(categoryId, filter){
+    fnExportService(){
         const options = { 
           fieldSeparator: ',',
           quoteStrings: '"',
@@ -2119,7 +2119,7 @@ export class ServicesComponent implements OnInit {
         };
         const csvExporter = new ExportToCsv(options);
           this.isLoaderAdmin = true;
-          this.adminSettingsService.fnExportService(categoryId, filter).subscribe((response:any) => {
+          this.adminSettingsService.fnExportService(this.businessId).subscribe((response:any) => {
             if(response.data == true){
               this.selectedServicesArr = response.response
               csvExporter.generateCsv(this.selectedServicesArr);

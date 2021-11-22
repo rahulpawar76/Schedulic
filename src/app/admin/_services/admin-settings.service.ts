@@ -97,10 +97,9 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
-    fnExportService(catergoryId, filter){
+    fnExportService(BusinessId){
         let requestObject = {
-            'category_id': catergoryId,
-            'filter': filter
+            'business_id': BusinessId,
         };
         this.checkAuthentication();
         let headers = new HttpHeaders({
