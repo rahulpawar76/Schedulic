@@ -14,6 +14,7 @@ import { AppComponent } from '@app/app.component';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service';
+import { _fixedSizeVirtualScrollStrategyFactory } from '@angular/cdk/scrolling';
 
 export interface DialogData {
   animal: string;
@@ -2661,9 +2662,10 @@ export class RescheduleAppointAdmin {
   selectedDate:any;
   selectedTimeSlot:any;
   selectedStaff:any;
-  minDate = new Date(2000, 0, 1);
+  minDate = new Date();
   timeSlotArr:any= [];
   availableStaff:any= [];
+  isLoaderAdmin:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<RescheduleAppointAdmin>,
     private datePipe: DatePipe,
@@ -2674,7 +2676,7 @@ export class RescheduleAppointAdmin {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
       this.businessId=localStorage.getItem('business_id');
-      this.detailsData=this.data.appointmentDetails;
+      this.detailsData=this.data.detailsData;
       console.log(this.detailsData);
       this.formAppointmentRescheduleAdmin = this._formBuilder.group({
         rescheduleDate: ['', Validators.required],
@@ -2697,6 +2699,7 @@ export class RescheduleAppointAdmin {
     }
 
   fnGetTimeSlots(selectedDate){
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id":this.businessId,
       "selected_date":selectedDate,
@@ -2718,6 +2721,7 @@ export class RescheduleAppointAdmin {
         }
         else{
         }
+        this.isLoaderAdmin = false;
       },
       (err) =>{
         console.log(err)
@@ -2732,6 +2736,7 @@ export class RescheduleAppointAdmin {
     }
 
     fnGetStaff(selectedTimeSlot){
+      this.isLoaderAdmin = true;
       let requestObject = {
         "postal_code":this.detailsData.postal_code,
         "customer_id":this.detailsData.customer.id,
@@ -2757,6 +2762,7 @@ export class RescheduleAppointAdmin {
         else{
           this.availableStaff.length=0;
         }
+        this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
@@ -2771,6 +2777,7 @@ export class RescheduleAppointAdmin {
     if(this.formAppointmentRescheduleAdmin.invalid){
       return false;
     }
+    this.isLoaderAdmin = true;
 
     let requestObject = {
     "order_item_id":JSON.stringify(this.detailsData.id),
@@ -2795,6 +2802,7 @@ export class RescheduleAppointAdmin {
           panelClass :['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 

@@ -8,6 +8,7 @@ import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 
 
@@ -80,7 +81,7 @@ export class BillingComponent implements OnInit {
   fnChangePlan(planId) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
-      data: "Are you sure you want to delete?"
+      data: "Are you sure you want to Subscribe?"
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
@@ -113,8 +114,8 @@ export class BillingComponent implements OnInit {
       });
       this.isLoaderAdmin=false;
     }
-});
-  }
+  });
+}
 
   fnCancelPlane(){
     
@@ -145,7 +146,180 @@ export class BillingComponent implements OnInit {
       }
       
     });
+  }
 
-
+  fnActivatePlan(planId){
+    const dialogRef = this.dialog.open(DialogSubscriptionCardForm, {
+      width: '800px',
+      data: {planId :planId,userId : this.currentUser.user_id}
+      
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'success'){
+        this.selectedPlanCode = planId;
+        window.location.reload();
+        this.getSubscriptionPlans();
+      }
+    });
   }
 }
+
+
+@Component({
+  selector: 'subscription-payment',
+  templateUrl: '../_dialogs/dialog-subscription-payment.html',
+  providers: [DatePipe]
+})
+export class DialogSubscriptionCardForm {
+  isLoaderAdmin:boolean = false;
+  cardForm:FormGroup
+  onlynumeric = /^-?(0|[0-9]\d*)?$/
+  planId:any;
+  userId:any;
+  adminData:any;
+  cardPaymentForm:FormGroup;
+  allCountry:any;
+  allStates: any;
+  allCities: any;
+  
+  constructor(
+    public dialogRef: MatDialogRef<DialogSubscriptionCardForm>,
+    private _formBuilder:FormBuilder,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    public adminSettingsService: AdminSettingsService,
+    public router: Router,
+    private authenticationService:AuthenticationService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.planId = this.data.planId
+      this.userId = this.data.userId
+      
+    this.gelAllCountry();
+    }
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+
+    ngOnInit() {
+      this.cardPaymentForm = this._formBuilder.group({
+        name: ['', Validators.required],
+        address: ['', Validators.required],
+        country: ['', Validators.required], 
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+        cardNumber: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(16),Validators.minLength(16)]],
+        zipcode: ['', [Validators.required,Validators.maxLength(6),Validators.minLength(3)]],
+        cardEXMonth: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
+        cardEXYear: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(2),Validators.minLength(2)]],
+        cardCVV: ['', [Validators.required,Validators.pattern(this.onlynumeric),Validators.maxLength(3),Validators.minLength(3)]],
+      });
+    }
+
+    fnPayNow(){
+      if(this.cardPaymentForm.invalid){
+        this.cardPaymentForm.get('name').markAsTouched();
+        this.cardPaymentForm.get('address').markAsTouched();
+        this.cardPaymentForm.get('country').markAsTouched();
+        this.cardPaymentForm.get('state').markAsTouched();
+        this.cardPaymentForm.get('city').markAsTouched();
+        this.cardPaymentForm.get('zipcode').markAsTouched();
+        this.cardPaymentForm.get('cardNumber').markAsTouched();
+        this.cardPaymentForm.get('cardEXMonth').markAsTouched();
+        this.cardPaymentForm.get('cardEXYear').markAsTouched();
+        this.cardPaymentForm.get('cardCVV').markAsTouched();
+        return false;
+      }
+      let requestObject = {
+        'user_id' : JSON.stringify(this.userId),
+        'card_name' : this.cardPaymentForm.get('name').value,
+        'address' : this.cardPaymentForm.get('address').value,
+        'country' : this.cardPaymentForm.get('country').value,
+        'state' : this.cardPaymentForm.get('state').value,
+        'city' : this.cardPaymentForm.get('city').value,
+        'zip' : this.cardPaymentForm.get('zipcode').value,
+        'card_number' : this.cardPaymentForm.get('cardNumber').value,
+        'exp_month' : this.cardPaymentForm.get('cardEXMonth').value,
+        'exp_year' : this.cardPaymentForm.get('cardEXYear').value,
+        'cvc_number' : this.cardPaymentForm.get('cardCVV').value,
+        'plan_id' :this.planId
+      }
+      this.isLoaderAdmin = true;
+      this.adminSettingsService.getSubscriptionPayment(requestObject).subscribe((response:any) => {
+        if(response.data == true){
+          this._snackBar.open('Successfully Subscribed', "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+          localStorage.setItem('currentUser', JSON.stringify(response.response));
+          this.dialogRef.close('success');
+      } else if(response.data == false && response.response !== 'api token or userid invaild'){
+        this._snackBar.open(response.response, "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin = false;
+    });
+    }
+
+    gelAllCountry(){
+      this.isLoaderAdmin =true;
+      this.adminSettingsService.gelAllCountry().subscribe((response:any) => {
+        if(response.data == true){
+          this.allCountry = response.response
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allCountry = ''
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+        }
+      })
+      this.isLoaderAdmin =false;
+    }
+
+    selectCountry(country_id){
+      this.isLoaderAdmin =true;
+      this.adminSettingsService.gelAllState(country_id).subscribe((response:any) => {
+        if(response.data == true){
+          this.allStates = response.response
+          this.isLoaderAdmin =false;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allStates = ''
+          this.cardPaymentForm.controls['business_state'].setValue('');
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+          this.isLoaderAdmin =false;
+        }
+      })
+    }
+
+    selectStates(state_id){
+      this.isLoaderAdmin =true;
+      this.adminSettingsService.gelAllCities(state_id).subscribe((response:any) => {
+        if(response.data == true){
+          this.allCities = response.response
+          this.isLoaderAdmin =false;
+        }
+        else if(response.data == false && response.response !== 'api token or userid invaild'){
+          this.allCities = [];
+          this._snackBar.open(response.response, "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass : ['red-snackbar']
+          });
+          this.isLoaderAdmin =false;
+        }
+      })
+    }
+    
+  }

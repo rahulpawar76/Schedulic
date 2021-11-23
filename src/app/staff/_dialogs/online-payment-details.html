@@ -43,8 +43,13 @@
         <hr>
         <div class="d-flex payment-details px-3">
             <label class="service mb-0">Total Amount</label>
-            <label *ngIf="currencySymbolPosition=='left'" class="amount mb-0 font-weight-bold">{{currencySymbol| currencySymbol:'wide'}} {{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-            <label *ngIf="currencySymbolPosition=='right'" class="amount mb-0 font-weight-bold">{{ appointDetailData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</label>
+            <label *ngIf="currencySymbolPosition=='left'" class="amount mb-0 font-weight-bold">
+                {{currencySymbol| currencySymbol:'wide'}} 
+                <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/>
+            </label>
+            <label *ngIf="currencySymbolPosition=='right'" class="amount mb-0 font-weight-bold">
+                <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/> {{currencySymbol| currencySymbol:'wide'}}
+            </label>
         </div>
         <hr>
         <div class="d-flex my-3 payment-confirm-btns">

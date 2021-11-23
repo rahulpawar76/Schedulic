@@ -2668,6 +2668,7 @@ export class MyBookingComponent implements OnInit {
     finalOrderDiscount:any;
     couponType:any;
     couponValue:any;
+    newAmount:number;
     constructor(
       public dialogRef: MatDialogRef<DialogOnlinePaymentDetails>,
       private StaffService: StaffService,
@@ -2677,12 +2678,12 @@ export class MyBookingComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.appointDetailData = this.data.appointDetailData;
         this.appointTax = JSON.parse(this.appointDetailData.tax);
-        console.log(this.appointDetailData);
         this.paymentMethod = this.data.paymentMethod;
         this.couponType = this.appointDetailData.discount_type
         this.couponValue = this.appointDetailData.discount_value
         this.orderDiscount = this.appointDetailData.discount
-        this.bussinessId=this.authenticationService.currentUserValue.business_id
+        this.bussinessId=this.authenticationService.currentUserValue.business_id;
+        this.newAmount = this.appointDetailData.total_cost;
         this.fnGetSettingValue();
       }
 
@@ -2696,16 +2697,9 @@ export class MyBookingComponent implements OnInit {
       this.StaffService.getSettingValue(requestObject).subscribe((response:any) => {
         if(response.data == true){
           this.settingsArr=response.response;
-          console.log(this.settingsArr);
-
           this.currencySymbol = this.settingsArr.currency;
-          console.log(this.currencySymbol);
-          
           this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
-          console.log(this.currencySymbolPosition);
-          
           this.currencySymbolFormat = this.settingsArr.currency_format;
-          console.log(this.currencySymbolFormat);
         }
         else if(response.data == false){
           
@@ -2768,6 +2762,7 @@ export class MyBookingComponent implements OnInit {
             this.couponType = couponType
             this.couponValue = couponValue
             this.appointDetailData.total_cost=serviceAmountAfterDiscount+serviceTaxAmount;
+            this.newAmount = this.appointDetailData.total_cost;
 
             console.log(this.appointDetailData);
           this._snackBar.open("Coupon Code Applied", "X", {

@@ -118,7 +118,7 @@ export class AppointmentLiveComponent implements OnInit {
   cartArr:any = [];
   service_id:any;
   categoryServiceCheckServiceId = [];
-  totalCost = 0;
+  subTotalCost = 0;
   note_description='';
   paymentData:any;
   Watinglist:any = [];
@@ -164,6 +164,10 @@ export class AppointmentLiveComponent implements OnInit {
   liveDate:any="";
   liveTime:any="";
   clockHandle;
+  posCouponApplied:boolean=false;
+  appliedCouponDetail:any;
+  appointmentAmountAfterDiscount:number = 0;
+  discount_amount:number = 0; 
   constructor(
     private adminService: AdminService,
     private datePipe: DatePipe,
@@ -630,6 +634,49 @@ export class AppointmentLiveComponent implements OnInit {
     });
   }
 
+  openCouponModal(index){
+    
+    const dialogRef = this.dialog.open(addPOSCouponDialog, {
+      width: '500px',
+      data :{cartArr :this.cartArr, businessId:this.businessId}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.posCouponApplied = true;
+        this.appliedCouponDetail = result;
+        console.log(this.appliedCouponDetail)
+
+        // coupon value count 
+        
+        // let bookingSubTotal = 0;
+        // bookingSubTotal = this.subTotalCost;
+        this.discount_amount = this.appliedCouponDetail.coupon_value
+        if (this.appliedCouponDetail.coupon_type == "F") {
+          this.appointmentAmountAfterDiscount = (this.subTotalCost > this.discount_amount) ? this.subTotalCost - this.discount_amount : 0;
+        } else if (this.appliedCouponDetail.coupon_type == "P") {
+          this.discount_amount = (this.subTotalCost * this.discount_amount)/100;
+          this.appointmentAmountAfterDiscount = this.subTotalCost - this.discount_amount;
+        } else {
+          this.discount_amount = 0;
+          this.appointmentAmountAfterDiscount = this.subTotalCost;
+        }
+        if(this.textPercentage > 0){
+          this.totalTax = this.appointmentAmountAfterDiscount*this.textPercentage/100;
+        }
+      }else{
+      }
+    });
+  }
+
+  removeCoupon(){
+    this.posCouponApplied = false;
+    this.appliedCouponDetail = null;
+    this.discount_amount = 0;
+    if(this.textPercentage > 0){
+      this.totalTax = this.subTotalCost*this.textPercentage/100;
+    }
+  }
+
   fnShowNote(note){
     const dialogRef = this.dialog.open(addPOSBookingNoteDialog, {
       width: '500px',
@@ -877,13 +924,13 @@ export class AppointmentLiveComponent implements OnInit {
       
 
       
-      this.totalCost = 0;
+      this.subTotalCost = 0;
       this.cartArr.forEach(element => {
-        this.totalCost = this.totalCost+parseInt(element.subtotal);
+        this.subTotalCost = this.subTotalCost+parseInt(element.subtotal);
       });
 
       if(this.textPercentage > 0){
-        this.totalTax = this.totalCost*this.textPercentage/100;
+        this.totalTax = this.subTotalCost*this.textPercentage/100;
       }
 
     }
@@ -905,26 +952,26 @@ export class AppointmentLiveComponent implements OnInit {
     this.cartArr[index].subtotal = this.cartArr[index].count * this.ServiceList[index].service_cost;
     this.cartArr[index].totalCost = this.cartArr[index].count * this.ServiceList[index].service_cost;
 
-    this.totalCost = 0;
+    this.subTotalCost = 0;
     this.cartArr.forEach(element => {
-      this.totalCost = this.totalCost+parseInt(element.subtotal);
+      this.subTotalCost = this.subTotalCost+parseInt(element.subtotal);
     });
 
     if(this.textPercentage > 0){
-      this.totalTax = this.totalCost*this.textPercentage/100;
+      this.totalTax = this.subTotalCost*this.textPercentage/100;
     }
 
   }
 
   fnDeleteItem(elem){
     this.cartArr.splice(elem, 1);
-    this.totalCost = 0;
+    this.subTotalCost = 0;
     this.cartArr.forEach(element => {
-      this.totalCost = this.totalCost+parseInt(element.subtotal);
+      this.subTotalCost = this.subTotalCost+parseInt(element.subtotal);
     });
 
     if(this.textPercentage > 0){
-      this.totalTax = this.totalCost*this.textPercentage/100;
+      this.totalTax = this.subTotalCost*this.textPercentage/100;
     }
     
   }
@@ -956,21 +1003,33 @@ export class AppointmentLiveComponent implements OnInit {
 
       this.taxArr.forEach(element => {
         
-        itemTaxTotal = itemTaxTotal + parseInt(cartelement.subtotal)*parseInt(element.value)/100;
-
-        tmpItemTaxArr.push({
-          'amount' : cartelement.subtotal*element.value/100,
-          'name' : element.name,
-          'value' : element.value
-        });
+        if(this.posCouponApplied){
+          itemTaxTotal = itemTaxTotal + parseInt(cartelement.subtotal)*parseInt(element.value)/100;
+  
+          tmpItemTaxArr.push({
+            'amount' : cartelement.subtotal*element.value/100,
+            'name' : element.name,
+            'value' : element.value
+          });
+          cartelement.tax = tmpItemTaxArr;
+          cartelement.totalCost = parseInt(cartelement.subtotal) + itemTaxTotal;
+        }else{
+          itemTaxTotal = itemTaxTotal + parseInt(cartelement.subtotal)*parseInt(element.value)/100;
+  
+          tmpItemTaxArr.push({
+            'amount' : cartelement.subtotal*element.value/100,
+            'name' : element.name,
+            'value' : element.value
+          });
+          cartelement.tax = tmpItemTaxArr;
+          cartelement.totalCost = parseInt(cartelement.subtotal) + itemTaxTotal;
+        }
       });
-      cartelement.tax = tmpItemTaxArr;
-      cartelement.totalCost = parseInt(cartelement.subtotal) + itemTaxTotal;
     });
 
     this.taxArr.forEach(element => {
       newTaxArr.push({
-        'amount' : this.totalCost*element.value/100,
+        'amount' : this.subTotalCost*element.value/100,
         'name' : element.name,
         'value' : element.value
       });
@@ -988,11 +1047,14 @@ export class AppointmentLiveComponent implements OnInit {
       "customer_phone": this.newCustomer.get('cus_mobile').value,
       "customer_email": this.newCustomer.get('cus_email').value,
       "created_by": "admin",
-      "subtotal": this.totalCost,
+      "subtotal": this.subTotalCost,
       "reference_id": "",
       "transaction_id": "",
       "payment_datetime": payment_datetime,
-      "nettotal": this.totalCost+this.totalTax,
+      "nettotal": this.posCouponApplied?this.appointmentAmountAfterDiscount+this.totalTax:this.subTotalCost+this.totalTax,
+      "discount_type" : this.appliedCouponDetail.coupon_type,
+      "discount_value" : this.discount_amount,
+      "discount": this.discount_amount,
       "tax" :  newTaxArr,
       "totalTax" : this.totalTax,
       "payment_method": this.paymentData ? this.paymentData.payment_method : 'cash',
@@ -1012,7 +1074,7 @@ export class AppointmentLiveComponent implements OnInit {
         
         this.cartArr = [];
         this.newCustomer.reset();
-        this.totalCost = 0;
+        this.subTotalCost = 0;
         this._snackBar.open('order created', "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1643,6 +1705,72 @@ constructor(
   onAdd(): void {
     this.dialogRef.close(this.createNewNote.get('note_description').value);
   }
+}
+
+@Component({
+  selector: 'add-coupon-pos',
+  templateUrl: '../_dialogs/add-coupon-pos.html',
+    providers: [DatePipe]
+})
+export class addPOSCouponDialog {
+  couponCode:any;
+  businessId:any;
+  cartArr:any =[];
+  couponError:any="";
+  allServiceIds:any ="";
+
+constructor(
+  public dialogRef: MatDialogRef<addPOSCouponDialog>,
+  private adminService: AdminService,
+  private _snackBar: MatSnackBar,
+  private datePipe: DatePipe,
+  private _formBuilder:FormBuilder,
+  public dialog: MatDialog,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.businessId = this.data.businessId;
+    this.cartArr = this.data.cartArr;
+    console.log(this.cartArr) 
+    this.cartArr.forEach(element => {
+      // this.allServiceIds.push(element.id)
+      
+      this.allServiceIds=this.allServiceIds+element.id+',';
+    });
+    this.allServiceIds=this.allServiceIds.substring(0, this.allServiceIds.length - 1);
+
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  
+  onAdd(): void {
+    if(this.couponCode) {
+      let couponRequestObject = {
+        "business_id" : this.businessId,
+        "service_id" : this.allServiceIds,
+        "coupon_code" : this.couponCode,
+      };
+      this.adminService.checkCoupon(couponRequestObject).subscribe((response:any) =>{
+        if(response.data == true){
+          this._snackBar.open("Coupon Applied Successfully", "X", {
+            duration: 2000,
+            verticalPosition:'top',
+            panelClass :['green-snackbar']
+          });
+          this.dialogRef.close(response.response);
+          
+        } else {
+          this.couponError=response.response
+        }
+      });
+    } else {
+      this._snackBar.open('Select service', "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['red-snackbar']
+      });
+    }
+  }
+
 }
 
 @Component({
@@ -2940,6 +3068,7 @@ selectedStaff:any;
 minDate = new Date();
 timeSlotArr:any= [];
 availableStaff:any= [];
+isLoaderAdmin:boolean = true;
 constructor(
   public dialogRef: MatDialogRef<RescheduleAppointment>,
   private adminService: AdminService,
@@ -2980,7 +3109,7 @@ constructor(
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
+    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
@@ -2992,6 +3121,7 @@ constructor(
         }
         else{
         }
+        this.isLoaderAdmin = false;
       },
       (err) =>{
         console.log(err)
@@ -3016,7 +3146,7 @@ constructor(
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
-
+      this.isLoaderAdmin = true;
       this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
         map((res) => {
           return res;
@@ -3029,6 +3159,7 @@ constructor(
         else{
           this.availableStaff.length=0;
         }
+        this.isLoaderAdmin = false;
         },
         (err) =>{
           console.log(err)
@@ -3044,6 +3175,7 @@ constructor(
           "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
           "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
          };
+         this.isLoaderAdmin = true;
          this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
            if(response.data == true){
              this._snackBar.open("Appointment Rescheduled.", "X", {
@@ -3060,6 +3192,7 @@ constructor(
                panelClass :['red-snackbar']
                });
            }
+           this.isLoaderAdmin = false;
          })
       }else{
         

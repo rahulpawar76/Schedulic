@@ -33,7 +33,7 @@ import { InterruptedReschedule, dateRangeSelectDialog } from './my-work-space/my
 import { InterruptedReschedulecustomer } from './customers/customers.component';
 import { RescheduleAppointAdmin } from './appointment/appointment.component';
 import { MyProfileComponent } from './settings-my-profile/settings-my-profile.component';
-import { OnTheWayAppointmentDetailsDialog, WorkStartedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog, DialogNotification, DialogNotificationAppointment } from './appointment-live/appointment-live.component';
+import { OnTheWayAppointmentDetailsDialog, WorkStartedAppointmentDetailsDialog, PendingAppointmentDetailsDialog, addPOSBookingNoteDialog, paymentModeDialog, DialogNotification, DialogNotificationAppointment, addPOSCouponDialog } from './appointment-live/appointment-live.component';
 import {DialogAllAppointmentDetails} from './appointment/appointment.component';
 import { DialogMyProfileImageUpload } from './settings-my-profile/settings-my-profile.component';
 import { DialogCustomerImageUpload } from './customers/customers.component';
@@ -74,6 +74,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     DialogCustomerImageUpload,
     PendingAppointmentDetailsDialog,
     addPOSBookingNoteDialog,
+    addPOSCouponDialog,
     paymentModeDialog,
     DialogNotification, 
     DialogNotificationAppointment,
@@ -120,7 +121,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
   ],
   entryComponents: [myCreateNewBusinessDialog,DialogAddNewAppointment,
     DialogNewCustomerAppointment,DialogAddNewNote,DialogPaymentNote,
-    DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,paymentModeDialog,DialogNotification, DialogNotificationAppointment,
+    DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,addPOSCouponDialog,paymentModeDialog,DialogNotification, DialogNotificationAppointment,
     WorkStartedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     DialogImportFileUpload,DialogImportServiceUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
     DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog,dateRangeSelectDialog],
