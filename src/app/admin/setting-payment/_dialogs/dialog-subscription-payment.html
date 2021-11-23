@@ -1,0 +1,114 @@
+<div class="modal-dialog modal-lg modal-notify modal-info" role="document">
+    <div class="loader-main" *ngIf="isLoaderAdmin"><img src="../../../assets/images/sc-loader.svg" /></div>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <p class="heading lead mb-0 work-content">Card Detail</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body card-form-wrap">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 p-3">
+                        <form [formGroup]="cardPaymentForm">
+                            <label for="" class="mb-0">Card Holder Name</label>
+                            <input formControlName="name" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('name').dirty || cardPaymentForm.get('name').touched">
+                                <small *ngIf="cardPaymentForm.get('name').hasError('required')" class="error">Name is required.</small>
+                            </span>
+                            <label for="" class="mb-0">Address</label>
+                            <input formControlName="address" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('address').dirty || cardPaymentForm.get('address').touched">
+                                <small *ngIf="cardPaymentForm.get('address').hasError('required')" class="error">Address is required.</small>
+                            </span>
+                            <label for="" class="mb-0">Country</label>
+                            <mat-select class="form-control" formControlName="country" (selectionChange)="selectCountry($event.value)">
+                                <mat-option *ngFor="let allCountry of allCountry; let i=index;" value="{{allCountry.id}}">{{allCountry.name}}</mat-option>
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('country').dirty || cardPaymentForm.get('country').touched">
+                                <small *ngIf="cardPaymentForm.get('country').hasError('required')" class="error">Country is required.</small>
+                            </span>
+                            <label for="" class="mb-0">State</label>
+                                <mat-select class="form-control" formControlName="state" (selectionChange)="selectStates($event.value)">
+                                    <mat-option *ngFor="let allStates of allStates" [value]="allStates.id">
+                                        {{allStates.name}}
+                                    </mat-option>
+                                </mat-select>
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('state').dirty || cardPaymentForm.get('state').touched"><small *ngIf="cardPaymentForm.get('state').hasError('required')" class="error">State is required.</small></span>
+
+                            <label for="" class="mb-0">City</label>
+                            <mat-select class="form-control" formControlName="city">
+                                <mat-option *ngFor="let city of allCities" [value]="city.id">
+                                    {{city.name}}
+                                </mat-option>
+                            
+                                
+                            </mat-select>
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('city').dirty || cardPaymentForm.get('city').touched">
+                                <small *ngIf="cardPaymentForm.get('city').hasError('required')" class="error">State is required.</small>
+                            </span>
+
+                            <label for="" class="mb-0">Zip Code</label>
+                            <input formControlName="zipcode" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('zipcode').dirty || cardPaymentForm.get('zipcode').touched">
+                                <small *ngIf="cardPaymentForm.get('zipcode').hasError('required')" class="error">Zip Code is required.</small>
+                                <small *ngIf="!cardPaymentForm.get('zipcode').hasError('pattern') && (cardPaymentForm.get('zipcode').hasError('maxlength') || cardPaymentForm.get('zipcode').hasError('minlength'))" class="error">Zipcode should be 6 digit.</small>
+                            </span>
+
+                            <label for="" class="mb-0">Card Number</label>
+                            <input formControlName="cardNumber" type="text" class="form-control mb-2" />
+                            <span class="error-wrap" *ngIf="cardPaymentForm.get('cardNumber').dirty || cardPaymentForm.get('cardNumber').touched">
+                                <small *ngIf="cardPaymentForm.get('cardNumber').hasError('required') || (cardPaymentForm.get('cardNumber').hasError('required')) && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number is required.</small>
+                                <small *ngIf="!cardPaymentForm.get('cardNumber').hasError('pattern') && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number should be 16 digit.</small>
+                                <small *ngIf="cardPaymentForm.get('cardNumber').hasError('pattern') || (cardPaymentForm.get('cardNumber').hasError('pattern')) && (cardPaymentForm.get('cardNumber').hasError('maxlength') || cardPaymentForm.get('cardNumber').hasError('minlength'))" class="error">Card Number should be numeric.</small>
+                            </span>
+                            <div class="row">
+                                <div class="col-12 my-2">
+                                    <label for="" class="mb-0">Expiry Date</label>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="mb-0">Month</label>
+                                    <input formControlName="cardEXMonth" type="text" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardEXMonth').dirty || cardPaymentForm.get('cardEXMonth').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardEXMonth').hasError('required') || (cardPaymentForm.get('cardEXMonth').hasError('required')) && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardEXMonth').hasError('pattern') && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month should be 2 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardEXMonth').hasError('pattern') || (cardPaymentForm.get('cardEXMonth').hasError('pattern')) && (cardPaymentForm.get('cardEXMonth').hasError('maxlength') || cardPaymentForm.get('cardEXMonth').hasError('minlength'))" class="error">Ex. Month should be numeric.</small>
+                                    </span>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="" class="mb-0">Year</label>
+                                    <input formControlName="cardEXYear" type="text" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardEXYear').dirty || cardPaymentForm.get('cardEXYear').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardEXYear').hasError('required') || (cardPaymentForm.get('cardEXYear').hasError('required')) && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardEXYear').hasError('pattern') && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year should be 2 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardEXYear').hasError('pattern') || (cardPaymentForm.get('cardEXYear').hasError('pattern')) && (cardPaymentForm.get('cardEXYear').hasError('maxlength') || cardPaymentForm.get('cardEXYear').hasError('minlength'))" class="error">Ex. Year should be numeric.</small>
+                                    </span>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="" class="mb-0">CVV</label>
+                                    <input formControlName="cardCVV" type="password" class="form-control mb-1" />
+                                    <span class="error-wrap" *ngIf="cardPaymentForm.get('cardCVV').dirty || cardPaymentForm.get('cardCVV').touched">
+                                        <small *ngIf="cardPaymentForm.get('cardCVV').hasError('required') || (cardPaymentForm.get('cardCVV').hasError('required')) && (cardPaymentForm.get('cardCVV').hasError('cardCVV') || cardPaymentForm.get('cardCVV').hasError('cardCVV'))" class="error">CVV is required.</small>
+                                        <small *ngIf="!cardPaymentForm.get('cardCVV').hasError('pattern') && (cardPaymentForm.get('cardCVV').hasError('maxlength') || cardPaymentForm.get('cardCVV').hasError('minlength'))" class="error">CVV should be 3 digit.</small>
+                                        <small *ngIf="cardPaymentForm.get('cardCVV').hasError('pattern') || (cardPaymentForm.get('cardCVV').hasError('pattern')) && (cardPaymentForm.get('cardCVV').hasError('maxlength') || cardPaymentForm.get('cardCVV').hasError('minlength'))" class="error">CVV should be numeric.</small>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-6 p-5">
+                        <img class="w-100" src="../../../assets/images/ATMCard.png">
+                    </div>
+
+                    <div class="col-12 text-right pt-3">
+                        <button mat-flat-button color="primary" (click)="fnPayNow()">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1982,6 +1982,7 @@ export class InterruptedReschedulecustomer {
   minDate = new Date(2000, 0, 1);
   timeSlotArr:any= [];
   availableStaff:any= [];
+  isLoaderAdmin:boolean = false;
   constructor(
     public dialogRef: MatDialogRef<InterruptedReschedulecustomer>,
     private datePipe: DatePipe,
@@ -2021,7 +2022,7 @@ export class InterruptedReschedulecustomer {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
+    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/list-availabel-timings`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
@@ -2033,6 +2034,7 @@ export class InterruptedReschedulecustomer {
         }
         else{
         }
+        this.isLoaderAdmin = false;
       },
       (err) =>{
         console.log(err)
@@ -2060,6 +2062,7 @@ export class InterruptedReschedulecustomer {
       'Content-Type': 'application/json',
     });
 
+    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/service-staff`,requestObject,{headers:headers} ).pipe(
       map((res) => {
         return res;
@@ -2070,6 +2073,7 @@ export class InterruptedReschedulecustomer {
       } else{
         this.availableStaff.length=0;
       }
+      this.isLoaderAdmin = false;
     },(err) =>{
       console.log(err)
     })
@@ -2088,6 +2092,7 @@ formRescheduleSubmit(){
       "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
       "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
      };
+     this.isLoaderAdmin = true;
      this.adminService.rescheduleAppointment(requestObject).subscribe((response:any) =>{
        if(response.data == true){
          this._snackBar.open("Appointment Rescheduled.", "X", {
@@ -2104,6 +2109,7 @@ formRescheduleSubmit(){
            panelClass :['red-snackbar']
            });
        }
+       this.isLoaderAdmin = false;
      })
   }else{
     this.formAppointmentRescheduleAdmin.get('rescheduleStaff').markAllAsTouched();

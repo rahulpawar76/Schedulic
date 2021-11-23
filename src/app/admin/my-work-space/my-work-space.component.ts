@@ -828,6 +828,7 @@ export class InterruptedReschedule {
   maximumAdvanceBookingTime: any;
   minimumAdvanceBookingDateTimeObject: any;
   maximumAdvanceBookingDateTimeObject: any;
+  isLoaderAdmin:boolean=false;
   constructor(
     public dialogRef: MatDialogRef<InterruptedReschedule>,
     private datePipe: DatePipe,
@@ -883,6 +884,7 @@ export class InterruptedReschedule {
     let requestObject = {
       "business_id": this.businessId
     };
+    this.isLoaderAdmin = true;
     this.adminService.getSettingValue(requestObject).subscribe((response: any) => {
       if (response.data == true && response.response != '') {
         this.settingsArr = response.response;
@@ -905,6 +907,7 @@ export class InterruptedReschedule {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
@@ -912,6 +915,7 @@ export class InterruptedReschedule {
     let requestObject = {
       "business_id": this.businessId
     };
+    this.isLoaderAdmin = true;
     this.adminService.getOffDays(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         if (response.response.holidays.length > 0) {
@@ -963,6 +967,7 @@ export class InterruptedReschedule {
         });
 
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         console.log(err)
@@ -987,7 +992,7 @@ export class InterruptedReschedule {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
+    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/list-availabel-timings`, requestObject, { headers: headers }).pipe(
       map((res) => {
         return res;
@@ -999,6 +1004,7 @@ export class InterruptedReschedule {
       }
       else {
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         console.log(err)
@@ -1023,7 +1029,7 @@ export class InterruptedReschedule {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
+    this.isLoaderAdmin = true;
     this.http.post(`${environment.apiUrl}/service-staff`, requestObject, { headers: headers }).pipe(
       map((res) => {
         return res;
@@ -1036,6 +1042,7 @@ export class InterruptedReschedule {
       else {
         this.availableStaff.length = 0;
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         console.log(err)
@@ -1054,7 +1061,7 @@ export class InterruptedReschedule {
       this.formAppointmentRescheduleAdmin.get('rescheduleDate').markAsTouched();
       return false;
     }
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": JSON.stringify(this.detailsData.id),
       "staff_id": this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
@@ -1078,6 +1085,7 @@ export class InterruptedReschedule {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 

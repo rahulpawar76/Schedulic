@@ -12,7 +12,7 @@ import { SharedModule } from '../../shared.module';
 
 
 import { PaymentgatewayComponent } from './paymentgateway/paymentgateway.component';
-import { BillingComponent } from './billing/billing.component';
+import { BillingComponent, DialogSubscriptionCardForm } from './billing/billing.component';
 import { PaymentrulesComponent, DialogAddNewTax } from './paymentrules/paymentrules.component';
 
 
@@ -23,6 +23,7 @@ import { PaymentrulesComponent, DialogAddNewTax } from './paymentrules/paymentru
     BillingComponent,
     PaymentrulesComponent,
     DialogAddNewTax,
+    DialogSubscriptionCardForm,
   ],
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import { PaymentrulesComponent, DialogAddNewTax } from './paymentrules/paymentru
   
   bootstrap: [],
    entryComponents: [
-    DialogAddNewTax
+    DialogAddNewTax,
+    DialogSubscriptionCardForm
    ]
 })
 export class SettingPaymentModule { }

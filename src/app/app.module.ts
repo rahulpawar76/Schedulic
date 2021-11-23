@@ -45,7 +45,8 @@ registerLocaleData(localeDe);
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("51939399095-dc6gpul854b6gba2712cdq1tjram4047.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider("914032289146-jvjce30ps22vv85vp2285ag4heqe1kak.apps.googleusercontent.com")
+    // provider: new GoogleLoginProvider("51939399095-dc6gpul854b6gba2712cdq1tjram4047.apps.googleusercontent.com")
 
   },
   {

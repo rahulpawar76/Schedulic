@@ -309,9 +309,9 @@
                                 <div class="item subtotal">
                                     <div class="service-name" fxFlex="70">
                                         <label *ngIf="currencySymbolPosition=='left'">Subtotal : {{currencySymbol|
-                                            currencySymbol:'wide'}} {{ totalCost |
+                                            currencySymbol:'wide'}} {{ subTotalCost |
                                             currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</label>
-                                        <label *ngIf="currencySymbolPosition=='right'">Subtotal : {{ totalCost |
+                                        <label *ngIf="currencySymbolPosition=='right'">Subtotal : {{ subTotalCost |
                                             currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                             {{currencySymbol| currencySymbol:'wide'}}</label>
                                     </div>
@@ -332,14 +332,34 @@
                                         <mat-icon>sticky_note_2</mat-icon>
                                     </p>
                                 </div>
-                                <div class="total">
+                                <div class="add-note justify-content-between">
+                                    <p [ngClass]="{'disbaled-lable' : posCouponApplied && appliedCouponDetail}" (click)="openCouponModal()" class="title">Apply Coupon</p>
+                                    <span *ngIf="posCouponApplied && appliedCouponDetail">
+                                        {{appliedCouponDetail.coupon_title}} 
+                                        <span class="material-icons pointer" (click)="removeCoupon()"> highlight_off </span>
+                                    </span>
+                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='left'">-{{currencySymbol| currencySymbol:'wide'}} {{ appliedCouponDetail.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='right'">-{{ appliedCouponDetail.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                </div>
+                                <div class="total" *ngIf="!posCouponApplied">
                                     <p fxFlex="50" class="title text-left">Total</p>
                                     <p fxFlex="50" class="amount text-right mb-0"
                                         *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
-                                        currencySymbol:'wide'}} {{ (totalCost+totalTax) |
+                                        currencySymbol:'wide'}} {{ (subTotalCost+totalTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                                     <p fxFlex="50" class="amount text-right mb-0"
-                                        *ngIf="currencySymbolPosition=='right'"> {{ (totalCost+totalTax) |
+                                        *ngIf="currencySymbolPosition=='right'"> {{ (subTotalCost+totalTax) |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
+                                        currencySymbol:'wide'}}</p>
+                                </div>
+                                <div class="total" *ngIf="posCouponApplied">
+                                    <p fxFlex="50" class="title text-left">Total</p>
+                                    <p fxFlex="50" class="amount text-right mb-0"
+                                        *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
+                                        currencySymbol:'wide'}} {{ (appointmentAmountAfterDiscount+totalTax) |
+                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
+                                    <p fxFlex="50" class="amount text-right mb-0"
+                                        *ngIf="currencySymbolPosition=='right'"> {{ (appointmentAmountAfterDiscount+totalTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                         currencySymbol:'wide'}}</p>
                                 </div>
