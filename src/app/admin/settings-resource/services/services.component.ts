@@ -2136,12 +2136,11 @@ export class ServicesComponent implements OnInit {
         }
 
 
-    ImportFileUpload(categoryId, filter) {
+    ImportFileUpload() {
         const dialogRef = this.dialog.open(DialogImportServiceUpload, {
             width: '500px',
             data: {
-                categoryId:categoryId,
-                filter: filter
+                businessId:this.businessId,
               }
         });
     
@@ -2315,8 +2314,7 @@ export class ServicesComponent implements OnInit {
   
   fileToUpload:any;
   isLoaderAdmin : boolean = false;
-  categoryId:any;
-  filter:any;
+  businessId:any;
   
   constructor(
     public dialogRef: MatDialogRef<DialogImportServiceUpload>,
@@ -2324,8 +2322,7 @@ export class ServicesComponent implements OnInit {
     private _snackBar: MatSnackBar,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.categoryId = this.data.categoryId;
-        this.filter = this.data.filter;
+        this.businessId = this.data.businessId;
     }
   
     onNoClick(): void {
@@ -2370,10 +2367,6 @@ export class ServicesComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append('file', this.fileToUpload);
       formData.append('business_id',JSON.parse(localStorage.getItem('business_id')));
-      formData.append('category_id', this.categoryId);
-      formData.append('filter', this.filter);
-
-
       this.adminSettingsService.fnImportService(formData).subscribe((response:any) => {
         if(response.data == true){
             this._snackBar.open("CSV file is uploaded", "X", {
