@@ -41,22 +41,25 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex payment-details px-3">
+        <div class="d-flex flex-wrap payment-details px-3">
             <label class="service mb-0">Total Amount</label>
-            <label *ngIf="currencySymbolPosition=='left'" class="amount mb-0 font-weight-bold">
-                {{currencySymbol| currencySymbol:'wide'}} 
+            <label *ngIf="currencySymbolPosition=='left'" class="amount d-flex mb-0 font-weight-bold">
+                <span> {{currencySymbol| currencySymbol:'wide'}} </span>
                 <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/>
+                
             </label>
-            <label *ngIf="currencySymbolPosition=='right'" class="amount mb-0 font-weight-bold">
-                <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/> {{currencySymbol| currencySymbol:'wide'}}
+            <label *ngIf="currencySymbolPosition=='right'" class="amount d-flex mb-0 font-weight-bold">
+                <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/> 
+                <span>{{currencySymbol| currencySymbol:'wide'}}</span>
             </label>
+            <span class="error-wrap text-right" *ngIf="appointDetailData.total_cost > newAmount"><small  class="error">Amount should grater then Original Amount.</small></span>
         </div>
         <hr>
         <div class="d-flex my-3 payment-confirm-btns">
 
             <button (click)="cancelPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block text-light btn sc-grey-btn cancelbtn float-right">Cancel</button>
-            <button (click)="onlinePayment()" *ngIf="paymentMethod == 'Online'" class="d-block btn text-light sc-pink-btn confirmpaymentbtn">Send Payment Link To Customer</button>
-            <button (click)="confirmCashPayment()" *ngIf="paymentMethod == 'Cash'" class="d-block text-light btn sc-pink-btn confirmbtn float-right">Confirm</button>
+            <button (click)="onlinePayment()" [disabled]="appointDetailData.total_cost > newAmount" *ngIf="paymentMethod == 'Online'" class="d-block btn text-light sc-pink-btn confirmpaymentbtn">Send Payment Link To Customer</button>
+            <button (click)="confirmCashPayment()" [disabled]="appointDetailData.total_cost > newAmount" *ngIf="paymentMethod == 'Cash'" class="d-block text-light btn sc-pink-btn confirmbtn float-right">Confirm</button>
         </div>
 
 
