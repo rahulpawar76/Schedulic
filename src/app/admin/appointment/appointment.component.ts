@@ -1873,7 +1873,7 @@ export class DialogAddNewAppointment {
       });
       if(this.timeSlotArr.length==0){
         this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
-    this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
+        this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
       }
       }
       else{

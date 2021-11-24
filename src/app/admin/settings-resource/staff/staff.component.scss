@@ -252,6 +252,7 @@
     ::ng-deep .main-breaks-content{
         .breaks-list{
            width: 100%;
+           max-width: 1000px;
            .break-box{
                background-color: #EAF7F6;
                padding: 10px;
@@ -262,6 +263,7 @@
                border-radius: 5px;
                width: 80%;
                padding-left: 20px;
+               margin-bottom: 0;
                .add-braek-btn {
                    width: 100px;
                    height: 34px;
@@ -354,6 +356,7 @@
         border-radius: 4px;
         background-color: #f04589;
         color: #fff;
+        margin-left: 15px;
     }
     .staff-Hours-btn {
         width: 120px;

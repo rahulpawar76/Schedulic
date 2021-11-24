@@ -547,7 +547,7 @@
                                     <div class="" fxFlex="20">
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="tuesdayOn" (click)="fnShowAddBreakForm('Tuesday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!tuesdayOn">Closed</button></div>
-                                    <div fxFlex="60" *ngIf="tuesdayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="tuesdayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '2'">
                                                 <div class="common-input">
@@ -595,7 +595,7 @@
                                     <div class="day-name" fxFlex="20">Wednesday</div>
                                     <div class="" fxFlex="20"><button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="wednesdayOn" (click)="fnShowAddBreakForm('Wednesday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!wednesdayOn">Closed</button></div>
-                                    <div fxFlex="60" *ngIf="wednesdayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="wednesdayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '3'">
                                                 <div class="common-input">
@@ -644,7 +644,7 @@
                                     <div class="day-name" fxFlex="20">Thursday</div>
                                     <div class="" fxFlex="20"><button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="thursdayOn" (click)="fnShowAddBreakForm('Thursday')">Add Break</button><button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2"
                                             *ngIf="!thursdayOn">Closed</button></div>
-                                    <div fxFlex="60" *ngIf="thursdayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="thursdayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '4'">
                                                 <div class="common-input">
@@ -695,7 +695,7 @@
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="fridayOn" (click)="fnShowAddBreakForm('Friday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!fridayOn">Closed</button>
                                     </div>
-                                    <div fxFlex="60" *ngIf="fridayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="fridayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '5'">
                                                 <div class="common-input">
@@ -746,7 +746,7 @@
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="saturdayOn" (click)="fnShowAddBreakForm('Saturday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!saturdayOn">Closed</button>
                                     </div>
-                                    <div fxFlex="60" *ngIf="saturdayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="saturdayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '6'">
                                                 <div class="common-input">
@@ -797,7 +797,7 @@
                                         <button mat-button appearance="fill" class="add-braek-btn ml-2 mr-2" *ngIf="sundayOn" (click)="fnShowAddBreakForm('Sunday')">Add Break</button>
                                         <button mat-button appearance="fill" class="add-braek-btn braek-closed ml-2 mr-2" *ngIf="!sundayOn">Closed</button>
                                     </div>
-                                    <div fxFlex="60" *ngIf="sundayOn">
+                                    <div class="hrs-drpdwn" fxFlex="60" *ngIf="sundayOn">
                                         <div class="breaktime-slot-main" *ngFor="let breakTime of breakTimeList">
                                             <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
                                                 <div class="common-input">
@@ -843,7 +843,7 @@
                                 </div>
                             </div>
                             <div class="blue-font pointer ml-2">
-                                <p class="apply-all-btn" > Apply to all </p>
+                                <p class="apply-all-btn pointer" (click)="fnApplyToAllBreaks()"> Apply to all </p>
                             </div>
                         </div>
                     </div>

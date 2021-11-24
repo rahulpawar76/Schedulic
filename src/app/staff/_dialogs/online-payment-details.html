@@ -41,16 +41,21 @@
             </div>
         </div>
         <hr>
+        <div class="d-flex flex-wrap payment-details mt-2 px-3">
+            <label class="service mb-2">Payment Note</label>
+            <textarea mat-input [(ngModel)]="paymentNote" class="form-control"></textarea>
+        </div>
+        <hr>
         <div class="d-flex flex-wrap payment-details px-3">
             <label class="service mb-0">Total Amount</label>
             <label *ngIf="currencySymbolPosition=='left'" class="amount d-flex mb-0 font-weight-bold">
-                <span> {{currencySymbol| currencySymbol:'wide'}} </span>
+                <span class="font-weight-normal"> {{currencySymbol| currencySymbol:'wide'}} </span>
                 <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/>
                 
             </label>
             <label *ngIf="currencySymbolPosition=='right'" class="amount d-flex mb-0 font-weight-bold">
                 <input class="form-control" [min]="appointDetailData.total_cost" mat-input type="number" [(ngModel)]="newAmount"/> 
-                <span>{{currencySymbol| currencySymbol:'wide'}}</span>
+                <span class="font-weight-normal">{{currencySymbol| currencySymbol:'wide'}}</span>
             </label>
             <span class="error-wrap text-right" *ngIf="appointDetailData.total_cost > newAmount"><small  class="error">Amount should grater then Original Amount.</small></span>
         </div>

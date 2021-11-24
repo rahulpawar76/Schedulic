@@ -260,7 +260,7 @@ export class MyBookingComponent implements OnInit {
   changeBookingStatus(order_item_id, status, index){
     
     this.isLoader=true;
-    if(status == 'CO' && this.onGoingAppointmentData[index].payment!=null && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'){
+    if(status == 'CO' && (this.onGoingAppointmentData[index].payment == null || (this.onGoingAppointmentData[index].payment!=null && this.onGoingAppointmentData[index].payment.payment_status == 'unpaid'))){
       this.OnlinePaymentMode(index);
     }else {
       
@@ -2669,6 +2669,7 @@ export class MyBookingComponent implements OnInit {
     couponType:any;
     couponValue:any;
     newAmount:number;
+    paymentNote:any;
     constructor(
       public dialogRef: MatDialogRef<DialogOnlinePaymentDetails>,
       private StaffService: StaffService,
@@ -2809,13 +2810,13 @@ export class MyBookingComponent implements OnInit {
           "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
           "payment_method" : this.paymentMethod,
           "amount" : this.appointDetailData.total_cost,
-          "paymentnotes" : "Payed through staff"
+          "paymentnotes" : this.paymentNote?this.paymentNote:null
         }]
         let requestObject ={
           "order_item_id" : this.appointDetailData.id,
           "orders" : orders,
           "orderItem" : orderItems,
-          "payment" : payment
+          "payment" : payment,
         }
         console.log(this.appointDetailData.tax);
         this.StaffService.staffPayment(requestObject).subscribe((response:any) =>{

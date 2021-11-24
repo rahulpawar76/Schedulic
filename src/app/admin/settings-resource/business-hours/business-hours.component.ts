@@ -311,6 +311,49 @@ export class BusinessHoursComponent implements OnInit {
       this.isLoaderAdmin = false;
     })
   }
+
+  
+
+  fnApplyToAllBreaks(){
+    let mondayBreaks = [];
+    mondayBreaks = this.breakTimeList.filter(element => element.week_day_id == 1);
+
+    mondayBreaks.forEach(element => {
+      if(element.break_start_time == '' || element.break_start_time == null || element.break_end_time == '' || element.break_end_time == null){
+        this.snackBar.open("Start & End Time can not be empty.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        return false;
+      }
+    });
+    let requestObject={
+      "business_id":this.businessId,
+      "mondayBreaks":mondayBreaks,
+    }
+    this.isLoaderAdmin = true;
+    this.adminSettingsService.applyToAllBreaks(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnGetBreakTimeList();
+        this.snackBar.open("Breaks applied to all.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+       this.snackBar.open("Breaks Not Updated.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+      }
+      this.isLoaderAdmin = false;
+    })
+  }
+
+
   fnCancelWorkingHours(){
     this.fnGetWorkingHours();
   }
