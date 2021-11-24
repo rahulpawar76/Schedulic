@@ -2335,8 +2335,8 @@ export class ServicesComponent implements OnInit {
   
     handleFileInput(files): void {
       this.fileToUpload = files.item(0);
-  
-      if(this.fileToUpload.type != "application/vnd.ms-excel"){
+      console.log(this.fileToUpload.type);
+      if(this.fileToUpload.type != "text/csv"){
         this._snackBar.open("Please select CSV file", "X", {
           duration: 2000,
           verticalPosition:'top',
@@ -2350,8 +2350,8 @@ export class ServicesComponent implements OnInit {
     }
   
     fileupload(){
-      
-      if(this.fileToUpload.type != "application/vnd.ms-excel"){
+      console.log(this.fileToUpload.type);
+      if(this.fileToUpload.type != "text/csv"){
   
         this._snackBar.open("Please select CSV file", "X", {
           duration: 2000,
