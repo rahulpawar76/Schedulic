@@ -1430,11 +1430,11 @@ mat-radio-group {
 }
 
 .billing-cart {
-    height: calc(100vh - 140px);
+    height: calc(100vh - 123px);
     overflow-y: auto;
     border-left: 1px solid #00a89b;
     .order-items {
-        height: calc(100vh - 423px);
+        height: calc(100vh - 355px);
         overflow-y: auto;
     }
     .border-color-wrap {
@@ -1505,4 +1505,7 @@ agm-map {
 .disbaled-lable{
     pointer-events: none;
     opacity: 0.5;
+}
+.common-header .searchbox .search_input-staff{
+    width: 260px;
 }

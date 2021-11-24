@@ -26,8 +26,10 @@
 
 ::ng-deep .big-single-btn {
     height: auto;
-    background-color: #c3ddff;
-    color: $primary-color;
+    background-color: #ffe482;
+    color: #0e0e0e;
+    font-weight: 500;
+    font-size: 14px;
     .mat-button-wrapper {
         display: flex;
         flex-wrap: wrap;
