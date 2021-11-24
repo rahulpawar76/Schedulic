@@ -269,7 +269,7 @@
                                         </div>
                                         <div class="hrs-drpdwn" fxFlex="55" *ngIf="thursdayOn">
                                             <div *ngFor="let workHour of workingHoursList">
-                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '3'">
+                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '4'">
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
@@ -321,7 +321,7 @@
                                         </div>
                                         <div class="hrs-drpdwn" fxFlex="55" *ngIf="fridayOn">
                                             <div *ngFor="let workHour of workingHoursList">
-                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '3'">
+                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '5'">
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
@@ -373,7 +373,7 @@
                                         </div>
                                         <div class="hrs-drpdwn" fxFlex="55" *ngIf="saturdayOn">
                                             <div *ngFor="let workHour of workingHoursList">
-                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '3'">
+                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '6'">
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
@@ -425,7 +425,7 @@
                                         </div>
                                         <div class="hrs-drpdwn" fxFlex="55" *ngIf="sundayOn">
                                             <div *ngFor="let workHour of workingHoursList">
-                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '3'">
+                                                <div class="d-flex mb-2" *ngIf="workHour.week_day_id == '0'">
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
