@@ -1343,6 +1343,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
 }
 .form-control:focus {
     box-shadow: unset !important;
+    border-color: #00A89B;
 }
 .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
