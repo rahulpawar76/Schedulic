@@ -381,7 +381,7 @@
 
 
                             <button mat-button type="button" class="sc-pink-btn"
-                                *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' || appointmentDetails.staffId != null)">Assigned</button>
+                                *ngIf="(appointmentDetails.order_status == 'RSA' || appointmentDetails.order_status == 'RSC' || appointmentDetails.order_status == 'RSS' || appointmentDetails.order_status == 'CNF') && (appointmentDetails.staffId != '' && appointmentDetails.staffId != null)">Assigned</button>
                             <button mat-button type="button" class="d-block btn-primary float-right add-booking-notes"
                                 (click)="fnCompleteAppointment()"
                                 *ngIf="appointmentDetails.order_status == 'AC'">Complete</button>
