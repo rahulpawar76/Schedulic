@@ -106,8 +106,8 @@ export class AppointmentComponent implements OnInit {
         // this.addNewEvents = false; 
         this.addAppointment();
       }
-      // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-      // this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      // this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
+      // this.endDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
       this.fnGetSettingValue();
       this.getAllAppointments();
       this.getAllServices();
@@ -178,31 +178,31 @@ export class AppointmentComponent implements OnInit {
     
     this.selected = null;
 
-    // this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+    // this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
     if(this.durationType=='all'){
       this.startDate = '';
       this.endDate = '';
     }
     if(this.durationType=='daily'){
       
-      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
+      this.endDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
       this.endDate=this.startDate;
     }
 
     if(this.durationType=='week'){
       
-      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
+      this.endDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
       let dateEnd = new Date(this.startDate);
       dateEnd.setDate( dateEnd.getDate() + 6 );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
 
     if(this.durationType=='month'){
       
-      this.startDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
-      this.endDate=this.datePipe.transform(new Date(),"dd MMM yyyy")
+      this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
+      this.endDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
       let dateEnd = new Date(this.startDate);
       let monthEnd = dateEnd.getMonth() + 1;
       let yearEnd = dateEnd.getFullYear();
@@ -219,7 +219,7 @@ export class AppointmentComponent implements OnInit {
         addDaysToEndDate=29;
       }
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
 
@@ -232,8 +232,8 @@ export class AppointmentComponent implements OnInit {
       return;
     }else{
       this.durationType="all";
-      this.startDate = this.datePipe.transform(new Date(data.startDate._d),"dd MMM yyyy");
-      this.endDate = this.datePipe.transform(new Date(data.endDate._d),"dd MMM yyyy");
+      this.startDate = this.datePipe.transform(new Date(data.startDate._d),"yyyy/MM/dd");
+      this.endDate = this.datePipe.transform(new Date(data.endDate._d),"yyyy/MM/dd");
       this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
       this.getAllAppointments();
 
@@ -252,19 +252,19 @@ export class AppointmentComponent implements OnInit {
       let dateStart = new Date(this.startDate)
       let dateEnd = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() - 1 );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       dateEnd.setDate( dateEnd.getDate() - 1 );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     if(this.durationType=='week'){
       let dateStart = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() - 7 );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       let dateEnd = new Date(this.startDate)
       dateEnd.setDate( dateEnd.getDate() + 6 );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     if(this.durationType=='month'){
       let dateStart = new Date(this.startDate);
@@ -285,7 +285,7 @@ export class AppointmentComponent implements OnInit {
       }
 
       dateStart.setDate( dateStart.getDate() - addDaysToStartDate );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       let dateEnd = new Date(this.startDate);
 
@@ -305,7 +305,7 @@ export class AppointmentComponent implements OnInit {
       }
 
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
 
@@ -317,19 +317,19 @@ export class AppointmentComponent implements OnInit {
       let dateStart = new Date(this.startDate)
       let dateEnd = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() + 1 );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       dateEnd.setDate( dateEnd.getDate() + 1 );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     if(this.durationType=='week'){
       let dateStart = new Date(this.startDate)
       dateStart.setDate( dateStart.getDate() + 7 );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       let dateEnd = new Date(this.startDate)
       dateEnd.setDate( dateEnd.getDate() + 6 );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     if(this.durationType=='month'){
       let dateStart = new Date(this.startDate);
@@ -350,7 +350,7 @@ export class AppointmentComponent implements OnInit {
       }
 
       dateStart.setDate( dateStart.getDate() + addDaysToStartDate );
-      this.startDate=this.datePipe.transform(dateStart,"dd MMM yyyy");
+      this.startDate=this.datePipe.transform(dateStart,"yyyy/MM/dd");
       
       let dateEnd = new Date(this.startDate);
 
@@ -370,7 +370,7 @@ export class AppointmentComponent implements OnInit {
       }
 
       dateEnd.setDate( dateEnd.getDate() + addDaysToEndDate );
-      this.endDate=this.datePipe.transform(dateEnd,"dd MMM yyyy");
+      this.endDate=this.datePipe.transform(dateEnd,"yyyy/MM/dd");
     }
     // this.getAllAppointments(this.selectedServices);
     this.staffApiUrl =  `${environment.apiUrl}/admin-booking-listing`;
@@ -412,8 +412,8 @@ export class AppointmentComponent implements OnInit {
         
         this.allAppointments.forEach( (element) => { 
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy");
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd");
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
           element.is_selected = false;
         });
         // this.allAppointments = this.allAppointments.sort(this.dynamicSort("booking_date"))
@@ -809,7 +809,7 @@ export class DialogAddNewAppointment {
         this.appointmentData.staff=JSON.parse(this.data.appointmentData.staff_id);
       }
       this.selectedServiceId=this.appointmentData.service_id;
-      this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy-MM-dd");
+      this.selectedDate = this.datePipe.transform(new Date(this.appointmentData.booking_date),"yyyy/MM/dd");
       this.selectedTime=this.appointmentData.booking_time;
       this.disablePostalCode=false;
       this.disableCategory=true;
@@ -1120,7 +1120,7 @@ export class DialogAddNewAppointment {
 
         if(!this.data.appointmentData){
           this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
-          this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+          this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy/MM/dd");
         }
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1821,8 +1821,8 @@ export class DialogAddNewAppointment {
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-    let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    console.log(this.datePipe.transform(new Date(event.value),"yyyy/MM/dd"));
+    let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
     this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
     this.selectedTime=undefined;
@@ -1867,8 +1867,8 @@ export class DialogAddNewAppointment {
       });
       var i=0;
       this.timeSlotArr.forEach( (element) => {
-        var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
-         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+        var dateTemp=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element+":00";
+         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"HH:mm");
          i++;
       });
       if(this.timeSlotArr.length==0){
@@ -1907,7 +1907,7 @@ export class DialogAddNewAppointment {
         "business_id":this.bussinessId,
         "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
         "service_id":this.selectedServiceId,
-        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy/MM/dd"),
         "book_time" : this.selectedTime, 
       };
       let headers = new HttpHeaders({
@@ -1942,7 +1942,7 @@ export class DialogAddNewAppointment {
         "business_id":this.bussinessId,
         "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
         "service_id":this.selectedServiceId,
-        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy/MM/dd"),
         "book_time" : this.selectedTime, 
       };
       let headers = new HttpHeaders({
@@ -2132,7 +2132,7 @@ export class DialogAddNewAppointment {
       "nettotal": this.netCost,
       "created_by": "admin",
       "payment_method": "Cash",
-      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy/MM/dd HH:mm") 
     };
     console.log(JSON.stringify(requestObject));
     let headers = new HttpHeaders({
@@ -2238,7 +2238,7 @@ export class DialogAddNewAppointment {
       "nettotal": this.netCost,
       "created_by": "admin",
       "payment_method": "Cash",
-      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy/MM/dd HH:mm") 
     };
    
     console.log(JSON.stringify(requestObject));
@@ -2321,14 +2321,14 @@ constructor(
       this.detailsData.bookingNotes = this.detailsData.booking_notes;
       var todayDateTime = new Date();
       this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
-      var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+      var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"yyyy/MM/dd HH:mm"));
       dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
       var temp = dateTemp.getTime() - todayDateTime.getTime();
       this.detailsData.timeToService=(temp/3600000).toFixed();
-      this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
-      this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-      this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
-      this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+      this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"HH:mm")
+      this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+      this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"yyyy/MM/dd")
+      this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"yyyy/MM/dd @ HH:mm")
       if(this.detailsData.tax != null){
         this.singleBookingTax = JSON.parse(this.detailsData.tax)
         this.singleBookingTax.forEach( (element) => {
@@ -2391,7 +2391,7 @@ constructor(
       "customer_id":this.detailsData.customer.id,
       "business_id":this.detailsData.business_id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2606,11 +2606,11 @@ constructor(
        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
       }
     })
   }
@@ -2688,8 +2688,8 @@ export class RescheduleAppointAdmin {
 
   
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+      console.log(this.datePipe.transform(new Date(event.value),"yyyy/MM/dd"));
+      let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
       this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
       this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
       this.timeSlotArr= [];
@@ -2782,7 +2782,7 @@ export class RescheduleAppointAdmin {
     let requestObject = {
     "order_item_id":JSON.stringify(this.detailsData.id),
     "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy/MM/dd"),
     "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
     "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
     };

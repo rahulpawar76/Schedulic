@@ -1028,13 +1028,13 @@ export class DialogNotification {
     this.notifications.forEach((element) => {
       var todayDateTime = new Date();
       //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "dd MMM yyyy hh:mm a"));
+      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "yyyy/MM/dd HH:mm"));
       dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
       var temp = todayDateTime.getTime() - dateTemp.getTime();
       element.timeToService = (temp / 3600000).toFixed();
 
-      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy");
-      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "hh:mm a");
+      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "yyyy/MM/dd");
+      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "HH:mm");
     });
   }
 
@@ -1123,13 +1123,13 @@ export class DialogNotificationAppointment {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData = this.data.fulldata
         this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
-        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
-        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");
-        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"dd MMM yyyy @ hh:mm a");
+        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"HH:mm");
+        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"yyyy/MM/dd");
+        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"yyyy/MM/dd @ HH:mm");
 
-        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"dd MMM yyyy hh:mm a"));
+        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"yyyy/MM/dd HH:mm"));
         dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.myAppoDetailData.service_time) );
-        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
 
      }
 

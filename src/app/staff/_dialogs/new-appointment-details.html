@@ -36,8 +36,8 @@
                 <div class="modal-body  p-3">
                     <div class="row">
                         <div class="col-12">
-                            <span class="mb-0 custom-font-weight pr-1">{{detailData.booking_date}}</span><span>(Order Id: {{detailData.id}})</span>
-                            <p>Booked On: {{detailData.created_at}}</p>
+                            <span class="mb-0 custom-font-weight pr-1">{{detailData.booking_dateForLabel}}</span><span>(Order Id: {{detailData.id}})</span>
+                            <p>Booked On: {{detailData.created_atForLabel}}</p>
                         </div>
                     </div>
                     <div class="row common-details-main">
@@ -156,14 +156,14 @@
                         <p class="note-add-details" *ngFor="let note of singleBookingNotes; let i=index">
                             {{note.notes}}, <br>
                             Added by <br>
-                            {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'longDate'}} {{note.created_at | date:'shortTime'}}</p>
+                            {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'yyyy/MM/dd HH:mm'}}</p>
                     </div>  
                 </mat-card>
                 <hr class="my-2 mx-3 border-color-wrap">
                 <div class="activelog-details-main bottom-border">
                     <h6>Activity Log</h6>
                     <div *ngFor="let log of activityLog" class="activelog-details">
-                        {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} - 
+                        {{log.created_at | date:'yyyy/MM/dd HH:mm'}} - 
                         {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}} 
                         {{log.status=='CNF'?'Confirm':''}} 
                         {{log.user_type=='A' && log.status=='CNF' ? 'By Admin' : log.user_type=='S' && log.status=='CNF' ? 'By Staff': log.user_type=='C' && log.status=='CNF' ? 'By User' : ''}} 

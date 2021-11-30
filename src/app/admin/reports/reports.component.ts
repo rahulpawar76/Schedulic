@@ -116,10 +116,10 @@ export class ReportsComponent implements OnInit {
     if(localStorage.getItem('business_id')){
         this.businessId = localStorage.getItem('business_id');
     }
-    this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
-    this.selectedStartDateLabel=this.datePipe.transform(new Date(),"dd MMM yyyy");
-    this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
-    this.selectedEndDateLabel=this.datePipe.transform(new Date(),"dd MMM yyyy");
+    this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy/MM/dd");
+    this.selectedStartDateLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd");
+    this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy/MM/dd");
+    this.selectedEndDateLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd");
     this.dateFilter ="booking_date";
     this.reportFilter ="all";
     this.statusFilter ="all";
@@ -164,12 +164,12 @@ export class ReportsComponent implements OnInit {
     this.salesReportApiUrl=environment.apiUrl+"/sales-reports";
     this.customerReportApiUrl=environment.apiUrl+"/customer-reports";
     if(event.startDate){
-      this.selectedStartDate=this.datePipe.transform(new Date(event.startDate._d),"yyyy-MM-dd");
-      this.selectedStartDateLabel=this.datePipe.transform(new Date(event.startDate._d),"dd MMM yyyy");
+      this.selectedStartDate=this.datePipe.transform(new Date(event.startDate._d),"yyyy/MM/dd");
+      this.selectedStartDateLabel=this.datePipe.transform(new Date(event.startDate._d),"yyyy/MM/dd");
     }
     if(event.endDate){
-     this.selectedEndDate=this.datePipe.transform(new Date(event.endDate._d),"yyyy-MM-dd");
-     this.selectedEndDateLabel=this.datePipe.transform(new Date(event.endDate._d),"dd MMM yyyy");
+     this.selectedEndDate=this.datePipe.transform(new Date(event.endDate._d),"yyyy/MM/dd");
+     this.selectedEndDateLabel=this.datePipe.transform(new Date(event.endDate._d),"yyyy/MM/dd");
     }
     this.fnGetAppointmentsReport();
     this.fnGetSalesReport();
@@ -260,10 +260,10 @@ export class ReportsComponent implements OnInit {
         this.appointmentReportpath = response.response[0].list.path;
         this.appointmentReport.forEach(element=>{
           if(this.reportFilter=="all"){
-            element.booking_date=this.datePipe.transform(new Date(element.booking_date),"EEE, dd MMM yyyy");
-            element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+            element.booking_date=this.datePipe.transform(new Date(element.booking_date),"EEE, yyyy/MM/dd");
+            element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
           }else if(this.reportFilter=="date"){
-            element.dates=this.datePipe.transform(new Date(element.dates),"dd MMM yyyy");
+            element.dates=this.datePipe.transform(new Date(element.dates),"yyyy/MM/dd");
           }else{
             element.Month=this.datePipe.transform(new Date(element.Month),"MMM yyyy");
           }
@@ -326,9 +326,9 @@ export class ReportsComponent implements OnInit {
         this.salesReportpath = response.response.list.path;
         this.salesReport.forEach(element=>{
           if(this.reportFilter=="all"){
-            element.payment_date=this.datePipe.transform(new Date(element.payment_date),"EEE, dd MMM yyyy");
-            element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"EEE, dd MMM yyyy");
-            element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"hh:mm a");
+            element.payment_date=this.datePipe.transform(new Date(element.payment_date),"EEE, yyyy/MM/dd");
+            element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"EEE, yyyy/MM/dd");
+            element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"HH:mm");
             if(element.orders.tax){
               element.orders.tax = JSON.parse(element.orders.tax)
               if(element.orders.tax.length > 0){
@@ -340,7 +340,7 @@ export class ReportsComponent implements OnInit {
             }
             console.log(element.orders)
           }else if(this.reportFilter=="date"){
-            element.dates=this.datePipe.transform(new Date(element.dates),"dd MMM yyyy");
+            element.dates=this.datePipe.transform(new Date(element.dates),"yyyy/MM/dd");
           }else{
             element.Months=this.datePipe.transform(new Date(element.Months),"MMM yyyy");
           }
@@ -404,7 +404,7 @@ export class ReportsComponent implements OnInit {
         this.customerReportpath = response.response.path;
 
         this.customerReport.forEach(element=>{
-            element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy");
+            element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd");
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.customerReport = [];

@@ -203,7 +203,7 @@ export class AppointmentLiveComponent implements OnInit {
     this.clockHandle = setInterval(()=>{
       this.clock = new Date().toLocaleString();
       this.liveDate = this.datePipe.transform(this.clock,'EEE, MMM d');
-      this.liveTime = this.datePipe.transform(this.clock,'h:mm a');
+      this.liveTime = this.datePipe.transform(this.clock,'HH:mm');
     },1000);
 
   }
@@ -395,9 +395,9 @@ export class AppointmentLiveComponent implements OnInit {
 
 
         this.pendingAppointments.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         // this._snackBar.open(response.response, "X", {
@@ -446,9 +446,9 @@ export class AppointmentLiveComponent implements OnInit {
         this.path_notassign = response.response.path;
 
         this.notAssignedAppointments.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
         });
         
       }
@@ -500,9 +500,9 @@ export class AppointmentLiveComponent implements OnInit {
         this.path_ontheway = response.response.path;
 
         this.onTheWayAppointments.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
           
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -564,9 +564,9 @@ export class AppointmentLiveComponent implements OnInit {
         this.path_workstart = response.response.path;
 
         this.workStartedAppointments.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
           
         });
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -1288,9 +1288,9 @@ export class AppointmentLiveComponent implements OnInit {
         var count  = 0;
         this.pendingBillingData.forEach( (element) => { 
           count = count+1;
-          element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy")
-          element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a"),
+          element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"yyyy/MM/dd")
+          element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm"),
           element.is_selected  = false
         });
         this.isLoaderAdmin = false;
@@ -1818,14 +1818,14 @@ constructor(
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
-    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"yyyy/MM/dd HH:mm"));
     dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
     var temp = dateTemp.getTime() - todayDateTime.getTime();
     this.detailsData.timeToService=(temp/3600000).toFixed();
-    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
-    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
-    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"HH:mm")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"yyyy/MM/dd")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"yyyy/MM/dd @ HH:mm")
     if(this.detailsData.tax != null){
       this.singleBookingTax = JSON.parse(this.detailsData.tax)
       this.singleBookingTax.forEach( (element) => {
@@ -1914,7 +1914,7 @@ constructor(
       "customer_id":this.detailsData.customer.id,
       "business_id":this.detailsData.business_id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2016,11 +2016,11 @@ constructor(
        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
       }
     })
   }
@@ -2195,7 +2195,7 @@ constructor(
 //       "postal_code":postal_code,
 //       "business_id":this.detailsData.business_id,
 //       "service_id":JSON.stringify(serviceId),
-//       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+//       "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
 //       "book_time":booking_time
 //     };
 //     let headers = new HttpHeaders({
@@ -2399,14 +2399,14 @@ export class OnTheWayAppointmentDetailsDialog {
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
-    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"yyyy/MM/dd HH:mm"));
     dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
     var temp = dateTemp.getTime() - todayDateTime.getTime();
     this.detailsData.timeToService=(temp/3600000).toFixed();
-    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
-    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
-    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"HH:mm")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"yyyy/MM/dd")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"yyyy/MM/dd @ HH:mm")
     if(this.detailsData.tax != null){
       this.singleBookingTax = JSON.parse(this.detailsData.tax)
       this.singleBookingTax.forEach( (element) => {
@@ -2532,7 +2532,7 @@ export class OnTheWayAppointmentDetailsDialog {
       "business_id":this.detailsData.business_id,
       "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2631,11 +2631,11 @@ export class OnTheWayAppointmentDetailsDialog {
        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
       }
     })
   }
@@ -2735,14 +2735,14 @@ constructor(
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
-    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"yyyy/MM/dd HH:mm"));
     dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
     var temp = dateTemp.getTime() - todayDateTime.getTime();
     this.detailsData.timeToService=(temp/3600000).toFixed();
-    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
-    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
-    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"HH:mm")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"yyyy/MM/dd")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"yyyy/MM/dd @ HH:mm")
     if(this.detailsData.tax != null){
       this.singleBookingTax = JSON.parse(this.detailsData.tax)
       this.singleBookingTax.forEach( (element) => {
@@ -2867,7 +2867,7 @@ constructor(
       "business_id":this.detailsData.business_id,
       "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2967,11 +2967,11 @@ constructor(
        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
       }
     })
   }
@@ -3092,7 +3092,7 @@ constructor(
   }
 
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-    let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
     this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
     this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
     this.timeSlotArr= [];
@@ -3171,7 +3171,7 @@ constructor(
         let requestObject = {
           "order_item_id":JSON.stringify(this.detailsData.id),
           "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-          "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+          "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy/MM/dd"),
           "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
           "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
          };
@@ -3244,13 +3244,13 @@ export class DialogNotification {
     this.notifications.forEach((element) => {
       var todayDateTime = new Date();
       //element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "dd MMM yyyy hh:mm a"));
+      var dateTemp = new Date(this.datePipe.transform(element.updated_at, "yyyy/MM/dd HH:mm"));
       dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
       var temp = todayDateTime.getTime() - dateTemp.getTime();
       element.timeToService = (temp / 3600000).toFixed();
 
-      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy");
-      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "hh:mm a");
+      element.booking_date = this.datePipe.transform(new Date(element.booking_date), "yyyy/MM/dd");
+      element.booking_time = this.datePipe.transform(new Date(element.booking_date + " " + element.booking_time), "HH:mm");
     });
   }
 
@@ -3339,13 +3339,13 @@ export class DialogNotificationAppointment {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.myAppoDetailData = this.data.fulldata
         this.bookingDateTime = new Date(this.myAppoDetailData.booking_date+" "+this.myAppoDetailData.booking_time);
-        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"hh:mm a");
-        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"dd MMM yyyy");
-        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"dd MMM yyyy @ hh:mm a");
+        this.booking_timeForLabel = this.datePipe.transform(this.bookingDateTime,"HH:mm");
+        this.booking_dateForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.booking_date),"yyyy/MM/dd");
+        this.created_atForLabel = this.datePipe.transform(new Date(this.myAppoDetailData.created_at),"yyyy/MM/dd @ HH:mm");
 
-        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"dd MMM yyyy hh:mm a"));
+        var dateTemp = new Date(this.datePipe.transform(this.bookingDateTime,"yyyy/MM/dd HH:mm"));
         dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.myAppoDetailData.service_time) );
-        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
+        this.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
 
      }
 

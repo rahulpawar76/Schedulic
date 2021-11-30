@@ -620,8 +620,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['sundayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 1 && element.staff_id == this.selectedStaffId){
@@ -636,8 +636,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['mondayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 2 && element.staff_id == this.selectedStaffId){
@@ -652,8 +652,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['tuesdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 3 && element.staff_id == this.selectedStaffId){
@@ -668,8 +668,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['wednesdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 4 && element.staff_id == this.selectedStaffId){
@@ -684,8 +684,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['thursdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 5 && element.staff_id == this.selectedStaffId){
@@ -700,8 +700,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['fridayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 6 && element.staff_id == this.selectedStaffId){
@@ -716,8 +716,8 @@ export class StaffComponent implements OnInit {
               this.formSetWorkingHours.controls['saturdayToggle'].setValue(false);
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
         });
@@ -1293,8 +1293,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['sundayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 1){
@@ -1307,8 +1307,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['mondayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 2){
@@ -1321,8 +1321,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['tuesdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+                element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+                element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 3){
@@ -1335,8 +1335,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['wednesdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 4){
@@ -1349,8 +1349,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['thursdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 5){
@@ -1363,8 +1363,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['fridayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
             if(element.week_day_id == 6){
@@ -1377,8 +1377,8 @@ export class StaffComponent implements OnInit {
                 this.formSetWorkingHours.controls['saturdayToggle'].setValue(false);
               }
               if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
               }
             }
           });
@@ -1388,10 +1388,10 @@ export class StaffComponent implements OnInit {
           this.breakTimeList= this.singleStaffDetail.breaktime;
           this.breakTimeList.forEach(element => {
             if(element.break_start_time){
-             element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_start_time),"HH:mm");
+             element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.break_start_time),"HH:mm");
             }
             if(element.break_end_time){
-              element.break_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_end_time),"HH:mm");
+              element.break_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.break_end_time),"HH:mm");
             }
           });
         }else{
@@ -2235,8 +2235,8 @@ export class StaffComponent implements OnInit {
       }  
       let tempArr={
         //long: hours + ":" + minutes,
-        long: this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+hours + ":" + minutes),"HH:mm"),
-        short:this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+hours + ":" + minutes),"hh:mm a")
+        long: this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+hours + ":" + minutes),"HH:mm"),
+        short:this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+hours + ":" + minutes),"hh:mm a")
       };
      return tempArr;
   }
@@ -3309,9 +3309,9 @@ export class StaffComponent implements OnInit {
         this.reviewOrderData = response.response;
         console.log(this.reviewOrderData)
         this.reviewOrderData.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
         });
 
          const dialogRef = this.dialog.open(DialogStaffViewReview, {
@@ -3558,8 +3558,8 @@ export class DialogAddNewTimeOff {
     }
     let requestObject={
       "staff_id":this.selectedStaffId,
-      "start_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("startDate").value),"yyyy-MM-dd"),
-      "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy-MM-dd"),
+      "start_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("startDate").value),"yyyy/MM/dd"),
+      "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy/MM/dd"),
       "description":this.formAddNewTimeOff.get("description").value
     }
     console.log(JSON.stringify(requestObject));

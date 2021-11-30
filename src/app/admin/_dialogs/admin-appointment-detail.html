@@ -48,7 +48,7 @@
                                     {{detailsData.booking_date}}
                                     <span class="order-id">(Order Id: {{detailsData.id}})</span>
                                 </h3>
-                                <p>Booked On: {{detailsData.created_at}}</p>
+                                <p>Booked On: {{detailsData.created_atForLabel}}</p>
                             </div>
                         </div>
                         <div class="common-appointment-details">
@@ -233,15 +233,14 @@
                             <p class="common-note-details" *ngFor="let note of singleBookingNotes; let i=index">
                                 {{note.notes}}, <br> Added by {{note.user_type=='A'?'Admin':''}}
                                 {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='C'?'Customer':''}}
-                                @{{note.created_at
-                                | date:'longDate'}} {{note.created_at | date:'shortTime'}}
+                                @{{note.created_at | date:'yyyy/MM/dd HH:mm'}}
                             </p>
                         </div>
                     </div>
                     <div class="common-details-customer">
                         <h6 class="heading-title ">Activity Log</h6>
                         <div *ngFor="let log of activityLog" class="activelog-details">
-                            {{log.created_at | date:'longDate'}} {{log.created_at | date:'shortTime'}} -
+                            {{log.created_at | date:'yyyy/MM/dd HH:mm'}} -
                             {{log.status=='P'?'Pending':''}} {{log.status=='MOD'?'Modified':''}}
                             {{log.status=='CNF'?'Confirmed':''}} {{log.status=='GL'?'Getting Late':''}}
                             {{log.user_type=='A'

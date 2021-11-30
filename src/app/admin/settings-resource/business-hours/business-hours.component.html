@@ -117,7 +117,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -125,7 +125,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -137,7 +137,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeMonday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Monday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -145,7 +145,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeMonday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Monday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -169,7 +169,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -177,7 +177,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -189,7 +189,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeTuesday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Tuesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -197,7 +197,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeTuesday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Tuesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -221,7 +221,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -229,7 +229,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -241,7 +241,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeWednesday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Wednesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -249,7 +249,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeWednesday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Wednesday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -273,7 +273,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -281,7 +281,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -293,7 +293,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeThursday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Thursday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -301,7 +301,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeThursday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Thursday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -325,7 +325,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -333,7 +333,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -345,7 +345,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeFriday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Friday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -353,7 +353,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeFriday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Friday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -377,7 +377,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -385,7 +385,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -397,7 +397,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeSaturday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Saturday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -405,7 +405,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeSaturday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Saturday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -429,7 +429,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="workHour.day_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                     </div>
@@ -437,7 +437,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="workHour.day_end_time" [disabled]="true">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -449,7 +449,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control" [(value)]="selectedWorkHourStartTimeSunday" (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Sunday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -457,7 +457,7 @@
                                                     <div class="common-input">
                                                         <div class="form-group">
                                                             <mat-select class="form-control"[(value)]="selectedWorkHourEndTimeSunday" (selectionChange)="fnOnChangeEndTimeWorkHour($event,'Sunday')">
-                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.short}}</mat-option>
+                                                                <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex >= i">{{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                         </div>
                                                     </div>
@@ -503,7 +503,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                 </div>
@@ -512,7 +512,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                 </div>
@@ -524,7 +524,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeMonday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Monday')">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex > i || mondayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayWorkingHourStartTimeIndex > i || mondayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                 </div>
@@ -532,7 +532,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeMonday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Monday')">
-                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                            <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                 </div>
@@ -553,7 +553,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                 </div>
                                                 </div>
@@ -561,7 +561,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                 </div>
                                                 </div>
@@ -573,7 +573,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeTuesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Tuesday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex > i || tuesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayWorkingHourStartTimeIndex > i || tuesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                 </div>
                                                 </div>
@@ -581,7 +581,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeTuesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Tuesday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -601,7 +601,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -609,7 +609,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -621,7 +621,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeWednesday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Wednesday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex > i || wednesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayWorkingHourStartTimeIndex > i || wednesdayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -629,7 +629,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeWednesday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Wednesday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -650,7 +650,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -658,7 +658,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -670,7 +670,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeThursday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Thursday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex > i || thursdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayWorkingHourStartTimeIndex > i || thursdayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -678,7 +678,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeThursday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Thursday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -701,7 +701,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -709,7 +709,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -721,7 +721,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeFriday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Friday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex > i || fridayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayWorkingHourStartTimeIndex > i || fridayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -729,7 +729,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeFriday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Friday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -752,7 +752,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -760,7 +760,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -772,7 +772,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeSaturday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Saturday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex > i || saturdayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayWorkingHourStartTimeIndex > i || saturdayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -780,7 +780,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeSaturday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Saturday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -803,7 +803,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_start_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -811,7 +811,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="breakTime.break_end_time" [disabled]="true">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList" value="{{timeSlot.long}}">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>
@@ -823,7 +823,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedStartTimeSunday" (selectionChange)="fnOnChangeStartTimeBreak($event,'Sunday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex > i || sundayWorkingHourEndTimeIndex < i+1">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayWorkingHourStartTimeIndex > i || sundayWorkingHourEndTimeIndex < i+1">{{timeSlot.long}}</mat-option>
                                                         </mat-select>
                                                     </div>
                                                 </div>
@@ -831,7 +831,7 @@
                                                 <div class="common-input">
                                                     <div class="form-group">
                                                         <mat-select class="form-control" [(value)]="selectedEndTimeSunday" (selectionChange)="fnOnChangeEndTimeBreak($event,'Sunday')">
-                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">{{timeSlot.short}}</mat-option>
+                                                        <mat-option *ngFor="let timeSlot of timeSlotList; let i=index;" value="{{timeSlot.long}}" [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">{{timeSlot.long}}</mat-option>
                                                     </mat-select>
                                                     </div>
                                                 </div>

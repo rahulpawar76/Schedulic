@@ -695,13 +695,13 @@ customerUpdate(existingCustomerData){
       if(response.data == true){
         this.customersDetails = response.response;
         if(this.customersDetails.lastBooking){
-          this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"d MMM y,")
-          this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"hh:mm a")
+          this.customersDetails.lastBooking.booking_date=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date),"yyyy/MM/dd,")
+          this.customersDetails.lastBooking.booking_time=this.datePipe.transform(new Date(this.customersDetails.lastBooking.booking_date+" "+this.customersDetails.lastBooking.booking_time),"HH:mm")
         }
 
         this.customerPersonalDetails = response.response.customer_details;
         // this.tags = [];
-        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"d MMM y, h:mm a");
+        this.customerPersonalDetails.created_at=this.datePipe.transform(new Date(this.customerPersonalDetails.created_at),"yyyy/MM/dd, HH:mm");
         if(this.customerPersonalDetails.tag_id != null){
           this.tags = this.customerPersonalDetails.tag_id;
         }else{
@@ -712,9 +712,9 @@ customerUpdate(existingCustomerData){
 
         this.customerAppoint = response.response.appointmets;
         this.customerAppoint.forEach( (element) => { 
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
-          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")   
+          element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
         });
 
         this.customerNotes = response.response.notes;
@@ -723,18 +723,18 @@ customerUpdate(existingCustomerData){
 
         this.customerPayments = response.response.payment;
         this.customerPayments.forEach( (element) => { 
-          element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy");
-          element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"hh:mm a");
+          element.paymentDate=this.datePipe.transform(new Date(element.updated_at),"yyyy/MM/dd");
+          element.paymentTime=this.datePipe.transform(new Date(element.updated_at),"HH:mm");
           if(element.orders){
             element.orders.bookingDateTime=new Date(element.orders.booking_date+" "+element.orders.booking_time);
-            element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"dd MMM yyyy @ hh:mm a");
+            element.orders.created_at=this.datePipe.transform(new Date(element.orders.created_at),"yyyy/MM/dd @ HH:mm");
             if(element.orders.booking_date != null){
-              element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"dd MMM yyyy");
+              element.orders.bookingDateForLabel=this.datePipe.transform(new Date(element.orders.booking_date),"yyyy/MM/dd");
             }
-            element.orders.bookingTimeForLabel=this.datePipe.transform(element.orders.bookingDateTime,"hh:mm a");
-            var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"dd MMM yyyy hh:mm a"));
+            element.orders.bookingTimeForLabel=this.datePipe.transform(element.orders.bookingDateTime,"HH:mm");
+            var dateTemp = new Date(this.datePipe.transform(element.orders.bookingDateTime,"yyyy/MM/dd HH:mm"));
             dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.orders.service_time) );
-            element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+            element.orders.bookingTimeTo=this.datePipe.transform(new Date(dateTemp),"HH:mm");
             let orderItemTempArr=[];
             element.orders.order_items.forEach( (element2) => { 
               if(element.orders.id!=element2.id){
@@ -1024,9 +1024,9 @@ customerUpdate(existingCustomerData){
       if(response.data == true){
         this.reviewOrderData = response.response;
         this.reviewOrderData.forEach( (element) => { 
-                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")   
-                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"hh:mm a");
-                  element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+                  element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")   
+                  element.booking_time=this.datePipe.transform(new Date(element.booking_date+" "+element.booking_time),"HH:mm");
+                  element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
                 });
 
          const dialogRef = this.dialog.open(DialogViewReview, {
@@ -1390,7 +1390,7 @@ customerUpdate(existingCustomerData){
     let paymentArr=[{
       "id":this.serviceMainArr.paymentId,
       "payment_mode":this.formPayment.get('paymentMode').value,
-      "payment_date":this.datePipe.transform(new Date(),"yyyy-MM-dd HH:mm:ss"),
+      "payment_date":this.datePipe.transform(new Date(),"yyyy/MM/dd HH:mm"),
       "amount":this.serviceMainArr.netCost,
       "payment_status":"paid",
       "payment_notes":this.formPayment.get('paymentNote').value
@@ -1503,7 +1503,7 @@ customerUpdate(existingCustomerData){
         "nettotal" : this.serviceMainArr.order_netCost
       }]
       let payment  = [{
-        "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd hh::mm"),
+        "payment_datetime" : this.datePipe.transform(new Date(),"yyyy/MM/dd HH:mm"),
         "payment_mode" : this.paymentMethod,
         "amount" : this.serviceMainArr.order_netCost,
         "paymentnotes" : this.formPayment.get('paymentNote').value,
@@ -1694,14 +1694,14 @@ constructor(
     this.fnGetStaff(this.detailsData.booking_date,this.detailsData.booking_time,this.detailsData.service_id,this.detailsData.postal_code);
     var todayDateTime = new Date();
     this.detailsData.booking_date_time=new Date(this.detailsData.booking_date+" "+this.detailsData.booking_time);
-    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"dd MMM yyyy hh:mm a"));
+    var dateTemp = new Date(this.datePipe.transform(this.detailsData.booking_date_time,"yyyy/MM/dd HH:mm"));
     dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(this.detailsData.service_time) );
     var temp = dateTemp.getTime() - todayDateTime.getTime();
     this.detailsData.timeToService=(temp/3600000).toFixed();
-    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"hh:mm a")
-    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"dd MMM yyyy")
-    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"dd MMM yyyy @ hh:mm a")
+    this.detailsData.booking_timeForLabel=this.datePipe.transform(this.detailsData.booking_date_time,"HH:mm")
+    this.detailsData.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+    this.detailsData.booking_dateForLabel=this.datePipe.transform(new Date(this.detailsData.booking_date),"yyyy/MM/dd")
+    this.detailsData.created_atForLabel=this.datePipe.transform(new Date(this.detailsData.created_at),"yyyy/MM/dd @ HH:mm")
     if(this.detailsData.tax != null){
       this.singleBookingTax = JSON.parse(this.detailsData.tax)
       this.singleBookingTax.forEach( (element) => {
@@ -1729,11 +1729,11 @@ constructor(
        
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
-        this._snackBar.open(response.response, "X", {
-          duration: 2000,
-          verticalPosition:'top',
-          panelClass :['red-snackbar']
-        });
+        // this._snackBar.open(response.response, "X", {
+        //   duration: 2000,
+        //   verticalPosition:'top',
+        //   panelClass :['red-snackbar']
+        // });
       }
     })
   }
@@ -1875,7 +1875,7 @@ constructor(
       "business_id":this.detailsData.business_id,
       "customer_id":this.detailsData.customer.id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2004,7 +2004,7 @@ export class InterruptedReschedulecustomer {
 
   
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+      let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
       this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
       this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
       this.timeSlotArr= [];
@@ -2088,7 +2088,7 @@ formRescheduleSubmit(){
     let requestObject = {
       "order_item_id":JSON.stringify(this.detailsData.id),
       "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-      "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
+      "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy/MM/dd"),
       "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
       "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
      };
@@ -2911,7 +2911,7 @@ constructor(
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+    let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
     this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
     this.formAddNewAppointmentStaffStep2.controls['customerStaff'].setValue(null);
     this.selectedTime=undefined;
@@ -2954,8 +2954,8 @@ constructor(
       });
       var i=0;
       this.timeSlotArr.forEach( (element) => {
-        var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
-         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+        var dateTemp=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element+":00";
+         this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"HH:mm");
          i++;
       });
       if(this.timeSlotArr.length==0){
@@ -2992,7 +2992,7 @@ constructor(
       "business_id":this.bussinessId,
       "postal_code":this.formAddNewAppointmentStaffStep2.get('customerPostalCode').value,
       "service_id":this.selectedServiceId,
-      "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
+      "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy/MM/dd"),
       "book_time" : this.selectedTime, 
     };
     let headers = new HttpHeaders({
@@ -3170,7 +3170,7 @@ constructor(
       "nettotal": this.netCost,
       "created_by": "admin",
       "payment_method": "Cash",
-      "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
+      "order_date": this.datePipe.transform(currentDateTime,"yyyy/MM/dd HH:mm") 
     };
     this.isLoaderAdmin=true;
     this.adminService.customerNewAppointment(requestObject).subscribe((response:any) => {
@@ -3533,7 +3533,7 @@ onNoClick(): void {
         this.currencySymbol = this.settingsArr.currency;
         this.currencySymbolPosition = this.settingsArr.currency_symbol_position;
         this.currencySymbolFormat = this.settingsArr.currency_format;
-        this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'dd/MM/yyyy');
+        this.paymentInfo.invoice_date=this.datePipe.transform(new Date(), 'yyyy/MM/dd');
         this.paymentData = this.data.fulldata;
         this.paymentInfo.invoiceNumber = "2"+this.paymentData.id+this.datePipe.transform(this.paymentData.paymentDate,"yyyy/MM/dd");
         this.paymentInfo.customer_name=this.paymentData.get_customer.fullname;

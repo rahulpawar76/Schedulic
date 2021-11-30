@@ -415,8 +415,8 @@ export class BusinessHoursComponent implements OnInit {
         minutes = parseFloat(m); //optional
       }  
       let tempArr={
-        long: this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+hours + ":" + minutes),"HH:mm"),
-        short:this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+hours + ":" + minutes),"hh:mm a")
+        long: this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+hours + ":" + minutes),"HH:mm"),
+        short:this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+hours + ":" + minutes),"hh:mm a")
       };
      return tempArr;
   }
@@ -439,8 +439,8 @@ export class BusinessHoursComponent implements OnInit {
               this.sundayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 1){
@@ -451,8 +451,8 @@ export class BusinessHoursComponent implements OnInit {
               this.mondayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 2){
@@ -463,8 +463,8 @@ export class BusinessHoursComponent implements OnInit {
               this.tuesdayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+              element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+              element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 3){
@@ -475,8 +475,8 @@ export class BusinessHoursComponent implements OnInit {
               this.wednesdayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 4){
@@ -487,8 +487,8 @@ export class BusinessHoursComponent implements OnInit {
               this.thursdayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 5){
@@ -499,8 +499,8 @@ export class BusinessHoursComponent implements OnInit {
               this.fridayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
           if(element.week_day_id == 6){
@@ -511,8 +511,8 @@ export class BusinessHoursComponent implements OnInit {
               this.saturdayOn=false;
             }
             if(element.day_start_time && element.day_end_time){
-            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_start_time),"HH:mm");
-            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.day_end_time),"HH:mm");
+            element.day_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_start_time),"HH:mm");
+            element.day_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.day_end_time),"HH:mm");
             }
           }
         });
@@ -807,10 +807,10 @@ export class BusinessHoursComponent implements OnInit {
         console.log(this.timeOffList);
         this.timeOffList.forEach(element => {
           if(element.start_date){
-            element.start_date=this.datePipe.transform(new Date(element.start_date),"MMM dd, yyyy");
+            element.start_date=this.datePipe.transform(new Date(element.start_date),"yyyy/MM/dd");
           }
           if(element.end_date){
-            element.end_date=this.datePipe.transform(new Date(element.end_date),"MMM dd, yyyy");
+            element.end_date=this.datePipe.transform(new Date(element.end_date),"yyyy/MM/dd");
           }
         });
       }else{
@@ -890,10 +890,10 @@ export class BusinessHoursComponent implements OnInit {
         console.log(this.breakTimeList);
         this.breakTimeList.forEach(element => {
           if(element.break_start_time){
-           element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_start_time),"HH:mm");
+           element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.break_start_time),"HH:mm");
           }
           if(element.break_end_time){
-            element.break_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element.break_end_time),"HH:mm");
+            element.break_end_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.break_end_time),"HH:mm");
           }
         });
       }else{
@@ -1950,8 +1950,8 @@ fnAddNewTimeOff(){
   }
   let requestObject={
       "business_id":this.businessId,
-      "start_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("startDate").value),"yyyy-MM-dd"),
-      "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy-MM-dd"),
+      "start_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("startDate").value),"yyyy/MM/dd"),
+      "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy/MM/dd"),
       "description":this.formAddNewTimeOff.get("description").value
     }
     console.log(JSON.stringify(requestObject));

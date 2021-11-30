@@ -100,11 +100,11 @@ export class WorkProfileComponent implements OnInit {
             this.workingHours[i].week_day_name = "Saturday";
 
           }
-          this.workingHours[i].day_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.workingHours[i].day_start_time;
-          this.workingHours[i].day_start_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_start_timeForLabel),"hh:mm a");
+          this.workingHours[i].day_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.workingHours[i].day_start_time;
+          this.workingHours[i].day_start_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_start_timeForLabel),"HH:mm");
           
-          this.workingHours[i].day_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.workingHours[i].day_end_time;
-          this.workingHours[i].day_end_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_end_timeForLabel),"hh:mm a");
+          this.workingHours[i].day_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.workingHours[i].day_end_time;
+          this.workingHours[i].day_end_timeForLabel =this.datePipe.transform(new Date(this.workingHours[i].day_end_timeForLabel),"HH:mm");
         }
          
       }
@@ -154,11 +154,11 @@ export class WorkProfileComponent implements OnInit {
             this.breakHours[i].week_day_name = "Saturday";
 
           }
-          this.breakHours[i].break_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.breakHours[i].break_start_time;
-          this.breakHours[i].break_start_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_start_timeForLabel),"hh:mm a");
+          this.breakHours[i].break_start_timeForLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.breakHours[i].break_start_time;
+          this.breakHours[i].break_start_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_start_timeForLabel),"HH:mm");
           
-          this.breakHours[i].break_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.breakHours[i].break_end_time;
-          this.breakHours[i].break_end_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_end_timeForLabel),"hh:mm a");
+          this.breakHours[i].break_end_timeForLabel=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.breakHours[i].break_end_time;
+          this.breakHours[i].break_end_timeForLabel =this.datePipe.transform(new Date(this.breakHours[i].break_end_timeForLabel),"HH:mm");
         }
         // for(let i=0; i<this.offDays.length;i++){
         //   if(this.offDays[i].week_day_id == "0"){
@@ -188,8 +188,8 @@ export class WorkProfileComponent implements OnInit {
         //     this.offDays[i].week_day_name = "Saturday";
 
         //   }
-        //   this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_start_time),"dd MMM yyyy");
-        //   this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+this.offDays[i].day_end_time),"dd MMM yyyy");
+        //   this.offDays[i].start_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.offDays[i].day_start_time),"yyyy/MM/dd");
+        //   this.offDays[i].end_dateForLabel =this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+this.offDays[i].day_end_time),"yyyy/MM/dd");
         // }
       }
       else if(response.data == false){
@@ -206,8 +206,8 @@ export class WorkProfileComponent implements OnInit {
       if(response.data == true){
         this.holidayData = response.response;
         for(let i=0; i<this.holidayData.length;i++){
-          this.holidayData[i].start_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].start_date),"dd MMM yyyy");
-          this.holidayData[i].end_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].end_date),"dd MMM yyyy");
+          this.holidayData[i].start_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].start_date),"yyyy/MM/dd");
+          this.holidayData[i].end_dateForLabel =this.datePipe.transform(new Date(this.holidayData[i].end_date),"yyyy/MM/dd");
         }
       }
       else if(response.data == false){

@@ -129,14 +129,14 @@ export class MyBookingComponent implements OnInit {
         this.newAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
-          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"HH:mm")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
         });
         this.newAppointmentData = this.newAppointmentData.sort(this.dynamicSort("-created_at"))
       }
@@ -159,16 +159,16 @@ export class MyBookingComponent implements OnInit {
         this.completedAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
-          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
-          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-          element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy")
-          element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"hh:mm a")
+          element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"HH:mm")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
+          element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"yyyy/MM/dd")
+          element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"HH:mm")
         });
         this.completedAppointmentData = this.completedAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
@@ -189,18 +189,18 @@ export class MyBookingComponent implements OnInit {
         this.onGoingAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
-          var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
+          var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
           dateTemp2.setMinutes( dateTemp2.getMinutes());
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
           element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
-          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
-          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+          element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"HH:mm")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+          element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
         });
         this.onGoingAppointmentData = this.onGoingAppointmentData.sort(this.dynamicSort("-updated_at"))
       }
@@ -427,14 +427,14 @@ export class MyBookingComponent implements OnInit {
             this.newAppointmentData.forEach( (element) => {
               var todayDateTime = new Date();
               element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
               dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
               var temp = dateTemp.getTime() - todayDateTime.getTime();
               element.timeToService=(temp/3600000).toFixed();
-              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
-              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"HH:mm")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
             });
            
           }else if(this.openedTab == 'ongoing'){
@@ -442,18 +442,18 @@ export class MyBookingComponent implements OnInit {
             this.onGoingAppointmentData.forEach( (element) => {
               var todayDateTime = new Date();
               element.booking_date_time=new Date(element.booking_date+" "+element.booking_time);
-              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
-              var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"dd MMM yyyy hh:mm a"));
+              var dateTemp = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
+              var dateTemp2 = new Date(this.datePipe.transform(element.booking_date_time,"yyyy/MM/dd HH:mm"));
               dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
               var temp = dateTemp.getTime() - todayDateTime.getTime();
               element.timeToService=(temp/3600000).toFixed();
               dateTemp2.setMinutes( dateTemp2.getMinutes());
               var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
               element.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
-              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"hh:mm a")
-              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
+              element.booking_timeForLabel=this.datePipe.transform(element.booking_date_time,"HH:mm")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
             });
             
           }else if(this.openedTab == 'completed'){
@@ -461,16 +461,16 @@ export class MyBookingComponent implements OnInit {
             this.completedAppointmentData.forEach( (element) => {
               var todayDateTime = new Date();
               element.booking_timeForLabel=element.booking_date+" "+element.booking_time;
-              var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"dd MMM yyyy hh:mm a"));
+              var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_timeForLabel),"yyyy/MM/dd HH:mm"));
               dateTemp.setMinutes( dateTemp.getMinutes() + parseInt(element.service_time) );
               var temp = dateTemp.getTime() - todayDateTime.getTime();
               element.timeToService=(temp/3600000).toFixed();
-              element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"hh:mm a")
-              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a")
-              element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"dd MMM yyyy")
-              element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"hh:mm a")
+              element.booking_timeForLabel=this.datePipe.transform(new Date(element.booking_timeForLabel),"HH:mm")
+              element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+              element.booking_dateForLabel=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+              element.created_atForLabel=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm")
+              element.updated_atDateForLabel=this.datePipe.transform(new Date(element.updated_at),"yyyy/MM/dd")
+              element.updated_atTimeForLabel=this.datePipe.transform(new Date(element.updated_at),"HH:mm")
             });
           }
           this.isLoader=false;
@@ -1232,8 +1232,7 @@ export class MyBookingComponent implements OnInit {
     }
 
     fnDateChange(event: MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+      let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
       this.formAddNewAppointmentStaffStep2.controls['customerTime'].setValue(null);
       this.selectedTime=undefined;
       this.timeSlotArr= [];
@@ -1280,8 +1279,8 @@ export class MyBookingComponent implements OnInit {
             });
             var i=0;
             this.timeSlotArr.forEach( (element) => {
-              var dateTemp=this.datePipe.transform(new Date(),"yyyy-MM-dd")+" "+element+":00";
-                this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"hh:mm a");
+              var dateTemp=this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element+":00";
+                this.timeSlotArrForLabel[i]= this.datePipe.transform(new Date(dateTemp),"HH:mm");
                 i++;
             });
           }
@@ -1443,7 +1442,7 @@ export class MyBookingComponent implements OnInit {
         "nettotal": this.netCost,
         "created_by": "staff",
         "payment_method": "Cash",
-        "order_date": this.datePipe.transform(currentDateTime,"yyyy-MM-dd hh:mm:ss") 
+        "order_date": this.datePipe.transform(currentDateTime,"yyyy/MM/dd HH:mm:ss") 
       };
 
       this.staffService.bookNewAppointment(requestObject).subscribe((response:any) =>{
@@ -1798,7 +1797,7 @@ export class MyBookingComponent implements OnInit {
 
           // if(!this.data.appointmentData){
           //   this.formAddNewAppointmentStaffStep2.controls['customerDate'].setValue(this.minimumAdvanceBookingDateTimeObject);
-          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy-MM-dd");
+          //   this.selectedDate = this.datePipe.transform(new Date(this.minimumAdvanceBookingDateTimeObject),"yyyy/MM/dd");
           // }
         }
         else if(response.data == false){
@@ -1890,8 +1889,8 @@ export class MyBookingComponent implements OnInit {
       })
     }
     fnDateChange(event: MatDatepickerInputEvent<Date>) {
-        console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
-        let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
+        console.log(this.datePipe.transform(new Date(event.value),"yyyy/MM/dd"));
+        let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
         this.formAppointmentRescheduleStaff.controls['rescheduleTime'].setValue(null);
         //this.formAppointmentRescheduleStaff.controls['rescheduleStaff'].setValue(null);
         this.timeSlotArr= [];
@@ -1972,17 +1971,10 @@ export class MyBookingComponent implements OnInit {
       this.formAppointmentRescheduleStaff.get('rescheduleDate').markAsTouched();
       return false;
     }
-
-    console.log(this.myAppoDetailData.order_id);
-    console.log(this.formAppointmentRescheduleStaff.get('rescheduleServiceId').value);
-    console.log(this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy-MM-dd"));
-    console.log(this.formAppointmentRescheduleStaff.get('rescheduleTime').value);
-    console.log(this.formAppointmentRescheduleStaff.get('rescheduleStaff').value);
-    console.log(this.formAppointmentRescheduleStaff.get('rescheduleNote').value);
     let requestObject = {
      "order_item_id":JSON.stringify(this.myAppoDetailData.id),
      "staff_id":this.formAppointmentRescheduleStaff.get('rescheduleStaff').value,
-     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy-MM-dd"),
+     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy/MM/dd"),
      "book_time":this.formAppointmentRescheduleStaff.get('rescheduleTime').value,
      "book_notes":this.formAppointmentRescheduleStaff.get('rescheduleNote').value
     };
@@ -2124,11 +2116,11 @@ export class MyBookingComponent implements OnInit {
          
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-          });
+          // this._snackBar.open(response.response, "X", {
+          //   duration: 2000,
+          //   verticalPosition:'top',
+          //   panelClass :['red-snackbar']
+          // });
         }
       })
     }
@@ -2248,7 +2240,7 @@ export class MyBookingComponent implements OnInit {
         this.fnGetSettingValue();
          var todayDateTime = new Date();
            this.booking_date_time=new Date( this.detailData.booking_date+" "+ this.detailData.booking_time);
-          var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"dd MMM yyyy hh:mm a"));
+          var dateTemp2 = new Date(this.datePipe.transform(this.booking_date_time,"yyyy/MM/dd HH:mm"));
            dateTemp2.setMinutes( dateTemp2.getMinutes());
           var serviceTimeTamp =  dateTemp2.getTime() - todayDateTime.getTime();
           this.timeToServiceDecimal=(serviceTimeTamp/60000).toFixed();
@@ -2281,11 +2273,11 @@ export class MyBookingComponent implements OnInit {
          
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-          });
+          // this._snackBar.open(response.response, "X", {
+          //   duration: 2000,
+          //   verticalPosition:'top',
+          //   panelClass :['red-snackbar']
+          // });
         }
       })
     }
@@ -2483,11 +2475,11 @@ export class MyBookingComponent implements OnInit {
          
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
-          this._snackBar.open(response.response, "X", {
-            duration: 2000,
-            verticalPosition:'top',
-            panelClass :['red-snackbar']
-          });
+          // this._snackBar.open(response.response, "X", {
+          //   duration: 2000,
+          //   verticalPosition:'top',
+          //   panelClass :['red-snackbar']
+          // });
         }
       })
     }

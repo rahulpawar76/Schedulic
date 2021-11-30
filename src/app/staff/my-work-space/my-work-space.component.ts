@@ -62,7 +62,7 @@ export class MyWorkSpaceComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('My Workspace');
-    this.todayDate = this.datePipe.transform(new Date(),"dd MMM yyyy");
+    this.todayDate = this.datePipe.transform(new Date(),"yyyy/MM/dd");
     this.fnGetSettingValue();
     this.getTodayAppointment();
     this.getProfiledata();
@@ -142,14 +142,14 @@ export class MyWorkSpaceComponent implements OnInit {
         this.todayAppointmentData.forEach( (element) => {
           var todayDateTime = new Date();
           element.booking_time=element.booking_date+" "+element.booking_time;
-          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_time),"dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(new Date(element.booking_time),"yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes( dateTemp.getMinutes());
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService=(temp/3600000).toFixed();
-          element.booking_time=this.datePipe.transform(new Date(element.booking_time),"hh:mm a")
-          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"hh:mm a")
-          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"dd MMM yyyy")
-          element.created_at=this.datePipe.transform(new Date(element.created_at),"dd MMM yyyy @ hh:mm a");
+          element.booking_time=this.datePipe.transform(new Date(element.booking_time),"HH:mm")
+          element.booking_time_to=this.datePipe.transform(new Date(dateTemp),"HH:mm")
+          element.booking_date=this.datePipe.transform(new Date(element.booking_date),"yyyy/MM/dd")
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm");
 
           let initials = element.customer.fullname.split(" ",2);
           element.customer.customerShortName = '';

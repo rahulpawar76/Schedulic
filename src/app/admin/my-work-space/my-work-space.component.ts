@@ -138,17 +138,17 @@ export class MyWorkSpaceComponent implements OnInit {
       filterDate: [''],
     });
 
-    this.dateTypeFilterView=this.datePipe.transform(new Date(), 'd MMM, y');
+    this.dateTypeFilterView=this.datePipe.transform(new Date(), 'yyyy/MM/dd');
 
-    this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
-    this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.selectedStartDate=this.datePipe.transform(new Date(),"yyyy/MM/dd");
+    this.selectedEndDate=this.datePipe.transform(new Date(),"yyyy/MM/dd");
   }
 
   ngOnInit() {
     this.selectedCategoryId = "all";
     this.selectedCategoryName = "Services";
     this.selectedStatus = "all";
-    this.selectedDate = this.datePipe.transform(new Date(), "yyyy-MM-dd")
+    this.selectedDate = this.datePipe.transform(new Date(), "yyyy/MM/dd")
     this.date = new FormControl(new Date());
     this.fnGetSettingValue();
     this.fnGetAllCategories();
@@ -184,7 +184,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.selectedDate = this.datePipe.transform(new Date(event.value), "yyyy-MM-dd");
+    this.selectedDate = this.datePipe.transform(new Date(event.value), "yyyy/MM/dd");
     this.fnGetTodayRevenue();
     this.fnGetAllAppointmentsByCategoryAndStatus();
   }
@@ -284,14 +284,14 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointments.forEach((element) => {
           var todayDateTime = new Date();
           element.booking_date_time = new Date(element.booking_date + " " + element.booking_time);
-          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time, "dd MMM yyyy hh:mm a"));
+          var dateTemp = new Date(this.datePipe.transform(element.booking_date_time, "yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
           var temp = dateTemp.getTime() - todayDateTime.getTime();
           element.timeToService = (temp / 3600000).toFixed();
-          element.booking_time = this.datePipe.transform(element.booking_date_time, "hh:mm a")
-          element.booking_time_to = this.datePipe.transform(new Date(dateTemp), "hh:mm a")
-          element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy")
-          element.created_at = this.datePipe.transform(new Date(element.created_at), "dd MMM yyyy @ hh:mm a")
+          element.booking_time = this.datePipe.transform(element.booking_date_time, "HH:mm")
+          element.booking_time_to = this.datePipe.transform(new Date(dateTemp), "HH:mm")
+          element.booking_date = this.datePipe.transform(new Date(element.booking_date), "yyyy/MM/dd")
+          element.created_at = this.datePipe.transform(new Date(element.created_at), "yyyy/MM/dd @ HH:mm")
           for (var i = 0; i < this.categories.length; i++) {
             if (this.categories[i].id == element.service.category_id) {
               element.service.category_name = this.categories[i].category_title;
@@ -445,7 +445,7 @@ export class MyWorkSpaceComponent implements OnInit {
       "business_id": this.businessId,
       "customer_id": customerID,
       "service_id": JSON.stringify(serviceId),
-      "book_date": this.datePipe.transform(new Date(booking_date), "yyyy-MM-dd"),
+      "book_date": this.datePipe.transform(new Date(booking_date), "yyyy/MM/dd"),
       "book_time": booking_time
     };
     let headers = new HttpHeaders({
@@ -590,10 +590,10 @@ export class MyWorkSpaceComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
         if(result.start_date){
-          this.selectedStartDate=this.datePipe.transform(new Date(result.start_date),"yyyy-MM-dd");
+          this.selectedStartDate=this.datePipe.transform(new Date(result.start_date),"yyyy/MM/dd");
         }
         if(result.end_date){
-          this.selectedEndDate=this.datePipe.transform(new Date(result.end_date),"yyyy-MM-dd");
+          this.selectedEndDate=this.datePipe.transform(new Date(result.end_date),"yyyy/MM/dd");
         }
       }
       this.fnGetAllAppointmentsByCategoryAndStatus();
@@ -690,14 +690,14 @@ export class MyWorkSpaceComponent implements OnInit {
           this.appointments.forEach((element) => {
             var todayDateTime = new Date();
             element.booking_date_time = new Date(element.booking_date + " " + element.booking_time);
-            var dateTemp = new Date(this.datePipe.transform(element.booking_date_time, "dd MMM yyyy hh:mm a"));
+            var dateTemp = new Date(this.datePipe.transform(element.booking_date_time, "yyyy/MM/dd HH:mm"));
             dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
             var temp = dateTemp.getTime() - todayDateTime.getTime();
             element.timeToService = (temp / 3600000).toFixed();
-            element.booking_time = this.datePipe.transform(element.booking_date_time, "hh:mm a")
-            element.booking_time_to = this.datePipe.transform(new Date(dateTemp), "hh:mm a")
-            element.booking_date = this.datePipe.transform(new Date(element.booking_date), "dd MMM yyyy")
-            element.created_at = this.datePipe.transform(new Date(element.created_at), "dd MMM yyyy @ hh:mm a")
+            element.booking_time = this.datePipe.transform(element.booking_date_time, "HH:mm")
+            element.booking_time_to = this.datePipe.transform(new Date(dateTemp), "HH:mm")
+            element.booking_date = this.datePipe.transform(new Date(element.booking_date), "yyyy/MM/dd")
+            element.created_at = this.datePipe.transform(new Date(element.created_at), "yyyy/MM/dd @ HH:mm")
             for (var i = 0; i < this.categories.length; i++) {
               if (this.categories[i].id == element.service.category_id) {
                 element.service.category_name = this.categories[i].category_title;
@@ -768,19 +768,19 @@ export class MyWorkSpaceComponent implements OnInit {
   fnChangeDateFilter(dateType){
     this.dateTypeFilter= dateType;
     if(dateType == 'today'){
-      this.dateTypeFilterView = this.datePipe.transform(new Date(), 'd MMM, y');
+      this.dateTypeFilterView = this.datePipe.transform(new Date(), 'yyyy/MM/dd');
     }else if(dateType == 'tomorrow'){
       const today = new Date()
       const tomorrow = new Date(today)
       tomorrow.setDate(tomorrow.getDate() + 1)
-      this.dateTypeFilterView = this.datePipe.transform(tomorrow, 'd MMM, y');
+      this.dateTypeFilterView = this.datePipe.transform(tomorrow, 'yyyy/MM/dd');
     }else if(dateType == 'week'){
       var curr = new Date; // get current date
       var first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
       var last = first + 6; // last day is the first day + 6
       var firstday = new Date(curr.setDate(first)).toUTCString();
       var lastday = new Date(curr.setDate(last)).toUTCString();
-      this.dateTypeFilterView = this.datePipe.transform(firstday, 'd MMM, y') +' to '+this.datePipe.transform(lastday, 'd MMM, y')
+      this.dateTypeFilterView = this.datePipe.transform(firstday, 'yyyy/MM/dd') +' to '+this.datePipe.transform(lastday, 'yyyy/MM/dd')
     }else if(dateType == 'month'){
       this.dateTypeFilterView = this.datePipe.transform(new Date(), 'MMMM')
     }else if(dateType == 'year'){
@@ -975,7 +975,7 @@ export class InterruptedReschedule {
   }
 
   fnDateChange(event: MatDatepickerInputEvent<Date>) {
-    let date = this.datePipe.transform(new Date(event.value), "yyyy-MM-dd")
+    let date = this.datePipe.transform(new Date(event.value), "yyyy/MM/dd")
     this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
     this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
     this.timeSlotArr = [];
@@ -1065,7 +1065,7 @@ export class InterruptedReschedule {
     let requestObject = {
       "order_item_id": JSON.stringify(this.detailsData.id),
       "staff_id": this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-      "book_date": this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value), "yyyy-MM-dd"),
+      "book_date": this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value), "yyyy/MM/dd"),
       "book_time": this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
       "book_notes": this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
     };

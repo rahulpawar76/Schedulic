@@ -54,11 +54,8 @@ export class BookingrulesComponent implements OnInit {
   settingSideMenuToggle : boolean = false;
 websiteUrlFormate = '/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/'
   constructor(
-    private appComponent : AppComponent,
     public dialog: MatDialog, 
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
-    private datePipe: DatePipe,
-    private _formBuilder: FormBuilder,
     private snackBar: MatSnackBar
     ) {
     if(localStorage.getItem('business_id')){

@@ -176,15 +176,15 @@ export class DiscountCouponComponent implements OnInit {
         this.allCouponCode.forEach((element) => {
           element.coupon_valid_from = this.datePipe.transform(
             new Date(element.coupon_valid_from),
-            "MMM d, y"
+            "yyyy/MM/dd"
           );
           element.coupon_valid_till = this.datePipe.transform(
             new Date(element.coupon_valid_till),
-            "MMM d, y"
+            "yyyy/MM/dd"
           );
           element.created_at = this.datePipe.transform(
             new Date(element.created_at),
-            "MMM d, y"
+            "yyyy/MM/dd"
           );
         });
       } else if (
@@ -251,11 +251,11 @@ export class DiscountCouponComponent implements OnInit {
 
       this.valid_from = this.datePipe.transform(
         new Date(this.valid_from),
-        "yyyy-MM-dd"
+        "yyyy/MM/dd"
       );
       this.valid_till = this.datePipe.transform(
         new Date(this.valid_till),
-        "yyyy-MM-dd"
+        "yyyy/MM/dd"
       );
 
       var discount_type = this.discountCoupon.get("discount_type").value;
