@@ -26,12 +26,12 @@
                     <input class="fileuploadinput" (change)="handleFileInput($event.target.files)" type='file'
                         id="file" />
                     <div class="drag-text">
-                        <h6 *ngIf="!uploadedFile">Drag and drop CSV files here </h6>
+                        <h6 *ngIf="!uploadedFile">Drag and drop CSV files here</h6>
                         <h6 *ngIf="uploadedFile">{{uploadedFile[0].name}}</h6>
                     </div>
                 </div>
-                <button type="submit" (click)="uploadPostal()" *ngIf="uploadedFile"
-                    class="btn btn-primary imgbtn">Upload</button>
+                <button mat-button type="submit" (click)="uploadPostal()" [disabled]="!uploadedFile"
+                    class="sc-pink-btn d-flex mx-auto justify-content-center mt-3">Upload</button>
             </div>
         </div>
     </div>

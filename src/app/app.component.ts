@@ -3,7 +3,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
-import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './_services';
 import { User, Role } from './_models';
 import { CommonService } from './_services'
@@ -28,6 +27,16 @@ import {
 } from '@angular/animations';
 import { eventNames } from 'process';
 import { SharedService } from './_services/shared.service';
+import {
+  Router,
+  // import as RouterEvent to avoid confusion with the DOM Event
+  Event as RouterEvent,
+  RouterOutlet,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router';
 
 
 
@@ -112,11 +121,16 @@ export class AppComponent implements AfterViewInit {
     public sharedService: SharedService
   ) {
 
+    this.isLoaderAdmin = true
     if(this.authenticationService.currentUser){
       this.loadLocalStorage();
       //this.checkAuthentication();
     }
-
+    
+    this.router.events.subscribe((e : RouterEvent) => {
+      this.navigationInterceptor(e);
+      this.handleRoute(e);
+    })
 
     if(localStorage.getItem('internal_staff')=='' || localStorage.getItem('internal_staff')==null){
       this.staffAvailable = true;
@@ -163,9 +177,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof RouterEvent) this.handleRoute(event);
-    });
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof RouterEvent) this.handleRoute(event);
+    // });
     //this.setcompanycolours();
 
     var is_logout = this.authenticationService.logoutTime();
@@ -178,6 +192,27 @@ export class AppComponent implements AfterViewInit {
   }
 
 
+
+  navigationInterceptor(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.isLoaderAdmin = true
+      console.log('1')
+    }
+    if (event instanceof NavigationEnd) {
+      this.isLoaderAdmin = false
+      console.log('2') 
+    }
+
+    // Set loading state to false in both of the below events to hide the spinner in case a request fails
+    if (event instanceof NavigationCancel) {
+      this.isLoaderAdmin = true
+      console.log('3')
+    }
+    if (event instanceof NavigationError) {
+      this.isLoaderAdmin = false
+      console.log('4')
+    }
+  }
 
   dynamicSort(property: string) {
     let sortOrder = 1;
