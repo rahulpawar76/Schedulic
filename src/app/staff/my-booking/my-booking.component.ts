@@ -1974,7 +1974,7 @@ export class MyBookingComponent implements OnInit {
     let requestObject = {
      "order_item_id":JSON.stringify(this.myAppoDetailData.id),
      "staff_id":this.formAppointmentRescheduleStaff.get('rescheduleStaff').value,
-     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy/MM/dd"),
+     "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleStaff.get('rescheduleDate').value),"yyyy-MM-dd"),
      "book_time":this.formAppointmentRescheduleStaff.get('rescheduleTime').value,
      "book_notes":this.formAppointmentRescheduleStaff.get('rescheduleNote').value
     };
