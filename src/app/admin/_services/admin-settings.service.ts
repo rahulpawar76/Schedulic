@@ -135,7 +135,6 @@ export class AdminSettingsService {
     fnImportService(requestObject) {
       this.checkAuthentication();
       let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
           'admin-id': this.adminId,
           'api-token': this.adminToken
       });
