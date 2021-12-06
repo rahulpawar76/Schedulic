@@ -89,7 +89,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <mat-drawer-container class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+    <mat-drawer-container class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #ffffff;">
             <div class="mb-3 d-flex">
                 <button mat-button (click)="fnCreateNewCategory()" class="sc-yellow-btn w-100">Add Category ({{allCategoryCount ? allCategoryCount : 0}})</button>
@@ -640,9 +640,9 @@
             <!-- create new Service -->
             <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100 create-new-page category-create-page">
                 <div class="m-0 h-100">
-                    <form [formGroup]="createService">
+                    <form class="h-100" [formGroup]="createService">
                         
-                        <div id="create_new_service_form" class="row mx-0">
+                        <div id="create_new_service_form" class="row mx-0 h-100">
                             <div class="col-xl-8 col-lg-8 col-12 col-md-12 d-flex pt-3 px-2 pb-2 flex-wrap align-item-start">
                                 <div class="row w-100">
                                     <div class="col-lg-6">
@@ -781,6 +781,8 @@
                                                     </span>
                                                 </div>
                                         </div>
+                                        
+                                    <div #below_all_fields></div>
                                         <div *ngIf="serviceType == 'online'" class="service-subtype online d-flex flex-wrap col-12 common-input">
                                             <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                             <mat-radio-group (change)="fnChangeOnlineType($event)" formControlName="onlineType">

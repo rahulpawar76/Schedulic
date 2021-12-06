@@ -1020,7 +1020,15 @@
                                             {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-4 ">
-                                        <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">
+                                            Tax : {{currencySymbol| currencySymbol:'wide'}} {{
+                                                pendingBillingTax |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">
+                                            Tax : {{ pendingBillingTax |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</span>
+                                        <!-- <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span> -->
                                     </div>
                                 </div>
                             </div>
@@ -1033,9 +1041,9 @@
                                 </div>
                                 <div class="col-4 ">
                                     <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
-                                        currencySymbol:'wide'}} {{ pendingBillingOrdeTotal |
+                                        currencySymbol:'wide'}} {{ (pendingBillingOrdeTotal+pendingBillingTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                    <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal |
+                                    <span *ngIf="currencySymbolPosition=='right'"> {{ (pendingBillingOrdeTotal+pendingBillingTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                         currencySymbol:'wide'}}</span>
                                 </div>

@@ -7,6 +7,7 @@ import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
@@ -26,6 +27,7 @@ export interface DialogData {
 })
 export class StaffComponent implements OnInit {
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+  @ViewChild('below_file_upload', { static: false }) jump: ElementRef;
   files: any[] = [];
   animal: any;
   isLoaderAdmin: boolean = false;
@@ -200,6 +202,7 @@ export class StaffComponent implements OnInit {
   allCountry: any=[];
   allStates: any=[];
   allCities: any=[];
+  scrollContainer: any;
 
   onFileDropped($event) {
     this.prepareFilesList($event);  
@@ -274,6 +277,8 @@ export class StaffComponent implements OnInit {
           }
         }, 200);
       }
+        this.scrollContainer = this.jump.nativeElement;
+              this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 1000);
   }
 
@@ -320,6 +325,7 @@ export class StaffComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar,
     private http: HttpClient,
+    private route: ActivatedRoute,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     private datePipe: DatePipe,
   ) {

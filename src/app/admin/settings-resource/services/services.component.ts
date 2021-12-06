@@ -1,19 +1,15 @@
 import { Component, OnInit,Inject,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-//import { SettingsComponent } from '../settings.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { ExportToCsv } from 'export-to-csv';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError, from } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../../_services/admin-settings.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {TooltipPosition} from '@angular/material/tooltip';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { NonNullAssert } from '@angular/compiler';
 
@@ -32,6 +28,7 @@ export interface DialogData {
 export class ServicesComponent implements OnInit {
     ftfTypeEle: ElementRef;
     // @ViewChild('ftf_type_id') ftfTypeEle: ElementRef;
+  @ViewChild('below_all_fields', { static: false }) jump: ElementRef;
     categoryImageUrl:any = '';
     subCategoryImageUrl:any = '';
     serviceImageUrl:any = '';
@@ -2145,7 +2142,10 @@ export class ServicesComponent implements OnInit {
         });
     
         dialogRef.afterClosed().subscribe(result => {
-            this.fnAllServices();
+            if(result == 'success'){
+                this.fnAllServices();
+                this.fnAllCategory();
+            }
         });
     }    
 
@@ -2192,8 +2192,6 @@ export class ServicesComponent implements OnInit {
                     travelingTime: [null, [Validators.required]],
                     service_id: [this.editServiceId],
                 });
-                this.scrollContainer = this.ftfTypeEle.nativeElement;
-                this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
             }else{
                 this.createService = this._formBuilder.group({
                     service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2210,12 +2208,12 @@ export class ServicesComponent implements OnInit {
                     service_id: [this.editServiceId],
                 }); 
             }
-            this.createService.get('service_name').markAsTouched();
-            this.createService.get('service_description').markAsTouched();
-            this.createService.get('service_cost').markAsTouched();
-            this.createService.get('service_duration').markAsTouched();
-            this.createService.get('service_unit').markAsTouched();
-            this.createService.get('serviceType').markAsTouched();
+            // this.createService.get('service_name').markAsTouched();
+            // this.createService.get('service_description').markAsTouched();
+            // this.createService.get('service_cost').markAsTouched();
+            // this.createService.get('service_duration').markAsTouched();
+            // this.createService.get('service_unit').markAsTouched();
+            // this.createService.get('serviceType').markAsTouched();
         }else if(this.serviceType == 'online'){
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2231,12 +2229,12 @@ export class ServicesComponent implements OnInit {
                 travelingTime: [null],
                 service_id: [this.editServiceId],
             });
-            this.createService.get('service_name').markAsTouched();
-            this.createService.get('service_description').markAsTouched();
-            this.createService.get('service_cost').markAsTouched();
-            this.createService.get('service_duration').markAsTouched();
-            this.createService.get('service_unit').markAsTouched();
-            this.createService.get('serviceType').markAsTouched();
+            // this.createService.get('service_name').markAsTouched();
+            // this.createService.get('service_description').markAsTouched();
+            // this.createService.get('service_cost').markAsTouched();
+            // this.createService.get('service_duration').markAsTouched();
+            // this.createService.get('service_unit').markAsTouched();
+            // this.createService.get('serviceType').markAsTouched();
         }else if(this.serviceType == 'phone'){
             this.createService = this._formBuilder.group({
                 service_name: [this.createService.get('service_name').value, [Validators.required,Validators.minLength(3),Validators.maxLength(30)]],
@@ -2252,13 +2250,16 @@ export class ServicesComponent implements OnInit {
                 travelingTime: [null],
                 service_id: [this.editServiceId],
             });
-            this.createService.get('service_name').markAsTouched();
-            this.createService.get('service_description').markAsTouched();
-            this.createService.get('service_cost').markAsTouched();
-            this.createService.get('service_duration').markAsTouched();
-            this.createService.get('service_unit').markAsTouched();
-            this.createService.get('serviceType').markAsTouched();
+            // this.createService.get('service_name').markAsTouched();
+            // this.createService.get('service_description').markAsTouched();
+            // this.createService.get('service_cost').markAsTouched();
+            // this.createService.get('service_duration').markAsTouched();
+            // this.createService.get('service_unit').markAsTouched();
+            // this.createService.get('serviceType').markAsTouched();
         }
+        this.scrollContainer = this.jump.nativeElement;
+        console.log('1')
+        this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
 
@@ -2374,7 +2375,7 @@ export class ServicesComponent implements OnInit {
                 verticalPosition:'top',
                 panelClass :['green-snackbar']
               });
-            this.dialogRef.close();
+            this.dialogRef.close('success');
         }
         else if(response.data == false && response.response !== 'api token or userid invaild'){
             this._snackBar.open(response.response, "X", {

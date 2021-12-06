@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit,AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+// import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
@@ -8,6 +8,16 @@ import { LoaderService } from '@app/_services/loader.service';
 import { User, Role } from '../_models';
 import { AppComponent } from '../app.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  Router,
+  // import as RouterEvent to avoid confusion with the DOM Event
+  Event as RouterEvent,
+  ActivatedRoute,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router';
 declare var google:any
 
 @Component({ 
@@ -45,11 +55,8 @@ export class LoginComponent implements OnInit {
         // redirect to home if already logged in
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
        
-        if (this.authenticationService.currentUserValue) {
-            this.appComponent.fnCheckLoginStatus();
-        }else{
-            this.appComponent.fnCheckAuthState();
-        }
+    
+        
     }
 
     ngOnInit() {
@@ -61,9 +68,44 @@ export class LoginComponent implements OnInit {
         
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        if (this.authenticationService.currentUserValue) {
+            this.appComponent.fnCheckLoginStatus();
+        }else{
+            this.appComponent.fnCheckAuthState();
+        }
     }
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
+
+
+    navigationInterceptor(event: RouterEvent): void {
+    
+        if (event instanceof NavigationStart) {
+            this.dataLoaded = true;
+            console.log('1')
+            console.log(event);
+            console.log(this.dataLoaded)
+        }
+        if (event instanceof NavigationEnd) {
+            this.dataLoaded = true;
+            console.log('2') 
+            console.log(event);
+            console.log(this.dataLoaded)
+        }
+    
+        // Set loading state to false in both of the below events to hide the spinner in case a request fails
+        if (event instanceof NavigationCancel) {
+            console.log(event);
+            console.log('3')
+            console.log(event);
+            console.log(this.dataLoaded)
+        }
+        if (event instanceof NavigationError) {
+            console.log('4')
+            console.log(event);
+            console.log(this.dataLoaded)
+        }
+      }
 
     onSubmit() {
         this.dataLoaded = true;
@@ -73,13 +115,16 @@ export class LoginComponent implements OnInit {
 
             return false;
         }
+        
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .pipe(first()).subscribe(data => {
             if(data.data == true){
+                this.router.events.subscribe((e : RouterEvent) => {
+                    this.navigationInterceptor(e);
+                  })
                 this.loginPageDisplay = false;
                 if(data.response.user_type == "A"){
-                    this.router.navigate(["admin"]);
-                    this.dataLoaded = false;  
+                    // this.router.navigate(["admin"]);
                 }else if(data.response.user_type == "SM"){
                     localStorage.setItem('internal_staff','N');
                     this.router.navigate(["staff"]);
@@ -94,12 +139,15 @@ export class LoginComponent implements OnInit {
             }else{
                 this.error = "Database Connection Error."; 
             }
-            this.dataLoaded = false;  
+            setTimeout(() => {
+                this.dataLoaded = false;  
+              },3000)
+            // this.dataLoaded = false;  
             
         },
         error => {  
             this.error = "Database Connection Error."; 
-            this.dataLoaded = false;  
+            // this.dataLoaded = false;  
         });
     }
     forgotPassword(){

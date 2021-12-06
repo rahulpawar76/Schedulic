@@ -128,7 +128,7 @@ export class AppComponent implements AfterViewInit {
     }
     
     this.router.events.subscribe((e : RouterEvent) => {
-      this.navigationInterceptor(e);
+      // this.navigationInterceptor(e);
       this.handleRoute(e);
     })
 
@@ -192,27 +192,6 @@ export class AppComponent implements AfterViewInit {
   }
 
 
-
-  navigationInterceptor(event: RouterEvent): void {
-    if (event instanceof NavigationStart) {
-      this.isLoaderAdmin = true
-      console.log('1')
-    }
-    if (event instanceof NavigationEnd) {
-      this.isLoaderAdmin = false
-      console.log('2') 
-    }
-
-    // Set loading state to false in both of the below events to hide the spinner in case a request fails
-    if (event instanceof NavigationCancel) {
-      this.isLoaderAdmin = true
-      console.log('3')
-    }
-    if (event instanceof NavigationError) {
-      this.isLoaderAdmin = false
-      console.log('4')
-    }
-  }
 
   dynamicSort(property: string) {
     let sortOrder = 1;
