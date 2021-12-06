@@ -445,7 +445,7 @@ export class MyWorkSpaceComponent implements OnInit {
       "business_id": this.businessId,
       "customer_id": customerID,
       "service_id": JSON.stringify(serviceId),
-      "book_date": this.datePipe.transform(new Date(booking_date), "yyyy/MM/dd"),
+      "book_date": this.datePipe.transform(new Date(booking_date), "yyyy-MM-dd"),
       "book_time": booking_time
     };
     let headers = new HttpHeaders({
@@ -1065,7 +1065,7 @@ export class InterruptedReschedule {
     let requestObject = {
       "order_item_id": JSON.stringify(this.detailsData.id),
       "staff_id": this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-      "book_date": this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value), "yyyy/MM/dd"),
+      "book_date": this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value), "yyyy-MM-dd"),
       "book_time": this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
       "book_notes": this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
     };

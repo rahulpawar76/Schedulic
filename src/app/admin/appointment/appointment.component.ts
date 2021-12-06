@@ -1907,7 +1907,7 @@ export class DialogAddNewAppointment {
         "business_id":this.bussinessId,
         "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
         "service_id":this.selectedServiceId,
-        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy/MM/dd"),
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
         "book_time" : this.selectedTime, 
       };
       let headers = new HttpHeaders({
@@ -1942,7 +1942,7 @@ export class DialogAddNewAppointment {
         "business_id":this.bussinessId,
         "postal_code":this.formAddNewAppointmentStaffStep1.get('customerAppoPostalCode').value,
         "service_id":this.selectedServiceId,
-        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy/MM/dd"),
+        "book_date" : this.datePipe.transform(new Date(this.selectedDate),"yyyy-MM-dd"),
         "book_time" : this.selectedTime, 
       };
       let headers = new HttpHeaders({
@@ -2391,7 +2391,7 @@ constructor(
       "customer_id":this.detailsData.customer.id,
       "business_id":this.detailsData.business_id,
       "service_id":JSON.stringify(serviceId),
-      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy/MM/dd"),
+      "book_date":this.datePipe.transform(new Date(booking_date),"yyyy-MM-dd"),
       "book_time":booking_time
     };
     let headers = new HttpHeaders({
@@ -2782,7 +2782,7 @@ export class RescheduleAppointAdmin {
     let requestObject = {
     "order_item_id":JSON.stringify(this.detailsData.id),
     "staff_id":this.formAppointmentRescheduleAdmin.get('rescheduleStaff').value,
-    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy/MM/dd"),
+    "book_date":this.datePipe.transform(new Date(this.formAppointmentRescheduleAdmin.get('rescheduleDate').value),"yyyy-MM-dd"),
     "book_time":this.formAppointmentRescheduleAdmin.get('rescheduleTime').value,
     "book_notes":this.formAppointmentRescheduleAdmin.get('rescheduleNote').value
     };

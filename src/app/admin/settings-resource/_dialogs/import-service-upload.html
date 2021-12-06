@@ -9,7 +9,7 @@
         <div class="modal-body">
             <div class="modal-body">
                 <div class="text-center">
-                    <a href="../../../assets/csv/services.csv" download style="width:100%;background-color: DodgerBlue;border: none;color: white;padding: 12px 30px;cursor: pointer;font-size: 20px;"><i class="fa fa-download"></i> 
+                    <a href="../../../assets/csv/services.csv" download style="display:inline-block;background-color: #e74488;border: none;color: white;padding: 8px 15px;cursor: pointer;font-size: 16px;"><i class="fa fa-download"></i> 
                         Demo csv download
                     </a>
                 </div>
@@ -21,7 +21,7 @@
                             <p *ngIf="fileToUpload">{{fileToUpload.name}} </p>
                         </div>
                     </div>
-                    <button mat-button [disabled]="!fileToUpload" class="sc-pink-btn d-flex mx-auto justify-content-center mt-3" (click)="fileupload()">Upload</button>
+                    <button mat-button [disabled]="!fileToUpload" class="category-img-button sc-pink-btn d-flex mx-auto justify-content-center mt-3" (click)="fileupload()">Upload</button>
                 </div>
             </div>
         </div>
