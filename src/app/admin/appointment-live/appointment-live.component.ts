@@ -1053,7 +1053,7 @@ export class AppointmentLiveComponent implements OnInit {
       "transaction_id": "",
       "payment_datetime": payment_datetime,
       "nettotal": this.posCouponApplied?this.appointmentAmountAfterDiscount+this.totalTax:this.subTotalCost+this.totalTax,
-      "discount_type" : this.appliedCouponDetail.coupon_type,
+      "discount_type" : this.appliedCouponDetail?this.appliedCouponDetail.coupon_type:null,
       "discount_value" : this.discount_amount,
       "discount": this.discount_amount,
       "tax" :  newTaxArr,
