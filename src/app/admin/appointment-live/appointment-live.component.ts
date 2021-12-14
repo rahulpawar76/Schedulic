@@ -1027,13 +1027,21 @@ export class AppointmentLiveComponent implements OnInit {
         }
       });
     });
-
+    
     this.taxArr.forEach(element => {
-      newTaxArr.push({
-        'amount' : this.subTotalCost*element.value/100,
-        'name' : element.name,
-        'value' : element.value
-      });
+      if(this.discount_amount > 0){
+        newTaxArr.push({
+          'amount' : this.appointmentAmountAfterDiscount*element.value/100,
+          'name' : element.name,
+          'value' : element.value
+        });
+      }else{
+        newTaxArr.push({
+          'amount' : this.subTotalCost*element.value/100,
+          'name' : element.name,
+          'value' : element.value
+        });
+      }
     });
 
     let bookingNotes = {
@@ -1076,6 +1084,11 @@ export class AppointmentLiveComponent implements OnInit {
         this.cartArr = [];
         this.newCustomer.reset();
         this.subTotalCost = 0;
+        this.appliedCouponDetail = null;
+        this.subTotalCost = 0;
+        this.discount_amount = 0;
+        this.totalTax = 0;
+        this.appointmentAmountAfterDiscount = 0;
         this._snackBar.open('order created', "X", {
           duration: 2000,
           verticalPosition: 'top',

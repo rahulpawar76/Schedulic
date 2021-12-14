@@ -15,23 +15,17 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { SharedService } from '@app/_services/shared.service';
-// import * as _moment from 'moment';
-// // tslint:disable-next-line:no-duplicate-imports
-// import {default as _rollupMoment} from 'moment';
 
-// const moment = _rollupMoment || _moment;
 
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
   },
   display: {
-    dateInput: 'DD MMM YYYY',
-    monthYearLabel: 'MMM YYYY',
+    dateInput: 'yyyy/MM/dd',
+    monthYearLabel: 'YYYY',
     dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
+    monthYearA11yLabel: 'YYYY',
   },
 };
 
@@ -70,6 +64,7 @@ export class MyWorkSpaceComponent implements OnInit {
     total_cost: "",
     service_time: "",
     order_by: "",
+    order_from: "",
     order_status: "",
     staffName: "",
     customerName: "",
@@ -118,6 +113,7 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedStartDate:any;
   selectedEndDate:any;
   pendingBookingCount:number=0;
+  selectedtab:number=0;
   @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   constructor(
     public dialog: MatDialog,
@@ -148,7 +144,7 @@ export class MyWorkSpaceComponent implements OnInit {
     this.selectedCategoryId = "all";
     this.selectedCategoryName = "Services";
     this.selectedStatus = "all";
-    this.selectedDate = this.datePipe.transform(new Date(), "yyyy/MM/dd")
+    this.selectedDate = this.datePipe.transform(new Date(), "yyyy-MM-dd")
     this.date = new FormControl(new Date());
     this.fnGetSettingValue();
     this.fnGetAllCategories();
@@ -285,9 +281,12 @@ export class MyWorkSpaceComponent implements OnInit {
           var todayDateTime = new Date();
           element.booking_date_time = new Date(element.booking_date + " " + element.booking_time);
           var dateTemp = new Date(this.datePipe.transform(element.booking_date_time, "yyyy/MM/dd HH:mm"));
+          var dateTemp1 = new Date(this.datePipe.transform(element.booking_date_time, "yyyy/MM/dd HH:mm"));
           dateTemp.setMinutes(dateTemp.getMinutes() + parseInt(element.service_time));
+          dateTemp1.setMinutes(dateTemp1.getMinutes());
           var temp = dateTemp.getTime() - todayDateTime.getTime();
-          element.timeToService = (temp / 3600000).toFixed();
+          var temp1 = dateTemp1.getTime() - todayDateTime.getTime();
+          element.timeToService = (temp1 / 3600000).toFixed();
           element.booking_time = this.datePipe.transform(element.booking_date_time, "HH:mm")
           element.booking_time_to = this.datePipe.transform(new Date(dateTemp), "HH:mm")
           element.booking_date = this.datePipe.transform(new Date(element.booking_date), "yyyy/MM/dd")
@@ -313,7 +312,8 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointmentDetails.timeToService = this.appointments[0].timeToService;
         this.appointmentDetails.order_by = this.appointments[0].order_by;
         this.appointmentDetails.order_status = this.appointments[0].order_status;
-        this.appointmentDetails.customer_id = this.appointments[0].customer.id;
+        this.appointmentDetails.customer_id = this.appointments[0].customer_id;
+        this.appointmentDetails.order_from = this.appointments[0].order_from;
         if (this.appointments[0].staff) {
           this.appointmentDetails.staffName = this.appointments[0].staff.firstname + " " + this.appointments[0].staff.lastname;
         }
@@ -352,7 +352,7 @@ export class MyWorkSpaceComponent implements OnInit {
       });
   }
 
-  fnGetPendingCount() {
+    fnGetPendingCount() {
     this.isLoaderAdmin = true;
     let requestObject = {
       "business_id": this.businessId,
@@ -366,9 +366,13 @@ export class MyWorkSpaceComponent implements OnInit {
       if (response.data == true) {
         this.pendingBookingCount = response.response.length;
       } else if (response.data == false && response.response !== 'api token or userid invaild') {
-       
       }
-    this.isLoaderAdmin = false;
+      if(this.pendingBookingCount == 0){
+        this.selectedtab = 1;
+      }else{
+        this.selectedtab = 0;
+      }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         this.error = err;
@@ -392,6 +396,7 @@ export class MyWorkSpaceComponent implements OnInit {
     this.appointmentDetails.order_by = this.appointments[i].order_by;
     this.appointmentDetails.order_status = this.appointments[i].order_status;
     this.appointmentDetails.customer_id = this.appointments[i].customer.id;
+    this.appointmentDetails.order_from = this.appointments[i].order_from;
     if (this.appointments[i].staff) {
       this.appointmentDetails.staffName = this.appointments[i].staff.firstname + " " + this.appointments[i].staff.lastname;
     }
@@ -421,6 +426,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnGetActivityLog(orderItemId) {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": orderItemId
     };
@@ -436,10 +442,12 @@ export class MyWorkSpaceComponent implements OnInit {
         // });
         this.activityLog = [];
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnGetStaff(booking_date, customerID, booking_time, serviceId, postal_code) {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "postal_code": postal_code,
       "business_id": this.businessId,
@@ -464,12 +472,14 @@ export class MyWorkSpaceComponent implements OnInit {
       else {
         this.availableStaff.length = 0;
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
       })
   }
 
   fnOnClickStaff(event) {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": this.appointmentDetails.id,
       "staff_id": event.value
@@ -490,6 +500,7 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         this.error = err;
@@ -497,6 +508,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnGetAllCategories() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id": this.businessId,
       "status": "E"
@@ -516,6 +528,7 @@ export class MyWorkSpaceComponent implements OnInit {
         // });
         this.startWorkSpacePage = true;
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         this.error = err;
@@ -533,7 +546,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnGetTodayRevenue() {
-
+    this.isLoaderAdmin = true;
     let requestObject = {
       "business_id": this.businessId,
       "category": this.selectedCategoryId,
@@ -550,6 +563,7 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     },
       (err) => {
         this.error = err;
@@ -601,6 +615,7 @@ export class MyWorkSpaceComponent implements OnInit {
   }
 
   fnConfirmAppointment() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": JSON.stringify(this.appointmentDetails.id),
       "status": "CNF"
@@ -621,10 +636,12 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnCompleteAppointment() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": JSON.stringify(this.appointmentDetails.id),
       "status": "CO"
@@ -645,10 +662,12 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   fnCancelAppointment() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       "order_item_id": JSON.stringify(this.appointmentDetails.id),
       "status": "C"
@@ -669,6 +688,7 @@ export class MyWorkSpaceComponent implements OnInit {
           panelClass: ['red-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   todayBookingSearch() {
@@ -793,10 +813,10 @@ export class MyWorkSpaceComponent implements OnInit {
 
   
   onTabChanged(event){
-    let clickedIndex = event.index;
-    if(clickedIndex == 0){
+    this.selectedtab = event.index;
+    if(this.selectedtab == 0){
       this.fnChangeBookingStatus('P');
-    }else if(clickedIndex == 1){
+    }else if(this.selectedtab == 1){
       this.fnChangeBookingStatus('all');
     }
   }

@@ -115,12 +115,12 @@
                                         <p class="text-capitalize">Staff Not Assigned</p>
                                     </div>
                                     <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
-                                        {{currencySymbol| currencySymbol:'wide'}} {{ allAppointmentsData.total_cost |
-                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</div>
-                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'"> {{
-                                        allAppointmentsData.total_cost |
-                                        currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
-                                        currencySymbol:'wide'}}</div>
+                                        {{currencySymbol| currencySymbol:'wide'}} 
+                                        {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                    </div>
+                                    <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'"> 
+                                        {{ allAppointmentsData.total_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} 
+                                        {{currencySymbol| currencySymbol:'wide'}}</div>
                                     <div class="text-left" fxFlex="10" *ngIf="!currencySymbolPosition">None</div>
 
 

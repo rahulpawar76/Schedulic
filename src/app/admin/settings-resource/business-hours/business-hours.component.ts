@@ -241,7 +241,6 @@ export class BusinessHoursComponent implements OnInit {
       offday:this.sundayOn?"N":"Y"
     };
     workingHoursArray.push(workingHoursTempArray);
-    console.log(JSON.stringify(workingHoursArray));
     let requestObject={
       "business_id":this.businessId,
       "workingHour":workingHoursArray
@@ -359,7 +358,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnChangeToggle(event,day){
-    console.log(event);
     if(day=="Monday"){
       this.mondayOn=event.checked;
     }
@@ -397,7 +395,6 @@ export class BusinessHoursComponent implements OnInit {
     }
   
     this.timeSlotList=result;
-    console.log(this.timeSlotList[0]);
   }
 
   timeString(time){
@@ -429,7 +426,6 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.getWorkingHours(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.workingHoursList=response.response;
-        console.log(this.workingHoursList);
         this.workingHoursList.forEach(element => {
           if(element.week_day_id == 0){
             element.week_day_name="Sunday";
@@ -516,7 +512,6 @@ export class BusinessHoursComponent implements OnInit {
             }
           }
         });
-        console.log(this.workingHoursList);
 
       }
       else{
@@ -527,8 +522,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnOnChangeStartTimeWorkingHour(event,day){
-    console.log(event);
-    console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -651,8 +644,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnOnChangeEndTimeWorkingHour(event,day){
-    console.log(event);
-    console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -753,7 +744,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnFormBuild(mondayOn,tuesdayOn,wednesdayOn,thursdayOn,fridayOn,saturdayOn,sundayOn){
-    console.log(mondayOn+"--"+tuesdayOn+"--"+wednesdayOn+"--"+thursdayOn+"--"+fridayOn+"--"+saturdayOn+"--"+sundayOn);
     this.formSetWorkingHours = this._formBuilder.group({
       mondayToggle: [this.formSetWorkingHours.get("mondayToggle").value?true:false,mondayOn?Validators.required:''],
       mondayStartTime: [this.formSetWorkingHours.get("mondayStartTime").value,mondayOn?Validators.required:''],
@@ -785,7 +775,6 @@ export class BusinessHoursComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if(result != undefined){
         if(result.call==true){
         this.fnGetTimeOffList();
@@ -804,7 +793,6 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.getTimeOffList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.timeOffList= response.response;
-        console.log(this.timeOffList);
         this.timeOffList.forEach(element => {
           if(element.start_date){
             element.start_date=this.datePipe.transform(new Date(element.start_date),"yyyy/MM/dd");
@@ -826,7 +814,6 @@ export class BusinessHoursComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        console.log(timeOffId);
         let requestObject={
           "time_off_id":timeOffId
         }
@@ -853,7 +840,6 @@ export class BusinessHoursComponent implements OnInit {
 
   fnChangeTimeOffStatus(event,timeOffId){
     this.isLoaderAdmin = true;
-    console.log(event.checked+"--"+timeOffId);
     let requestObject={
       "time_off_id":timeOffId,
       "status":event.checked?"E":"D"
@@ -887,7 +873,6 @@ export class BusinessHoursComponent implements OnInit {
     this.adminSettingsService.getBreakTimeList(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.breakTimeList= response.response;
-        console.log(this.breakTimeList);
         this.breakTimeList.forEach(element => {
           if(element.break_start_time){
            element.break_start_time=this.datePipe.transform(new Date(this.datePipe.transform(new Date(),"yyyy/MM/dd")+" "+element.break_start_time),"HH:mm");
@@ -1120,8 +1105,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnOnChangeStartTimeBreak(event,day){
-    console.log(event);
-    console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1202,8 +1185,6 @@ export class BusinessHoursComponent implements OnInit {
   }
 
   fnOnChangeEndTimeBreak(event,day){
-    console.log(event);
-    console.log(day);
     if(day == 'Monday'){
       for(var i=0; i<this.timeSlotList.length; i++){
         if(this.timeSlotList[i].long==event.value){
@@ -1439,7 +1420,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeMonday,
         "dayNumber":"1"
       }
-      console.log(requestObject);
     }
     if(day == "Tuesday"){
       if(this.selectedStartTimeTuesday==null || this.selectedEndTimeTuesday==null){
@@ -1465,7 +1445,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeTuesday,
         "dayNumber":"2"
       }
-      console.log(requestObject);
     }
     if(day == "Wednesday"){
       if(this.selectedStartTimeWednesday==null || this.selectedEndTimeWednesday==null){
@@ -1491,7 +1470,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeWednesday,
         "dayNumber":"3"
       }
-      console.log(requestObject);
     }
     if(day == "Thursday"){
       if(this.selectedStartTimeThursday==null || this.selectedEndTimeThursday==null){
@@ -1517,7 +1495,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeThursday,
         "dayNumber":"4"
       }
-      console.log(requestObject);
     }
     if(day == "Friday"){
       if(this.selectedStartTimeFriday==null || this.selectedEndTimeFriday==null){
@@ -1543,7 +1520,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeFriday,
         "dayNumber":"5"
       }
-      console.log(requestObject);
     }
     if(day == "Saturday"){
       if(this.selectedStartTimeSaturday==null || this.selectedEndTimeSaturday==null){
@@ -1569,7 +1545,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeSaturday,
         "dayNumber":"6"
       }
-      console.log(requestObject);
     }
     if(day == "Sunday"){
       if(this.selectedStartTimeSunday==null || this.selectedEndTimeSunday==null){
@@ -1595,7 +1570,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedEndTimeSunday,
         "dayNumber":"0"
       }
-      console.log(requestObject);
     }
     this.adminSettingsService.addNewBreak(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -1655,7 +1629,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeMonday,
         "dayNumber":"1"
       }
-      console.log(requestObject);
     }
     if(day == "Tuesday"){
       if(this.selectedWorkHourStartTimeTuesday==null || this.selectedWorkHourEndTimeTuesday==null){
@@ -1681,7 +1654,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeTuesday,
         "dayNumber":"2"
       }
-      console.log(requestObject);
     }
     if(day == "Wednesday"){
       if(this.selectedWorkHourStartTimeWednesday==null || this.selectedWorkHourEndTimeWednesday==null){
@@ -1707,7 +1679,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeWednesday,
         "dayNumber":"3"
       }
-      console.log(requestObject);
     }
     if(day == "Thursday"){
       if(this.selectedWorkHourStartTimeThursday==null || this.selectedWorkHourEndTimeThursday==null){
@@ -1733,7 +1704,6 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeThursday,
         "dayNumber":"4"
       }
-      console.log(requestObject);
     }
     if(day == "Friday"){
       if(this.selectedWorkHourStartTimeFriday==null || this.selectedWorkHourEndTimeFriday==null){
@@ -1759,7 +1729,7 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeFriday,
         "dayNumber":"5"
       }
-      console.log(requestObject);
+      
     }
     if(day == "Saturday"){
       if(this.selectedWorkHourStartTimeSaturday==null || this.selectedWorkHourEndTimeSaturday==null){
@@ -1785,7 +1755,7 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeSaturday,
         "dayNumber":"6"
       }
-      console.log(requestObject);
+      
     }
     if(day == "Sunday"){
       if(this.selectedWorkHourStartTimeSunday==null || this.selectedWorkHourEndTimeSunday==null){
@@ -1811,7 +1781,7 @@ export class BusinessHoursComponent implements OnInit {
         "end_time":this.selectedWorkHourEndTimeSunday,
         "dayNumber":"0"
       }
-      console.log(requestObject);
+      
     }
     this.adminSettingsService.addNewWorkingHoursStaff(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -1846,7 +1816,6 @@ export class BusinessHoursComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        console.log(WorkHourId);
         let requestObject={
           "working_hours_id":WorkHourId
         }
@@ -1878,7 +1847,6 @@ export class BusinessHoursComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        console.log(breakId);
         let requestObject={
           "break_id":breakId
         }
@@ -1933,7 +1901,6 @@ constructor(
 }
 
 fnDateChange(event: MatDatepickerInputEvent<Date>){
-  console.log(event);
   this.minEndDate=event.value
 }
 
@@ -1954,7 +1921,6 @@ fnAddNewTimeOff(){
       "end_date":this.datePipe.transform(new Date(this.formAddNewTimeOff.get("endDate").value),"yyyy/MM/dd"),
       "description":this.formAddNewTimeOff.get("description").value
     }
-    console.log(JSON.stringify(requestObject));
     this.adminSettingsService.addNewTimeOff(requestObject).subscribe((response:any) => {
       if(response.data == true){
         this.dialogRef.close({ call: true });

@@ -1011,7 +1011,7 @@
                                                     <div class="" *ngIf="!mondayOn">Closed for Business</div>
                                                 </div>
                                                 <div class="blue-font pl-3" fxFlex="10">
-                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0"> Apply to
+                                                    <p (click)="fnApplyToAll()" *ngIf="mondayOn" class="mb-0 pointer"> Apply to
                                                         all </p>
                                                 </div>
                                                 <div class="" fxFlex="15">
@@ -1557,11 +1557,23 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!mondayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font pl-3" fxFlex="10">
+                                                <p (click)="fnApplyBreaksToAll()" *ngIf="mondayOn" class="mb-0 pointer"> Apply to
+                                                    all </p>
+                                            </div>
+                                            <div class="" fxFlex="15">
+                                                <button mat-button class="staff-reset-btn mr-1"
+                                                    (click)="fnResetToDefaultBreak()">Reset to
+                                                    Default</button>
+                                            </div>
+                                            <!-- <div *ngIf="mondayOn" class="">
+                                                <button mat-button class="staff-reset-btn" (click)="fnApplyBreaksToAll()" >Apply to All</button>
+                                            </div>
                                             <div class="">
                                                 <button mat-button class="staff-reset-btn"
                                                     (click)="fnResetToDefaultBreak()">Reset to
                                                     Default</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="example-box break-custom-wrap">
                                             <div class="break-box">
@@ -1640,6 +1652,8 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!tuesdayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
 
                                         </div>
                                         <div class="example-box break-custom-wrap">
@@ -1719,6 +1733,8 @@
                                                 </div>
                                             </div>
                                             <div class="ml-3" *ngIf="!wednesdayOn"> Day Off </div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
 
                                         </div>
                                         <div class="example-box break-custom-wrap">
@@ -1798,6 +1814,8 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!thursdayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
 
                                         </div>
                                         <div class="example-box break-custom-wrap">
@@ -1876,6 +1894,8 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!fridayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
 
                                         </div>
                                         <div class="example-box break-custom-wrap">
@@ -1957,6 +1977,8 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!saturdayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
 
                                         </div>
                                         <div class="example-box break-custom-wrap">
@@ -1968,7 +1990,7 @@
                                                         mat-button appearance="fill" class="Add-braek-btn ml-2 mr-2"
                                                         *ngIf="!sundayOn">Closed</button>
                                                 </div>
-                                                <div class="" fxFlex="35" *ngIf="sundayOn">
+                                                <div class="" fxFlex="50" *ngIf="sundayOn">
                                                     <div class="breaktime-slot-main"
                                                         *ngFor="let breakTime of breakTimeList">
                                                         <div class="d-flex" *ngIf="breakTime.week_day_id == '0'">
@@ -2033,9 +2055,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="!sundayOn" class="ml-3">Day Off</div>
-
                                             </div>
+                                            <div *ngIf="!sundayOn" class="ml-3">Day Off</div>
+                                            <div class="blue-font" fxFlex="10"></div>
+                                            <div class="" fxFlex="15"></div>
                                         </div>
                                     </div>
                                 </div>

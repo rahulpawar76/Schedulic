@@ -118,7 +118,8 @@
                         {{log.status=='CO'?'Completed':''}} {{log.user_type=='A' && log.status=='CO'
                         ? 'By Admin' : log.user_type=='S' && log.status=='CO' ? 'By Staff': log.user_type=='C' &&
                         log.status=='CO' ? 'By User' : ''}}
-
+                        {{log.user_type=='S' && log.status=='GL' ? 'Getting Late By Staff': ''}}
+                        {{log.status=='GL'?'(Late Time : '+appoDetail.gl_time+' Mins)':''}}
                         <p *ngIf="log.notes">
                             <b>Note: </b> {{log.notes}}
                         </p>

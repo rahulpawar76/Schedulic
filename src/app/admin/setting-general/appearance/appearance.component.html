@@ -466,9 +466,9 @@
                                 <!-- </mat-form-field> -->
                             </div>
 
-                            <a [href]="frontBookingUrl" target="_blank" class="btn service-booking-link-active ml-3 m-2 pr-3"><i class="fa fa-external-link mr-2"></i>Test link</a>
-                            <a (click)="fnShare('facebook');" class="btn service-booking-link m-2 pr-3"><i class="fa fa-facebook mr-2"></i>Share It</a>
-                            <a (click)="fnShare('twitter');" class="btn service-booking-link m-2 pr-3"><i class="fa fa-twitter mr-2"></i>Tweet It</a>
+                            <a mat-button [href]="frontBookingUrl" target="_blank" class="btn service-booking-link-active ml-3 m-2 pr-3"><i class="fa fa-external-link mr-2"></i>Test link</a>
+                            <button mat-button (click)="fnShare('facebook');" class="btn service-booking-link m-2 pr-3"><i class="fa fa-facebook mr-2"></i>Share It</button>
+                            <button mat-button (click)="fnShare('twitter');" class="btn service-booking-link m-2 pr-3"><i class="fa fa-twitter mr-2"></i>Tweet It</button>
                         </div>
                     </div>
                 </mat-card>

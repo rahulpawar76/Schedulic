@@ -15,18 +15,40 @@ import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { _fixedSizeVirtualScrollStrategyFactory } from '@angular/cdk/scrolling';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 export interface DialogData {
   animal: string;
   name: string;
 }
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'YYYY/MM/DD',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss'],
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    DatePipe
+  ],
+  // providers: [DatePipe]
 })
 
 export class AppointmentComponent implements OnInit {
@@ -686,6 +708,7 @@ export class AppointmentComponent implements OnInit {
   templateUrl: '../_dialogs/add-new-appointment.html',
   providers: [DatePipe]
 })
+
 export class DialogAddNewAppointment {
   
   formAddNewAppointmentStaffStep1:FormGroup;
@@ -2688,8 +2711,8 @@ export class RescheduleAppointAdmin {
 
   
   fnDateChange(event:MatDatepickerInputEvent<Date>) {
-      console.log(this.datePipe.transform(new Date(event.value),"yyyy/MM/dd"));
-      let date = this.datePipe.transform(new Date(event.value),"yyyy/MM/dd")
+      console.log(this.datePipe.transform(new Date(event.value),"yyyy-MM-dd"));
+      let date = this.datePipe.transform(new Date(event.value),"yyyy-MM-dd")
       this.formAppointmentRescheduleAdmin.controls['rescheduleTime'].setValue(null);
       this.formAppointmentRescheduleAdmin.controls['rescheduleStaff'].setValue(null);
       this.timeSlotArr= [];

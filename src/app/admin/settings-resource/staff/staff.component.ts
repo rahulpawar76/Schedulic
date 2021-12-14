@@ -2665,6 +2665,52 @@ export class StaffComponent implements OnInit {
     })
   }
 
+  fnApplyBreaksToAll(){
+    console.log(this.breakTimeList)
+    if(!this.mondayOn){
+      return false;
+    }
+    let mondayBreaks = [];
+    mondayBreaks = this.breakTimeList.filter(element => element.week_day_id == 1);
+console.log(mondayBreaks)
+// return false;
+    mondayBreaks.forEach(element => {
+      if(element.day_start_time == '' || element.day_start_time == null || element.day_end_time == '' || element.day_end_time == null){
+        this._snackBar.open("Break start & end time can not be empty.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        return false;
+      }
+    });
+    this.isLoaderAdmin = true;
+    let requestObject={
+      "staff_id":this.selectedStaffId,
+      "breaks":mondayBreaks,
+    }
+   // console.log(JSON.stringify(requestObject));
+    
+    this.adminSettingsService.applyBreaksToAllStaff(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
+        this._snackBar.open("Breaks applied to all", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.isLoaderAdmin = false;
+      this._snackBar.open("Breaks Not Updated", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      }
+    })
+  }
+
   fnWorkingHoursResetToDefault(){
     this.isLoaderAdmin = true;
     let requestObject={

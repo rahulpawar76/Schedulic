@@ -1218,7 +1218,7 @@ mat-select .mat-select-arrow-wrapper .mat-select-arrow {
     height: 8px;
     width: 8px;
     border-style: solid;
-    border-color: #0E0E0E;
+    border-color: #565657;
     border-width: 0px 2px 2px 0px;
     transform: rotate(45deg);
     transition: border-width 150ms ease-in-out;
@@ -1959,4 +1959,12 @@ mat-select{
 }
 .form-control:focus{
     border-color: #00A89B;
+}
+// .btn-primary{
+//     &:active{
+//         background-color:
+//     }
+// }
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    background-color:#f04589;
 }
