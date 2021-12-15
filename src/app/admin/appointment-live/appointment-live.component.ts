@@ -1440,6 +1440,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
+    if(latitude & longitude) {
     this.geoCoder = new google.maps.Geocoder();
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
@@ -1454,6 +1455,7 @@ export class AppointmentLiveComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
+    }
   }
 
   getLocation(address) {
@@ -1463,6 +1465,12 @@ export class AppointmentLiveComponent implements OnInit {
         if (results[0]) {
           let destinationLat = results[0].geometry.location.lat();
           let desiationLong = results[0].geometry.location.lng();
+          if(this.lat & this.lng) {
+          } else {
+            this.origin = { lat: destinationLat, lng: desiationLong };
+            this.lat = destinationLat;
+            this.lng = desiationLong;
+          }
           this.destination = { lat: destinationLat, lng: desiationLong };
         } else {
           window.alert('No results found');
@@ -1477,6 +1485,7 @@ export class AppointmentLiveComponent implements OnInit {
     
     var data = this.outdoorOrdersArr[index];
     var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
+    this.address = address;
     if(data.service.service_sub_type=='at_home'){
       this.ShowMap  = true;
     }else{
@@ -1492,11 +1501,11 @@ export class AppointmentLiveComponent implements OnInit {
           this.ShowMap = true;
           this.lat = parseFloat(this.trackOrderList[0]);
           this.lng = parseFloat(this.trackOrderList[1]);
-          this.origin = { lat: this.lat, lng: this.lng };
-          this.destination = { lat: this.lat, lng: this.lng };
-          this.getAddress(this.lat, this.lng);
+          if(this.lat & this.lng) {
+            this.origin = { lat: this.lat, lng: this.lng };
+            this.getAddress(this.lat, this.lng);
+          }
           this.getLocation(address);
-
           if(data.service.service_sub_type=='at_home'){
             this.ShowMap  = true;
           }else{
