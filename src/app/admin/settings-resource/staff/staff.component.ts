@@ -7,6 +7,7 @@ import { environment } from '@environments/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { DatePipe} from '@angular/common';
@@ -26,6 +27,7 @@ export interface DialogData {
 })
 export class StaffComponent implements OnInit {
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
+  @ViewChild('below_file_upload', { static: false }) jump: ElementRef;
   files: any[] = [];
   animal: any;
   isLoaderAdmin: boolean = false;
@@ -200,6 +202,7 @@ export class StaffComponent implements OnInit {
   allCountry: any=[];
   allStates: any=[];
   allCities: any=[];
+  scrollContainer: any;
 
   onFileDropped($event) {
     this.prepareFilesList($event);  
@@ -274,6 +277,8 @@ export class StaffComponent implements OnInit {
           }
         }, 200);
       }
+        this.scrollContainer = this.jump.nativeElement;
+              this.scrollContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 1000);
   }
 
@@ -320,6 +325,7 @@ export class StaffComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private _snackBar: MatSnackBar,
     private http: HttpClient,
+    private route: ActivatedRoute,
     @Inject(AdminSettingsService) public adminSettingsService: AdminSettingsService,
     private datePipe: DatePipe,
   ) {
@@ -2651,6 +2657,52 @@ export class StaffComponent implements OnInit {
       else if(response.data == false && response.response !== 'api token or userid invaild'){
       this.isLoaderAdmin = false;
       this._snackBar.open("Working Hours Not Updated", "X", {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass : ['red-snackbar']
+      });
+      }
+    })
+  }
+
+  fnApplyBreaksToAll(){
+    console.log(this.breakTimeList)
+    if(!this.mondayOn){
+      return false;
+    }
+    let mondayBreaks = [];
+    mondayBreaks = this.breakTimeList.filter(element => element.week_day_id == 1);
+console.log(mondayBreaks)
+// return false;
+    mondayBreaks.forEach(element => {
+      if(element.day_start_time == '' || element.day_start_time == null || element.day_end_time == '' || element.day_end_time == null){
+        this._snackBar.open("Break start & end time can not be empty.", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['red-snackbar']
+        });
+        return false;
+      }
+    });
+    this.isLoaderAdmin = true;
+    let requestObject={
+      "staff_id":this.selectedStaffId,
+      "breaks":mondayBreaks,
+    }
+   // console.log(JSON.stringify(requestObject));
+    
+    this.adminSettingsService.applyBreaksToAllStaff(requestObject).subscribe((response:any) => {
+      if(response.data == true){
+        this.fnViewSingleStaff(this.selectedStaffId, this.singleStaffIndex);
+        this._snackBar.open("Breaks applied to all", "X", {
+          duration: 2000,
+          verticalPosition: 'top',
+          panelClass : ['green-snackbar']
+        });
+      }
+      else if(response.data == false && response.response !== 'api token or userid invaild'){
+      this.isLoaderAdmin = false;
+      this._snackBar.open("Breaks Not Updated", "X", {
         duration: 2000,
         verticalPosition: 'top',
         panelClass : ['red-snackbar']

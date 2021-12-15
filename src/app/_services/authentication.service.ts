@@ -18,7 +18,6 @@ export class AuthenticationService {
         ) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
-        console.log(this.currentUser)
     }
     public getIPAddress()  
     {  
@@ -32,7 +31,6 @@ export class AuthenticationService {
     getOtp(requestObject){
         return this.http.post<any>(`${environment.apiUrl}/send-otp`, requestObject)
            .pipe(map(data => { 
-               console.log(data);
                return data;
            }));
    }
@@ -89,9 +87,7 @@ export class AuthenticationService {
                 var logoutTime = new Date();
                logoutTime.setHours( logoutTime.getHours() + 6 );
                localStorage.setItem('logoutTime', JSON.stringify(logoutTime));
-                console.log(user.response);
             }
-                console.log(user.response);
             return user.response;
         }));
     }
@@ -139,8 +135,6 @@ export class AuthenticationService {
         // localStorage.removeItem('userRole');
         // localStorage.removeItem('tokenID');
         this.currentUserSubject.next(null);
-        //window.location.reload(true);
-     //   console.log(this.currentUserValue);
     }
 
     customerLogout() {
@@ -178,7 +172,6 @@ export class AuthenticationService {
             }
         }
         if(user_type=='SA'){
-            console.log(name);
             if(name==null){
                 return 'My Admins'
             }else if(name=='my-trans'){

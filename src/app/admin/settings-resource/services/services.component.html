@@ -89,7 +89,7 @@
             <p>Alert Rules</p>
         </div>
     </div>
-    <mat-drawer-container class="h-100 setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
+    <mat-drawer-container class="setting-right-side-content" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <mat-drawer [disableClose]="true" mode="side" opened class="category-sidebar" style="width:250px; background-color: #ffffff;">
             <div class="mb-3 d-flex">
                 <button mat-button (click)="fnCreateNewCategory()" class="sc-yellow-btn w-100">Add Category ({{allCategoryCount ? allCategoryCount : 0}})</button>
@@ -205,7 +205,8 @@
                                     <div class="profile-img-wrap" (click)="categoryImage()">
                                         <img *ngIf="!editCategoryId && categoryImageUrl == ''" src="/assets/images/icons/image-placeholder.svg" class="service-profile-image default-img">
                                         <img *ngIf="!editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image w-100">
-                                        <img *ngIf="editCategoryId && categoryImageUrl == ''" src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
+                                        <img *ngIf="editCategoryId && categoryImageUrl == '' && selectedCategoryDetails.category_image !== 'https://api.schedulic.com/category-images/default.png' " src="{{selectedCategoryDetails.category_image}}" class="service-profile-image">
+                                        <img *ngIf="editCategoryId && categoryImageUrl == '' && selectedCategoryDetails.category_image === 'https://api.schedulic.com/category-images/default.png' " src="/assets/images/icons/image-placeholder.svg" class="service-profile-image default-img">
                                         <img *ngIf="editCategoryId && categoryImageUrl != ''" src="{{categoryImageUrl}}" class="service-profile-image">
                                     </div>
                                 </div>
@@ -280,7 +281,8 @@
                                     <div class="profile-img-wrap" (click)="subCategoryImage()">
                                         <img *ngIf="!editSubCategoryId && subCategoryImageUrl == ''" src="/assets/images/icons/image-placeholder.svg" class="default-img">
                                         <img *ngIf="!editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
-                                        <img *ngIf="editSubCategoryId && subCategoryImageUrl == ''" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
+                                        <img *ngIf="editSubCategoryId && subCategoryImageUrl == '' && selectedSubCategoryDetails.sub_category_image != 'https://api.schedulic.com/sub-category-images/default.png'" src="{{selectedSubCategoryDetails.sub_category_image}}" class="service-profile-image">
+                                        <img *ngIf="editSubCategoryId && subCategoryImageUrl == '' && selectedSubCategoryDetails.sub_category_image == 'https://api.schedulic.com/sub-category-images/default.png'" src="/assets/images/icons/image-placeholder.svg" class="default-img">
                                         <img *ngIf="editSubCategoryId && subCategoryImageUrl != ''" src="{{subCategoryImageUrl}}" class="service-profile-image">
                                     </div>
                                 </div>
@@ -553,7 +555,7 @@
                                     <div class="" fxFlex="5">
                                         <mat-checkbox [checked]="selectAllSubCat" (change)="checkAllSubcat($event)" class=""></mat-checkbox>
                                     </div>
-                                    <div class="text-left" fxFlex="25">Service</div>
+                                    <div class="text-left" fxFlex="30">Service</div>
                                 <div class="text-left" fxFlex="15">Duration (Mins)</div>
                                 <div class="text-left" fxFlex="15">Price</div>
                                 <div class="text-left" fxFlex="10">Unit</div>
@@ -570,10 +572,10 @@
                                         <div class="text-left" fxFlex="30">{{subCategoryServicesList.service_name}}</div>
                                         <div class="text-left" fxFlex="15">{{subCategoryServicesList.service_time}}</div>
                                         <!-- <div class="text-left" fxFlex="10">$ {{subCategoryServicesList.service_cost}}</div> -->
-                                        <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='left'">
+                                        <div class="text-left" fxFlex="15" *ngIf="currencySymbolPosition=='left'">
                                             {{currencySymbol| currencySymbol:'wide'}} {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
                                         </div>
-                                        <div class="text-left" fxFlex="10" *ngIf="currencySymbolPosition=='right'">
+                                        <div class="text-left" fxFlex="15" *ngIf="currencySymbolPosition=='right'">
                                             {{ subCategoryServicesList.service_cost | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</div>
                                         <div class="text-left" fxFlex="10">{{subCategoryServicesList.service_unit}}</div>
                                         <div class="text-left" *ngIf="subCategoryServicesList.private_status == 'N'" fxFlex="10">Public</div>
@@ -587,7 +589,7 @@
                                         <div class="" fxFlex="5" cdkDragHandle class="handler"><i class="fa fa-arrows" aria-hidden="true"></i></div> -->
                                         <div class="text-left table-action-btns" fxFlex="10">
                                         
-                                            <div class="sc-table-action-btn ml-0 mr-2" (click)="fnEditService(i,categoryServicesList.id,'subcategory')">
+                                            <div class="sc-table-action-btn ml-0 mr-2" (click)="fnEditService(i,subCategoryServicesList.id,'subcategory')">
                                                 <mat-icon>mode_edit</mat-icon>
                                             </div>
                                                 <div cdkDragHandle class="handler"> 
@@ -640,9 +642,9 @@
             <!-- create new Service -->
             <div *ngIf="createNewServicePage" id="create_new_service" class="mb-0 w-100 create-new-page category-create-page">
                 <div class="m-0 h-100">
-                    <form [formGroup]="createService">
+                    <form class="h-100" [formGroup]="createService">
                         
-                        <div id="create_new_service_form" class="row mx-0">
+                        <div id="create_new_service_form" class="row mx-0 h-100">
                             <div class="col-xl-8 col-lg-8 col-12 col-md-12 d-flex pt-3 px-2 pb-2 flex-wrap align-item-start">
                                 <div class="row w-100">
                                     <div class="col-lg-6">
@@ -781,6 +783,8 @@
                                                     </span>
                                                 </div>
                                         </div>
+                                        
+                                    <div #below_all_fields></div>
                                         <div *ngIf="serviceType == 'online'" class="service-subtype online d-flex flex-wrap col-12 common-input">
                                             <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                                             <mat-radio-group (change)="fnChangeOnlineType($event)" formControlName="onlineType">

@@ -75,8 +75,8 @@
                                             <!-- <mat-form-field class=" bottom-border-field"> -->
                                             <!-- <mat-label>Change Status</mat-label> -->
                                             <mat-select name="status" class="form-control formcontrol custom-select-modal-wrap " placeholder="Change Status"  [(value)]="onGoingAppointmentData.order_status" (selectionChange)="someMethod(onGoingAppointmentData.id, $event.value)">
-                                                <mat-option [disabled]="(onGoingAppointmentData.timeToServiceDecimal > 60) || onGoingAppointmentData.service.service_sub_type == 'in_store' || onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
-                                                <mat-option [disabled]="onGoingAppointmentData.timeToServiceDecimal > 30" value="WS">Work Started</mat-option>
+                                                <mat-option [disabled]="(onGoingAppointmentData.timeToServiceDecimal < 60) || onGoingAppointmentData.service.service_sub_type == 'in_store' || onGoingAppointmentData.order_status == 'WS'" value="OW">On The Way</mat-option>
+                                                <mat-option [disabled]="onGoingAppointmentData.timeToServiceDecimal < 30" value="WS">Work Started</mat-option>
                                                 <mat-option value="GL">Getting Late</mat-option>
                                             </mat-select>
                                             <!-- </mat-form-field> -->

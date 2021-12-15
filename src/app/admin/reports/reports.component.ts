@@ -338,7 +338,6 @@ export class ReportsComponent implements OnInit {
                 });
               }
             }
-            console.log(element.orders)
           }else if(this.reportFilter=="date"){
             element.dates=this.datePipe.transform(new Date(element.dates),"yyyy/MM/dd");
           }else{

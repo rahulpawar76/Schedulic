@@ -521,7 +521,7 @@
                                 <td scope="row" class="text-center">
                                     <p class="mb-0">{{customer.created_at}}</p>
                                 </td>
-                                <td class="text-center">{{customer.created_by}}</td>
+                                <td class="text-center">{{customer.created_by?customer.created_by:'Customer Widget'}}</td>
                                 <td class="text-center">{{customer.fullname}}</td>
                                 <td class="text-center">{{customer.phone}}</td>
                                 <td class="text-center">{{customer.email}}</td>

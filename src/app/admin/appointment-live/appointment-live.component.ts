@@ -168,6 +168,7 @@ export class AppointmentLiveComponent implements OnInit {
   appliedCouponDetail:any;
   appointmentAmountAfterDiscount:number = 0;
   discount_amount:number = 0; 
+  pendingBillingTax:number=0;
   constructor(
     private adminService: AdminService,
     private datePipe: DatePipe,
@@ -1026,13 +1027,21 @@ export class AppointmentLiveComponent implements OnInit {
         }
       });
     });
-
+    
     this.taxArr.forEach(element => {
-      newTaxArr.push({
-        'amount' : this.subTotalCost*element.value/100,
-        'name' : element.name,
-        'value' : element.value
-      });
+      if(this.discount_amount > 0){
+        newTaxArr.push({
+          'amount' : this.appointmentAmountAfterDiscount*element.value/100,
+          'name' : element.name,
+          'value' : element.value
+        });
+      }else{
+        newTaxArr.push({
+          'amount' : this.subTotalCost*element.value/100,
+          'name' : element.name,
+          'value' : element.value
+        });
+      }
     });
 
     let bookingNotes = {
@@ -1052,7 +1061,7 @@ export class AppointmentLiveComponent implements OnInit {
       "transaction_id": "",
       "payment_datetime": payment_datetime,
       "nettotal": this.posCouponApplied?this.appointmentAmountAfterDiscount+this.totalTax:this.subTotalCost+this.totalTax,
-      "discount_type" : this.appliedCouponDetail.coupon_type,
+      "discount_type" : this.appliedCouponDetail?this.appliedCouponDetail.coupon_type:null,
       "discount_value" : this.discount_amount,
       "discount": this.discount_amount,
       "tax" :  newTaxArr,
@@ -1075,6 +1084,11 @@ export class AppointmentLiveComponent implements OnInit {
         this.cartArr = [];
         this.newCustomer.reset();
         this.subTotalCost = 0;
+        this.appliedCouponDetail = null;
+        this.subTotalCost = 0;
+        this.discount_amount = 0;
+        this.totalTax = 0;
+        this.appointmentAmountAfterDiscount = 0;
         this._snackBar.open('order created', "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1288,6 +1302,7 @@ export class AppointmentLiveComponent implements OnInit {
         var count  = 0;
         this.pendingBillingData.forEach( (element) => { 
           count = count+1;
+          element.orders.tax = JSON.parse(element.orders.tax)
           element.orders.booking_date=this.datePipe.transform(new Date(element.orders.booking_date),"yyyy/MM/dd")
           element.orders.booking_time=this.datePipe.transform(new Date(element.orders.booking_date+" "+element.orders.booking_time),"HH:mm");
           element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd @ HH:mm"),
@@ -1330,12 +1345,16 @@ export class AppointmentLiveComponent implements OnInit {
     }
 
     this.pendingBillingOrdeTotal = 0;
+    var cartArr = [];
     this.pendingBillingData.forEach(element => {
       if(element.is_selected==true){
+        element.orders.tax.forEach(element1 => {
+          this.pendingBillingTax = this.pendingBillingTax+element1.amount
+        });
+        cartArr.push(element)
         this.pendingBillingOrdeTotal = this.pendingBillingOrdeTotal + parseInt(element.orders.subtotal);
       }
     });
-
     if(this.pendingBillingOrdeTotal==0){
       this.selectedBillCustomer = null;
       this.selectedBillCustomerData = [];

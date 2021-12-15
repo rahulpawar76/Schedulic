@@ -338,8 +338,8 @@
                                         {{appliedCouponDetail.coupon_title}} 
                                         <span class="material-icons pointer" (click)="removeCoupon()"> highlight_off </span>
                                     </span>
-                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='left'">-{{currencySymbol| currencySymbol:'wide'}} {{ appliedCouponDetail.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='right'">-{{ appliedCouponDetail.coupon_value | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
+                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='left'">-{{currencySymbol| currencySymbol:'wide'}} {{ discount_amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                    <span *ngIf="posCouponApplied && appliedCouponDetail && currencySymbolPosition=='right'">-{{ discount_amount | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</span>
                                 </div>
                                 <div class="total" *ngIf="!posCouponApplied">
                                     <p fxFlex="50" class="title text-left">Total</p>
@@ -611,7 +611,7 @@
                             <div class="location-container" (click)="OutDootMap(i)">
                                 <div class="pickup-point">
                                     <img src="/assets/images/admin/delivery.png">
-                                    <p>Delivery Boy Live Location</p>
+                                    <p>Service Agent Live Location</p>
                                 </div>
                                 <div class="drop-point">
                                     <mat-icon>location_on</mat-icon>
@@ -1020,7 +1020,15 @@
                                             {{currencySymbol| currencySymbol:'wide'}}</span>
                                     </div>
                                     <div class="col-4 ">
-                                        <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">
+                                            Tax : {{currencySymbol| currencySymbol:'wide'}} {{
+                                                pendingBillingTax |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
+                                        <span class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">
+                                            Tax : {{ pendingBillingTax |
+                                            currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}
+                                            {{currencySymbol| currencySymbol:'wide'}}</span>
+                                        <!-- <span class="custom-font-weight">Tax : <i class="fa fa-rupee pr-1"></i> 0</span> -->
                                     </div>
                                 </div>
                             </div>
@@ -1033,9 +1041,9 @@
                                 </div>
                                 <div class="col-4 ">
                                     <span *ngIf="currencySymbolPosition=='left'"> {{currencySymbol|
-                                        currencySymbol:'wide'}} {{ pendingBillingOrdeTotal |
+                                        currencySymbol:'wide'}} {{ (pendingBillingOrdeTotal+pendingBillingTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
-                                    <span *ngIf="currencySymbolPosition=='right'"> {{ pendingBillingOrdeTotal |
+                                    <span *ngIf="currencySymbolPosition=='right'"> {{ (pendingBillingOrdeTotal+pendingBillingTax) |
                                         currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol|
                                         currencySymbol:'wide'}}</span>
                                 </div>
