@@ -1456,6 +1456,7 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
+    if(latitude & longitude) {
     this.geoCoder = new google.maps.Geocoder();
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
@@ -1470,6 +1471,7 @@ export class AppointmentLiveComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
+    }
   }
 
   getLocation(address) {
@@ -1479,8 +1481,12 @@ export class AppointmentLiveComponent implements OnInit {
         if (results[0]) {
           let destinationLat = results[0].geometry.location.lat();
           let desiationLong = results[0].geometry.location.lng();
-          console.log('destinationLat',destinationLat)
-          console.log('desiationLong',desiationLong)
+          if(this.lat & this.lng) {
+          } else {
+            this.origin = { lat: destinationLat, lng: desiationLong };
+            this.lat = destinationLat;
+            this.lng = desiationLong;
+          }
           this.destination = { lat: destinationLat, lng: desiationLong };
         } else {
           window.alert('No results found');
@@ -1494,12 +1500,7 @@ export class AppointmentLiveComponent implements OnInit {
   OutDootMap(index=0){
     var data = this.outdoorOrdersArr[index];
     var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
-    console.log(address)
-    if(data.service.service_sub_type=='at_home'){
-      this.ShowMap  = true;
-    }else{
-      return;
-    }
+    this.address = address;
 
     const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
     //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
@@ -1510,14 +1511,11 @@ export class AppointmentLiveComponent implements OnInit {
           this.ShowMap = true;
           this.lat = parseFloat(this.trackOrderList[0]);
           this.lng = parseFloat(this.trackOrderList[1]);
-          console.log('lat',this.lat)
-          console.log('lng',this.lng)
-          console.log('address',address)
-          this.origin = { lat: this.lat, lng: this.lng };
-          this.destination = { lat: this.lat, lng: this.lng };
-          this.getAddress(this.lat, this.lng);
+          if(this.lat & this.lng) {
+            this.origin = { lat: this.lat, lng: this.lng };
+            this.getAddress(this.lat, this.lng);
+          }
           this.getLocation(address);
-
           if(data.service.service_sub_type=='at_home'){
             this.ShowMap  = true;
           }else{
