@@ -435,8 +435,7 @@
                     <div class="d-flex mb-1">
                         <h5 class="page-title">Staff</h5>
                     </div>
-                    <p class="w-100 d-flex page-des">Staff/team members are required to deliver services to your
-                        customers. you can define rights/permissions, and the services they can perform.</p>
+                    <p class="w-100 d-flex page-des">Add team members that will provide services. Define the services they will be performing.</p>
                 </div>
 
                 <div class="col-4 d-flex align-items-center">
@@ -583,7 +582,7 @@
                         </div>
 
                         <div class="table_pagination mb-0" *ngIf="allStaffList != ''">
-                            <div class="col-5 pull-left">Showing record of {{fromRecord}}-{{toRecord}} ( Total
+                            <div class="col-5 pull-left">Showing records from {{fromRecord}}-{{toRecord}} ( Total
                                 {{totalRecord}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination mb-0 justify-content-end">
@@ -703,8 +702,7 @@
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side custom-text-style-wrap">
                             <h6>Active</h6>
-                            <p class="mb-0 detail-color">Disable this to temporarily suspend this staff's account. The
-                                Staff details will not be deleted from the system.</p>
+                            <p class="mb-0 detail-color">Disabling the active status will temporarily suspend this staff member's account. It will not delete the staff details from the system.</p>
                         </div>
                         <div class="ml-auto action-right-side">
                             <mat-slide-toggle
@@ -726,9 +724,7 @@
                     <div class="bottom-border d-flex">
                         <div class="detail-left-side custom-text-style-wrap">
                             <h6>Login Allowed</h6>
-                            <p class="mb-0 detail-color">Restrict Shab to login next time. Allow shab to view / manage /
-                                block dates and times for their schedule only. Staff can only search customers but
-                                cannot export the customer list.</p>
+                            <p class="mb-0 detail-color">Decide what your team members can view once they log in. These can be for changing their schedules, exporting customer lists, etc.</p>
                         </div>
                         <div class="ml-auto action-right-side">
                             <mat-slide-toggle
@@ -854,10 +850,8 @@
                 <mat-tab label="Postal Codes">
                     <div class="postal-heading-wrap">
                         <div>
-                            <h6 class="mb-0 mt-3">Postal codes are defined geographical boundaries within a
-                                location.<br>
-                                Staff can be these area code.</h6>
-                            <p>Customers will only be show staff members in the area code they select.</p>
+                            <h6 class="mb-0 mt-3">Add postal codes of locations where your business can provide services. Customers belonging to those pin codes can only book appointments.</h6>
+                            <p>Customers applying for an appointment will view staff members based on their pin codes.</p>
                         </div>
                         <div class="searchbox  mt-3">
                             <form class="search_input-staff postal-header-search">
@@ -960,7 +954,7 @@
                                                                     [disabled]="true">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -971,7 +965,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="mondayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-trash-o delete-box"
@@ -987,7 +981,7 @@
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Monday')">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -999,7 +993,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="mondayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1042,7 +1036,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1050,7 +1044,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1067,7 +1061,7 @@
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Tuesday')">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1079,7 +1073,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="tuesdayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1115,7 +1109,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1123,7 +1117,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1139,7 +1133,7 @@
                                                                     [(value)]="selectedWorkHourStartTimeWednesday"
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Wednesday')">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1151,7 +1145,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="wednesdayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1188,7 +1182,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1196,7 +1190,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1213,7 +1207,7 @@
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Thursday')">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1225,7 +1219,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="thursdayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1262,7 +1256,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1270,7 +1264,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1286,7 +1280,7 @@
                                                                     [(value)]="selectedWorkHourStartTimeFriday"
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Friday')">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1298,7 +1292,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="fridayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1335,7 +1329,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1343,7 +1337,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1360,7 +1354,7 @@
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Saturday')">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1372,7 +1366,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="saturdayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1409,7 +1403,7 @@
                                                                     [(value)]="workHour.day_start_time"
                                                                     [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <!-- </mat-form-field> -->
@@ -1419,7 +1413,7 @@
                                                                     class="form-control form-control-transparent custom-mat-select-wrap"
                                                                     [(value)]="workHour.day_end_time" [disabled]="true">
                                                                     <mat-option *ngFor="let timeSlot of timeSlotList"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
@@ -1436,7 +1430,7 @@
                                                                     (selectionChange)="fnOnChangeStartTimeWorkHour($event,'Sunday')">
                                                                     <mat-option
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                        value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                        value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                     </mat-option>
                                                                 </mat-select>
                                                                 <div class="to-center">to</div>
@@ -1448,7 +1442,7 @@
                                                                         *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                         value="{{timeSlot.long}}"
                                                                         [disabled]="sundayWorkingHourStartTimeIndex >= i">
-                                                                        {{timeSlot.short}}</mat-option>
+                                                                        {{timeSlot.long}}</mat-option>
                                                                 </mat-select>
                                                                 <div class="pointer d-flex align-items-center ml-3"><i
                                                                         class="fa fa-save save-box"
@@ -1500,7 +1494,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1511,7 +1505,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1532,7 +1526,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="mondayWorkingHourStartTimeIndex > i || mondayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1545,7 +1539,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="mondayBreakStartTimeIndex >= i || mondayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -1596,7 +1590,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1607,7 +1601,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1627,7 +1621,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="tuesdayWorkingHourStartTimeIndex > i || tuesdayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1640,7 +1634,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="tuesdayBreakStartTimeIndex >= i || tuesdayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -1677,7 +1671,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1688,7 +1682,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1708,7 +1702,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="wednesdayWorkingHourStartTimeIndex > i || wednesdayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1721,7 +1715,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="wednesdayBreakStartTimeIndex >= i || wednesdayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -1758,7 +1752,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1769,7 +1763,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1789,7 +1783,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="thursdayWorkingHourStartTimeIndex > i || thursdayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1802,7 +1796,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="thursdayBreakStartTimeIndex >= i || thursdayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -1838,7 +1832,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1849,7 +1843,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1869,7 +1863,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="fridayWorkingHourStartTimeIndex > i || fridayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1882,7 +1876,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="fridayBreakStartTimeIndex >= i || fridayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -1920,7 +1914,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1931,7 +1925,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -1951,7 +1945,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="saturdayWorkingHourStartTimeIndex > i || saturdayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -1965,7 +1959,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="saturdayBreakStartTimeIndex >= i || saturdayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -2001,7 +1995,7 @@
                                                                 [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -2012,7 +2006,7 @@
                                                                 [(value)]="breakTime.break_end_time" [disabled]="true">
                                                                 <mat-option
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
-                                                                    value="{{timeSlot.long}}">{{timeSlot.short}}
+                                                                    value="{{timeSlot.long}}">{{timeSlot.long}}
                                                                 </mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
@@ -2032,7 +2026,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="sundayWorkingHourStartTimeIndex > i || sundayWorkingHourEndTimeIndex < i+1">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="to-center pt-3">to</div>
@@ -2045,7 +2039,7 @@
                                                                     *ngFor="let timeSlot of timeSlotList; let i=index;"
                                                                     value="{{timeSlot.long}}"
                                                                     [disabled]="sundayBreakStartTimeIndex >= i || sundayWorkingHourEndTimeIndex < i">
-                                                                    {{timeSlot.short}}</mat-option>
+                                                                    {{timeSlot.long}}</mat-option>
                                                             </mat-select>
                                                             <!-- </mat-form-field> -->
                                                             <div class="pointer d-flex align-items-center ml-3"><i
@@ -2116,7 +2110,7 @@
                         </div>
                     </div>
                 </mat-tab>
-                <mat-tab label="Review">
+                <mat-tab label="Reviews">
                     <div *ngIf="singleStaffDetail.staff[0].review != ''" class="sc-table-view">
                         <table class="table sc-table">
                             <thead class="sc-table-head">

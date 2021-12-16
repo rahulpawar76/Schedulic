@@ -22,13 +22,13 @@ export class PaymentrulesComponent implements OnInit {
   animal: any;
   businessId: any;
   adminSettings: boolean = true;
+  isLoaderAdmin : boolean = false;
   taxesData: any;
   currenciesData: any;
   selectedCurrency: any;
   selectedCurrencyPosition: any;
   selectedCurrencyFormat: any;
   settingSideMenuToggle : boolean = false;
-  isLoaderAdmin:any;
 
   constructor(
     public dialog: MatDialog,
@@ -53,6 +53,7 @@ export class PaymentrulesComponent implements OnInit {
     let requestObject = {
         'business_id': this.businessId,
     };
+    this.isLoaderAdmin = true;
     this.AdminSettingsService.getSettingValue(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.selectedCurrency = response.response.currency;
@@ -60,10 +61,12 @@ export class PaymentrulesComponent implements OnInit {
         this.selectedCurrencyFormat = response.response.currency_format;
      //   console.log(this.taxesData);
       }
+      this.isLoaderAdmin = false;
     })
   }
 
   getAllTax() {
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
     };
@@ -74,6 +77,7 @@ export class PaymentrulesComponent implements OnInit {
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
         this.taxesData = '';
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnSettingMenuToggleSmall(){
@@ -137,6 +141,7 @@ export class PaymentrulesComponent implements OnInit {
     })
   }
   fnChangeCurrency(currencyCode) {
+    this.isLoaderAdmin = true;
     let requestObject = {
         'business_id': this.businessId,
         "currency_code": currencyCode
@@ -149,9 +154,11 @@ export class PaymentrulesComponent implements OnInit {
           panelClass: ['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnCurrencyPosition(currencyPosition) {
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
       'position': currencyPosition
@@ -164,9 +171,11 @@ export class PaymentrulesComponent implements OnInit {
           panelClass: ['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
   }
   fnCurrencyFormat(currencyFormat) {
+    this.isLoaderAdmin = true;
     let requestObject = {
       'business_id': this.businessId,
       'currency_format': currencyFormat
@@ -179,6 +188,7 @@ export class PaymentrulesComponent implements OnInit {
           panelClass: ['green-snackbar']
         });
       }
+      this.isLoaderAdmin = false;
     })
 
   }

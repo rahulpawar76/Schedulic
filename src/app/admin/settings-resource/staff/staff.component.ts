@@ -14,6 +14,8 @@ import { DatePipe} from '@angular/common';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {TooltipPosition} from '@angular/material/tooltip';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
   selectedStaffId: any;
@@ -3566,7 +3568,11 @@ onNoClick(): void {
 @Component({
   selector: 'new-appointment',
   templateUrl: '../_dialogs/add-new-time-off-dialog.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DialogAddNewTimeOff {
   businessId:any;

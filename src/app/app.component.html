@@ -14,7 +14,7 @@
                     </div>
                     <div class="logo">
                         <a class='logo-link'>
-                        {{pageHeading?pageHeading:'My Booking'}}
+                        {{pageHeading?pageHeading:'My Bookings'}}
                         </a>
                     </div>
                     <span class="example-fill-remaining-space"></span>
@@ -41,7 +41,7 @@
                         </label>
                         <label *ngIf="pageHeading == 'My Appointments'">
                             <img src="/assets/images/header-icons/bookings.svg" class="mr-2" aria-hidden="true">
-                            My Bookings
+                            My Appointments
                         </label>
                         <label *ngIf="pageHeading == 'My Customer'">
                             <img src="/assets/images/header-icons/customers.svg" class="mr-2" aria-hidden="true">
@@ -369,7 +369,7 @@
                             <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-reports', 'active': pageHeading=='My Reports' }" (click)="MyReportsNav(); fnPostUrl('my-reports');" matTooltip="Reports">
                                 <div class="common-menu"><img src="/assets/images/icons/menu-icons/reports.svg"></div>
                             </mat-list-item>
-                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon', 'active': pageHeading=='My Discount Coupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');" matTooltip="DiscountCoupon">
+                            <mat-list-item role="listitem" [ngClass]="{'active': postUrl == 'my-discountCoupon', 'active': pageHeading=='My Discount Coupon' }" (click)="MyDiscountCouponNav(); fnPostUrl('my-discountCoupon');" matTooltip="Coupons">
                                 <div class="common-menu"><img src="/assets/images/icons/menu-icons/discount.svg"></div>
                             </mat-list-item>
                         </div>

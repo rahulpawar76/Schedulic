@@ -9,6 +9,8 @@ import { AdminSettingsService } from '../../_services/admin-settings.service';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { Router, RouterEvent, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 
 
@@ -19,7 +21,12 @@ export interface DialogData {
 @Component({
   selector: 'app-billing',
   templateUrl: './billing.component.html',
-  styleUrls: ['./billing.component.scss']
+  styleUrls: ['./billing.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class BillingComponent implements OnInit {
   planList:any;
@@ -32,6 +39,7 @@ export class BillingComponent implements OnInit {
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
+    private datePipe: DatePipe,
     public router: Router,
     private authenticationService:AuthenticationService,
     @Inject(AdminSettingsService) public AdminSettingsService: AdminSettingsService,
@@ -39,6 +47,10 @@ export class BillingComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     if(this.currentUser.plan){
       this.selectedPlanCode = this.currentUser.plan.plan_id
+    }
+    if(this.currentUser.currentPlan){
+      this.currentUser.currentPlan.start_date = this.datePipe.transform(this.currentUser.currentPlan.start_date, 'yyyy/MM/dd');
+      this.currentUser.currentPlan.end_date = this.datePipe.transform(this.currentUser.currentPlan.end_date, 'yyyy/MM/dd');
     }
   }
 

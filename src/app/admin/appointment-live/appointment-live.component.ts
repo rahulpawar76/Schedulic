@@ -1437,9 +1437,6 @@ export class AppointmentLiveComponent implements OnInit {
       'search' : search,
       "search_by" : search_by
     };
-
- 
-
     this.adminService.outdoorOrders(requestObject).subscribe((response: any) => {
       if (response.data == true) {
         this.outdoorOrdersArr = response.response;
@@ -1482,6 +1479,8 @@ export class AppointmentLiveComponent implements OnInit {
         if (results[0]) {
           let destinationLat = results[0].geometry.location.lat();
           let desiationLong = results[0].geometry.location.lng();
+          console.log('destinationLat',destinationLat)
+          console.log('desiationLong',desiationLong)
           this.destination = { lat: destinationLat, lng: desiationLong };
         } else {
           window.alert('No results found');
@@ -1493,9 +1492,9 @@ export class AppointmentLiveComponent implements OnInit {
   }
 
   OutDootMap(index=0){
-    
     var data = this.outdoorOrdersArr[index];
     var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
+    console.log(address)
     if(data.service.service_sub_type=='at_home'){
       this.ShowMap  = true;
     }else{
@@ -1511,6 +1510,9 @@ export class AppointmentLiveComponent implements OnInit {
           this.ShowMap = true;
           this.lat = parseFloat(this.trackOrderList[0]);
           this.lng = parseFloat(this.trackOrderList[1]);
+          console.log('lat',this.lat)
+          console.log('lng',this.lng)
+          console.log('address',address)
           this.origin = { lat: this.lat, lng: this.lng };
           this.destination = { lat: this.lat, lng: this.lng };
           this.getAddress(this.lat, this.lng);

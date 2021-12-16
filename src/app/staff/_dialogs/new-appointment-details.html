@@ -67,7 +67,7 @@
 
                     <div class="row common-details-main">
                         <div class="col-6">
-                            <p class="mb-0 title">SubTotal</p>
+                            <p class="mb-0 title">Sub Total</p>
                             <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">{{currencySymbol| currencySymbol:'wide'}} {{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</p>
                             <p class="custom-font-weight" *ngIf="currencySymbolPosition=='right'">{{ detailData.subtotal | currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }} {{currencySymbol| currencySymbol:'wide'}}</p>
                         </div>
@@ -98,7 +98,7 @@
                     <div class="row common-details-main">
                         <div class="col-4">
                             <p class="mb-0 title">Order By</p>
-                            <p class="custom-font-weight">
+                            <p class="custom-font-weight text-capitalize">
                                 {{detailData.order_by == 'self' ?'Customer':detailData.order_by}}</p>
                         </div>
 

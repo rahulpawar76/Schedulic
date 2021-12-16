@@ -11,7 +11,7 @@
                 <div class="col-12 common-input mb-3">
                     <div class="form-group">
                         <label> Description</label>
-                        <input class="form-control" placeholder="Vacation, Holiday, Other" formControlName="description" />
+                        <input class="form-control" placeholder="Vacation, Holidays, & Others" formControlName="description" />
                     </div>
                     <span class="error-wrap d-block" *ngIf="formAddNewTimeOff.get('description').touched || formAddNewTimeOff.get('description').dirty">
                         <small *ngIf="formAddNewTimeOff.get('description').hasError('required')" class="error">Description is required.</small>

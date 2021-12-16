@@ -106,7 +106,7 @@
                                 <div class="profile-img-wrap" *ngIf="companyDetailsData.image && !companyDetailsImageUrl" [ngStyle]="{'background-image': 'url('+companyDetailsData.image+')'}"></div>
                                 <div class="profile-img-wrap" *ngIf="companyDetailsData.image && companyDetailsImageUrl" [ngStyle]="{'background-image': 'url('+companyDetailsImageUrl+')'}"></div>
                                 <div class="img-upload-btns">
-                                    <button (click)="companyDetailsImage()" *ngIf="!companyDetailsData.image && !companyDetailsImageUrl" class="sc-yellow-btn mb-2" mat-button>Add Image</button>
+                                    <button (click)="companyDetailsImage()" *ngIf="!companyDetailsData.image && !companyDetailsImageUrl" class="sc-yellow-btn mb-2" mat-button>Upload Image</button>
                                     <button (click)="companyDetailsImage()" *ngIf="companyDetailsImageUrl || companyDetailsData.image" class="sc-yellow-btn mb-2" mat-button>Change Image</button>
                                     <button (click)="removeCompanyImage()" *ngIf="companyDetailsData.image" class="sc-grey-btn mb-2" mat-button>Remove Image</button>
                                 </div>
@@ -246,7 +246,7 @@
                             <div class="common-input business-description">
                                 <label> Description</label>
                                 <div class="form-group">
-                                    <textarea class="form-control" formControlName="comp_decs" placeholder="A brief overview of what you're all"></textarea>
+                                    <textarea class="form-control" formControlName="comp_decs" placeholder="A brief description of your business"></textarea>
                                 </div>
                                 <span class="error-wrap d-flex" *ngIf="companyDetails.get('comp_decs').dirty || companyDetails.get('comp_decs').touched">
                                     <small *ngIf="companyDetails.get('comp_decs').hasError('required')" class="error">Description is required.</small></span>

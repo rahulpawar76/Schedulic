@@ -15,40 +15,24 @@ import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { _fixedSizeVirtualScrollStrategyFactory } from '@angular/cdk/scrolling';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
   animal: string;
   name: string;
 }
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'YYYY/MM/DD',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
     DatePipe
-  ],
-  // providers: [DatePipe]
+  ]
 })
 
 export class AppointmentComponent implements OnInit {
@@ -706,7 +690,11 @@ export class AppointmentComponent implements OnInit {
 @Component({
   selector: 'add-new-appointment',
   templateUrl: '../_dialogs/add-new-appointment.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 
 export class DialogAddNewAppointment {
@@ -2301,7 +2289,11 @@ export class DialogAddNewAppointment {
 @Component({
   selector: 'allappointment-listing-details',
   templateUrl: '../_dialogs/admin-appointment-detail.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DialogAllAppointmentDetails {
 
@@ -2676,7 +2668,11 @@ constructor(
 @Component({
   selector: 'interrupted-reschedule-dialog',
   templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class RescheduleAppointAdmin {
   formAppointmentRescheduleAdmin:FormGroup;

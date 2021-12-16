@@ -173,7 +173,7 @@
                     </div>
                 </div>
                 <div class="table_pagination" *ngIf="allServicesList.length > 0">
-                    <div class="col-5 pull-left">Showing record of {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
+                    <div class="col-5 pull-left">Showing records from {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item nextprev {{current_page==1?'pointernone':''}} " (click)="navigateTo(first_page_url,'service')"><a class="page-link"><i
@@ -363,24 +363,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ml-auto">
-                        <!-- <div class="row" layout-padding *ngIf="categoryServicesList != '' && categoryServicesList[0].sub_category_id != null">
-                            <div class="mx-2">
-                                <button mat-button (click)="ImportFileUpload(selectedSubCategoryDetails.id, 'category')" class="d-block ml-auto service-create-btn">Import</button>
-                            </div>
-                            <div class="mx-2">
-                                <button mat-button (click)="fnExportService(selectedSubCategoryDetails.id, 'category')" class="d-block ml-auto service-create-btn">Export</button>
-                            </div>
-                        </div> -->
-                        
-                    </div>
                 </div>
                 <div class="service-listing row mx-0 sc-table-view" *ngIf="selectCategoryPage == 'services' || !noCategoryService">
                     <div class="w-100 d-flex sc-table-top-bar ">
-                        <!-- <div class="d-flex">
-                            <button mat-button class="sc-grey-btn mr-2" >Import</button>
-                            <button mat-button class="sc-grey-btn" >Export</button>
-                        </div> -->
                         <div class="d-flex ml-auto">
                             <div class="top-actions mr-2">
                                 <mat-select class="form-control form-control-transparent" placeholder="Filter" [(ngModel)]="selectedFilter" (selectionChange)="fnFilterService(selectedCategoryDetails.id,$event.value,'category')">
@@ -412,7 +397,7 @@
                                 <div class="text-left" fxFlex="10">Unit</div>
                                 <div class="text-left" fxFlex="10">Visibility</div>
                                 <div class="text-left" fxFlex="10">Status</div>
-                                <div class="text-left" fxFlex="10"></div>
+                                <div class="text-right" fxFlex="10">Action</div>
                             </div>
                             <div class="sc-table-content drageble-list" cdkDropList [cdkDropListData]="categoryServicesList" (cdkDropListDropped)="dropCategory($event)">
                                 <div class="final-list drageble-box mx-0" *ngFor="let categoryServicesList of categoryServicesList; let i=index" cdkDrag fxLayout="row">
@@ -448,7 +433,8 @@
                             </div>
                         </div>
 
-                        <div class="table_pagination">
+                        <div class="table_pagination" *ngIf="categoryServicesList.length > 0">
+                            <div class="col-5 pull-left">Showing records from {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item nextprev {{current_page==1?'pointernone':''}}" (click)="navigateTo(first_page_url,'category')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon"
@@ -477,8 +463,8 @@
                             <img src="/assets/images/icons/sqr-menu.svg" />
                         </div>
                         <div class="title-head">
-                            <h5>Add Subcategory</h5>
-                            <p>Sub Category is the subdivision of the large Category of service.</p>
+                            <h5>Add Sub Category</h5>
+                            <p>Add sub categories related to your business services.</p>
                         </div>
                         <div class="btn-container">
                             <button (click)="fnCreateNewSubCategoryPage(selectedCategoryDetails.id,'main')" mat-button class="sc-light-green-btn">Add</button>
@@ -491,7 +477,7 @@
                         </div>
                         <div class="title-head">
                             <h5>Add Service</h5>
-                            <p>A valuable deed, action or effort performed to fulfill a demand or to satisfy a need of the customer.</p>
+                            <p>Add business services that you will provide.</p>
                         </div>
                         <div class="btn-container">
                             <button (click)="fnCreateNewServicePage(selectedCategoryDetails.id,'category','main')" mat-button class="sc-light-green-btn">Add</button>
@@ -556,12 +542,12 @@
                                         <mat-checkbox [checked]="selectAllSubCat" (change)="checkAllSubcat($event)" class=""></mat-checkbox>
                                     </div>
                                     <div class="text-left" fxFlex="30">Service</div>
-                                <div class="text-left" fxFlex="15">Duration (Mins)</div>
+                                <div class="text-left" fxFlex="15">Duration (mins)</div>
                                 <div class="text-left" fxFlex="15">Price</div>
                                 <div class="text-left" fxFlex="10">Unit</div>
                                 <div class="text-left" fxFlex="10">Visibility</div>
                                 <div class="text-left" fxFlex="10">Status</div>
-                                <div class="text-left" fxFlex="10"></div>
+                                <div class="text-right" fxFlex="10">Action</div>
                                 </div>
                                 <div class="sc-table-content drageble-list" cdkDropList [cdkDropListData]="subCategoryServicesList" (cdkDropListDropped)="dropSubCategory($event)">
                                     <div class="final-list drageble-box mx-0" *ngFor="let subCategoryServicesList of subCategoryServicesList; let i=index" cdkDrag fxLayout="row">
@@ -599,7 +585,8 @@
                                     </div>
                                 </div>
                             </div>
-                        <div class="table_pagination">
+                        <div class="table_pagination" *ngIf="subCategoryServicesList.length > 0">
+                            <div class="col-5 pull-left">Showing records from {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item nextprev {{current_page==1?'pointernone':''}}" (click)="navigateTo(first_page_url,'subcategory')"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon"
@@ -631,7 +618,7 @@
                         </div>
                         <div class="title-head">
                             <h5>Add Service</h5>
-                            <p>A valuable deed, action or effort performed to fulfill a demand or to satisfy a need of the customer.</p>
+                            <p>Add business services that you will provide.</p>
                         </div>
                         <div class="btn-container">
                             <button (click)="fnCreateNewServicePage(selectedSubCategoryDetails.id,'subcategory','main')" mat-button class="sc-light-green-btn">Add</button>
@@ -691,7 +678,7 @@
                                                         <span class="currency-symbol">{{currencySymbol}}</span>
                                                     </span>
                                                 </div>
-                                                <input formControlName="service_cost" class="form-control" placeholder="Enter Sevice Cost">
+                                                <input formControlName="service_cost" class="form-control" placeholder="Enter Service Cost">
                                             </div>
                                             <span class="error-wrap d-flex" *ngIf="createService.get('service_cost').touched || createService.get('service_cost').dirty">
                                                 <small *ngIf="createService.get('service_cost').hasError('required')"
@@ -705,7 +692,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><img src="/assets/images/icons/clock.svg" /></span>
                                                 </div>
-                                                <input formControlName="service_duration" class="form-control" placeholder="Enter Sevice Time (mins)">
+                                                <input formControlName="service_duration" class="form-control" placeholder="Enter Service Time (mins)">
                                             </div>
                                             <span class="error-wrap d-flex" *ngIf="createService.get('service_duration').touched || createService.get('service_duration').dirty">
                                                 <small *ngIf="createService.get('service_duration').hasError('required')"
@@ -739,7 +726,7 @@
                                         </div>
                                         <div class="my-3 col-12">
                                             <mat-radio-group (change)="fnChangeServiceType($event)" formControlName="serviceType">
-                                                <mat-radio-button [checked]="serviceType == 'face_to_face'" class="my-1" value="face_to_face">Face To Face</mat-radio-button>
+                                                <mat-radio-button [checked]="serviceType == 'face_to_face'" class="my-1" value="face_to_face">Face-to-Face</mat-radio-button>
                                                 <mat-radio-button [checked]="serviceType == 'online'" class="my-1" value="online">Online</mat-radio-button>
                                                 <mat-radio-button [checked]="serviceType == 'phone'" class="my-1" value="phone">Phone</mat-radio-button>
                                             </mat-radio-group>
@@ -749,12 +736,12 @@
                                             </span>
                                         </div>
                                         <div *ngIf="serviceType == 'face_to_face'" class="service-subtype face_to_face col-12 common-input">
-                                            <p class="plain-text">Bydefault or Select "In Store Service" drodown value displayed as "store In Store Service" "store" text displayed extra as per drodown value.</p>
+                                            <p class="plain-text">Offer face-to-face services either at your business location or at the customer’s location.</p>
                                             <div id="ftf_type_id" class="mt-3 form-group">
                                                 <!-- <div class="input-group-prepend">
                                                     <span class="input-group-text"><img src="/assets/images/icons/cubes.svg" /></span>
                                                 </div> -->
-                                                <mat-select id="ftf_type_control" class="form-control"  placeholder="Select type of Face to Face service" (selectionChange)="fnChangeFTFType($event)" formControlName="ftfType">
+                                                <mat-select id="ftf_type_control" class="form-control"  placeholder="Select type of Face-to-Face service" (selectionChange)="fnChangeFTFType($event)" formControlName="ftfType">
                                                     <mat-option value="in_store">
                                                         <i class="fa fa-archive" aria-hidden="true"></i> In Store Service
                                                     </mat-option>
@@ -764,7 +751,7 @@
                                             </div>
                                             <span class="error-wrap d-flex" *ngIf="createService.get('ftfType').touched || createService.get('ftfType').dirty">
                                                 <small *ngIf="createService.get('ftfType').hasError('required')"
-                                                    class="error">Face to Face service type is required.</small>
+                                                    class="error">Face-to-Face service type is required.</small>
                                             </span>
                                         </div>
                                         <div *ngIf="ftfOPT == 'at_home' && serviceType == 'face_to_face'" class="service-subtype face_to_face">
@@ -786,7 +773,7 @@
                                         
                                     <div #below_all_fields></div>
                                         <div *ngIf="serviceType == 'online'" class="service-subtype online d-flex flex-wrap col-12 common-input">
-                                            <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                            <p class="plain-text">Offer your services online on video calling mobile apps.</p>
                                             <mat-radio-group (change)="fnChangeOnlineType($event)" formControlName="onlineType">
                                                 <div class="w-100 d-flex flex-wrap align-item-start my-1">
                                                     <mat-radio-button class="single-platform" value="zoom"><img src="/assets/images/admin/zoom-logo.png" class="" /></mat-radio-button>
@@ -814,7 +801,7 @@
                                             </div>
                                         </div>
                                         <div *ngIf="serviceType == 'phone'" class="service-subtype phone col-12">
-                                            <p class="plain-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                            <p class="plain-text">Offer your services on a telephonic call.</p>
                                             <div class="col-12 px-0 common-input">
                                                 <div class="input-group form-group">
                                                     <div class="input-group-prepend">

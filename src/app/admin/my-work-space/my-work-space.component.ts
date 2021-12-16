@@ -11,37 +11,20 @@ import { DatePipe } from '@angular/common';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { SharedService } from '@app/_services/shared.service';
-
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'yyyy/MM/dd',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
-
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 @Component({
   selector: 'app-my-work-space',
   templateUrl: './my-work-space.component.html',
   styleUrls: ['./my-work-space.component.scss'],
   providers: [
-    DatePipe,
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }]
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class MyWorkSpaceComponent implements OnInit {
   adminSettings: boolean = false;
@@ -827,7 +810,11 @@ export class MyWorkSpaceComponent implements OnInit {
 @Component({
   selector: 'interrupted-reschedule-dialog-workspace',
   templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class InterruptedReschedule {
   formAppointmentRescheduleAdmin: FormGroup;
@@ -1116,7 +1103,11 @@ export class InterruptedReschedule {
 @Component({
   selector: 'date-range-selection',
   templateUrl: '../_dialogs/date-range-picker.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class dateRangeSelectDialog {
   constructor(

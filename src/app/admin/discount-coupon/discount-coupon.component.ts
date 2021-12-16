@@ -17,6 +17,8 @@ import { DatePipe } from "@angular/common";
 import { AppComponent } from "@app/app.component";
 import { environment } from "@environments/environment";
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
   animal: string;
@@ -26,7 +28,11 @@ export interface DialogData {
   selector: "app-discount-coupon",
   templateUrl: "./discount-coupon.component.html",
   styleUrls: ["./discount-coupon.component.scss"],
-  providers: [DatePipe],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DiscountCouponComponent implements OnInit {
   adminSettings: boolean = false;

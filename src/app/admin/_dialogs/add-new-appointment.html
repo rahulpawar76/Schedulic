@@ -334,7 +334,7 @@
                         <button mat-button class="sc-light-green-btn ml-3" (click)="applyCoupon()">Apply Coupon</button>
                     </div>
                     <div class="col-4" *ngIf="appointmentSubTotal > 0">
-                        <span> Subtotal : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal |
+                        <span> Sub Total : {{currencySymbol| currencySymbol:'wide'}} {{ appointmentSubTotal |
                             currency:selectedCurrency:'':'1.2-2':currencySymbolFormat }}</span>
                     </div>
                     <div class="col-4" *ngIf="appointmentSubTotal > 0">

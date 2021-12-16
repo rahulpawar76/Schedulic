@@ -245,8 +245,9 @@
                     <table class="table sc-table" *ngIf="isAppointmentsGroupBy && appointmentReport.length>0">
                         <thead class="sc-table-head main-heading-content">
                             <tr>
-                                <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">Appointment</th>
+                                <th scope="col" class="text-center" *ngIf="reportFilter=='date'">Date</th>
+                                <th scope="col" class="text-center" *ngIf="reportFilter=='month'">Month</th>
+                                <th scope="col" class="text-center">Appointments</th>
                                 <th scope="col" class="text-center">Customers</th>
                             </tr>
                         </thead>
@@ -273,7 +274,7 @@
                     </div>
                 </div>
                 <div class="table_pagination" *ngIf="appointmentReport.length > 0">
-                    <div class="col-4 pull-left">Showing record of {{appointmentFromRecord}}-{{appointmentToRecord}} (
+                    <div class="col-4 pull-left">Showing records from {{appointmentFromRecord}}-{{appointmentToRecord}} (
                         Total {{appointmentTotalRecord}} )</div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
@@ -434,7 +435,8 @@
                     <table class="table sc-table" *ngIf="isSalesGroupBy && salesReport.length>0">
                         <thead class="main-heading-content sc-table-head">
                             <tr>
-                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center" *ngIf="reportFilter=='date'">Date</th>
+                                <th scope="col" class="text-center" *ngIf="reportFilter=='month'">Month</th>
                                 <th scope="col" class="text-center">Appointment</th>
                                 <th scope="col" class="text-center">Customers</th>
                                 <th scope="col" class="text-center">Revenue</th>
@@ -473,7 +475,7 @@
                     </div>
                 </div>
                 <div class="table_pagination" *ngIf="salesReport.length > 0">
-                    <div class="col-4 pull-left">Showing record of {{salesReportFromRecord}}-{{salesReportToRecord}} (
+                    <div class="col-4 pull-left">Showing records from {{salesReportFromRecord}}-{{salesReportToRecord}} (
                         Total {{salesReportTotalRecord}} )</div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
@@ -537,7 +539,7 @@
                     </div>
                 </div>
                 <div class="table_pagination" *ngIf="customerReport.length > 0">
-                    <div class="col-4 pull-left">Showing record of
+                    <div class="col-4 pull-left">Showing records from
                         {{customerReportFromRecord}}-{{customerReportToRecord}} ( Total {{customerReportTotalRecord}} )
                     </div>
                     <nav aria-label="Page navigation example">

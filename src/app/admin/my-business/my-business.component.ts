@@ -191,15 +191,19 @@ export class MyBusinessComponent implements OnInit {
     });
 
      dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        localStorage.setItem('business_id', result.id);
-        localStorage.setItem('business_name',result.business_name);
-        this.router.navigate(['/admin/my-workspace']);
-        this.appComponent.getNotificationCount(result.id);
-        this.appComponent.getBusinessSetup(result.id);
-        if(this.firstBusiness){
-          this.appComponent.openGettingStartedDialog();
+      if(result && result != 'success'){
+        if(result.type == 'redirect' && result.link == 'appearance'){
+          this.router.navigate(['/admin/settings-general/appearance'], { queryParams: { goto: result.param } });
+        }else if(result.type == 'redirect' && result.link == 'staff'){
+          this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { goto: result.param } });
+        }else{
+          this.router.navigate([result.link]);
         }
+
+      }else if(result && result == 'success'){
+        this.router.navigate(['/admin/my-workspace']);
+        this.appComponent.getNotificationCount(localStorage.getItem('business_id'));
+        this.appComponent.getBusinessSetup(localStorage.getItem('business_id'));
       }else{
         this.getAllBusiness();
       }
@@ -276,6 +280,7 @@ export class myCreateNewBusinessDialog {
     'payment' :false,
   }
   categorySearch:any="";
+  businessSetup:any;
   protected listTimeZoneListArry: ListTimeZoneListArry[];
   public timeZoneFilterCtrl: FormControl = new FormControl();
   public listTimeZoneList: ReplaySubject<ListTimeZoneListArry[]> = new ReplaySubject<ListTimeZoneListArry[]>(1);
@@ -304,7 +309,7 @@ export class myCreateNewBusinessDialog {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('success');
   }
 
   ngAfterViewInit() {
@@ -523,7 +528,18 @@ export class myCreateNewBusinessDialog {
           verticalPosition:'top',
           panelClass :['green-snackbar']
         });
-        this.dialogRef.close(response.response);
+        if(this.firstBusiness){
+          this.currentStep = 5;
+          localStorage.setItem('business_id', response.response.id);
+          localStorage.setItem('business_name',response.response.business_name);
+          this.getBusinessSetup(response.response.id);
+        }else{
+          localStorage.setItem('business_id', response.response.id);
+          localStorage.setItem('business_name',response.response.business_name);
+          this.dialogRef.close('success');
+        }
+        console.log(response.response)
+        // this.dialogRef.close(response.response);
       }
       else if(response.data == false && response.response !== 'api token or userid invaild'){
         this._snackBar.open(response.response, "X", {
@@ -533,6 +549,62 @@ export class myCreateNewBusinessDialog {
         });
       }
     })
+  }
+
+  
+  /*For Business Setup*/
+  getBusinessSetup(business_id){
+    this.isLoaderAdmin = true;
+      let requestObject = {
+        "business_id": business_id,
+      };
+      this.AdminService.getBusinessSetup(requestObject).subscribe((response: any) => {
+        if (response.data == true) {
+          this.businessSetup = response.response
+        }else if(response.data == false){
+          
+        }
+        this.isLoaderAdmin = false;
+      })
+  }
+
+  
+  gotToDestinationPage(link){
+    let dialogResponse = {
+      'type' : 'redirect',
+      'link' : link,
+    }
+    this.dialogRef.close(dialogResponse);
+    this.router.navigate([link]);
+  }
+
+  gotToDestinationPageAppearance(param){
+    let dialogResponse = {
+      'type' : 'redirect',
+      'link' : 'appearance',
+      'param' : param,
+    }
+    this.dialogRef.close(dialogResponse);
+    // this.router.navigate(['/admin/settings-general/appearance'], { queryParams: { goto: param } });
+  }
+
+
+  gotToDestinationPageStaff(param){
+    let dialogResponse = {
+      'type' : 'redirect',
+      'link' : 'staff',
+      'param' : param,
+    }
+    this.dialogRef.close(dialogResponse);
+    this.router.navigate(['/admin/settings-resource/staff'], { queryParams: { goto: param } });
+  }
+
+  skipFrom(step){
+    if(step == 10){
+      this.dialogRef.close('success');
+      return false;
+    }
+    this.currentStep = step;
   }
 
   goToNextStep(step){

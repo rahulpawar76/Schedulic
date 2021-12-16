@@ -340,6 +340,168 @@
                     margin-bottom: 20px;
                 }
             }
+            .signle-item{
+                height: 100%;
+                .left-side{
+                    padding: 2em 1em 2em 2em;
+                    border-right: solid 1px rgba(0, 168, 155, 0.23);
+                    display: flex;
+                    align-items: center;
+                    .progress-content{
+                        width: 100%;
+                    }
+                    h3{
+                        color: #0E0E0E;
+                        font-size: 20px;
+                        font-weight: 600;
+                        text-align: left;
+                    }
+                    mat-progress-bar{
+                        margin: 1em 0;
+                        border-radius: 5px;
+                        height: 6px;      
+                        margin-bottom: 6px; 
+                        .mat-progress-bar-buffer{
+                            background: #ffffff !important;
+                        } 
+                    }
+                    .progress-count{
+                        color: #565657;
+                        font-size: 13px;
+                    }
+                    .steps{
+                        padding-left: 0;
+                        list-style: none;
+                        margin: 2.5em 0;
+                        position: relative;
+                        li{
+                            margin-bottom: 1.5em;
+                            color: #0E0E0E;
+                            display: flex;
+                            align-items: center;
+                            font-size: 14px;
+                            flex-wrap: wrap;
+                            position: relative;
+                            padding-left: 30px;
+                            width: 100%;
+                            word-break: break-all;
+                            font-weight: 500;
+                            &.active{
+                                color: #00A89B;
+                            }
+                            &.checked{
+                                &:before{
+                                    content: "\e876";
+                                    background-color: #00A89B;
+                                    color: #ffffff;
+                                    font-family: 'Material Icons Outlined';
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 14px;
+                                }
+                                &:after{
+                                    border-color: #00A89B !important;
+                                    border-style: solid !important;
+                                }
+                            }
+                            &:before{
+                                content: "";
+                                font-size: 24px;
+                                color: #00A89B;
+                                background-color: #fff;
+                                border-radius: 100%;
+                                width: 20px;
+                                height: 20px;
+                                display: inline-block;
+                                line-height: 22px;
+                                border: 1px solid #00A89B;
+                                position: absolute;
+                                left: 0;
+                            }
+                            &:after{
+                                content: "";
+                                height: 1.8em;
+                                width: 1px;
+                                position: absolute;
+                                left: 9px;
+                                border: 1px dashed #565657 !important;
+                                border: 0;
+                                top: 22px;
+                            }
+                            &:last-child{
+                                &:after{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+                .right-side{
+                    padding: 0;
+                    .step-content{
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        flex-wrap: wrap;
+                        flex-direction: column;
+                        h4{
+                            color: #0E0E0E;
+                            font-weight: 500;
+                            font-size: 16px;
+                        }
+                        p{
+                            color: #565657;
+                            font-size: 12px;
+                            margin-bottom: 10px;
+                        }
+                        label{
+                            color: #0E0E0E;
+                            font-size: 13px;
+                            width: 100%;
+                            font-weight: 500;
+                            text-align: center;
+                            white-space: break-spaces;
+                        }
+                        button{
+                            margin-top: 1em;
+                        }
+                        .skip-btn{
+                            color: #565657;
+                            margin-top: 6px;
+                            cursor: pointer;
+                        }
+                        .skip-btn-side{
+                            margin-top: 20px;
+                            margin-left: 20px;
+                            color: #565657;
+                            cursor: pointer;
+                        }
+                        .ver-sec{
+                            height: 50%;
+                            width: 100%;
+                            display: flex;
+                            align-items: flex-start;
+                            padding: 2em 2em 2em 1em;
+                            &:first-child{
+                                border-bottom: 1px solid rgba(0, 168, 155, 0.23);
+                            }
+                            img{
+                                width: 100px;
+                                margin-right: 2em;
+                            }
+                            .contents{
+                                width: calc(100% - 2em);
+                                text-align: left;
+                                display: flex;
+                                flex-wrap: wrap;
+                            }
+                        }
+                    }
+                }
+            }
         }
         .common-input{
             &[class*='col-']{

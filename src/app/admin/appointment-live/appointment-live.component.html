@@ -141,7 +141,7 @@
                                             class="form-control form-control-transparent"
                                             (selectionChange)="fnFilterStaff($event.value)">
                                             <mat-option value="all">All</mat-option>
-                                            <mat-option value="ideal">Ideal</mat-option>
+                                            <mat-option value="ideal">Available</mat-option>
                                             <mat-option value="working">Working</mat-option>
                                         </mat-select>
                                     </div>
@@ -211,7 +211,7 @@
                                     (closed)="panelOpenState = false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
-                                            Add Customer Detail
+                                            Add Customer Details
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
                                     <div class="cutomer-form-body">
@@ -418,7 +418,7 @@
                                             Service
                                         </div>
                                         <div class="w-50 float-left title text-right">
-                                            QTY.
+                                            Qty.
                                         </div>
                                     </div>
                                     <div class="col-12 service-list">
@@ -553,7 +553,7 @@
                         </div>
 
                         <div class="table_pagination" *ngIf="pendingAppointments.length > 0">
-                            <div class="col-3 pull-left">Showing record of {{fromRecord_pending}}-{{toRecord_pending}} (
+                            <div class="col-3 pull-left">Showing records from {{fromRecord_pending}}-{{toRecord_pending}} (
                                 Total {{totalRecord_pending}} )</div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
@@ -813,7 +813,7 @@
                             </div>
                         </div>
                         <div class="table_pagination" *ngIf="workStartedAppointments.length > 0">
-                            <div class="col-3 pull-left">Showing record of
+                            <div class="col-3 pull-left">Showing records from
                                 {{fromRecord_workstart}}-{{toRecord_workstart}} ( Total {{totalRecord_workstart}} )
                             </div>
                             <nav aria-label="Page navigation example">
@@ -911,7 +911,7 @@
                                             <span>Service</span>
                                         </div>
                                         <div class="col-6 text-right">
-                                            <span>QTY.</span>
+                                            <span>Qty.</span>
                                         </div>
                                     </div>
                                     <hr>
@@ -976,7 +976,7 @@
                                                 <span>Service</span>
                                             </div>
                                             <div class="col-3">
-                                                <span>QTY.</span>
+                                                <span>Qty.</span>
                                             </div>
                                             <div class="col-3 pr-3">
                                                 <span>Price</span>

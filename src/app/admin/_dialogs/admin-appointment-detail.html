@@ -98,7 +98,7 @@
                             <div class="appointment-details text-end">
                                 <p>Payment Status </p>
                                 <h3 class="status-main-wrap">
-                                    <p class="" *ngIf="detailsData.payment">
+                                    <p class="text-capitalize" *ngIf="detailsData.payment">
                                         {{detailsData.payment.payment_status}} ({{detailsData.payment.payment_mode}})
                                     </p>
                                     <p class="" *ngIf="detailsData.payment == null || !detailsData.payment">--</p>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="common-appointment-details">
                             <div class="appointment-details">
-                                <p>SubTotal
+                                <p>Sub Total
                                 </p>
                                 <h3 class="">
                                     <span *ngIf="currencySymbolPosition=='left'">
@@ -161,13 +161,13 @@
                         <div class="common-appointment-details">
                             <div class="appointment-details">
                                 <p>Order By</p>
-                                <h3>
+                                <h3 class="text-capitalize">
                                     {{detailsData.order_by == 'self' ?'Customer':detailsData.order_by}}
                                 </h3>
                             </div>
                             <div class="appointment-details text-end">
                                 <p>Order From</p>
-                                <h3>
+                                <h3 class="text-capitalize">
                                     {{detailsData.order_from}}
                                 </h3>
                             </div>

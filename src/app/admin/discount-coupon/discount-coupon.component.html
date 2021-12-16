@@ -5,8 +5,8 @@
             <div class="common-page-heading">
                 <div>
                     <h5 class="page-title">Discount Coupon</h5>
-                    <p class="page-des">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br />
-                    Lorem Ipsum has been the industry's standard dummy</p>
+                    <p class="page-des">Create a discount coupon & allow customers to redeem it online while making their booking. 
+                        <br/>Choose the discount by percentage or fixed amount, coupon validity, & much more.</p>
                 </div>
                 <div>
                     <button (click)="fnNewCouponCode()" mat-button class="sc-pink-btn">Add Discount Coupon</button>
@@ -40,7 +40,7 @@
                                 <div class="text-left" fxFlex="10">Title</div>
                                 <div class="text-left" fxFlex="10">Coupon Code</div>
                                 <div class="text-left" fxFlex="10">Created On</div>
-                                <div class="text-left" fxFlex="10">Valid Form</div>
+                                <div class="text-left" fxFlex="10">Valid From</div>
                                 <div class="text-left" fxFlex="10">Valid Till</div>
                                 <div class="text-left" fxFlex="20">Maximum Redemptions</div>
                                 <div class="text-left" fxFlex="10">Used</div>
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="table_pagination" *ngIf="allCouponCode != ''">
-                        <div class="col-3 pull-left">Showing record of {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
+                        <div class="col-3 pull-left">Showing records from {{fromRecord}}-{{toRecord}} ( Total {{totalRecord}} )</div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-end">
                                 <li class="page-item nextprev {{current_page==1?'pointernone':''}}" (click)="navigateTo(first_page_url)"><a class="page-link"><i class="fa fa-angle-double-left arrow-icon" aria-hidden="true"></i></a></li>
@@ -164,12 +164,12 @@
                             </span>
                         </div>
                         <div class="common-input col-lg-6 col-12 col-sm-12 col-md-6">
-                            <label>Valid Form </label>
+                            <label>Valid From </label>
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
                                 </div>
-                                <input class="form-control" (dateChange)="fnvalideFrom()" (click)="valid_from_picker.open()" [min]="minDate" [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="MM/DD/YYYY">
+                                <input class="form-control" (dateChange)="fnvalideFrom()" (click)="valid_from_picker.open()" [min]="minDate" [matDatepicker]="valid_from_picker" formControlName="valid_from" placeholder="YYYY/MM/DD">
                                 <mat-datepicker #valid_from_picker></mat-datepicker>
                             </div>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_from').touched || discountCoupon.get('valid_from').dirty">
@@ -182,7 +182,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><img src="/assets/images/icons/date-calendar.svg" /></span>
                                 </div>
-                                <input class="form-control" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="MM/DD/YYYY">
+                                <input class="form-control" (click)="valid_till_picker.open()" [min]="minTillDate" [matDatepicker]="valid_till_picker" formControlName="valid_till" placeholder="YYYY/MM/DD">
                                 <mat-datepicker #valid_till_picker></mat-datepicker>
                             </div>
                             <span class="error-wrap" *ngIf="discountCoupon.get('valid_till').touched || discountCoupon.get('valid_till').dirty">

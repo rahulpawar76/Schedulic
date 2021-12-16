@@ -11,6 +11,8 @@ import { map, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/_services';
 import { throwError } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface status {
 
@@ -29,7 +31,11 @@ export interface DialogData {
   selector: 'my-booking',
   templateUrl: './my-booking.component.html',
   styleUrls: ['./my-booking.component.scss'],
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class MyBookingComponent implements OnInit {
   animal: any;
@@ -503,7 +509,11 @@ export class MyBookingComponent implements OnInit {
 @Component({
   selector: 'add-new-appointment',
   templateUrl: '../_dialogs/add-new-appointment.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DialogAddNewAppointment {
   formAddNewAppointmentStaffStep1: FormGroup;
@@ -1700,7 +1710,11 @@ export class DialogInterrupted {
 @Component({
   selector: 'interrupted-reschedule',
   templateUrl: '../_dialogs/interrupted-reschedule.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class InterruptedReschedule {
   formAppointmentRescheduleStaff: FormGroup;
@@ -2789,19 +2803,19 @@ export class DialogOnlinePaymentDetails {
       "discount_type": this.couponType,
       "discount_value": this.couponValue,
       "discount": this.orderDiscount,
-      "nettotal": this.appointDetailData.total_cost
+      "nettotal": this.newAmount
     }]
     let orderItems = [{
       "tax": JSON.parse(this.appointDetailData.tax),
       "discount_type": this.couponType,
       "discount_value": this.couponValue,
       "discount": this.orderDiscount,
-      "nettotal": this.appointDetailData.total_cost
+      "nettotal": this.newAmount
     }]
     let payment = [{
       "payment_datetime": this.datePipe.transform(new Date(), "yyyy/MM/dd hh::mm"),
       "payment_method": this.paymentMethod,
-      "amount": this.appointDetailData.total_cost,
+      "amount": this.newAmount,
       "paymentnotes": this.paymentNote ? this.paymentNote : null
     }]
     let requestObject = {

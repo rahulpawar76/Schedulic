@@ -106,7 +106,7 @@
                                     <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Minimum Advance booking Time</h6>
-                                            <p class="mb-0">Minimum advance notice do you need before a client books an appointment?</p>
+                                            <p class="mb-0">Add minimum & maximum advance booking rules, cancellation buffer time allowed, and many other rules.</p>
                                         </div>
                                         <div class="" fxFlex="12">
 
@@ -250,8 +250,8 @@
                                     <div class="bottom-line"></div>
                                     <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
-                                            <h6>Maximum Advance booking Time</h6>
-                                            <p class="mb-0">Maximum advance notice do you need before a client books an appointment?</p>
+                                            <h6>Maximum Advance Booking Time</h6>
+                                            <p class="mb-0">Maximum time in advance you allow customers for booking their appointment.</p>
                                         </div>
                                         <div class="" fxFlex="12">
                                             
@@ -410,7 +410,7 @@
                                     <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Time Interval</h6>
-                                            <p class="mb-0">e.g 15 min slots will show open slots at 8:00, 8:15, 8:30 etc</p>
+                                            <p class="mb-0">15-minute slots will show open slots at 8:00, 8:15, 8:30, etc.</p>
                                         </div>
                                         <div class="" fxFlex="12">
 
@@ -519,7 +519,7 @@
                                     <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Cancellation Buffer Time </h6>
-                                            <p class="mb-0">Minimum notice required for Cancellation an appointment</p>
+                                            <p class="mb-0">The minimum time allowed to customers to cancel their appointment.</p>
                                         </div>
                                         <div class="" fxFlex="12">
 
@@ -662,7 +662,7 @@
                                     <div class="example-box p-3 bg-wrap">
                                         <div class="" fxFlex="52">
                                             <h6>Reschedule an Appointment</h6>
-                                            <p class="mb-0">Minimum notice required for rescheduleing an appointment</p>
+                                            <p class="mb-0">The minimum time allowed to customers to reschedule their appointment.</p>
                                         </div>
                                         <div class="" fxFlex="12">
 
@@ -810,8 +810,7 @@
                 <div class="d-flex align-items-center">
                     <div>
                         <h6>Customer Login</h6>
-                        <p class="mb-0">Create an exclusive profile with a username and password for your customer.</p>
-                        <p class="mb-0">Mandatory Customer Login will reduce duplicate contacts from your booking page.</p>
+                        <p class="mb-0">Offer customers to login and book appointments OR Disable the login and offer customers to directly book appointment.</p>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeCustomerLoginStatus($event)" [checked]="customerLoginValue === 'true' ? true : false"></mat-slide-toggle>
@@ -821,8 +820,8 @@
             <mat-card class="matcard-space custom-matcard-space">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6>Staff List On Front</h6>
-                        <p class="mb-0">By Enabling this feature, Staff list will be shown in the Front.</p>
+                        <h6>Staff List on Front</h6>
+                        <p class="mb-0">Enabling this feature will allow customers to choose a specific staff member while booking an appointment.</p>
                         <p class="mb-0"></p>
                     </div>
                     <div class="ml-auto mx-3">
@@ -833,8 +832,8 @@
             <mat-card class="matcard-space custom-matcard-space">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6>Appointment auto confirm</h6>
-                        <p class="mb-0">By Enabling this feature, Appointment request from clients will be auto confirmed.</p>
+                        <h6>Appointment auto-confirm</h6>
+                        <p class="mb-0">By enabling this feature, appointment requests from clients will be auto-confirmed.</p>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeAppAutoConfirmStatus($event)" [checked]="appAutoConfirmValue === 'true' ? true : false"></mat-slide-toggle>
@@ -842,19 +841,19 @@
                 </div>
                 <div class="pt-4 border-top" *ngIf="appAutoConfirmValue === 'true'">
                     <div class="d-flex justify-content-between">
-                        <h6>Auto assign to staff</h6>
+                        <h6>Auto-assign to staff</h6>
                         <mat-checkbox class="pr-4" (change)="fnChangeAutoAssignStaffStatus($event)" [checked]="autoAssignStaffValue === 'true' ? true : false"></mat-checkbox>  
                     </div>
                     <div>
-                        <p class="mb-0">By enabling this feature services will get assigned to the staff automatically, otherwise it has to be done manually by the admin.</p>
+                        <p class="mb-0">By enabling this feature, services will get assigned to the staff automatically. If disabled, then it has to be done manually by the admin.</p>
                     </div>
                 </div>
             </mat-card>
             <mat-card class="matcard-space custom-matcard-space">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6>Notification For On the way and Getting Late</h6>
-                        <p class="mb-0">By Enabling this feature, To get notifation for On the way and Getting Late.</p>
+                        <h6>Notification for “On the way” and “Getting Late”</h6>
+                        <p class="mb-0">Enable this feature to get notified of expected delays.</p>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeOwAndgtNotificationStatus($event)" [checked]="owAndgtNotification === 'true' ? true : false"></mat-slide-toggle>
@@ -864,8 +863,8 @@
             <mat-card class="matcard-space custom-matcard-space">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h6>Allow Customers for Staff Rating</h6>
-                        <p class="mb-0">By Enabling this Feature, Customers can rate your staff from their account</p>
+                        <h6>Allow customers to give staff ratings</h6>
+                        <p class="mb-0">Enable this feature to allow customers to give your staff a rating based on services.</p>
                     </div>
                     <div class="ml-auto mx-3">
                         <mat-slide-toggle (change)="fnChangeCustomerAllowStaffRatingStatus($event)" [checked]="customerAllowStaffRatingValue === 'true' ? true : false"></mat-slide-toggle>
@@ -878,7 +877,7 @@
                     <div class="d-flex align-items-center">
                         <div>
                             <h6>Terms & Conditions </h6>
-                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
+                            <p>Add labels or a separate terms and conditions page link for customers to click.</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangeTermsConditionsStatus($event)" [checked]="termsConditionsStatusValue === true ? true : false"></mat-slide-toggle>
@@ -887,8 +886,8 @@
                     <div class="example-form border-top mt-4" *ngIf="termsConditionsStatusValue==true">
                         <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
                             <!-- <mat-label></mat-label> -->
-                            <h6 class="mt-4 label-wrap">Add a label to your Privacy Policy.</h6>
-                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Enter Your label here." [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
+                            <h6 class="mt-4 label-wrap">Add a label to your Terms and Conditions</h6>
+                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Type Here" [ngModel]="termsConditionsLabelValue" (ngModelChange)="setTermConditionsLabelValue($event)" maxlength="150">
                         <!-- </mat-form-field> -->
                         <!-- <div class="d-flex"> -->
                             <!-- <mat-hint class="ml-auto"><i>Maximum characters allowed 150</i></mat-hint> -->
@@ -898,8 +897,8 @@
                     <div class="example-form" *ngIf="termsConditionsStatusValue==true">
                         <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
                             <!-- <mat-label></mat-label> -->
-                            <h6 class="mt-3 label-wrap">Add a link to your Terms & Conditions.</h6>
-                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Add a link to your Terms & Conditions." [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
+                            <h6 class="mt-3 label-wrap">Add a link to your Terms & Conditions</h6>
+                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Type Here" [ngModel]="termsConditionsPageLinkValue" (ngModelChange)="setTermConditionsPageLinkValue($event)">
                         <!-- </mat-form-field> -->
                         <!-- <div class="d-flex example-full-width "> -->
                             <!-- <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint> -->
@@ -920,17 +919,17 @@
                     <div class="d-flex align-items-center">
                         <div>
                             <h6>Privacy Policy </h6>
-                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
+                            <p>Add labels or a separate privacy policy page link for customers to click.</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangePrivacyPolicyStatus($event)" [checked]="privacyPolicyStatusValue === true ? true : false"></mat-slide-toggle>
                         </div>
                     </div>
                     <div class="example-form border-top mt-4" *ngIf="privacyPolicyStatusValue==true">
-                        <p>Display as hyperlink text next to a checkbox that the user must accept.</p>
+                        <!-- <p>Display as hyperlink text next to a checkbox that the user must accept.</p> -->
                         <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
-                            <h6 class="mt-3 label-wrap">Add a label to your Privacy Policy.</h6>
-                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Add a label to your Privacy Policy." [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
+                            <h6 class="mt-3 label-wrap">Add a label to your Privacy Policy</h6>
+                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Type Here" [ngModel]="privacyPolicyLabelValue" (ngModelChange)="setPrivacyPolicyLabelValue($event)" maxlength="150">
                         <!-- </mat-form-field> -->
                         <!-- <div class="d-flex example-full-width "> -->
                             <!-- <mat-hint class="ml-auto"><i>Maximum characters allowed<span class="text-danger"> 150</span></i></mat-hint> -->
@@ -939,8 +938,8 @@
                     </div>
                     <div class="example-form" *ngIf="privacyPolicyStatusValue==true">
                         <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
-                            <h6 class="mt-3 label-wrap">Add a Page link of your Privacy Policy.</h6>
-                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Add a Page link of your Privacy Policy." [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
+                            <h6 class="mt-3 label-wrap">Add a Page link of your Privacy Policy</h6>
+                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Type Here" [ngModel]="privacyPolicyPageLinkValue" (ngModelChange)="setPrivacyPolicyPageLinkValue($event)">
                         <!-- </mat-form-field> -->
                         <!-- <div class="d-flex example-full-width "> -->
                             <!-- <mat-hint class="ml-auto"><i>Link will open in a new browser window</i></mat-hint> -->
@@ -960,7 +959,7 @@
                     <div class="d-flex align-items-center">
                         <div>
                             <h6>Thank You Page</h6>
-                            <p>lorem is a simply dummy text of the printing and typesetting industry</p>
+                            <p>Add a message or a separate Thank you page link for customers to click.</p>
                         </div>
                         <div class="ml-auto mx-3">
                             <mat-slide-toggle (change)="fnChangeThankyouPageStatus($event)" [checked]="thankyouPageStatusValue === true ? true : false"></mat-slide-toggle>
@@ -969,7 +968,7 @@
                     <div class="example-form border-top mt-4" *ngIf="thankyouPageStatusValue==true">
                         <!-- <mat-form-field class="example-full-width bottom-border-field"> -->
                             <h6 class="mt-4 label-wrap">Add a link to your Thank You page</h6>
-                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Add a link to your Thank You page" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
+                            <input class="form-control form-control-transparent border mt-2" matInput placeholder="Type Here" [ngModel]="thankyouPageLinkValue" (ngModelChange)="setThankyouPageLinkValue($event)">
                         <!-- </mat-form-field> -->
                     </div>
                     <div class="example-form" *ngIf="thankyouPageStatusValue==true">

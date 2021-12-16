@@ -90,7 +90,7 @@
     <div class="setting-right-side-content without-footer" [ngClass]="{ 'short-content-area': settingSideMenuToggle === true }">
         <div class="payment-gateways">
             <h5 class="page-title">Payment Gateways</h5>
-            <p class="page-des">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo<br> Inventore explicabo totam ab necessitatibus</p>
+            <p class="page-des">Choose from our list of payment gateways and offer them to your customers to make payments</p>
             <div class="row mx-0">
                 <div *ngFor="let gateway of gatewayList; let i=index;" class="col-md-6 col-sm-12">
                     <form #gatewayFrom="ngForm" (submit)="onSubmitPaymentGateway(gatewayFrom,gateway.gateway_type,gateway.is_default?gateway.is_default:0,gateway.payment_code ? gateway.payment_code : '' )">

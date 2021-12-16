@@ -18,26 +18,22 @@ import * as domtoimage from 'dom-to-image';
 import * as jspdf from 'jspdf';
 //import { IgxExcelExporterService, IgxExcelExporterOptions } from "igniteui-angular";
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
-
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
   fulldata: any;
   animal: string;
   name: string;
- 
-}
-
-
+ }
 export interface countryArry {
   id: string;
   name: string;
 }
-
 export interface StateArry {
   id: string;
   name: string;
 }
-
 export interface CityArry {
   id: string;
   name: string;
@@ -49,7 +45,11 @@ export interface Tag {
   selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class CustomersComponent implements OnInit {
 
@@ -718,8 +718,15 @@ customerUpdate(existingCustomerData){
         });
 
         this.customerNotes = response.response.notes;
-
+        this.customerNotes.forEach( (element) => { 
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd HH:mm");
+          element.updated_at=this.datePipe.transform(new Date(element.updated_at),"yyyy/MM/dd HH:mm");
+        });
         this.customerReviews = response.response.revirew;
+        this.customerReviews.forEach( (element) => { 
+          element.created_at=this.datePipe.transform(new Date(element.created_at),"yyyy/MM/dd HH:mm");
+          element.updated_at=this.datePipe.transform(new Date(element.updated_at),"yyyy/MM/dd HH:mm");
+        });
 
         this.customerPayments = response.response.payment;
         this.customerPayments.forEach( (element) => { 
@@ -1649,7 +1656,11 @@ customerUpdate(existingCustomerData){
 @Component({
   selector: 'customer-appointment-details-dialog',
   templateUrl: '../_dialogs/admin-appointment-detail.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class CustomerAppointmentDetailsDialog {
   detailsData: any;
@@ -1970,7 +1981,11 @@ constructor(
 @Component({
   selector: 'interrupted-reschedule-dialog',
   templateUrl: '../_dialogs/reschedule-appointment-dialog.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class InterruptedReschedulecustomer {
   formAppointmentRescheduleAdmin:FormGroup;
@@ -2207,7 +2222,11 @@ constructor(
 @Component({
   selector: 'new-appointment',
   templateUrl: '../_dialogs/new-appointment.html',
-  providers: [DatePipe],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DialogNewCustomerAppointment {
 customerDetails:any=[];

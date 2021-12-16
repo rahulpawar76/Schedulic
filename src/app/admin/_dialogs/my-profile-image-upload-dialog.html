@@ -13,9 +13,9 @@
                         <div class="image-upload-wrap">
                             <input class="fileuploadinput" type='file' id="file" (change)="onFileChange($event)" formControlName="profile" />
                             <div class="drag-text" *ngIf="!imageSrc">
-                                <h6>Drag and drop a files here </h6>
+                                <h6>Drag & Drop files here </h6>
                                 <h3>or</h3>
-                                <h6>Click Here</h6>
+                                <h6>Click Here.</h6>
                             </div>
                             <img [src]="imageSrc" *ngIf="imageSrc" class="upload-preview-img">
                         </div>

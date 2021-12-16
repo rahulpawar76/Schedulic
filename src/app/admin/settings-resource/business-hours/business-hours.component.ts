@@ -9,6 +9,8 @@ import { ConfirmationDialogComponent } from '../../../_components/confirmation-d
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { take, takeUntil } from 'rxjs/operators';
 import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
   animal: string;
@@ -1875,7 +1877,11 @@ export class BusinessHoursComponent implements OnInit {
 @Component({
   selector: 'new-appointment',
   templateUrl: '../_dialogs/bussiness-hour-add-time-off.html',
-  providers: [DatePipe]
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    DatePipe
+  ]
 })
 export class DialogAddNewTimeOffBussiness {
 

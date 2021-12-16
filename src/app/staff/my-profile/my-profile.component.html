@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-12 mb-0">
                     <div class="input-group form-group">
-                        <input class="form-control" type="password"  matInput formControlName="ReNewPassword" value="" placeholder="Re-Enter New Password">
+                        <input class="form-control" type="password"  matInput formControlName="ReNewPassword" value="" placeholder="Confirm new password">
                         <span class="error-wrap" *ngIf="changePwd.get('ReNewPassword').dirty || changePwd.get('ReNewPassword').touched">
                             <small *ngIf="changePwd.get('ReNewPassword').hasError('required') || (changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame'))" class="error text-left">Confirm password is required.</small>
                             <small *ngIf="!changePwd.get('ReNewPassword').hasError('required') && changePwd.hasError('notSame')" class="error text-left">Passwords do not match.</small>
