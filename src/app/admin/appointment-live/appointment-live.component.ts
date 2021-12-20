@@ -1441,6 +1441,9 @@ export class AppointmentLiveComponent implements OnInit {
       if (response.data == true) {
         this.outdoorOrdersArr = response.response;
         this.isLoaderAdmin = false;
+        this.outdoorOrdersArr.forEach((currentValue, index) => {
+          this.address[index] = currentValue.orders_info.booking_address+ ", " + currentValue.orders_info.booking_city + ", "+ currentValue.orders_info.booking_state+ " " + currentValue.orders_info.booking_zipcode;
+        });
         this.OutDootMap(0);
       } else {
         this._snackBar.open(response.response, "X", {
@@ -1498,11 +1501,8 @@ export class AppointmentLiveComponent implements OnInit {
   OutDootMap(index=0){
     var data = this.outdoorOrdersArr[index];
     var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
-    this.outdoorOrdersArr.forEach((currentValue, index) => {
-      this.address[index] = currentValue.orders_info.booking_address+ ", " + currentValue.orders_info.booking_city + ", "+ currentValue.orders_info.booking_state+ " " + currentValue.orders_info.booking_zipcode;
-    });
-    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
-    //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
+    //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
+    const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
     itemsRef.valueChanges().subscribe(
       x=>{
           this.trackOrderList =  x;
