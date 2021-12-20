@@ -145,7 +145,7 @@ export class AppointmentLiveComponent implements OnInit {
   totalTax = 0;
   pageSlug:any;
   private geoCoder;
-  address: string;
+  address:any = [];
   deliveryBoyAddress:string;
   public lat = 40.094882;
   public lng = 20.214329;
@@ -1463,7 +1463,7 @@ export class AppointmentLiveComponent implements OnInit {
       console.log(status);
       if (status === 'OK') {
         if (results[0]) {
-          this.address = results[0].formatted_address;
+          //this.address = results[0].formatted_address;
         } else {
           window.alert('No results found');
         }
@@ -1481,13 +1481,14 @@ export class AppointmentLiveComponent implements OnInit {
         if (results[0]) {
           let destinationLat = results[0].geometry.location.lat();
           let desiationLong = results[0].geometry.location.lng();
-          if(this.lat & this.lng) {
-          } else {
-            this.origin = { lat: destinationLat, lng: desiationLong };
-            this.lat = destinationLat;
-            this.lng = desiationLong;
-          }
+          this.dlat = destinationLat;
+          this.dlng = desiationLong;
           this.destination = { lat: destinationLat, lng: desiationLong };
+          if(!(this.lat && this.lng)) {
+            this.origin = this.destination;
+            this.lat = this.dlat;
+            this.lng = this.dlng;
+          }
         } else {
           window.alert('No results found');
         }
@@ -1499,8 +1500,9 @@ export class AppointmentLiveComponent implements OnInit {
 
   OutDootMap(index=0){
     var data = this.outdoorOrdersArr[index];
-    var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
-    this.address = address;
+    this.outdoorOrdersArr.forEach((value, i) => {
+      this.address[i] = value.orders_info.booking_address+ ", " + value.orders_info.booking_city + ", "+ value.orders_info.booking_state+ " " + value.orders_info.booking_zipcode;
+    });
 
     const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
     //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
@@ -1511,11 +1513,11 @@ export class AppointmentLiveComponent implements OnInit {
           this.ShowMap = true;
           this.lat = parseFloat(this.trackOrderList[0]);
           this.lng = parseFloat(this.trackOrderList[1]);
-          if(this.lat & this.lng) {
+          if(this.lat && this.lng) {
             this.origin = { lat: this.lat, lng: this.lng };
             this.getAddress(this.lat, this.lng);
           }
-          this.getLocation(address);
+          this.getLocation(this.address[index]);
           if(data.service.service_sub_type=='at_home'){
             this.ShowMap  = true;
           }else{
