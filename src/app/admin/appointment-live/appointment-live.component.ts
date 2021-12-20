@@ -1455,15 +1455,13 @@ export class AppointmentLiveComponent implements OnInit {
 
   }
 
-  getAddress(latitude, longitude) {
-    if(latitude & longitude) {
+  getAddress(latitude, longitude, index) {
     this.geoCoder = new google.maps.Geocoder();
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
-          //this.address = results[0].formatted_address;
+          this.address[index] = results[0].formatted_address;
         } else {
           window.alert('No results found');
         }
@@ -1471,7 +1469,6 @@ export class AppointmentLiveComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
-    }
   }
 
   getLocation(address) {
@@ -1500,9 +1497,7 @@ export class AppointmentLiveComponent implements OnInit {
 
   OutDootMap(index=0){
     var data = this.outdoorOrdersArr[index];
-    this.outdoorOrdersArr.forEach((value, i) => {
-      this.address[i] = value.orders_info.booking_address+ ", " + value.orders_info.booking_city + ", "+ value.orders_info.booking_state+ " " + value.orders_info.booking_zipcode;
-    });
+    var address = data.orders_info.booking_address+ ", " + data.orders_info.booking_city + ", "+ data.orders_info.booking_state+ " " + data.orders_info.booking_zipcode;
 
     const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/'+data.order_id);
     //const itemsRef: AngularFireList<any> = this.fireDb.list('trackOrder/currentLocation/94');
@@ -1515,9 +1510,9 @@ export class AppointmentLiveComponent implements OnInit {
           this.lng = parseFloat(this.trackOrderList[1]);
           if(this.lat && this.lng) {
             this.origin = { lat: this.lat, lng: this.lng };
-            this.getAddress(this.lat, this.lng);
+            this.getAddress(this.lat, this.lng, index);
           }
-          this.getLocation(this.address[index]);
+          this.getLocation(address);
           if(data.service.service_sub_type=='at_home'){
             this.ShowMap  = true;
           }else{
