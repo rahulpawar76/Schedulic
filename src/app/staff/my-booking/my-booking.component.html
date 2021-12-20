@@ -15,7 +15,9 @@
                                     <p>{{newAppointmentData.booking_timeForLabel}}</p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <label class="custom-font-weight">Status</label>
+                                    <label class="font-weight-bold">Order Id</label>
+                                    <p>{{newAppointmentData.id}}</p>
+                                    <label class="font-weight-bold mt-2">Status</label>
                                     <p *ngIf="newAppointmentData.order_status == 'P'">Waiting For Confirmation</p>
                                     <p *ngIf="newAppointmentData.order_status == 'CNF'">Confirm</p>
                                     <p *ngIf="newAppointmentData.order_status == 'RSC'">Reschedule By Customer</p>
@@ -70,7 +72,10 @@
                                     <p>{{onGoingAppointmentData.booking_timeForLabel}}</p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6  text-right">
-                                    <form class="common-input">
+                                    
+                                    <label class="font-weight-bold">Order Id</label>
+                                    <p>{{onGoingAppointmentData.id}}</p>
+                                    <form class="common-input mt-2">
                                         <div class="form-group"> 
                                             <!-- <mat-form-field class=" bottom-border-field"> -->
                                             <!-- <mat-label>Change Status</mat-label> -->
@@ -157,7 +162,9 @@
                                     <p>{{completedAppointmentData.booking_timeForLabel}}</p>
                                 </div>
                                 <div class="col-6 col-sm-3 col-md-6 col-lg-6 text-right">
-                                    <label class="custom-font-weight">Status</label>
+                                    <label class="font-weight-bold">Order Id</label>
+                                    <p>{{completedAppointmentData.id}}</p>
+                                    <label class="font-weight-bold mt-2">Status</label>
                                     <p>Completed</p>
                                 </div>
                             </div>

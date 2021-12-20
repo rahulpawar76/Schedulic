@@ -30,6 +30,7 @@
                 <div class="modal-body modal-bcolor">
                     <p class="mb-0 custom-font-weight"> {{appoDetail.booking_dateForLabel}}</p>
                     <p>Booked On: {{appoDetail.created_atForLabel}}</p>
+                    <span class="order-id">(Order Id: {{appoDetail.id}})</span>
                     <p class="mb-0 mt-2">Service</p>
                     <!-- <p class="custom-font-weight">{{appoDetail.service.service_name}}($ {{appoDetail.service.service_cost}})</p> -->
                     <p class="custom-font-weight" *ngIf="currencySymbolPosition=='left'">

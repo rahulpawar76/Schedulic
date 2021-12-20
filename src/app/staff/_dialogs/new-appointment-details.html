@@ -38,6 +38,7 @@
                         <div class="col-12">
                             <span class="mb-0 custom-font-weight pr-1">{{detailData.booking_dateForLabel}}</span><span>(Order Id: {{detailData.id}})</span>
                             <p>Booked On: {{detailData.created_atForLabel}}</p>
+                            <span class="order-id">(Order Id: {{detailData.id}})</span>
                         </div>
                     </div>
                     <div class="row common-details-main">
@@ -144,6 +145,32 @@
                     <!-- <p>Appointment Notes</p>
                     <p *ngIf="detailData.booking_notes != null">{{detailData.booking_notes}}</p>
                     <p *ngIf="detailData.booking_notes == null">--</p> -->
+                    
+                <div class="booking-detail-main mt-2" *ngIf="detailData.rating != null">
+                    <p class="font-weight-bold mb-0">Review</p>
+                    <div class="d-flex star-icon ">
+                        <div class="d-flex statick-rating w-100">
+
+                            <div class="star-rating">
+                                <input type="radio" [checked]="detailData.rating.rating == 5" id="5-stars_{{detailData.order_id}}" name="rating_{{detailData.order_id}}" value="5" />
+                                <label for="5-stars_{{detailData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="detailData.rating.rating == 4" id="4-stars_{{detailData.order_id}}" name="rating_{{detailData.order_id}}" value="4" />
+                                <label for="4-stars_{{detailData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="detailData.rating.rating == 3" id="3-stars_{{detailData.order_id}}" name="rating_{{detailData.order_id}}" value="3" />
+                                <label for="3-stars_{{detailData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="detailData.rating.rating == 2" id="2-stars_{{detailData.order_id}}" name="rating_{{detailData.order_id}}" value="2" />
+                                <label for="2-stars_{{detailData.order_id}}">&#9733;</label>
+                                <input type="radio" [checked]="detailData.rating.rating == 1" id="1-star_{{detailData.order_id}}" name="rating_{{detailData.order_id}}" value="1" />
+                                <label for="1-star_{{detailData.order_id}}">&#9733;</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <h6>{{detailData.rating.rating_title}}</h6>
+                        <p class="small-font">{{detailData.rating.rating_title}}</p>
+                    </div>
+                </div>
                     <div class="pt-3 common-input bottom-border">
                         <h6 (click)="formSettingPage=!formSettingPage" class="pointer w-fc">Note<i class="fa fa-plus-circle pl-2 note-icon"></i></h6>
                         <div class="mb-2 form-group" *ngIf="formSettingPage">
@@ -159,6 +186,7 @@
                             {{note.user_type=='A'?'Admin':''}} {{note.user_type=='SM'?'Staff':''}} {{note.user_type=='SM' ? ( note.user.fullname ) : ''}} {{note.user_type=='C'?'Customer':''}} @{{note.created_at | date:'yyyy/MM/dd HH:mm'}}</p>
                     </div>  
                 </mat-card>
+                
                 <hr class="my-2 mx-3 border-color-wrap">
                 <div class="activelog-details-main bottom-border">
                     <h6>Activity Log</h6>
