@@ -1,2 +1,2 @@
-category,sub category,name,description,cost,time,unit,type,sub type,sub type value,travelling time,status,private status
-Hair treatement,Hair Cutting,Long Layers 2,Long and short actually means the distance between the layers,200,10,1,face_to_face,at_home,12312312321,,E,Y
+category,category description,category status,category private status,sub category,subcategory description,subcategory status,subcategory private status,name,description,cost,time,unit,type,sub type,sub type value,travelling time,status,private status
+Hair treatement,Hair treatement details,E,N,Hair Cutting,Hair Cutting Details,E,N,Long Layers 2,Long and short actually means the distance between the layers,200,10,1,face_to_face,at_home,12312312321,,E,Y
