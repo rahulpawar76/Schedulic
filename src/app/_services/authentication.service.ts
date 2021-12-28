@@ -69,6 +69,7 @@ export class AuthenticationService {
 
                 this.currentUserSubject.next(user.response);
             }
+            console.log(user)
             return user;
         }));
     }

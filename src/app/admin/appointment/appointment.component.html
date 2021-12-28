@@ -187,9 +187,26 @@
                                 <li class="page-item nextprev {{current_page==1?'pointernone':''}}"
                                     (click)="navigateTo(prev_page_url)"><a class="page-link"><i
                                             class="fa fa-angle-left arrow-icon" aria-hidden="true"></i></a></li>
-                                <li class="page-item" [ngClass]="{'active':current_page == i+1}"
+                                <li *ngIf="arrayOne(last_page).length > 5">
+                                    <span *ngIf="current_page > 3" class="start-dot-element" >
+                                            ...
+                                    </span>
+                                    <span class="page-item" [ngClass]="{'active':current_page == i+1, 'hide-page':(i > current_page+3 && current_page != arrayOne(last_page).length) || (i < current_page-3 && current_page != 1)}"
                                     *ngFor="let pagenumber of arrayOne(last_page); let i = index;"
-                                    (click)="navigateToPageNumber(i+1)"><a class="page-link">{{i+1}}</a></li>
+                                    (click)="navigateToPageNumber(i+1)">
+                                        <a class="page-link">{{i+1}}</a>
+                                    </span>
+                                    <span  *ngIf="current_page < arrayOne(last_page).length-4" class="end-dot-element" >
+                                            ...
+                                    </span>
+                                </li>
+                                <li *ngIf="arrayOne(last_page).length <= 5">
+                                    <span class="page-item" [ngClass]="{'active':current_page == i+1}"
+                                    *ngFor="let pagenumber of arrayOne(last_page); let i = index;"
+                                    (click)="navigateToPageNumber(i+1)">
+                                        <a class="page-link">{{i+1}}</a>
+                                    </span>
+                                </li>
                                 <li class="page-item nextprev {{arrayOne(last_page).length==current_page?'pointernone':''}}"
                                     (click)="navigateTo(next_page_url)"><a class="page-link"><i
                                             class="fa fa-angle-right arrow-icon" aria-hidden="true"></i></a></li>

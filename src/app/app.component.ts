@@ -94,7 +94,7 @@ export class AppComponent implements AfterViewInit {
   public company_info: string;
 
   ngAfterViewInit() {
-
+    // this.fnCheckLoginStatus();
   }
 
   pageHeading: string;
@@ -497,9 +497,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   logout() {
+    this.isLoaderAdmin= true;
     this.dialogRef2.closeAll();
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+    this.isLoaderAdmin= true;
   }
 
 
@@ -521,6 +523,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   fnCheckLoginStatus(){
+    this.isLoaderAdmin = true;
     if(this.authenticationService.currentUserValue.google_id){
         this.authService.authState.subscribe((user) => {
             this.user = user;
@@ -540,6 +543,7 @@ export class AppComponent implements AfterViewInit {
               }
             }
         });
+        // this.isLoaderAdmin = false;
     }
     if(this.authenticationService.currentUserValue.facebook_id){
         this.authService.authState.subscribe((user) => {
@@ -558,12 +562,15 @@ export class AppComponent implements AfterViewInit {
                 return false;
             }
         });
+        // this.isLoaderAdmin = false;
     }
     if(!this.authenticationService.currentUserValue.google_id && !this.authenticationService.currentUserValue.facebook_id){
       if(this.authenticationService.currentUserValue.user_type == Role.Admin){
           this.router.navigate(["admin"]);
+          // this.isLoaderAdmin = false;
       }else if(this.authenticationService.currentUserValue.user_type == Role.Staff){
           this.router.navigate(["staff"]);
+          // this.isLoaderAdmin = false;
       }
     }
   }

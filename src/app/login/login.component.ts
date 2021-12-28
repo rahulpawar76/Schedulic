@@ -26,7 +26,7 @@ declare var google:any
     styleUrls: ['login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
     loginForm: FormGroup;
     loading = false;
@@ -68,15 +68,23 @@ export class LoginComponent implements OnInit {
         
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        if (this.authenticationService.currentUserValue) {
-            this.appComponent.fnCheckLoginStatus();
-        }else{
-            this.appComponent.fnCheckAuthState();
-        }
+       
     }
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
+
+    ngAfterViewInit() {
+        this.dataLoaded = true;
+        if (this.authenticationService.currentUserValue) {
+            this.appComponent.fnCheckLoginStatus();
+                this.loginPageDisplay = false;
+                this.dataLoaded = false;
+        }else{
+            this.appComponent.fnCheckAuthState();
+            this.dataLoaded = false;
+        }
+    }
 
     navigationInterceptor(event: RouterEvent): void {
     
@@ -119,12 +127,14 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .pipe(first()).subscribe(data => {
             if(data.data == true){
-                this.router.events.subscribe((e : RouterEvent) => {
-                    this.navigationInterceptor(e);
-                  })
+                // this.router.events.subscribe((e : RouterEvent) => {
+                //     this.navigationInterceptor(e);
+                //   })
+                console.log(data)
                 this.loginPageDisplay = false;
                 if(data.response.user_type == "A"){
-                    // this.router.navigate(["admin"]);
+                    console.log(data.response.user_type)
+                    this.router.navigate(["admin"]);
                 }else if(data.response.user_type == "SM"){
                     localStorage.setItem('internal_staff','N');
                     this.router.navigate(["staff"]);
@@ -140,7 +150,7 @@ export class LoginComponent implements OnInit {
                 this.error = "Database Connection Error."; 
             }
             setTimeout(() => {
-                this.dataLoaded = false;  
+                // this.dataLoaded = false;  
               },3000)
             // this.dataLoaded = false;  
             
