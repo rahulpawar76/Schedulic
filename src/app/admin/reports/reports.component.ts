@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdminService } from '../_services/admin-main.service';
 import { AppComponent } from '@app/app.component';
 import { DatePipe } from '@angular/common';
-import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
-//import moment from 'moment';
 
 @Component({
   selector: 'app-reports',
@@ -131,9 +130,6 @@ export class ReportsComponent implements OnInit {
     this.salesReportApiUrl = environment.apiUrl + "/sales-reports";
     this.customerReportApiUrl = environment.apiUrl + "/customer-reports";
     this.fnGetSettings();
-    // this.fnGetAppointmentsReport();
-    // this.fnGetSalesReport();
-    // this.fnGetCustomerReport();
   }
 
   fnGetSettings() {

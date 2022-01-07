@@ -1,21 +1,18 @@
-import { Component, Inject, OnInit, ViewChild,AfterViewInit,ChangeDetectorRef } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminService } from '../_services/admin-main.service';
-import { Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe} from '@angular/common';
 import { environment } from '@environments/environment';
-import { Router, RouterOutlet } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
-import { AppComponent } from '@app/app.component';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { AuthenticationService } from '@app/_services';
 import { AdminSettingsService } from '../_services/admin-settings.service';
 import { _fixedSizeVirtualScrollStrategyFactory } from '@angular/cdk/scrolling';
-import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {
@@ -97,9 +94,7 @@ export class AppointmentComponent implements OnInit {
     public dialog: MatDialog,
     private adminService: AdminService,
     private datePipe: DatePipe,
-    private appComponent : AppComponent,
     private _snackBar: MatSnackBar,
-    private http: HttpClient,
     private authenticationService:AuthenticationService,
     private change:ChangeDetectorRef
     ) {
@@ -109,19 +104,11 @@ export class AppointmentComponent implements OnInit {
       this.selectedServices =  'all';
       let addNewAction = window.location.search.split("?appointment")
       if(addNewAction.length > 1){
-        // this.addNewEvents = false; 
         this.addAppointment();
       }
-      // this.startDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
-      // this.endDate=this.datePipe.transform(new Date(),"yyyy/MM/dd")
       this.fnGetSettingValue();
       this.getAllAppointments();
       this.getAllServices();
-      
-      // this.dtOptions = {
-      //   // Use this attribute to enable the responsive extension
-      //   responsive: true,
-      // };
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
   }

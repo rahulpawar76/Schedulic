@@ -1,14 +1,13 @@
-import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router, RouterEvent, RouterOutlet,ActivatedRoute } from '@angular/router';
-import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
+import { Router, RouterEvent } from '@angular/router';
+import { ReplaySubject, Subject } from 'rxjs';
 import { AdminService } from '../_services/admin-main.service'
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { AuthenticationService } from '@app/_services';
-import { environment } from '@environments/environment';
 import { take, takeUntil } from 'rxjs/operators';
 import { ConfirmationDialogComponent } from '../../_components/confirmation-dialog/confirmation-dialog.component';
 import { SharedService } from '@app/_services/shared.service';

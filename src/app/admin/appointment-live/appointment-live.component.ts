@@ -177,7 +177,6 @@ export class AppointmentLiveComponent implements OnInit {
     private _formBuilder:FormBuilder,
     private appComponent : AppComponent,
     private http: HttpClient,
-    private authenticationService: AuthenticationService,
     public router: Router,
     private sharedService: SharedService,
     private _snackBar: MatSnackBar,
@@ -193,7 +192,6 @@ export class AppointmentLiveComponent implements OnInit {
     });
 
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //this.currentUser = this.authenticationService.currentUser.subscribe(x =>  this.currentUser = x )
     this.newCustomer = this._formBuilder.group({
       cus_name : ['', Validators.required],
       cus_email : ['', [Validators.required,Validators.email,Validators.pattern(this.emailFormat)]],

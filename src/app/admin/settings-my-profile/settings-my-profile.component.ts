@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component'
 import { AdminService } from '../_services/admin-main.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
-import { environment } from '@environments/environment';
-import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
 
 export interface DialogData {
   animal: string;
