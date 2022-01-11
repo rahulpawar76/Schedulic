@@ -16,8 +16,8 @@
                         matTooltip="{{selectedServices == 'all'? 'All Service' : ''}}"
                         (selectionChange)="selectService($event.value)" [(value)]="selectedServices">
                         <mat-option selected value="all">All Services</mat-option>
-                        <mat-option *ngFor="let allservices of allservices;" value="{{allservices.id}}">
-                            {{allservices.service_name}}</mat-option>
+                        <mat-option *ngFor="let service of allservices;" value="{{service.id}}">
+                            {{service.service_name}}</mat-option>
                     </mat-select>
                     <mat-select placeholder="Action" class="form-control form-control-transparent" matTooltip="Action"
                         [disabled]="orderItemsIdArr.length == 0" [(ngModel)]="selectedValue"

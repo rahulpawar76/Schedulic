@@ -200,7 +200,7 @@
 
                 </div>
                 <div class="card-body-margin ml-2 booking-detail-main mb-0">
-                    <div class="common-details-customer pt-0">
+                    <div class="common-details-customer pt-0" *ngIf="detailsData.customer">
                         <h6 class="heading-title">Customer Details</h6>
                         <div class="d-flex align-items-center py-2">
                             <p class="customer-profile-img text-uppercase">{{customerShortName}}</p>
