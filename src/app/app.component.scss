@@ -4,9 +4,8 @@
     display: inline-block;
     object-fit: contain;
     padding: 0 1%;
-    padding-top: .9rem;
+    padding-top: 0.9rem;
 }
-
 
 .menu-comman {
     margin-bottom: 0px;
@@ -33,20 +32,18 @@
 .selected-business-btn-main {
     display: table;
     margin: 0 auto;
-    label{
-        color:#565657;
-        font-size:16px;
+    label {
+        color: #565657;
+        font-size: 16px;
         margin-bottom: 0;
-        font-weight: 500;   
+        font-weight: 500;
         span {
-            color:#0E0E0E;
+            color: #0e0e0e;
         }
     }
 }
 
 // Add Menu Css
-
-
 
 /*Appoinment Menu Css*/
 
@@ -62,13 +59,12 @@
     border-radius: 100%;
     height: 40px;
     width: 40px;
-    border: 2px solid #FEAA4B;
+    border: 2px solid #feaa4b;
 }
 
 .pointer {
     cursor: pointer;
 }
-
 
 /*Main Menu toggle css*/
 
@@ -81,28 +77,28 @@ mat-drawer-content {
 .mat-list-icon {
     color: $iconcolors;
 }
-.menuitem{
+.menuitem {
     padding: 0px 103px 0px 15px;
     font-weight: 600;
-    &:hover{
+    &:hover {
         background-color: #ffda53;
     }
 }
-.menuitem{
-    &.active{
+.menuitem {
+    &.active {
         background-color: #ffda53;
     }
 }
-.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content{
-    padding: 0px!important;
+.mat-list-base .mat-list-item .mat-list-item-content,
+.mat-list-base .mat-list-option .mat-list-item-content {
+    padding: 0px !important;
 }
-
 
 /*Css For Toggle Bar*/
 
 .toggleborder {
     border: 0;
-    img{
+    img {
         width: 26px;
     }
 }
@@ -114,7 +110,6 @@ mat-drawer-content {
         }
     }
 }
-
 
 /*---------------------*/
 
@@ -176,7 +171,6 @@ mat-drawer-content {
     }
 }
 
-
 /*Slide Toggle*/
 
 .slidetoggle {
@@ -184,7 +178,6 @@ mat-drawer-content {
     font-size: $fs-16;
     align-content: left;
 }
-
 
 /*----------*/
 
@@ -202,8 +195,8 @@ input {
     transition: all 0.3s;
 }
 
-input[type='text']:focus,
-input[type='email']:focus {
+input[type="text"]:focus,
+input[type="email"]:focus {
     box-shadow: 2px 2px 8px #00000070 !important;
 }
 
@@ -229,7 +222,6 @@ input:focus {
     background-color: $primary-color;
 }
 
-
 /*---Notification----*/
 
 .bellborder {
@@ -240,7 +232,6 @@ input:focus {
     color: #4d72a4;
     font-size: $fs-20;
 }
-
 
 /*---Notification Dialog Container---*/
 
@@ -290,19 +281,20 @@ input:focus {
 }
 
 .mat-drawer:not(.mat-drawer-side) {
-    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14),
+        0px 6px 30px 5px rgba(0, 0, 0, 0.12);
     background-color: #fff;
 }
 
-::ng-deep  .left-admin-menu {
+::ng-deep .left-admin-menu {
     .main_admin_menu {
         width: 90px;
         filter: drop-shadow(1.5px 2.598px 1.5px rgba(2, 2, 2, 0.09));
-        background-color: #00A89B;
+        background-color: #00a89b;
         height: 100vh;
         z-index: 9999;
         position: fixed;
-         .mat-drawer-inner-container {
+        .mat-drawer-inner-container {
             mat-list-item {
                 display: flex;
                 justify-content: center;
@@ -312,7 +304,7 @@ input:focus {
                 height: 60px;
                 border-radius: 5px;
                 margin-bottom: 5px !important;
-                margin:0 auto;
+                margin: 0 auto;
                 &.logo {
                     margin-bottom: 30px !important;
                     opacity: 1;
@@ -320,15 +312,15 @@ input:focus {
                         width: 40px;
                         opacity: 1;
                     }
-                    &:hover{
-                        .mat-list-item-content{
-                            background-color:transparent;
+                    &:hover {
+                        .mat-list-item-content {
+                            background-color: transparent;
                         }
                     }
                 }
                 img {
                     width: 28px;
-                    opacity:0.8;
+                    opacity: 0.8;
                 }
                 .mat-list-item-content {
                     display: flex;
@@ -341,7 +333,7 @@ input:focus {
                     padding: 10px;
                     margin: 10px 0;
                     &.add {
-                        background-color: #CCEDEB;
+                        background-color: #ccedeb;
                         border-radius: 100%;
                         height: 30px;
                         text-align: center;
@@ -355,15 +347,15 @@ input:focus {
                     }
                 }
                 &:hover {
-                    .mat-list-item-content{
+                    .mat-list-item-content {
                         background-color: rgba(0, 119, 110, 0.61);
                     }
                 }
                 &.active {
-                    .mat-list-item-content{
+                    .mat-list-item-content {
                         background-color: rgba(0, 119, 110, 0.61);
                         img {
-                            opacity:1;
+                            opacity: 1;
                         }
                     }
                 }
@@ -374,7 +366,7 @@ input:focus {
         margin-left: 96px !important;
     }
 }
-.add-popover{
+.add-popover {
     background-color: #ffffff;
     border-radius: 5px;
     .add-content {
@@ -384,7 +376,7 @@ input:focus {
         .add-new {
             padding: 0px 15px 7px;
             font-size: 16px;
-            color: #0E0E0E;
+            color: #0e0e0e;
             border-bottom: 1px solid rgba(112, 112, 112, 0.24);
         }
     }
@@ -395,16 +387,16 @@ input:focus {
             padding: 6px 10px;
             cursor: pointer;
             display: flex;
-            .common-menu{
+            .common-menu {
                 font-size: 14px;
-                img{
+                img {
                     width: 28px;
                     height: 22px;
                 }
             }
             &:hover {
-                background-color: #EAF7F6;
-                color: #00A89B;
+                background-color: #eaf7f6;
+                color: #00a89b;
             }
         }
     }
@@ -486,83 +478,83 @@ input:focus {
 }
 
 .main-admin-drawer {
-     ::ng-deep app-my-work-space {
+    ::ng-deep app-my-work-space {
         width: 100%;
     }
-     ::ng-deep app-appointment {
+    ::ng-deep app-appointment {
         width: 100%;
     }
-     ::ng-deep app-customers {
+    ::ng-deep app-customers {
         width: 100%;
     }
-     ::ng-deep app-reports {
+    ::ng-deep app-reports {
         width: 100%;
     }
-     ::ng-deep app-discount-coupon {
+    ::ng-deep app-discount-coupon {
         width: 100%;
     }
-     ::ng-deep app-appointment-live {
+    ::ng-deep app-appointment-live {
         width: 100%;
     }
-     ::ng-deep settings-services {
+    ::ng-deep settings-services {
         width: 100%;
     }
-     ::ng-deep app-payments {
+    ::ng-deep app-payments {
         width: 100%;
     }
-     ::ng-deep app-paymentgateway {
+    ::ng-deep app-paymentgateway {
         width: 100%;
     }
-     ::ng-deep app-paymentrules {
+    ::ng-deep app-paymentrules {
         width: 100%;
     }
-     ::ng-deep app-bookingrules {
+    ::ng-deep app-bookingrules {
         width: 100%;
     }
-     ::ng-deep app-appearance {
+    ::ng-deep app-appearance {
         width: 100%;
     }
-     ::ng-deep app-company-details {
+    ::ng-deep app-company-details {
         width: 100%;
     }
-     ::ng-deep app-settings-my-profile {
+    ::ng-deep app-settings-my-profile {
         width: 100%;
     }
-     ::ng-deep app-business-hours {
+    ::ng-deep app-business-hours {
         width: 100%;
     }
-     ::ng-deep app-postalcodes {
+    ::ng-deep app-postalcodes {
         width: 100%;
     }
-     ::ng-deep app-alertsettings {
+    ::ng-deep app-alertsettings {
         width: 100%;
     }
-     ::ng-deep app-support {
+    ::ng-deep app-support {
         width: 100%;
     }
-     ::ng-deep app-staff {
+    ::ng-deep app-staff {
         width: 100%;
     }
-     ::ng-deep app-admins {
+    ::ng-deep app-admins {
         width: 100%;
     }
-     ::ng-deep app-my-subscriptions {
+    ::ng-deep app-my-subscriptions {
         width: 100%;
     }
-     ::ng-deep app-my-transactions {
+    ::ng-deep app-my-transactions {
         width: 100%;
     }
-     ::ng-deep app-my-profile {
+    ::ng-deep app-my-profile {
         width: 100%;
     }
-     ::ng-deep app-subscription {
+    ::ng-deep app-subscription {
         width: 100%;
     }
-     ::ng-deep app-my-business {
+    ::ng-deep app-my-business {
         height: 100%;
         width: 100%;
     }
-     ::ng-deep app-billing {
+    ::ng-deep app-billing {
         width: 100%;
     }
 }
@@ -573,7 +565,7 @@ input:focus {
     flex-direction: row-reverse;
     font-size: 1.5em;
     justify-content: center;
-    padding: 0 .2em;
+    padding: 0 0.2em;
     text-align: center;
     width: auto;
     input {
@@ -586,12 +578,12 @@ input:focus {
         padding: 5px;
         padding-left: 1px;
     }
-    input[type="radio"]:checked~label {
+    input[type="radio"]:checked ~ label {
         color: #f90;
     }
 }
 
- ::ng-deep .statick-rating {
+::ng-deep .statick-rating {
     pointer-events: none;
     .star-rating {
         label {
@@ -623,7 +615,7 @@ input:focus {
     align-items: center;
     p {
         font-size: 16px;
-        color: #0E0E0E;
+        color: #0e0e0e;
         font-weight: 500;
     }
 }
@@ -657,7 +649,7 @@ input:focus {
     }
 }
 
- ::ng-deep .booking-detail-main {
+::ng-deep .booking-detail-main {
     .customer-profile-img {
         border-radius: 100%;
         height: 60px;
@@ -726,20 +718,19 @@ input:focus {
 }
 
 ::ng-deep mat-toolbar-row {
-    
     box-shadow: 0px 3px 30px rgb(255 119 0 / 18%);
     .logo {
         display: flex !important;
         align-items: center;
         padding: 0 !important;
-        .logo-image{
-            img{
+        .logo-image {
+            img {
                 height: 30px;
                 margin-right: 20px;
             }
         }
-        .logo-link{
-            color: #0E0E0E;
+        .logo-link {
+            color: #0e0e0e;
             font-size: 16px;
             font-weight: 500;
             text-decoration: none;
@@ -747,7 +738,7 @@ input:focus {
     }
 }
 
- ::ng-deep .cdk-global-overlay-wrapper {
+::ng-deep .cdk-global-overlay-wrapper {
     .cdk-overlay-pane {
         overflow: auto;
     }
@@ -759,30 +750,30 @@ input:focus {
     padding-top: 0;
     padding-bottom: 0;
 }
-::ng-deep mat-toolbar{
-    .admin-header{
+::ng-deep mat-toolbar {
+    .admin-header {
         position: relative;
         padding: 0 20px;
-        .page-head{
-            label{
-                color: #0E0E0E;
+        .page-head {
+            label {
+                color: #0e0e0e;
                 font-size: 18px;
                 font-weight: 500;
                 margin-bottom: 0;
                 // margin-left: 15px;
-                img{
+                img {
                     width: 35px;
                     height: 35px;
                 }
             }
         }
-        .logout-btn{
+        .logout-btn {
             display: flex;
             justify-content: flex-end;
         }
-        .getting-started-window-wrap{
+        .getting-started-window-wrap {
             transition: all 0.5s;
-            .getting-started-label{
+            .getting-started-label {
                 position: fixed;
                 background-color: #fff;
                 color: #000;
@@ -798,115 +789,115 @@ input:focus {
                 z-index: -1;
                 cursor: pointer;
                 transition: all 0.5s;
-                label{
+                label {
                     margin-bottom: 0;
-                    color: #00A89B;
+                    color: #00a89b;
                     text-decoration: underline;
                     font-weight: 500;
                     font-size: 16px;
                     cursor: pointer;
                 }
-                span{
+                span {
                     font-size: 24px;
-                    color: #F04589;
+                    color: #f04589;
                 }
-                img{
+                img {
                     -webkit-animation-name: spaceboots;
                     -webkit-animation-duration: 1s;
-                    -webkit-transform-origin:50% 50%;
+                    -webkit-transform-origin: 50% 50%;
                     -webkit-animation-iteration-count: infinite;
                     -webkit-animation-timing-function: linear;
                     width: 24px;
                 }
-                &.opened{
+                &.opened {
                     bottom: 0;
                     top: unset;
                     border-radius: 10px 10px 0px 0px;
-                    box-shadow: 0px -2px 8px rgba(0, 168, 155,0.27);
+                    box-shadow: 0px -2px 8px rgba(0, 168, 155, 0.27);
                     transition: all 0.5s;
                 }
             }
-            .window-screen{
+            .window-screen {
                 height: 0;
                 transition: all 0.5s;
                 display: none;
-                mdb-carousel{
+                mdb-carousel {
                     height: 100%;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    .carousel{
+                    .carousel {
                         display: flex;
                         justify-content: center;
                         height: 80%;
                         width: 100%;
-                        [class*=carousel-control-]{
+                        [class*="carousel-control-"] {
                             opacity: 1;
-                            .sr-only{
+                            .sr-only {
                                 width: auto;
                                 height: auto;
-                                color: #00A89B;
+                                color: #00a89b;
                                 clip: unset;
                             }
-                            .carousel-control-prev-icon{
-                                background-image: url('/assets/images/icons/iconmonstr-arrow-left-thin.svg');
+                            .carousel-control-prev-icon {
+                                background-image: url("/assets/images/icons/iconmonstr-arrow-left-thin.svg");
                                 width: 1.4rem;
                                 position: relative;
                                 left: -55px;
                             }
-                            .carousel-control-next-icon{
-                                background-image: url('/assets/images/icons/iconmonstr-arrow-right-thin.svg');
+                            .carousel-control-next-icon {
+                                background-image: url("/assets/images/icons/iconmonstr-arrow-right-thin.svg");
                                 width: 1.4rem;
                                 position: relative;
                                 right: -40px;
                             }
                         }
                     }
-                    .carousel-indicators{
+                    .carousel-indicators {
                         display: none;
                     }
-                    .carousel-inner{
+                    .carousel-inner {
                         max-width: 900px;
                         background-color: #fcf4ce;
                         border-radius: 10px;
                         height: 100%;
-                        .signle-item{
+                        .signle-item {
                             height: 100%;
-                            .left-side{
+                            .left-side {
                                 padding: 2em 1em 2em 2em;
                                 border-right: solid 1px rgba(0, 168, 155, 0.23);
                                 display: flex;
                                 align-items: center;
-                                .progress-content{
+                                .progress-content {
                                     width: 100%;
                                 }
-                                h3{
-                                    color: #0E0E0E;
+                                h3 {
+                                    color: #0e0e0e;
                                     font-size: 20px;
                                     font-weight: 600;
                                     text-align: left;
                                 }
-                                mat-progress-bar{
+                                mat-progress-bar {
                                     margin: 1em 0;
                                     border-radius: 5px;
-                                    height: 6px;      
-                                    margin-bottom: 6px; 
-                                    .mat-progress-bar-buffer{
+                                    height: 6px;
+                                    margin-bottom: 6px;
+                                    .mat-progress-bar-buffer {
                                         background: #ffffff !important;
-                                    } 
+                                    }
                                 }
-                                .progress-count{
+                                .progress-count {
                                     color: #565657;
                                     font-size: 13px;
                                 }
-                                .steps{
+                                .steps {
                                     padding-left: 0;
                                     list-style: none;
                                     margin: 2.5em 0;
                                     position: relative;
-                                    li{
+                                    li {
                                         margin-bottom: 1.5em;
-                                        color: #0E0E0E;
+                                        color: #0e0e0e;
                                         display: flex;
                                         align-items: center;
                                         font-size: 14px;
@@ -916,40 +907,40 @@ input:focus {
                                         width: 100%;
                                         word-break: break-all;
                                         font-weight: 500;
-                                        &.active{
-                                            color: #00A89B;
+                                        &.active {
+                                            color: #00a89b;
                                         }
-                                        &.checked{
-                                            &:before{
+                                        &.checked {
+                                            &:before {
                                                 content: "\e876";
-                                                background-color: #00A89B;
+                                                background-color: #00a89b;
                                                 color: #ffffff;
-                                                font-family: 'Material Icons Outlined';
+                                                font-family: "Material Icons Outlined";
                                                 display: flex;
                                                 align-items: center;
                                                 justify-content: center;
                                                 font-size: 14px;
                                             }
-                                            &:after{
-                                                border-color: #00A89B !important;
+                                            &:after {
+                                                border-color: #00a89b !important;
                                                 border-style: solid !important;
                                             }
                                         }
-                                        &:before{
+                                        &:before {
                                             content: "";
                                             font-size: 24px;
-                                            color: #00A89B;
+                                            color: #00a89b;
                                             background-color: #fff;
                                             border-radius: 100%;
                                             width: 20px;
                                             height: 20px;
                                             display: inline-block;
                                             line-height: 22px;
-                                            border: 1px solid #00A89B;
+                                            border: 1px solid #00a89b;
                                             position: absolute;
                                             left: 0;
                                         }
-                                        &:after{
+                                        &:after {
                                             content: "";
                                             height: 1.8em;
                                             width: 1px;
@@ -959,17 +950,17 @@ input:focus {
                                             border: 0;
                                             top: 22px;
                                         }
-                                        &:last-child{
-                                            &:after{
+                                        &:last-child {
+                                            &:after {
                                                 display: none;
                                             }
                                         }
                                     }
                                 }
                             }
-                            .right-side{
+                            .right-side {
                                 padding: 0;
-                                .step-content{
+                                .step-content {
                                     height: 100%;
                                     display: flex;
                                     align-items: center;
@@ -977,52 +968,52 @@ input:focus {
                                     width: 100%;
                                     flex-wrap: wrap;
                                     flex-direction: column;
-                                    h4{
-                                        color: #0E0E0E;
+                                    h4 {
+                                        color: #0e0e0e;
                                         font-weight: 500;
                                         font-size: 16px;
                                     }
-                                    p{
+                                    p {
                                         color: #565657;
                                         font-size: 12px;
                                         margin-bottom: 10px;
                                     }
-                                    label{
-                                        color: #0E0E0E;
+                                    label {
+                                        color: #0e0e0e;
                                         font-size: 13px;
                                         width: 100%;
                                         font-weight: 500;
                                         text-align: center;
                                         white-space: break-spaces;
                                     }
-                                    button{
+                                    button {
                                         margin-top: 1em;
                                     }
-                                    .skip-btn{
+                                    .skip-btn {
                                         color: #565657;
                                         margin-top: 6px;
                                         cursor: pointer;
                                     }
-                                    .skip-btn-side{
+                                    .skip-btn-side {
                                         margin-top: 20px;
                                         margin-left: 20px;
                                         color: #565657;
                                         cursor: pointer;
                                     }
-                                    .ver-sec{
+                                    .ver-sec {
                                         height: 50%;
                                         width: 100%;
                                         display: flex;
                                         align-items: flex-start;
                                         padding: 2em 2em 2em 1em;
-                                        &:first-child{
+                                        &:first-child {
                                             border-bottom: 1px solid rgba(0, 168, 155, 0.23);
                                         }
-                                        img{
+                                        img {
                                             width: 100px;
                                             margin-right: 2em;
                                         }
-                                        .contents{
+                                        .contents {
                                             width: calc(100% - 2em);
                                             text-align: left;
                                             display: flex;
@@ -1034,7 +1025,7 @@ input:focus {
                         }
                     }
                 }
-                &.opened{
+                &.opened {
                     height: calc(100vh - 64px);
                     position: fixed;
                     top: 64px;
@@ -1047,38 +1038,50 @@ input:focus {
                 }
             }
         }
-        .live-btn{
+        .live-btn {
             min-width: auto !important;
             height: 36px;
         }
     }
 }
-.notification-svg{
+.notification-svg {
     width: 22px;
 }
 @-webkit-keyframes spaceboots {
-	0% { -webkit-transform: translate(2px, 0px) rotate(0deg); }
-	// 10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
-	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
-	// 30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
-	40% { -webkit-transform: translate(1px, 0px) rotate(1deg); }
-	// 50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
-	60% { -webkit-transform: translate(-3px, 0px) rotate(0deg); }
-	// 70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
-	80% { -webkit-transform: translate(-1px, 0px) rotate(1deg); }
-	// 90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
-	100% { -webkit-transform: translate(1px, 0px) rotate(-1deg); }
+    0% {
+        -webkit-transform: translate(2px, 0px) rotate(0deg);
+    }
+    // 10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+    20% {
+        -webkit-transform: translate(-3px, 0px) rotate(1deg);
+    }
+    // 30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+    40% {
+        -webkit-transform: translate(1px, 0px) rotate(1deg);
+    }
+    // 50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+    60% {
+        -webkit-transform: translate(-3px, 0px) rotate(0deg);
+    }
+    // 70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+    80% {
+        -webkit-transform: translate(-1px, 0px) rotate(1deg);
+    }
+    // 90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+    100% {
+        -webkit-transform: translate(1px, 0px) rotate(-1deg);
+    }
 }
-.logout-svg{
+.logout-svg {
     width: 24px;
 }
-.business_logo{
-    img{
+.business_logo {
+    img {
         height: 30px;
     }
 }
 
-::ng-deep .mde-popover-direction-arrow{
+::ng-deep .mde-popover-direction-arrow {
     left: -16px !important;
     top: 26px !important;
     transform: rotate(-90deg);

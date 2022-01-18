@@ -1,15 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe} from '@angular/common';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { take, takeUntil } from 'rxjs/operators';
-import { Observable, throwError, ReplaySubject, Subject } from 'rxjs';
-import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { ReplaySubject, Subject } from 'rxjs';
+import { DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from '@app/my-date-formats';
 
 export interface DialogData {

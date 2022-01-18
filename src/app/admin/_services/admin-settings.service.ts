@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, from } from 'rxjs';
-import { map, catchError, filter } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, RouterEvent, RouterOutlet } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '@app/_services';
 import {  DialogReAuthentication  } from '@app/app.component';
 import {  CountryISO } from 'ngx-intl-tel-input';
@@ -20,7 +19,6 @@ export class AdminSettingsService {
     businessId: any = localStorage.getItem('business_id')?localStorage.getItem('business_id'):'';
     constructor(
         private http: HttpClient,
-        private _snackBar: MatSnackBar,
         public router: Router,
         private authenticationService: AuthenticationService,
         public dialog: MatDialog,
@@ -61,8 +59,7 @@ export class AdminSettingsService {
           catchError(this.handleError)
         ).subscribe((response:any) => {
           if (response.data == true) {
-          }
-          else if(response.data == false){
+          }else if(response.data == false){
             this.reAuthenticateUser();
           }
         },(err) =>{

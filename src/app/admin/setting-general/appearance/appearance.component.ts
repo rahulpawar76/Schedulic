@@ -1,14 +1,12 @@
-import { Component, OnInit,Input,ViewChild, ViewContainerRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
-import { ColorPickerService, Cmyk } from 'ngx-color-picker';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ColorPickerService } from 'ngx-color-picker';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import { MdePopoverTrigger } from '@material-extended/mde';
-//import { Base64 } from 'base64-string';
 
 
 export interface DialogData {

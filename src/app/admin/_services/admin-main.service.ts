@@ -1,13 +1,11 @@
-import { Component, Inject, Injectable, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, from } from 'rxjs';
-import { Router, RouterEvent, RouterOutlet } from '@angular/router';
-import { map, catchError, filter } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { map, catchError } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../../_services';
 import { environment } from '@environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {  DialogReAuthentication  } from './../../app.component';
 
 export interface DialogData {
@@ -23,7 +21,6 @@ export class AdminService {
   dialogRef:any;
   constructor(
     private http: HttpClient,
-    private _snackBar: MatSnackBar,
     private authenticationService:AuthenticationService,
     public dialog: MatDialog,
     public router: Router,

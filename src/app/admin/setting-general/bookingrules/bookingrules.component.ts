@@ -1,12 +1,8 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { AppComponent } from '@app/app.component';
 import { AdminSettingsService } from '../../_services/admin-settings.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DatePipe} from '@angular/common';
 import { MatSnackBar} from '@angular/material/snack-bar';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
-import { ConfirmationDialogComponent } from '../../../_components/confirmation-dialog/confirmation-dialog.component';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-bookingrules',

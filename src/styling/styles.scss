@@ -660,6 +660,19 @@ $calendarsize: 10px;
 
         .pagination {
             margin-bottom: 0px;
+            span{
+                &.page-item{
+                    display: inline-block;
+                }
+                &.hide-page{
+                    margin: 0;
+                    .page-link{
+                        border: 0px;
+                        padding: 0px;
+                        font-size: 0;
+                    }
+                }
+            }
             .page-item {
                 margin: 0px 6px;
                 .page-link {
@@ -721,6 +734,18 @@ $calendarsize: 10px;
             }
         }
     }
+    // .start-dot-element{
+    //     display: none;
+    //     &:first-child{
+    //         display: inline-block !important;
+    //     }
+    // }
+    // .end-dot-element{
+    //     display: none;
+    //     &:first-child{
+    //         display: inline-block !important;
+    //     }
+    // }
 }
 
 .starting_page {
