@@ -2687,6 +2687,7 @@ console.log(mondayBreaks)
     this.isLoaderAdmin = true;
     let requestObject={
       "staff_id":this.selectedStaffId,
+      "type":"S",
       "breaks":mondayBreaks,
     }
    // console.log(JSON.stringify(requestObject));

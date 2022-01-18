@@ -330,7 +330,8 @@ export class BusinessHoursComponent implements OnInit {
     });
     let requestObject={
       "business_id":this.businessId,
-      "mondayBreaks":mondayBreaks,
+      "type":"A",
+      "breaks":mondayBreaks,
     }
     this.isLoaderAdmin = true;
     this.adminSettingsService.applyToAllBreaks(requestObject).subscribe((response:any) => {
