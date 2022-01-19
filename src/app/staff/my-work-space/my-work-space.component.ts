@@ -44,7 +44,7 @@ export class MyWorkSpaceComponent implements OnInit {
   token :any;
   dashBGImage:any;
   currentUser:any;
-  successFlag : boolean = false;
+  changeStatusObject : any = [];
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
@@ -102,20 +102,36 @@ export class MyWorkSpaceComponent implements OnInit {
   }
   changeBookingStatus(order_item_id, status){
     this.isLoader=true;
-    let requestObject = {
+    this.changeStatusObject = {
       'order_item_id': order_item_id,
       'order_status': status,
       'notes' : this.notes,
       'staff_id' : this.staffId
     };
-    this.successFlag = false;
-      this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
+    
+      this.StaffService.changeStatus(this.changeStatusObject).subscribe((response:any) =>{
         if(response.data == true){
-          this.successFlag = true;
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
             verticalPosition:'top',
             panelClass :['green-snackbar']
+          });
+
+          this.StaffService.sendNotification(this.changeStatusObject).subscribe((response: any) => {
+            if (response.data == true) {
+              this._snackBar.open("Notification Sent", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['green-snackbar']
+              });
+            }
+            else if (response.data == false) {
+              this._snackBar.open("Notification Not Sent", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+              });
+            }
           });
           this.getTodayAppointment();
           
@@ -127,27 +143,8 @@ export class MyWorkSpaceComponent implements OnInit {
             panelClass :['red-snackbar']
           }); 
         }
-    this.isLoader=false;
+        this.isLoader=false;
       });
-
-      if(this.successFlag){
-        this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
-          if (response.data == true) {
-            this._snackBar.open("Notification Sent", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: ['green-snackbar']
-            });
-          }
-          else if (response.data == false) {
-            this._snackBar.open("Notification Not Sent", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: ['red-snackbar']
-            });
-          }
-        });
-      }
   }
 
   getTodayAppointment(){

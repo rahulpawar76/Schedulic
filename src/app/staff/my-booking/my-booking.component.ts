@@ -54,7 +54,7 @@ export class MyBookingComponent implements OnInit {
   isLoader: boolean = false;
   openedTab: any = 'new';
   staffToken: any;
-  successFlag: boolean = false;
+  changeStatusObject: any = [];
   search = {
     keyword: ""
   };
@@ -275,20 +275,36 @@ export class MyBookingComponent implements OnInit {
       this.OnlinePaymentMode(index);
     } else {
 
-      let requestObject = {
+      this.changeStatusObject = {
         'order_item_id': order_item_id,
         'order_status': status,
         'notes': this.notes,
         'staff_id': this.staffId
       };
-      this.successFlag = false;
-      this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
-        this.successFlag = true;
+      
+      this.StaffService.changeStatus(this.changeStatusObject).subscribe((response: any) => {
         if (response.data == true) {
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
             verticalPosition: 'top',
             panelClass: ['green-snackbar']
+          });
+
+          this.StaffService.sendNotification(this.changeStatusObject).subscribe((response: any) => {
+            if (response.data == true) {
+              this._snackBar.open("Notification Sent", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['green-snackbar']
+              });
+            }
+            else if (response.data == false) {
+              this._snackBar.open("Notification Not Sent", "X", {
+                duration: 2000,
+                verticalPosition: 'top',
+                panelClass: ['red-snackbar']
+              });
+            }
           });
 
           this.getNewAppointment();
@@ -304,25 +320,6 @@ export class MyBookingComponent implements OnInit {
         }
         this.isLoader = false;
       });
-
-      if(this.successFlag){
-        this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
-          if (response.data == true) {
-            this._snackBar.open("Notification Sent", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: ['green-snackbar']
-            });
-          }
-          else if (response.data == false) {
-            this._snackBar.open("Notification Not Sent", "X", {
-              duration: 2000,
-              verticalPosition: 'top',
-              panelClass: ['red-snackbar']
-            });
-          }
-        });
-      }
     }
   }
 
@@ -1519,7 +1516,7 @@ export class DialogONTheWay {
   bussinessId: any;
   staffId: any;
   isLoader: boolean = false;
-  successFlag:boolean = false;
+  changeStatusObject:any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogONTheWay>,
     public dialog: MatDialog,
@@ -1539,22 +1536,37 @@ export class DialogONTheWay {
   }
   changeBookingStatus(order_item_id, status) {
     this.isLoader = true;
-    let requestObject = {
+    this.changeStatusObject = {
       'order_item_id': order_item_id,
       'order_status': status,
       'notes': this.notes,
       'staff_id': this.staffId
     };
-    this.successFlag = false;
-    this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
+    this.StaffService.changeStatus(this.changeStatusObject).subscribe((response: any) => {
       if (response.data == true) {
-        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
         this.dialogRef.close();
+
+        this.StaffService.sendNotification(this.changeStatusObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this._snackBar.open("Notification Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
+          }
+          else if (response.data == false) {
+            this._snackBar.open("Notification Not Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
       }
       else if (response.data == false) {
         this._snackBar.open("Appointment Not Updated", "X", {
@@ -1566,27 +1578,7 @@ export class DialogONTheWay {
       }
       this.isLoader = false;
     });
-
-    if(this.successFlag){
-      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
-        if (response.data == true) {
-          this._snackBar.open("Notification Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['green-snackbar']
-          });
-        }
-        else if (response.data == false) {
-          this._snackBar.open("Notification Not Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['red-snackbar']
-          });
-        }
-      });
-    }
   }
-
 }
 
 
@@ -1603,7 +1595,7 @@ export class DialogWorkStarted {
   bussinessId: any;
   staffId: any;
   isLoader: boolean = false;
-  successFlag: boolean = false;
+  changeStatusObject:any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogWorkStarted>,
     public dialog: MatDialog,
@@ -1625,22 +1617,38 @@ export class DialogWorkStarted {
   }
   changeBookingStatus(order_item_id, status) {
     this.isLoader = true;
-    let requestObject = {
+    this.changeStatusObject = {
       'order_item_id': order_item_id,
       'order_status': status,
       'notes': this.notes,
       'staff_id': this.staffId
     };
-    this.successFlag = false;
-    this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
+    
+    this.StaffService.changeStatus(this.changeStatusObject).subscribe((response: any) => {
       if (response.data == true) {
-        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
         this.dialogRef.close();
+
+        this.StaffService.sendNotification(this.changeStatusObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this._snackBar.open("Notification Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
+          }
+          else if (response.data == false) {
+            this._snackBar.open("Notification Not Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
       }
       else if (response.data == false) {
         this._snackBar.open("Appointment Not Updated", "X", {
@@ -1652,27 +1660,7 @@ export class DialogWorkStarted {
       }
       this.isLoader = false;
     });
-
-    if(this.successFlag){
-      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
-        if (response.data == true) {
-          this._snackBar.open("Notification Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['green-snackbar']
-          });
-        }
-        else if (response.data == false) {
-          this._snackBar.open("Notification Not Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['red-snackbar']
-          });
-        }
-      });
-    }
   }
-
 }
 
 @Component({
@@ -2109,7 +2097,7 @@ export class DialogStaffMyAppointmentDetails {
   formSettingPage: boolean = false;
   singlenote: any;
   singleBookingNotes: any;
-  successFlag: boolean = false;
+  changeStatusObject: any = [];
   constructor(
     public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
     private StaffService: StaffService,
@@ -2244,22 +2232,38 @@ export class DialogStaffMyAppointmentDetails {
 
   changeBookingStatus(order_item_id, status) {
 
-    let requestObject = {
+    this.changeStatusObject = {
       'order_item_id': order_item_id,
       'order_status': status,
       'notes': this.notes,
       'staff_id': this.staffId
     };
-    this.successFlag = false;
-    this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
+  
+    this.StaffService.changeStatus(this.changeStatusObject).subscribe((response: any) => {
       if (response.data == true) {
-        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
           panelClass: ['green-snackbar']
         });
         this.dialogRef.close();
+
+        this.StaffService.sendNotification(this.changeStatusObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this._snackBar.open("Notification Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
+          }
+          else if (response.data == false) {
+            this._snackBar.open("Notification Not Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
       }
       else if (response.data == false) {
         this._snackBar.open("Appointment Not Updated", "X", {
@@ -2270,27 +2274,7 @@ export class DialogStaffMyAppointmentDetails {
         this.dialogRef.close();
       }
     });
-
-    if(this.successFlag){
-      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
-        if (response.data == true) {
-          this._snackBar.open("Notification Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['green-snackbar']
-          });
-        }
-        else if (response.data == false) {
-          this._snackBar.open("Notification Not Sent", "X", {
-            duration: 2000,
-            verticalPosition: 'top',
-            panelClass: ['red-snackbar']
-          });
-        }
-      });
-    }
   }
-
 }
 
 
