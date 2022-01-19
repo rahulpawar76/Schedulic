@@ -241,6 +241,21 @@ export class StaffService {
     catchError(this.handleError));
   }
 
+  sendNotification(requestObject){
+    this.checkAuthentication();
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'staff-id' : this.staffId,
+      'api-token' : this.staffToken
+      
+    });
+    return this.http.post(`${environment.apiUrl}/staff-update-notification`,requestObject,{headers:headers}).pipe(
+    map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
   // mywork-space
   getTodayAppointment(requestObject){
     this.checkAuthentication();

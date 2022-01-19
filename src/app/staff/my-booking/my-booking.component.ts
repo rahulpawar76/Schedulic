@@ -54,6 +54,7 @@ export class MyBookingComponent implements OnInit {
   isLoader: boolean = false;
   openedTab: any = 'new';
   staffToken: any;
+  successFlag: boolean = false;
   search = {
     keyword: ""
   };
@@ -151,6 +152,10 @@ export class MyBookingComponent implements OnInit {
       }
       this.isLoader = false;
     })
+  }
+
+  sendNotification() {
+    
   }
   getCompletedAppointment() {
     let requestObject = {
@@ -276,7 +281,9 @@ export class MyBookingComponent implements OnInit {
         'notes': this.notes,
         'staff_id': this.staffId
       };
+      this.successFlag = false;
       this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
+        this.successFlag = true;
         if (response.data == true) {
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
@@ -296,7 +303,26 @@ export class MyBookingComponent implements OnInit {
           });
         }
         this.isLoader = false;
-      })
+      });
+
+      if(this.successFlag){
+        this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this._snackBar.open("Notification Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
+          }
+          else if (response.data == false) {
+            this._snackBar.open("Notification Not Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
+      }
     }
   }
 
@@ -1493,6 +1519,7 @@ export class DialogONTheWay {
   bussinessId: any;
   staffId: any;
   isLoader: boolean = false;
+  successFlag:boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogONTheWay>,
     public dialog: MatDialog,
@@ -1518,9 +1545,10 @@ export class DialogONTheWay {
       'notes': this.notes,
       'staff_id': this.staffId
     };
-
+    this.successFlag = false;
     this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
+        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1537,7 +1565,26 @@ export class DialogONTheWay {
         this.dialogRef.close();
       }
       this.isLoader = false;
-    })
+    });
+
+    if(this.successFlag){
+      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
+        if (response.data == true) {
+          this._snackBar.open("Notification Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+        }
+        else if (response.data == false) {
+          this._snackBar.open("Notification Not Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+          });
+        }
+      });
+    }
   }
 
 }
@@ -1556,6 +1603,7 @@ export class DialogWorkStarted {
   bussinessId: any;
   staffId: any;
   isLoader: boolean = false;
+  successFlag: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogWorkStarted>,
     public dialog: MatDialog,
@@ -1583,8 +1631,10 @@ export class DialogWorkStarted {
       'notes': this.notes,
       'staff_id': this.staffId
     };
+    this.successFlag = false;
     this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
+        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -1601,7 +1651,26 @@ export class DialogWorkStarted {
         this.dialogRef.close();
       }
       this.isLoader = false;
-    })
+    });
+
+    if(this.successFlag){
+      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
+        if (response.data == true) {
+          this._snackBar.open("Notification Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+        }
+        else if (response.data == false) {
+          this._snackBar.open("Notification Not Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+          });
+        }
+      });
+    }
   }
 
 }
@@ -2040,6 +2109,7 @@ export class DialogStaffMyAppointmentDetails {
   formSettingPage: boolean = false;
   singlenote: any;
   singleBookingNotes: any;
+  successFlag: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DialogStaffMyAppointmentDetails>,
     private StaffService: StaffService,
@@ -2180,8 +2250,10 @@ export class DialogStaffMyAppointmentDetails {
       'notes': this.notes,
       'staff_id': this.staffId
     };
+    this.successFlag = false;
     this.StaffService.changeStatus(requestObject).subscribe((response: any) => {
       if (response.data == true) {
+        this.successFlag = true;
         this._snackBar.open("Appointment Updated", "X", {
           duration: 2000,
           verticalPosition: 'top',
@@ -2197,7 +2269,26 @@ export class DialogStaffMyAppointmentDetails {
         });
         this.dialogRef.close();
       }
-    })
+    });
+
+    if(this.successFlag){
+      this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
+        if (response.data == true) {
+          this._snackBar.open("Notification Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['green-snackbar']
+          });
+        }
+        else if (response.data == false) {
+          this._snackBar.open("Notification Not Sent", "X", {
+            duration: 2000,
+            verticalPosition: 'top',
+            panelClass: ['red-snackbar']
+          });
+        }
+      });
+    }
   }
 
 }

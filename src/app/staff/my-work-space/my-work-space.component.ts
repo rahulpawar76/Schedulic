@@ -44,6 +44,7 @@ export class MyWorkSpaceComponent implements OnInit {
   token :any;
   dashBGImage:any;
   currentUser:any;
+  successFlag : boolean = false;
   constructor(
     public dialog: MatDialog,
     private StaffService: StaffService,
@@ -107,9 +108,10 @@ export class MyWorkSpaceComponent implements OnInit {
       'notes' : this.notes,
       'staff_id' : this.staffId
     };
-    
+    this.successFlag = false;
       this.StaffService.changeStatus(requestObject).subscribe((response:any) =>{
         if(response.data == true){
+          this.successFlag = true;
           this._snackBar.open("Appointment Updated", "X", {
             duration: 2000,
             verticalPosition:'top',
@@ -126,7 +128,26 @@ export class MyWorkSpaceComponent implements OnInit {
           }); 
         }
     this.isLoader=false;
-      })
+      });
+
+      if(this.successFlag){
+        this.StaffService.sendNotification(requestObject).subscribe((response: any) => {
+          if (response.data == true) {
+            this._snackBar.open("Notification Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['green-snackbar']
+            });
+          }
+          else if (response.data == false) {
+            this._snackBar.open("Notification Not Sent", "X", {
+              duration: 2000,
+              verticalPosition: 'top',
+              panelClass: ['red-snackbar']
+            });
+          }
+        });
+      }
   }
 
   getTodayAppointment(){
