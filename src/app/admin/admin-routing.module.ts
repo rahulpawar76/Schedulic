@@ -13,6 +13,8 @@ import { AppointmentLiveComponent } from './appointment-live/appointment-live.co
 import { DiscountCouponComponent } from './discount-coupon/discount-coupon.component';
 import { SupportComponent } from './support/support.component';
 
+import { AppearanceComponent } from './appearance/appearance.component';
+
 //import { Role } from '@app/_models';
 //import { AuthGuard } from '@app/_helpers';
 
@@ -30,6 +32,12 @@ const routes: Routes = [
     path: 'my-workspace',
     component: MyWorkSpaceComponent
   }, 
+
+  {
+    path: 'appearance',
+   component: AppearanceComponent 
+  
+  },
   {
     path: 'my-appointment',
     component: AppointmentComponent

@@ -18,6 +18,6 @@ export class SharedService {
   }
 
 	updateSideMenuState(state: boolean) {
-			this.sideMenuStateSource.next(state);
+		this.sideMenuStateSource.next(state);
 	}
 }

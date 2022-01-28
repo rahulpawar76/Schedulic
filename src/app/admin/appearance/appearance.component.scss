@@ -2,6 +2,9 @@
 .main-getting-content {
     margin: 30px;
 }
+#appearance{
+    margin-top: 64px;
+}
 
 .appearance-save-btn {
     width: 110px;
@@ -276,26 +279,26 @@
 .theme-div {
     height: 150px;
     border-radius: 5px;
-    background-image: url("../../../../assets/images/admin/theme1.png");
+    background-image: url("../../../assets/images/admin/theme1.png");
     background-size: cover;
     background-position: center;
     &.theme-1 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme1.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme1.png");
     }
     &.theme-2 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme2.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme2.png");
     }
     &.theme-3 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme3.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme3.png");
     }
     &.theme-4 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme4.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme4.png");
     }
     &.theme-5 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme5.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme5.png");
     }
     &.theme-6 {
-        background-image: url("../../../../assets/images/admin/appearance-theme/theme6.png");
+        background-image: url("../../../assets/images/admin/appearance-theme/theme6.png");
     }
 }
 

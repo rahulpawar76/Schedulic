@@ -46,6 +46,9 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 import { environment } from '@environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AppearanceComponent, DialogPreviewTheme, DialogWidgetBGUpload } from './appearance/appearance.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { MdePopoverModule } from '@material-extended/mde';
 
 
 @NgModule({
@@ -86,6 +89,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     CustomerAppointmentDetailsDialog,
     SupportComponent,
     dateRangeSelectDialog,
+    AppearanceComponent,
+    DialogPreviewTheme, 
+    DialogWidgetBGUpload
     //DialogReAuthentication,
     ],
   imports: [
@@ -111,6 +117,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, 
+    ColorPickerModule,
+    MdePopoverModule,
     //GoogleMapsModule
   ],
   exports: [
@@ -124,7 +132,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     DialogViewReview,InterruptedReschedule,InterruptedReschedulecustomer,RescheduleAppointAdmin,PendingAppointmentDetailsDialog,addPOSBookingNoteDialog,addPOSCouponDialog,paymentModeDialog,DialogNotification, DialogNotificationAppointment,
     WorkStartedAppointmentDetailsDialog,OnTheWayAppointmentDetailsDialog,
     DialogImportFileUpload,DialogImportServiceUpload,DialogMyProfileImageUpload,DialogAllAppointmentDetails,
-    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog,dateRangeSelectDialog],
+    DialogCustomerImageUpload,DialogCouponDetails,CustomerAppointmentDetailsDialog,RescheduleAppointment,DialogInvoiceDialog,dateRangeSelectDialog,
+    DialogPreviewTheme, 
+    DialogWidgetBGUpload],
 })
 export class AdminModule { }
 

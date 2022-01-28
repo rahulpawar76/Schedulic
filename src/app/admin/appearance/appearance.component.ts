@@ -2,11 +2,14 @@ import { Component, OnInit, ViewContainerRef, Inject } from '@angular/core';
 import { AppComponent } from '@app/app.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ColorPickerService } from 'ngx-color-picker';
-import { AdminSettingsService } from '../../_services/admin-settings.service';
+import { AdminSettingsService } from '../_services/admin-settings.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@environments/environment';
 import { NgbDateParserFormatter, NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { SharedService } from '@app/_services/shared.service';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { Router, RouterEvent } from '@angular/router';
 
 
 export interface DialogData {
@@ -65,8 +68,7 @@ export class AppearanceComponent implements OnInit {
   textcolor: any = '#000000';
   textbgcolor: any = '#ffffff';
   embededCode: any;
-  businessId: any
-  encodedBusinessId: any;
+  encodedAdminId: any;
   selectedFont: any = 'Poppins, sans-serif'
   defaultTheme: any = '1';
   model: NgbDateStruct;
@@ -79,22 +81,31 @@ export class AppearanceComponent implements OnInit {
   navigation = 'arrows';
   widgetBGImage: any;
   frontBookingUrl:any;
+  pageSlug: any;
   selectedtab:any=0;
+  adminId:any;
+  currentUser:any
   constructor(
     private appComponent : AppComponent,
     private _formBuilder: FormBuilder,
     public vcRef: ViewContainerRef, 
+    public router: Router,
     private cpService: ColorPickerService,
     private _snackBar: MatSnackBar,
-    private calendar: NgbCalendar,
+    private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     @Inject(AdminSettingsService) private AdminSettingsService: AdminSettingsService,
+    private sharedService: SharedService
     
     ) {  
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      if (this.currentUser) {
+        this.adminId= this.currentUser.user_id;
+      }
+      this.sharedService.updateSideMenuState(false);
       if (localStorage.getItem('business_id')) {
-        this.businessId = localStorage.getItem('business_id');
-        this.frontBookingUrl = environment.bookpageLink+"/booking/"+window.btoa(this.businessId)
-        this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookpageLink+"/booking/"+window.btoa(this.businessId)+"' frameborder='0'></iframe>";
+        this.frontBookingUrl = environment.bookpageLink+"/booking/"+window.btoa(this.adminId)
+        this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.bookpageLink+"/booking/"+window.btoa(this.adminId)+"' frameborder='0'></iframe>";
       }
 
       let newWidgetAction = window.location.search.split("?goto=")
@@ -104,6 +115,12 @@ export class AppearanceComponent implements OnInit {
       if(newWidgetAction.length > 1 && newWidgetAction[1] == 'widgets'){
           this.selectedtab = 1;
       }
+      this.router.events.subscribe(event => {
+        if (event instanceof RouterEvent) this.handleRoute(event);
+          const url = this.getUrl(event);
+      });
+      localStorage.setItem('isBusiness', 'true');
+      localStorage.setItem('isAppearance', 'true');
     }
 
   ngOnInit() {
@@ -114,10 +131,55 @@ export class AppearanceComponent implements OnInit {
     this.update_SCSS_var();
     this.getCompanyDetails();
   }
+
+
+
+
+  // page url conditions
+  dynamicSort(property: string) {
+    let sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return (a, b) => {
+      const result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
+  private getUrl(event: any) {
+    if (event && event.url) {
+      this.pageSlug = event.url.split('/' , 2)
+      const url = event.url;
+      const state = (event.state) ? event.state.url : null;
+      const redirect = (event.urlAfterRedirects) ? event.urlAfterRedirects : null;
+      const longest = [url, state, redirect].filter(value => !!value).sort(this.dynamicSort('-length'));
+      if (longest.length > 0) return longest[0];
+    }
+  }
+
+  private handleRoute(event: RouterEvent) {
+    const url = this.getUrl(event);
+    let devidedUrl = url.split('/',4);
+    if((devidedUrl[1] == 'admin' && devidedUrl.length == 2) || devidedUrl[2] == 'appearance'){
+      // this.AppComponent
+      localStorage.setItem('isBusiness', 'true');
+      localStorage.setItem('isAppearance', 'true');
+      this.sharedService.updateSideMenuState(false);
+    }else{
+      localStorage.setItem('isBusiness', 'false');
+      localStorage.setItem('isAppearance', 'false');
+      this.sharedService.updateSideMenuState(true);
+    }
+  }
+
+
   getCompanyDetails(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      "business_id" : this.businessId
+      "business_id" : this.adminId
     }
     this.AdminSettingsService.getCompanyDetails(requestObject).subscribe((response:any) => {
       if(response.data == true){
@@ -238,7 +300,7 @@ export class AppearanceComponent implements OnInit {
   fnCreateAppearance(AppearanceData){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'business_id': this.businessId,
+      'business_id': this.adminId,
       "appearance": AppearanceData
     };
     this.AdminSettingsService.fnCreateAppearance(requestObject).subscribe((response:any)=>{
@@ -264,7 +326,7 @@ export class AppearanceComponent implements OnInit {
   getSettingValue(){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'business_id': this.businessId,
+      'business_id': this.adminId,
     };
     this.AdminSettingsService.getSettingsValue(requestObject).subscribe((response:any)=>{
       if(response.data == true && response.response != ''){
@@ -287,13 +349,13 @@ export class AppearanceComponent implements OnInit {
         if(this.settingData.theme){
           this.defaultTheme = this.settingData.theme
           // if(this.defaultTheme == 1){
-          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.adminId)+"'></iframe>";
           // }else{
-          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking-"+this.defaultTheme+"?business_id="+window.btoa(this.businessId)+"'></iframe>";
+          //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking-"+this.defaultTheme+"?business_id="+window.btoa(this.adminId)+"'></iframe>";
           // }
         }
         // else{
-        //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.businessId)+"'></iframe>";
+        //   this.embededCode = "<iframe height='100%' style='height:100vh' width='100%' src='"+environment.urlForLink+"/booking?business_id="+window.btoa(this.adminId)+"'></iframe>";
         // }
         
       }else if(response.data == false && response.response !== 'api token or userid invaild'){
@@ -311,7 +373,7 @@ export class AppearanceComponent implements OnInit {
   fnFormSetting(){
     this.isLoaderAdmin = true;
     let requestObject = {
-        'business_id': this.businessId,
+        'business_id': this.adminId,
         'form_settings': this.formArr
     };
     this.AdminSettingsService.fnFormSetting(requestObject).subscribe((response:any)=>{
@@ -358,7 +420,7 @@ copyEmbedCode(val: string){
   fnChnageTheme(selectedTheme){
     this.isLoaderAdmin = true;
     let requestObject = {
-      'business_id': this.businessId,
+      'business_id': this.adminId,
       'theme': selectedTheme
     };
     this.AdminSettingsService.fnChnageTheme(requestObject).subscribe((response:any)=>{
@@ -492,7 +554,7 @@ export class DialogWidgetBGUpload {
 })
 export class DialogPreviewTheme   {
 
-  businessId :any;
+  adminId :any;
   themeNumber :any;
   constructor(
     public dialogRef: MatDialogRef<DialogPreviewTheme>,
@@ -500,9 +562,9 @@ export class DialogPreviewTheme   {
     ) {
       this.themeNumber =  this.data.themeNumber;
 
-    if(localStorage.getItem('business_id')){
-      this.businessId = localStorage.getItem('business_id');
-    }
+    // if(localStorage.getItem('business_id')){
+    //   this.adminId = localStorage.getItem('business_id');
+    // }
   }
 
   onNoClick(): void {

@@ -85,8 +85,9 @@
                             <label class="circle-animat-wrap"><span class="circle-blick-with-border"></span></label>
                             Live
                         </button>
-                        <button mat-button class="sc-yellow-btn" *ngIf="!isBusiness()" (click)="MyBusinessNav()">My
+                        <button mat-button class="sc-yellow-btn" *ngIf="!isBusiness() || isAppearanceComponent" (click)="MyBusinessNav()">My
                             Businesses</button>
+                        <button mat-button class="sc-yellow-btn" *ngIf="isBusiness() && !isAppearanceComponent" (click)="goToGlobleSetting()">Globle Setting</button>
                         <span class="profile-head">
                             <div class="customer-profile-img m-2 float-left overflow-hidden" data="aaa">
                                 <img class="h-100 w-100" src="{{currentUser.image}}"

@@ -37,6 +37,7 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router';
+import { E } from '@angular/cdk/keycodes';
 
 
 
@@ -79,6 +80,7 @@ export class AppComponent implements AfterViewInit {
   activeSettingMenu: any;
   notificationCount: any = 0;
   businessSetup: any;
+  isAppearanceComponent:boolean=false;
   gettingStartedWindowOpen: boolean = false;
   @ViewChild(MdePopoverTrigger, { static: false }) trigger: MdePopoverTrigger;
 
@@ -223,6 +225,11 @@ export class AppComponent implements AfterViewInit {
     const url = this.getUrl(event);
     if (this.urlIsNew(url)) {
       this.currentUrl = url;
+      if(this.currentUrl == "/admin/appearance"){
+        this.isAppearanceComponent = true;
+      }else{
+        this.isAppearanceComponent = false;
+      }
       if (this.currentUrl == "/admin/settings-resource/services") {
         this.activeSettingMenu = "services";
       }
@@ -331,7 +338,6 @@ export class AppComponent implements AfterViewInit {
       return false;
     }
   }
-
   isBusiness() {
     if (localStorage.getItem('isBusiness') && localStorage.getItem('isBusiness') == "true") {
       this.businessComponent = false;
@@ -403,6 +409,12 @@ export class AppComponent implements AfterViewInit {
     // localStorage.removeItem('business_id');
     // localStorage.removeItem('business_name');
     this.router.navigate(['/admin/my-business']);
+  }
+  goToGlobleSetting() {
+    // localStorage.removeItem('business_id');
+    // localStorage.removeItem('business_name');
+    this.router.navigate(['/admin/appearance']);
+    this.sharedService.updateSideMenuState(false);
   }
   MyCustomerNav() {
     this.router.navigate(['/admin/my-customer']);

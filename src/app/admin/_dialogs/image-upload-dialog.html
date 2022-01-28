@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-notify modal-info " role="document">
+    <div class="modal-content">
+        <div class="modal-header modal-bcolor-primary">
+            <p class="heading lead mb-0 work-content">Upload Image</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+        <span aria-hidden="true" class="white-text">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body">
+            <div class="file-upload">
+                <form [formGroup]="uploadForm">
+                    <div class="image-upload-wrap">
+                        <input class="fileuploadinput" type='file' id="file" (change)="onFileChange($event)" formControlName="profile" />
+                        <div class="drag-text" *ngIf="!imageSrc">
+                            <h6>Drag & Drop files here</h6>
+                            <h3>or</h3>
+                            <h6>Click Here.</h6>
+                        </div>
+                        <img [src]="imageSrc" *ngIf="imageSrc" class="upload-preview-img">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" [disabled]="!imageSrc" (click)="uploadImage()" mat-button class="sc-pink-btn mt-4 ">Upload</button>
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
