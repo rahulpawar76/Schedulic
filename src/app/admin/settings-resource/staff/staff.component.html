@@ -374,7 +374,8 @@
                                     </div>
                                     <span class="error-wrap"
                                         *ngIf="StaffCreate.get('description').touched
-                                        || StaffCreate.get('description').dirty">
+                                        ||
+                                        StaffCreate.get('description').dirty">
                                         <small
                                             *ngIf="StaffCreate.get('description').hasError('maxlength')"
                                             class="error">Description can not be
@@ -554,7 +555,8 @@
                                                 (keyup)="searchService($event)"
                                                 type="text"
                                                 class="form-control
-                                                searchbox_appointment"placeholder="Search">
+                                                searchbox_appointment"
+                                                placeholder="Search">
                                         </div>
                                     </form>
                                 </div>
@@ -681,7 +683,8 @@
                                 <input name="searchStaff"
                                     [(ngModel)]="search.staff"
                                     (keyup)="staffSearch()" type="text"
-                                    class="form-control searchbox_appointment"placeholder="Search
+                                    class="form-control searchbox_appointment"
+                                    placeholder="Search
                                     Name">
                             </div>
                         </form>
@@ -701,7 +704,7 @@
                 <div class="w-100" id="">
                     <div class="sc-table">
                         <div class="main-table-content main-cust-table-content">
-                            <div class="sc-table-head"fxLayout="row">
+                            <div class="sc-table-head" fxLayout="row">
                                 <div class="text-left" fxFlex="5">
                                     <mat-checkbox [checked]="selectAll"
                                         (change)="checkAll($event)" class="">
@@ -837,7 +840,7 @@
                                     </div>
                                     <div class="text-left break-word"
                                         fxFlex="25">{{allStaffList.email}}</div>
-                                    <div class="text-left"fxFlex="15">{{allStaffList.phone}}</div>
+                                    <div class="text-left" fxFlex="15">{{allStaffList.phone}}</div>
                                     <div class="text-left" fxFlex="10"
                                         *ngIf="allStaffList.internal_staff ==
                                         'Y'">
@@ -880,7 +883,8 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination mb-0 justify-content-end">
                                     <li class="page-item nextprev
-                                        {{current_page==1?'pointernone':''}}"(click)="navigateTo(first_page_url)"><a
+                                        {{current_page==1?'pointernone':''}}"
+                                        (click)="navigateTo(first_page_url)"><a
                                             class="page-link"><i
                                                 class="fa fa-angle-double-left
                                                 arrow-icon" aria-hidden="true"></i></a>
@@ -905,7 +909,8 @@
                                                 class="fa fa-angle-right
                                                 arrow-icon" aria-hidden="true"></i></a></li>
                                     <li class="page-item nextprev
-                                        {{arrayOne(last_page).length==current_page?'pointernone':''}}"(click)="navigateTo(last_page_url)"><a
+                                        {{arrayOne(last_page).length==current_page?'pointernone':''}}"
+                                        (click)="navigateTo(last_page_url)"><a
                                             class="page-link"><i
                                                 class="fa fa-angle-double-right
                                                 arrow-icon" aria-hidden="true"></i></a>
@@ -1287,7 +1292,8 @@
                                         [(ngModel)]="search.postalCode"
                                         (keyup)="postalCodeSearch()" type="text"
                                         class="form-control
-                                        searchbox_appointment search-custom-wrap"placeholder="Search
+                                        searchbox_appointment
+                                        search-custom-wrap" placeholder="Search
                                         postal code or area">
                                 </div>
                             </form>
@@ -1303,7 +1309,8 @@
                                 <div *ngIf="singleStaffDetail.postalCode !=
                                     undefined" class="">
                                     <div class="heads main-heading-content
-                                        example-box header-background"fxLayout="row">
+                                        example-box header-background"
+                                        fxLayout="row">
                                         <div class="" fxFlex="4">
                                             <mat-checkbox
                                                 class="postal-code-checkbox">

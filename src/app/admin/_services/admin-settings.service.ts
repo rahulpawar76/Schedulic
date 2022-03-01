@@ -701,6 +701,22 @@ export class AdminSettingsService {
             }),
             catchError(this.handleError));
     }
+    // for alart ruls API
+    getAlertSettingsValue(requestObject) {
+        this.checkAuthentication();
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'admin-id': this.adminId,
+            'api-token': this.adminToken
+        });
+        // get-setting-value ---- old get-setting-value-admin
+        return this.http.post(`${environment.apiUrl}/get-setting-value`, requestObject, { headers: headers }).pipe(
+            map((res) => {
+                return res;
+            }),
+            catchError(this.handleError));
+    }
     fnCurrencyFormat(requestObject) {
         this.checkAuthentication();
 
