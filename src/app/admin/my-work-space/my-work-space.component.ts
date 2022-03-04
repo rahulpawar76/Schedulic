@@ -96,7 +96,8 @@ export class MyWorkSpaceComponent implements OnInit {
   selectedStartDate: any;
   selectedEndDate: any;
   pendingBookingCount: number = 0;
-  selectedtab: number = 0;
+  // selectedtab: number = 0;
+  selectedtab: number = 1;
   @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective;
   constructor(
     public dialog: MatDialog,
@@ -259,7 +260,7 @@ export class MyWorkSpaceComponent implements OnInit {
         this.appointments = response.response;
         this.appointments = this.appointments.sort(this.dynamicSort("booking_time"))
         this.activeBooking = 0;
-        this.fnGetPendingCount();
+        // this.fnGetPendingCount();
         this.appointments.forEach((element) => {
           var todayDateTime = new Date();
           element.booking_date_time = new Date(element.booking_date + " " + element.booking_time);
